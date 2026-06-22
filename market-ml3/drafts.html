@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drafts — Redesign (Mercury v2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./pager.js"></script>
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+  <!-- ============ SIDEBAR (sole navigation) ============ -->
+  <aside class="m-sidebar" id="m-sidebar">
+    <div class="m-side-top">
+      <a class="m-brand" href="index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+      <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+    </div>
+
+    <nav class="m-nav">
+      <!-- Market -->
+      <div class="m-nav__group is-open" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
+          <a class="m-nav__item m-nav__child is-active" href="drafts.html" aria-current="page" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
+        </div>
+      </div>
+
+      <!-- Orders -->
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="#" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="Order items"><span class="m-nav__tx">Order items</span><span class="m-nav__cnt">5</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="All links"><span class="m-nav__tx">All links</span></a>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <a class="m-nav__item" href="#" data-label="Projects"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="m-nav__tx">Projects</span></a>
+
+      <!-- Invoices -->
+      <a class="m-nav__item" href="#" data-label="Invoices"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="m-nav__tx">Invoices</span></a>
+
+      <!-- Analytics -->
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Analytics"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span><span class="m-nav__tx">Analytics</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="#" data-label="By ordered date"><span class="m-nav__tx">By ordered date</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="By live date"><span class="m-nav__tx">By live date</span></a>
+        </div>
+      </div>
+
+      <span class="m-nav__spacer"></span>
+      <hr class="m-nav__div" />
+      <a class="m-nav__item" href="#" data-label="Support"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span><span class="m-nav__tx">Support</span></a>
+      <a class="m-nav__item" href="#" data-label="Settings"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15H4.5a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 6 9.4l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 11 4.6V4.5a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 2.82 1.17l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 11h.1a2 2 0 0 1 0 4z"/></svg></span><span class="m-nav__tx">Settings</span></a>
+    </nav>
+
+    <div class="m-side-foot">
+      <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="m-main">
+    <div class="m-content">
+
+      <!-- Floating actions -->
+      <div class="m-pageacts">
+        <a class="btn btn--secondary btn--sm" href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Go to Market</a>
+        <span class="m-pageacts__sep"></span>
+        <button class="btn--iconxs" title="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <a class="btn--iconxs hdr-cart" href="index.html" title="Basket"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="hdr-cart__count" id="hdr-cart-count">2</span></a>
+      </div>
+
+      <!-- Header -->
+      <div class="m-head">
+        <div>
+          <h1 class="m-h1">Drafts</h1>
+          <div class="sub">Saved carts you can name, assign, approve and turn into orders.</div>
+        </div>
+      </div>
+
+      <!-- Status summary segments (also filter the table) + parked value -->
+      <div class="m-statseg" role="tablist">
+        <button class="stab" aria-selected="true" data-status="all"><span class="sdot" style="background:var(--text-faint)"></span>All <span class="scount" data-c="all">0</span></button>
+        <button class="stab" data-status="pending"><span class="sdot" style="background:var(--amber)"></span>Pending <span class="scount" data-c="pending">0</span></button>
+        <button class="stab" data-status="approved"><span class="sdot" style="background:var(--green)"></span>Approved <span class="scount" data-c="approved">0</span></button>
+        <button class="stab" data-status="ordered"><span class="sdot" style="background:var(--accent)"></span>Ordered <span class="scount" data-c="ordered">0</span></button>
+        <span class="sstat">Parked value <b id="parked-total">€0</b></span>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="m-toolbar">
+        <details class="fdrop"><summary class="fbtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> All projects <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:210px"><div class="fpop__scroll"><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>All projects</button><button class="vopt">Acme Corp</button><button class="vopt">Globex</button><button class="vopt">Initech</button></div></div>
+        </details>
+        <details class="fdrop"><summary class="fbtn">Created by: <span>Anyone</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:210px"><div class="fpop__scroll"><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Anyone</button><button class="vopt">Liviu Pop</button><button class="vopt">Jose Garcia</button><button class="vopt">Sayeed Khan</button><button class="vopt">Maria Silva</button></div></div>
+        </details>
+        <details class="fdrop"><summary class="fbtn">Assignee: <span>Anyone</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:210px"><div class="fpop__scroll"><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Anyone</button><button class="vopt">Unassigned</button><button class="vopt">Sayeed Khan</button><button class="vopt">Liviu Pop</button><button class="vopt">Maria Silva</button></div></div>
+        </details>
+        <span class="spacer"></span>
+        <div class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="dr-search" placeholder="Search drafts…" /></div>
+      </div>
+
+      <!-- Bulk action bar -->
+      <div class="m-bulk is-hidden" id="dr-bulk">
+        <span class="sel">0 selected</span>
+        <span class="divider-v"></span>
+        <button class="btn btn--ghost btn--sm" data-bulk="approve">Approve</button>
+        <button class="btn btn--ghost btn--sm" data-bulk="assign">Assign</button>
+        <button class="btn btn--ghost btn--sm" data-bulk="delete">Delete</button>
+      </div>
+
+      <!-- Table -->
+      <div class="m-table-card">
+        <table class="m-table" id="dr-table">
+          <thead>
+            <tr>
+              <th class="tl"><span class="m-site"><span class="exp-toggle" style="visibility:hidden"></span><input type="checkbox" class="checkbox" id="select-all" /> Draft</span></th>
+              <th class="tl">Project · Brand</th>
+              <th class="tl">Created</th>
+              <th class="tl">Created by</th>
+              <th class="tl">Assignee</th>
+              <th>Media</th>
+              <th>Total</th>
+              <th class="tl">Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="dr-body"></tbody>
+        </table>
+        <!-- Empty state -->
+        <div class="dr-empty" id="dr-empty">
+          <span class="dr-empty__ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></span>
+          <h3>No drafts yet</h3>
+          <p>Drafts are saved carts. Assemble media in the Market, then save your basket as a draft to come back to it.</p>
+          <a class="btn btn--primary btn--sm" href="index.html" style="margin-top:8px">Go to Market</a>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="m-pager" id="dr-pager"></div>
+
+    </div>
+  </main>
+  </div>
+</div>
+
+<script>
+/* ============ Drafts = saved carts. Static page driven by a small data model. ============ */
+(function () {
+  var fav = function (d) { return 'https://www.google.com/s2/favicons?domain=' + d + '&sz=64'; };
+  /* sample drafts (a draft = a named basket of media + niche + price) */
+  var DRAFTS = [
+    { id: 'd1', name: 'Q3 iGaming push', project: 'Q3 iGaming', brand: 'BetClub', created: '2 days ago', createdAbs: '15 Jun 2026', createdBy: 'Liviu Pop', assignee: 'Sayeed Khan', status: 'pending',
+      items: [ {dom:'goal.com',niche:'casino',num:4800}, {dom:'tribuna.com',niche:'betting',num:3200}, {dom:'fotmob.com',niche:'casino',num:2430}, {dom:'corriere.it',niche:'betting',num:5600} ] },
+    { id: 'd2', name: 'Brazil news outreach', project: 'LatAm Launch', brand: 'Acme Corp', created: '4 days ago', createdAbs: '13 Jun 2026', createdBy: 'Jose Garcia', assignee: '', status: 'approved',
+      items: [ {dom:'uol.com.br',niche:'standard',num:18000}, {dom:'terra.com.br',niche:'standard',num:464}, {dom:'cnnbrasil.com.br',niche:'standard',num:2200}, {dom:'infobae.com',niche:'standard',num:1900}, {dom:'goal.com',niche:'standard',num:3000} ] },
+    { id: 'd3', name: 'Tech authority links', project: 'Dev Tools SEO', brand: 'Globex', created: 'Today', createdAbs: '17 Jun 2026', createdBy: 'Sayeed Khan', assignee: 'Liviu Pop', status: 'pending',
+      items: [ {dom:'learn.microsoft.com',niche:'standard',num:919}, {dom:'aws.amazon.com',niche:'standard',num:1200} ] },
+    { id: 'd4', name: 'EU finance batch', project: 'EU Finance', brand: 'Initech', created: '1 week ago', createdAbs: '10 Jun 2026', createdBy: 'Maria Silva', assignee: 'Maria Silva', status: 'ordered',
+      items: [ {dom:'elpais.com',niche:'forex',num:3400}, {dom:'corriere.it',niche:'loans',num:4100}, {dom:'iltalehti.fi',niche:'crypto',num:1500} ] },
+    { id: 'd5', name: 'Turkey sports', project: 'TR Sports', brand: 'Acme Corp', created: '1 week ago', createdAbs: '9 Jun 2026', createdBy: 'Liviu Pop', assignee: '', status: 'pending',
+      items: [ {dom:'mynet.com',niche:'standard',num:780}, {dom:'fotmob.com',niche:'standard',num:2430}, {dom:'haberler.com',niche:'standard',num:640}, {dom:'sondakika.com',niche:'standard',num:420} ] },
+    { id: 'd6', name: 'Crypto Q4 (draft)', project: 'Crypto Q4', brand: 'BitWave', created: '2 weeks ago', createdAbs: '3 Jun 2026', createdBy: 'Sayeed Khan', assignee: 'Jose Garcia', status: 'approved',
+      items: [ {dom:'goal.com',niche:'crypto',num:4200}, {dom:'tribuna.com',niche:'crypto',num:2900} ] },
+    { id: 'd7', name: 'Spain authority push', project: 'ES Expansion', brand: 'Acme Corp', created: '2 weeks ago', createdAbs: '2 Jun 2026', createdBy: 'Maria Silva', assignee: '', status: 'pending',
+      items: [ {dom:'elpais.com',niche:'standard',num:5200}, {dom:'corriere.it',niche:'standard',num:3100} ] },
+    { id: 'd8', name: 'Finland tabloids', project: 'Nordics', brand: 'Globex', created: '3 weeks ago', createdAbs: '27 May 2026', createdBy: 'Liviu Pop', assignee: 'Maria Silva', status: 'approved',
+      items: [ {dom:'iltalehti.fi',niche:'standard',num:1500}, {dom:'mynet.com',niche:'standard',num:780}, {dom:'haberler.com',niche:'standard',num:640} ] },
+    { id: 'd9', name: 'AWS + MSFT refresh', project: 'Dev Tools SEO', brand: 'Globex', created: '3 weeks ago', createdAbs: '26 May 2026', createdBy: 'Sayeed Khan', assignee: 'Liviu Pop', status: 'ordered',
+      items: [ {dom:'aws.amazon.com',niche:'standard',num:1200}, {dom:'learn.microsoft.com',niche:'standard',num:919} ] },
+    { id: 'd10', name: 'LatAm casino test', project: 'Q3 iGaming', brand: 'BetClub', created: '4 weeks ago', createdAbs: '20 May 2026', createdBy: 'Jose Garcia', assignee: 'Sayeed Khan', status: 'pending',
+      items: [ {dom:'uol.com.br',niche:'casino',num:28800}, {dom:'goal.com',niche:'casino',num:4800} ] },
+    { id: 'd11', name: 'Argentina news', project: 'LatAm Launch', brand: 'Acme Corp', created: '5 weeks ago', createdAbs: '13 May 2026', createdBy: 'Liviu Pop', assignee: '', status: 'pending',
+      items: [ {dom:'infobae.com',niche:'standard',num:1900}, {dom:'cnnbrasil.com.br',niche:'standard',num:2200} ] },
+    { id: 'd12', name: 'CBD soft launch', project: 'Wellness', brand: 'BitWave', created: '6 weeks ago', createdAbs: '6 May 2026', createdBy: 'Maria Silva', assignee: 'Jose Garcia', status: 'approved',
+      items: [ {dom:'fotmob.com',niche:'cbd',num:3400}, {dom:'tribuna.com',niche:'cbd',num:2900}, {dom:'goal.com',niche:'cbd',num:4200} ] },
+    { id: 'd13', name: 'Forex EU wave 2', project: 'EU Finance', brand: 'Initech', created: '7 weeks ago', createdAbs: '29 Apr 2026', createdBy: 'Sayeed Khan', assignee: 'Maria Silva', status: 'ordered',
+      items: [ {dom:'elpais.com',niche:'forex',num:4400}, {dom:'corriere.it',niche:'forex',num:5300} ] }
+  ];
+  /* merge any drafts saved from the basket ("Save as draft" on the market page) */
+  try { var extra = JSON.parse(localStorage.getItem('ml-drafts') || '[]'); if (Array.isArray(extra)) DRAFTS = extra.concat(DRAFTS); } catch (e) {}
+
+  var body = document.getElementById('dr-body');
+  var table = document.getElementById('dr-table');
+  var emptyEl = document.getElementById('dr-empty');
+  var bulk = document.getElementById('dr-bulk');
+  var selectAll = document.getElementById('select-all');
+  var searchEl = document.getElementById('dr-search');
+  var stabs = Array.prototype.slice.call(document.querySelectorAll('.m-statseg .stab'));
+  var pagerEl = document.getElementById('dr-pager');
+  var state = { status: 'all', search: '', page: 1, pageSize: 10 };
+  var selected = {};   // id -> true
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+  function total(d) { return d.items.reduce(function (s, it) { return s + it.num; }, 0); }
+  var AV_COLORS = ['#3d3aad', '#128a5a', '#b0791a', '#2f6bdd', '#d23b34', '#7c3aed'];
+  function who(name) {
+    if (!name) return '<span class="who-empty">—</span>';
+    var p = name.trim().split(' '), ini = (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase();
+    var c = AV_COLORS[name.length % AV_COLORS.length];
+    return '<span class="who"><span class="av" style="background:' + c + '">' + ini + '</span><span class="who-nm">' + esc(name) + '</span></span>';
+  }
+  function assigneeCell(name) { return name ? who(name) : '<button class="dr-assign" data-act="assign" type="button">+ Assign</button>'; }
+  function proj(d) {
+    if (!d.project && !d.brand) return '<span class="who-empty">—</span>';
+    return '<span class="dr-proj"><span class="dr-proj-p">' + esc(d.project || '—') + '</span><span class="dr-proj-b">' + esc(d.brand || '—') + '</span></span>';
+  }
+  function favStack(items) {
+    var max = 4, h = '<span class="fav-stack">';
+    items.slice(0, max).forEach(function (it) { h += '<span class="fav-ic"><img src="' + fav(it.dom) + '" alt="" loading="lazy"/></span>'; });
+    if (items.length > max) h += '<span class="fav-more">+' + (items.length - max) + '</span>';
+    return h + '</span>';
+  }
+  var ST = { pending: ['Pending', 'st-pending'], approved: ['Approved', 'st-approved'], ordered: ['Ordered', 'st-ordered'] };
+  function statusPill(s) { var m = ST[s] || [s, '']; return '<span class="st-pill ' + m[1] + '">' + m[0] + '</span>'; }
+  var CHEV = '<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 6 6 6-6 6"/></svg>';
+  var MENU = '<div class="menu__pop"><button class="menu__item" data-act="resume">Resume in Market</button><button class="menu__item" data-act="rename">Rename</button><button class="menu__item" data-act="duplicate">Duplicate</button><button class="menu__item" data-act="assign">Assign…</button><hr class="menu__sep"/><button class="menu__item menu__item--danger" data-act="delete">Delete</button></div>';
+
+  function itemsTable(d) {
+    var rows = d.items.map(function (it) {
+      return '<span class="dr-item"><span class="dr-item-m"><span class="fav-ic"><img src="' + fav(it.dom) + '" alt="" loading="lazy"/></span>' + esc(it.dom) + '</span><span class="dr-item-n"><span class="tagchip">' + esc(it.niche) + '</span></span><span class="dr-item-p">' + fmt(it.num) + '</span></span>';
+    }).join('');
+    return '<div class="dr-items"><span class="dr-item dr-item--h"><span>Media</span><span>Niche</span><span>Price</span></span>' + rows + '</div>' +
+      '<div class="dr-foot"><span class="dr-foot-sub">' + d.items.length + ' media · <b>' + fmt(total(d)) + '</b></span><span class="spacer"></span>' +
+      '<button class="btn btn--secondary btn--sm" data-act="approve">Approve</button>' +
+      '<button class="btn btn--primary btn--sm" data-act="resume">Resume in Market →</button></div>';
+  }
+
+  function visible() {
+    var q = state.search.toLowerCase();
+    return DRAFTS.filter(function (d) {
+      var statusOk = state.status === 'all' || d.status === state.status;
+      var hay = (d.name + ' ' + d.createdBy + ' ' + d.assignee).toLowerCase();
+      return statusOk && (!q || hay.indexOf(q) !== -1);
+    });
+  }
+
+  function render() {
+    var all = visible();
+    var pages = Math.max(1, Math.ceil(all.length / state.pageSize));
+    if (state.page > pages) state.page = pages;
+    var start = (state.page - 1) * state.pageSize;
+    var list = all.slice(start, start + state.pageSize);
+    body.innerHTML = list.map(function (d) {
+      return '<tr class="data-row dr-row" data-id="' + d.id + '">' +
+          '<td class="tl"><div class="m-site"><span class="exp-toggle">' + CHEV + '</span><input type="checkbox" class="checkbox row-select"' + (selected[d.id] ? ' checked' : '') + ' /><div class="dr-name"><span class="dr-title">' + esc(d.name) + '</span>' + favStack(d.items) + '</div></div></td>' +
+          '<td class="tl">' + proj(d) + '</td>' +
+          '<td class="tl"><span class="dr-date" title="' + esc(d.createdAbs) + '">' + esc(d.created) + '</span></td>' +
+          '<td class="tl">' + who(d.createdBy) + '</td>' +
+          '<td class="tl">' + assigneeCell(d.assignee) + '</td>' +
+          '<td><span class="dr-mcount">' + d.items.length + '</span></td>' +
+          '<td><span class="price-pill">' + fmt(total(d)) + '</span></td>' +
+          '<td class="tl">' + statusPill(d.status) + '</td>' +
+          '<td><div class="dr-acts"><button class="btn btn--soft btn--xs" data-act="resume" type="button">Resume</button><details class="menu"><summary class="btn--iconxs">⋯</summary>' + MENU + '</details></div></td>' +
+        '</tr>' +
+        '<tr class="m-exp" data-id="' + d.id + '"><td colspan="9"><div class="m-exp-inner dr-exp">' + itemsTable(d) + '</div></td></tr>';
+    }).join('');
+    Array.prototype.forEach.call(body.querySelectorAll('.dr-row'), function (r) { r.classList.toggle('is-selected', !!selected[r.dataset.id]); });
+    emptyEl.classList.toggle('is-on', all.length === 0);
+    if (pagerEl) {
+      pagerEl.classList.toggle('is-hidden', all.length === 0);
+      renderPager(pagerEl, { page: state.page, pageSize: state.pageSize, total: all.length, sizes: [10, 25, 50] },
+        { page: function (p) { state.page = p; render(); }, size: function (s) { state.pageSize = s; state.page = 1; render(); } });
+    }
+    updateSummary();
+    updateBulk();
+  }
+
+  function updateSummary() {
+    var c = { all: DRAFTS.length, pending: 0, approved: 0, ordered: 0 }, parked = 0;
+    DRAFTS.forEach(function (d) { if (c[d.status] != null) c[d.status]++; parked += total(d); });
+    Object.keys(c).forEach(function (k) { var el = document.querySelector('.scount[data-c="' + k + '"]'); if (el) el.textContent = c[k]; });
+    var pt = document.getElementById('parked-total'); if (pt) pt.textContent = fmt(parked);
+  }
+
+  function updateBulk() {
+    var ids = Object.keys(selected).filter(function (id) { return selected[id]; });
+    bulk.classList.toggle('is-hidden', ids.length === 0);
+    bulk.querySelector('.sel').textContent = ids.length + ' selected';
+    var vis = visible();
+    var visSel = vis.filter(function (d) { return selected[d.id]; }).length;
+    if (selectAll) { selectAll.checked = vis.length > 0 && visSel === vis.length; selectAll.indeterminate = visSel > 0 && visSel < vis.length; }
+  }
+
+  function byId(id) { return DRAFTS.filter(function (d) { return d.id === id; })[0]; }
+
+  /* ---- interactions ---- */
+  table.addEventListener('click', function (e) {
+    var act = e.target.closest('[data-act]');
+    if (act) { e.stopPropagation(); doAct(act.getAttribute('data-act'), act.closest('[data-id]').dataset.id, act); return; }
+    if (e.target.closest('input, summary, .menu__pop, a')) return;
+    var row = e.target.closest('tr.dr-row'); if (!row) return;
+    var willOpen = !row.classList.contains('is-open');
+    Array.prototype.forEach.call(body.querySelectorAll('.dr-row.is-open'), function (r) { if (r !== row) r.classList.remove('is-open'); });
+    row.classList.toggle('is-open', willOpen);
+  });
+  table.addEventListener('change', function (e) {
+    var cb = e.target.closest('.row-select'); if (!cb) return;
+    var id = cb.closest('[data-id]').dataset.id;
+    selected[id] = cb.checked;
+    cb.closest('tr').classList.toggle('is-selected', cb.checked);
+    updateBulk();
+  });
+  if (selectAll) selectAll.addEventListener('change', function () {
+    visible().forEach(function (d) { selected[d.id] = selectAll.checked; });
+    render();
+  });
+
+  function doAct(act, id, el) {
+    var d = byId(id); if (!d) return;
+    if (act === 'resume') { location.href = 'index.html'; return; }
+    if (act === 'approve') { d.status = 'approved'; render(); return; }
+    if (act === 'delete') { DRAFTS = DRAFTS.filter(function (x) { return x.id !== id; }); delete selected[id]; render(); return; }
+    if (act === 'duplicate') { var copy = JSON.parse(JSON.stringify(d)); copy.id = 'd' + Date.now(); copy.name = d.name + ' (copy)'; copy.status = 'pending'; copy.created = 'Just now'; DRAFTS.unshift(copy); render(); return; }
+    if (act === 'rename') { var nm = window.prompt('Rename draft', d.name); if (nm && nm.trim()) { d.name = nm.trim(); render(); } return; }
+    if (act === 'assign') { var who2 = window.prompt('Assign to', d.assignee || 'Sayeed Khan'); if (who2 !== null) { d.assignee = who2.trim(); render(); } return; }
+  }
+
+  bulk.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-bulk]'); if (!b) return;
+    var act = b.getAttribute('data-bulk');
+    var ids = Object.keys(selected).filter(function (id) { return selected[id]; });
+    if (act === 'approve') { ids.forEach(function (id) { var d = byId(id); if (d) d.status = 'approved'; }); }
+    else if (act === 'delete') { DRAFTS = DRAFTS.filter(function (d) { return ids.indexOf(d.id) === -1; }); selected = {}; }
+    else if (act === 'assign') { var who2 = window.prompt('Assign ' + ids.length + ' draft(s) to', 'Sayeed Khan'); if (who2 !== null) ids.forEach(function (id) { var d = byId(id); if (d) d.assignee = who2.trim(); }); }
+    render();
+  });
+
+  stabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      stabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      state.status = tab.getAttribute('data-status'); state.page = 1;
+      render();
+    });
+  });
+  searchEl.addEventListener('input', function () { state.search = searchEl.value.trim(); state.page = 1; render(); });
+
+  /* close any open dropdown/menu on outside click */
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('details[open]').forEach(function (dt) { if (!dt.contains(e.target)) dt.removeAttribute('open'); });
+  });
+
+  /* flip the row ⋯ menu upward when opening down would clip at the card's bottom */
+  var cardEl = table.closest('.m-table-card');
+  table.addEventListener('toggle', function (e) {
+    var m = e.target; if (!m.classList || !m.classList.contains('menu')) return;
+    if (!m.open) { m.classList.remove('is-up'); return; }
+    var pop = m.querySelector('.menu__pop'); if (!pop) return;
+    m.classList.remove('is-up');
+    var limit = cardEl ? cardEl.getBoundingClientRect().bottom : window.innerHeight;
+    if (m.getBoundingClientRect().bottom + pop.offsetHeight + 8 > limit) m.classList.add('is-up');
+  }, true);
+
+  render();
+})();
+</script>
+<script>
+/* Sidebar collapse — mirrors index.html so nav behaves identically. */
+(function () {
+  var sb = document.getElementById('m-sidebar'); if (!sb) return;
+  sb.addEventListener('click', function (e) {
+    var p = e.target.closest('.m-nav__parent'); if (!p || sb.classList.contains('is-collapsed')) return;
+    var g = p.closest('.m-nav__group'); if (g) g.classList.toggle('is-open');
+  });
+  var KEY = 'ml-sidebar', NARROW = 1280;
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(c) { sb.classList.toggle('is-collapsed', c); }
+  function apply() { var s = stored(); set(s ? s === 'collapsed' : window.innerWidth < NARROW); }
+  apply();
+  var btn = document.getElementById('m-side-toggle');
+  if (btn) btn.addEventListener('click', function () {
+    var c = !sb.classList.contains('is-collapsed'); set(c);
+    try { localStorage.setItem(KEY, c ? 'collapsed' : 'expanded'); } catch (e) {}
+  });
+  window.addEventListener('resize', function () { if (!stored()) set(window.innerWidth < NARROW); });
+})();
+</script>
+</body>
+</html>

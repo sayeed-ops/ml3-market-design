@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media details — Marketplace (Mercury v2)</title>
+  <!-- Production route: /market/{id} -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./details.css" />
+</head>
+<body>
+<div class="m-app">
+
+  <div class="m-shell">
+  <!-- No sidebar on the details page — full width for the record. -->
+
+  <!-- ============ MAIN ============ -->
+  <main class="m-main">
+
+    <!-- sticky sub-bar: full-width bar, centered inner content -->
+    <div class="d-bar">
+     <div class="d-bar__inner">
+      <a class="d-back" href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Market</a>
+      <span class="d-fav"><img id="d-fav-img" src="https://www.google.com/s2/favicons?domain=thecricketpaper.com&sz=64" alt="" /></span>
+      <a class="d-domain" id="d-domain" href="https://thecricketpaper.com" target="_blank" rel="noopener">
+        <span id="d-domain-text">thecricketpaper.com</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+      </a>
+      <button class="d-iconbtn" title="History"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></button>
+      <span class="spacer"></span>
+      <button class="btn btn--secondary btn--sm" title="Update metrics"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v6h6M21 22v-6h-6"/><path d="M21 12a9 9 0 0 0-15-6.7L3 8M3 12a9 9 0 0 0 15 6.7l3-2.7"/></svg> Update metrics</button>
+      <button class="btn btn--primary btn--sm" id="d-addcart">+ Add to cart · €198.39</button>
+      <span class="m-pageacts__sep"></span>
+      <button class="btn--iconxs" title="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+      <a class="btn--iconxs hdr-cart" href="index.html" title="Basket"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="hdr-cart__count">2</span></a>
+     </div>
+    </div>
+    <!-- niche picker popover (same pattern as the table) -->
+    <div class="niche-pop is-hidden" id="d-niche-pop" role="dialog" aria-label="Choose niche"></div>
+
+    <div class="d-content">
+
+      <!-- ================= GENERAL ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>General</h2></div>
+        <div class="d-grid d-grid--3" id="d-general">
+          <!-- Publisher -->
+          <div class="d-card">
+            <div class="d-card__l">Publisher</div>
+            <div class="d-big" style="margin-top:6px">Greenways Publishing</div>
+            <div class="d-emails">
+              <span>neil.wooding@greenwayspublishing.co.uk / sam.emery@greenwayspublishing.com</span>
+              <button class="d-copy" title="Copy emails"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </div>
+          <!-- Activities -->
+          <div class="d-card">
+            <div class="d-card__l">Activities</div>
+            <div style="margin-top:8px">
+              <div class="d-kv"><span class="k">Added</span><span class="v">01.06.2026</span></div>
+              <div class="d-kv"><span class="k">Added by <button class="d-pencil" data-edit="added_by" title="Edit"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button></span><span class="v is-na">n/a</span></div>
+              <div class="d-kv"><span class="k">Last order</span><span class="v">05.06.2026</span></div>
+            </div>
+          </div>
+          <!-- Info for admin -->
+          <div class="d-card">
+            <div class="d-card__head"><span class="d-card__l">Info for admin</span><button class="d-pencil" data-edit="info_for_admin" title="Edit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button></div>
+            <div class="d-body">Stock price is 150 GBP.</div>
+          </div>
+          <!-- Note -->
+          <div class="d-card">
+            <div class="d-card__head"><span class="d-card__l">Note</span><button class="d-pencil" data-edit="note" title="Edit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button></div>
+            <div class="d-body"><span class="d-empty">—</span></div>
+          </div>
+          <!-- Offers -->
+          <div class="d-card">
+            <div class="d-card__head"><span class="d-card__l">Offers</span><button class="d-pencil" data-edit="offers" title="Edit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button></div>
+            <div class="d-body"><span class="d-empty">—</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MEDIA PROPERTIES ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>Media properties</h2>
+          <div class="d-section__act"><button class="btn btn--secondary btn--sm" data-edit="media_properties"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button></div>
+        </div>
+        <div class="d-panel" id="d-mediaprops">
+          <div class="d-col">
+            <span class="d-col__l">Country</span>
+            <div class="d-country"><span class="flag">🇹🇿</span> Tanzania</div>
+            <div class="d-col__foot"><div class="d-kv"><span class="k">Languages</span><span class="v">English</span></div></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Conditions</span>
+            <div class="d-cond"><span>Dofollow</span><span class="d-yes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg></span></div>
+            <div class="d-cond"><span>Sponsor tag</span><span class="d-no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></span></div>
+            <div class="d-cond"><span>Permanent post</span><span class="d-no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></span></div>
+            <div class="d-cond"><span>Permanent post extra price</span><span class="d-no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></span></div>
+            <div class="d-cond"><span>Prepayment</span><span class="v" style="font-weight:var(--fw-semibold)">0%</span></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Category</span>
+            <div class="d-kv"><span class="k">Category #1</span><span class="v">sports</span></div>
+            <div class="d-kv"><span class="k">Category #2</span><span class="v">cricket</span></div>
+            <div class="d-kv"><span class="k">Category #3</span><span class="v is-na">—</span></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Tags</span>
+            <div class="d-tags"><span class="tagchip">cricket</span><span class="tagchip">sports</span><span class="tagchip">UK</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= METRICS ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>Metrics</h2>
+          <div class="d-section__act">
+            <button class="btn btn--secondary btn--sm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v6h6M21 22v-6h-6"/><path d="M21 12a9 9 0 0 0-15-6.7L3 8M3 12a9 9 0 0 0 15 6.7l3-2.7"/></svg> Update</button>
+            <button class="btn btn--secondary btn--sm" data-edit="metrics"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+          </div>
+        </div>
+        <div class="d-panel" id="d-metrics-panel">
+          <div class="d-col">
+            <span class="d-col__l">Overview</span>
+            <div class="d-kv"><span class="k">IP</span><span class="v">104.21.51.18</span></div>
+            <div class="d-kv"><span class="k">Indexed URLs</span><span class="v">71,974</span></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Topical</span>
+            <div class="d-kv"><span class="k">Topical TF1</span><span class="v">Shopping/Sports</span></div>
+            <div class="d-kv"><span class="k">Topical TF2</span><span class="v">Sports/Cricket</span></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Ahrefs</span>
+            <div class="d-kv"><span class="k">Domain Rating</span><span class="v">31</span></div>
+            <div class="d-kv"><span class="k">Referring Domains</span><span class="v">1,696</span></div>
+            <div class="d-kv"><span class="k">Total Keywords</span><span class="v">144</span></div>
+            <div class="d-kv"><span class="k">Organic traffic</span><span class="v">865</span></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Majestic</span>
+            <div class="d-kv"><span class="k">TF</span><span class="v">24</span></div>
+            <div class="d-kv"><span class="k">CF</span><span class="v">45</span></div>
+          </div>
+          <div class="d-col">
+            <span class="d-col__l">Moz</span>
+            <div class="d-kv"><span class="k">PA</span><span class="v">40</span></div>
+            <div class="d-kv"><span class="k">DA</span><span class="v">42</span></div>
+            <div class="d-kv"><span class="k">Spam Score</span><span class="v">0%</span></div>
+          </div>
+        </div>
+        <div class="d-updated" id="d-metupd">Metrics updated: 11.06.2026</div>
+      </section>
+
+      <!-- ================= STOCK PRICE ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>Stock price</h2>
+          <div class="d-section__act"><button class="btn btn--secondary btn--sm" data-edit="stock_price"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button></div>
+        </div>
+        <div class="d-panel d-panel--niche" id="d-stock">
+          <div class="d-col d-col--price"><span class="d-col__l">Standard</span><div class="nv">€177.00</div></div>
+          <div class="d-col d-col--price"><span class="d-col__l">Casino</span><div class="nv">€177.00</div></div>
+          <div class="d-col d-col--price"><span class="d-col__l">Betting</span><div class="nv">€177.00</div></div>
+        </div>
+      </section>
+
+      <!-- ================= PRICE ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>Price</h2></div>
+        <div class="d-panel d-panel--niche" id="d-price-panel">
+          <div class="d-col"><span class="d-col__l">Publisher original currency</span><div class="d-big" style="margin-top:6px">EUR</div></div>
+          <div class="d-col d-col--price d-col--accent"><span class="d-col__l">Standard</span><div class="nv">€198.39</div><div class="nsub"><span>Original price</span><span class="v">€198.39</span></div></div>
+          <div class="d-col d-col--price d-col--accent"><span class="d-col__l">Casino</span><div class="nv">€198.39</div><div class="nsub"><span>Original price</span><span class="v">€198.39</span></div></div>
+          <div class="d-col d-col--price d-col--accent"><span class="d-col__l">Betting</span><div class="nv">€198.39</div><div class="nsub"><span>Original price</span><span class="v">€198.39</span></div></div>
+        </div>
+        <div class="d-niche-un" id="d-niche-un"></div>
+      </section>
+
+      <!-- ================= MARGIN ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>Margin</h2></div>
+        <div class="d-panel d-panel--niche" id="d-margin">
+          <div class="d-col d-col--price"><span class="d-col__l">Standard</span><div class="nv">€21.39</div></div>
+          <div class="d-col d-col--price"><span class="d-col__l">Casino</span><div class="nv">€21.39</div></div>
+          <div class="d-col d-col--price"><span class="d-col__l">Betting</span><div class="nv">€21.39</div></div>
+        </div>
+      </section>
+
+      <!-- ================= LINK HISTORY ================= -->
+      <section class="d-section">
+        <div class="d-section__head"><h2>Link history</h2>
+          <div class="d-tabs" role="tablist">
+            <button class="d-tab is-active" data-tab="imported" role="tab">Imported</button>
+            <button class="d-tab" data-tab="purchased" role="tab">Purchased</button>
+          </div>
+        </div>
+
+        <div class="d-histcard">
+          <div class="d-histtools">
+            <div class="search" style="width:280px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input class="input" placeholder="Search link history…" />
+            </div>
+          </div>
+
+          <!-- Imported -->
+          <div class="d-tabpane" data-pane="imported">
+            <table class="d-htable">
+              <thead><tr>
+                <th>Live link</th><th>Lead source</th><th>Publisher</th><th>Publisher email</th>
+                <th>Brand</th><th>Project</th><th>Live date</th><th class="num">Price</th>
+              </tr></thead>
+              <tbody>
+                <tr><td><a href="#" class="link">cricket-feature ↗</a></td><td>Outreach</td><td>Greenways Publishing</td><td>neil.wooding@greenwayspublishing.co.uk</td><td>AceBet</td><td>acebet.com</td><td>14.05.2026</td><td class="num">€198.39</td></tr>
+                <tr><td><a href="#" class="link">odds-guide ↗</a></td><td>Imported list</td><td>Greenways Publishing</td><td>sam.emery@greenwayspublishing.com</td><td>SpinCity</td><td>spincity.io</td><td>02.04.2026</td><td class="num">€198.39</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Purchased -->
+          <div class="d-tabpane" data-pane="purchased" hidden>
+            <table class="d-htable">
+              <thead><tr>
+                <th>Live link</th><th>ID</th><th>Lead source</th><th>Publisher</th><th>Publisher email</th>
+                <th>Brand</th><th>Project</th><th>Live date</th><th class="num">Price</th>
+              </tr></thead>
+              <tbody>
+                <tr><td><a href="#" class="link">sports-roundup ↗</a></td><td>#OI-10482</td><td>Direct</td><td>Greenways Publishing</td><td>neil.wooding@greenwayspublishing.co.uk</td><td>AceBet</td><td>acebet.com</td><td>05.06.2026</td><td class="num">€198.39</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  </div><!-- /m-shell -->
+</div>
+
+<script>
+(function () {
+  /* personalize the header from ?m=<domain> (body stays sample data) */
+  var m = new URLSearchParams(location.search).get('m');
+  if (m) {
+    var t = document.getElementById('d-domain-text'); if (t) t.textContent = m;
+    var a = document.getElementById('d-domain'); if (a) a.href = 'https://' + m;
+    var img = document.getElementById('d-fav-img'); if (img) img.src = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(m) + '&sz=64';
+    document.title = m + ' — Media details';
+  }
+
+  /* link-history tabs */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.d-tab'));
+  var panes = Array.prototype.slice.call(document.querySelectorAll('.d-tabpane'));
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+      var key = tab.getAttribute('data-tab');
+      panes.forEach(function (p) { p.hidden = p.getAttribute('data-pane') !== key; });
+    });
+  });
+
+  /* back: prefer real history when available, else fall back to the list */
+  var back = document.querySelector('.d-back');
+  if (back) back.addEventListener('click', function (e) {
+    if (document.referrer && document.referrer.indexOf('index.html') !== -1) { e.preventDefault(); history.back(); }
+  });
+})();
+</script>
+
+<!-- Edit modal (Phase 2) — body form is injected by JS per data-edit -->
+<div class="d-modal is-hidden" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+  <div class="d-modal__scrim" data-modal-close></div>
+  <div class="d-modal__panel">
+    <div class="d-modal__head">
+      <span class="d-modal__title" id="edit-modal-title">Edit</span>
+      <button class="btn--iconxs d-modal__close" data-modal-close type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="d-modal__body" id="edit-modal-body"></div>
+    <div class="d-modal__foot">
+      <button class="btn btn--ghost btn--sm" data-modal-close type="button">Cancel</button>
+      <span class="spacer"></span>
+      <button class="btn btn--primary btn--sm" id="edit-modal-save" type="button">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Edit modals — each Edit/pencil opens a form matching the real Update*Modal.vue */
+(function () {
+  var modal = document.getElementById('edit-modal');
+  var titleEl = document.getElementById('edit-modal-title');
+  var bodyEl = document.getElementById('edit-modal-body');
+  if (!modal) return;
+
+  /* ---------- field helpers ---------- */
+  function textarea(label, value, max) {
+    return '<div class="fm-row"><label class="fm-l">' + label + '</label>' +
+      '<textarea class="fm-textarea" maxlength="' + max + '" data-count>' + (value || '') + '</textarea>' +
+      '<div class="fm-count"><span data-count-now>' + (value || '').length + '</span> / ' + max + '</div></div>';
+  }
+  function textInput(label, value, max) {
+    return '<div class="fm-row"><label class="fm-l">' + label + '</label>' +
+      '<input class="fm-input" type="text" maxlength="' + max + '" value="' + (value || '') + '" data-count>' +
+      '<div class="fm-count"><span data-count-now>' + (value || '').length + '</span> / ' + max + '</div></div>';
+  }
+  function select(label, options, selected) {
+    var opts = options.map(function (o) { return '<option' + (o === selected ? ' selected' : '') + '>' + o + '</option>'; }).join('');
+    return '<div class="fm-row"><label class="fm-l">' + label + '</label><select class="fm-select">' + opts + '</select></div>';
+  }
+  /* searchable dropdown (combobox) — for long lists like Country / Language / Category */
+  function searchSelect(label, options, selected) {
+    var sel = (selected != null && options.indexOf(selected) >= 0) ? selected : options[0];
+    var opts = options.map(function (o) {
+      return '<button type="button" class="fm-combo__opt' + (o === sel ? ' is-sel' : '') + '" data-combo-opt data-val="' + o + '">' + o + '</button>';
+    }).join('');
+    return '<div class="fm-row"><label class="fm-l">' + label + '</label>' +
+      '<div class="fm-combo" data-combo data-value="' + sel + '">' +
+        '<button type="button" class="fm-combo__trigger" data-combo-trigger><span class="fm-combo__val">' + sel + '</span>' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>' +
+        '<div class="fm-combo__pop" hidden>' +
+          '<div class="fm-combo__search"><input type="text" placeholder="Search…" data-combo-search></div>' +
+          '<div class="fm-combo__list">' + opts + '</div>' +
+        '</div>' +
+      '</div></div>';
+  }
+  function moneyInput(label, value, pfx) {
+    return '<div class="fm-row"><label class="fm-l">' + label + '</label><div class="fm-prefix"><span class="pfx">' + (pfx || '€') + '</span>' +
+      '<input class="fm-input" type="number" step="0.01" value="' + value + '"></div></div>';
+  }
+  function switchRow(label, on) {
+    return '<div class="fm-switchrow"><span>' + label + '</span><span class="fm-sw' + (on ? ' is-on' : '') + '" data-sw></span></div>';
+  }
+
+  /* ---------- per-section forms (mirror the real modals; prefill from window.__media) ---------- */
+  function MD() { return window.__media || {}; }
+  function gv(o, k) { return (o && o[k] != null && o[k] !== '—' && o[k] !== 'n/a') ? o[k] : ''; }
+  function capz(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function numz(s) { return String(s).replace(/[^0-9.]/g, ''); }
+  function uniq(a) { var o = []; a.forEach(function (x) { if (x && o.indexOf(x) < 0) o.push(x); }); return o; }
+  function symbolFor(c) { return ({ EUR: '€', USD: '$', GBP: '£' })[c] || '€'; }
+  var CATBASE = ['—', 'adult', 'automotive', 'business', 'betting', 'casino', 'cbd', 'crypto', 'cricket', 'education', 'entertainment', 'fashion', 'finance', 'food', 'football', 'gambling', 'gaming', 'health', 'home', 'lifestyle', 'news and politics', 'real estate', 'science', 'shopping', 'sports', 'technology', 'travel'];
+  var COUNTRYBASE = ['Argentina','Australia','Austria','Belgium','Brazil','Canada','Chile','Colombia','Czechia','Denmark','Finland','France','Germany','Greece','Hungary','India','Indonesia','Ireland','Italy','Japan','Mexico','Netherlands','New Zealand','Norway','Philippines','Poland','Portugal','Romania','Singapore','South Africa','Spain','Sweden','Switzerland','Tanzania','Thailand','Turkey','Ukraine','United Kingdom','United States','Vietnam'];
+  var LANGBASE = ['Arabic','Bengali','Chinese','Czech','Danish','Dutch','English','Finnish','French','German','Greek','Hindi','Indonesian','Italian','Japanese','Korean','Norwegian','Polish','Portuguese','Romanian','Russian','Spanish','Swedish','Thai','Turkish','Ukrainian','Vietnamese'];
+
+  var FORMS = {
+    info_for_admin: function () { return { title: 'Info for admin', html: textarea('Info for admin', gv(MD().notes, 'Info for admin'), 5000) }; },
+    note:           function () { return { title: 'Note', html: textarea('Note', gv(MD().notes, 'Note'), 5000) }; },
+    offers:         function () { return { title: 'Offers', html: textarea('Offers', gv(MD().notes, 'Offers'), 3000) }; },
+    added_by:       function () { return { title: 'Added by', html: textInput('Added by', gv(MD().internal, 'Added by'), 50) }; },
+
+    media_properties: function () {
+      var m = MD(), cond = m.conditions || [], cats = m.categories || [], tags = m.tags || [];
+      function hasC(re) { return cond.some(function (c) { return re.test(c); }); }
+      var prepay = (gv(m.internal, 'Prepayment') || gv(m.terms, 'Prepayment') || '0%').toString().replace('%', '');
+      var countryOpts = uniq(COUNTRYBASE.concat(m.country ? [m.country] : []));
+      var langOpts = uniq(LANGBASE.concat(m.language ? [m.language] : []));
+      var catOpts = uniq(CATBASE.concat(cats));
+      var tagsHtml = tags.map(function (t) { return '<span class="tagchip">' + t + '<button type="button" data-tag-rm>✕</button></span>'; }).join('');
+      return { title: 'Media properties', html:
+        '<div class="d-tabs fm-tabs" role="tablist">' +
+          '<button class="d-tab is-active" data-ftab="country" type="button">Country</button>' +
+          '<button class="d-tab" data-ftab="conditions" type="button">Conditions</button>' +
+          '<button class="d-tab" data-ftab="cats" type="button">Categories &amp; Tags</button>' +
+        '</div>' +
+        '<div data-fpane="country">' + searchSelect('Country', countryOpts, m.country || countryOpts[0]) + searchSelect('Language', langOpts, m.language || langOpts[0]) + '</div>' +
+        '<div data-fpane="conditions" hidden>' +
+          switchRow('Content', false) + switchRow('Dofollow', !hasC(/nofollow/i)) + switchRow('Sponsor tag', hasC(/spons/i)) +
+          '<div class="fm-row" style="margin-top:var(--space-4)"><label class="fm-l">Prepayment (%)</label><input class="fm-input" type="number" min="0" max="100" value="' + (prepay || '0') + '"></div>' +
+        '</div>' +
+        '<div data-fpane="cats" hidden>' +
+          searchSelect('Category #1', catOpts, cats[0] || '—') + searchSelect('Category #2', catOpts, cats[1] || '—') + searchSelect('Category #3', catOpts, cats[2] || '—') +
+          '<div class="fm-row"><label class="fm-l">Tags</label><div class="fm-tags" data-tags>' + tagsHtml + '<input type="text" placeholder="Add tag…" data-tag-in></div></div>' +
+        '</div>'
+      };
+    },
+
+    metrics: function () {
+      var m = MD().metrics || {}, ttf = (gv(m, 'TTF1 / TTF2') || '').split('·').map(function (s) { return s.trim(); });
+      var pairs = [['IP', gv(m,'IP')],['Indexed URLs', gv(m,'Indexed URLs')],['Topical TF1', ttf[0]||''],['Topical TF2', ttf[1]||''],
+        ['Ahrefs Domain Rating', gv(m,'Domain Rating')],['Ahrefs Referring Domains', gv(m,'Ref. domains')],['Ahrefs Total Keywords', gv(m,'Total keywords')],['Ahrefs Organic traffic', gv(m,'Organic traffic')],
+        ['Majestic TF', gv(m,'Trust Flow')],['Majestic CF', gv(m,'Citation Flow')],['Moz PA', gv(m,'Page Authority')],['Moz DA', gv(m,'Domain Authority')],['Moz Spam Score', gv(m,'Spam score')]];
+      var rows = pairs.map(function (r) { return '<tr><td class="lbl">' + r[0] + '</td><td class="val"><input class="fm-input" value="' + (r[1] || '') + '"></td></tr>'; }).join('');
+      rows += '<tr><td class="lbl">Metrics updated</td><td class="val"><input class="fm-input" value="' + (gv(MD().internal, 'Metrics updated') || '') + '" disabled></td></tr>';
+      return { title: 'Update metrics', html: '<table class="fm-mtable"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>' + rows + '</tbody></table>' };
+    },
+
+    stock_price: function () { return priceForm('Edit stock price', 'stock'); }
+  };
+
+  /* every niche the system supports — stock price is editable for all of them */
+  var ALL_NICHES_ORDER = ['standard', 'casino', 'betting', 'crypto', 'cbd', 'forex', 'loans', 'adult'];
+  var PERM_EXTRA = '1 year (permanent available for extra price)';
+
+  function priceForm(title, field) {
+    var m = MD(), niches = m.niches || [], cur = gv(m.terms, 'Currency') || gv(m.internal, 'Currency') || 'EUR', sym = symbolFor(cur);
+    var byNiche = {}; niches.forEach(function (n) { byNiche[n.niche] = n; });
+    /* Stock price can be set for EVERY niche; Price is only edited for the niches this
+       media is actually priced for (the displayed Price is otherwise derived server-side). */
+    var list = field === 'stock' ? ALL_NICHES_ORDER : niches.map(function (n) { return n.niche; });
+    if (!list.length) list = ['standard'];
+    var rows = list.map(function (nm) {
+      var v = numz((byNiche[nm] || {})[field] || '');
+      return '<div class="fm-row"><label class="fm-l">' + capz(nm) + ' price</label>' +
+        '<div class="fm-prefix"><span class="pfx">' + cur + '</span>' +
+        '<input class="fm-input" type="number" step="0.01" value="' + v + '" data-niche="' + nm + '"></div></div>';
+    }).join('');
+    var durOpts = ['Permanent', '1 year', PERM_EXTRA];
+    var dur = gv(m.terms, 'Publication duration'); if (durOpts.indexOf(dur) < 0) dur = '1 year';
+    var durOptsHtml = durOpts.map(function (o) { return '<option' + (o === dur ? ' selected' : '') + '>' + o + '</option>'; }).join('');
+    /* Permanent post price only applies to the "permanent available for extra price" term. */
+    var permHidden = dur === PERM_EXTRA ? '' : ' hidden';
+    return { title: title, html:
+      '<p class="fm-desc">Update the ' + (field === 'stock' ? 'stock price' : 'price') + ' in ' + cur + ' (' + sym + ') or the publisher’s original currency. The entered amount is automatically converted to ' + cur + '; the displayed Price is recalculated server-side from the price-formation rules.</p>' +
+      select('Show prices in', [cur + ' (' + sym + ')', 'Publisher original — ' + cur], cur + ' (' + sym + ')') +
+      rows +
+      '<div class="fm-row"><label class="fm-l">Publication duration</label><select class="fm-select" data-dur>' + durOptsHtml + '</select></div>' +
+      '<div class="fm-row" data-permpost' + permHidden + '><label class="fm-l">Permanent post price</label>' +
+        '<div class="fm-prefix"><span class="pfx">' + cur + '</span><input class="fm-input" type="number" step="0.01" value="0.00"></div></div>'
+    };
+  }
+
+  /* ---------- open / close ---------- */
+  var currentKind = null;
+  function openModal(kind) {
+    var build = FORMS[kind]; if (!build) return;
+    currentKind = kind;
+    var f = build();
+    titleEl.textContent = f.title;
+    bodyEl.innerHTML = f.html;
+    modal.classList.remove('is-hidden');
+    var first = bodyEl.querySelector('textarea, input, select'); if (first) first.focus();
+  }
+  function closeModal() { modal.classList.add('is-hidden'); }
+
+  /* Static mockup: Save is a no-op EXCEPT for stock price, where applying the
+     entered niche prices (and the derived Price/Margin) lets you preview how a
+     listing renders with any number of niches. Persists to sessionStorage and
+     reloads so the existing load path re-renders every card. */
+  function money(sym, n) { return sym + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function saveStockPrices() {
+    var d = MD(), cur = gv(d.terms, 'Currency') || gv(d.internal, 'Currency') || 'EUR', sym = symbolFor(cur);
+    var niches = [];
+    bodyEl.querySelectorAll('[data-niche]').forEach(function (inp) {
+      if (inp.value.trim() === '') return;                 // empty → niche stays "not priced"
+      var stock = parseFloat(inp.value); if (isNaN(stock)) return;
+      var price = Math.round(stock * 1.1208 * 100) / 100;  // mock price-formation markup (~12%)
+      niches.push({ niche: inp.getAttribute('data-niche'), stock: money(sym, stock), price: money(sym, price), margin: money(sym, Math.round((price - stock) * 100) / 100) });
+    });
+    d.niches = niches;
+    var dom = new URLSearchParams(location.search).get('m') || d.domain || '';
+    try { sessionStorage.setItem('ml-media:' + dom, JSON.stringify(d)); } catch (e) {}
+    location.reload();
+  }
+
+  document.addEventListener('click', function (e) {   // delegated — survives section rebuilds
+    var b = e.target.closest('[data-edit]'); if (b) openModal(b.getAttribute('data-edit'));
+  });
+  Array.prototype.forEach.call(modal.querySelectorAll('[data-modal-close]'), function (el) { el.addEventListener('click', closeModal); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  var saveBtn = document.getElementById('edit-modal-save');
+  if (saveBtn) saveBtn.addEventListener('click', function () {
+    if (currentKind === 'stock_price') saveStockPrices();   // applies + reloads to re-render cards
+    else closeModal();
+  });
+
+  /* ---------- in-modal interactions (delegated) ---------- */
+  bodyEl.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.hasAttribute('data-count')) {
+      var now = t.closest('.fm-row').querySelector('[data-count-now]');
+      if (now) now.textContent = t.value.length;
+    }
+  });
+  bodyEl.addEventListener('change', function (e) {   // duration → toggle Permanent post price
+    var d = e.target.closest('[data-dur]'); if (!d) return;
+    var pp = bodyEl.querySelector('[data-permpost]');
+    if (pp) pp.hidden = d.value !== PERM_EXTRA;
+  });
+
+  /* ---------- searchable dropdowns (combobox) ---------- */
+  function closeCombos(except) {
+    bodyEl.querySelectorAll('.fm-combo__pop').forEach(function (p) { if (p !== except) p.hidden = true; });
+  }
+  function positionCombo(trig, pop) {   // fixed-position under the trigger, flip up if it would overflow
+    var r = trig.getBoundingClientRect(), gap = 4, m = 8;
+    pop.style.left = r.left + 'px';
+    pop.style.width = r.width + 'px';
+    pop.style.top = (r.bottom + gap) + 'px';
+    var h = pop.offsetHeight;
+    if (r.bottom + gap + h > window.innerHeight - m) {
+      pop.style.top = Math.max(m, r.top - gap - h) + 'px';
+    }
+  }
+  bodyEl.addEventListener('input', function (e) {   // filter the open combo's options
+    if (!e.target.hasAttribute('data-combo-search')) return;
+    var q = e.target.value.trim().toLowerCase();
+    e.target.closest('.fm-combo__pop').querySelectorAll('[data-combo-opt]').forEach(function (o) {
+      o.hidden = o.textContent.toLowerCase().indexOf(q) < 0;
+    });
+  });
+  bodyEl.addEventListener('scroll', function () { closeCombos(null); });   // pop is fixed — close on form scroll
+  window.addEventListener('resize', function () { closeCombos(null); });
+  bodyEl.addEventListener('click', function (e) {
+    var trig = e.target.closest('[data-combo-trigger]');
+    if (trig) {
+      var pop = trig.parentNode.querySelector('.fm-combo__pop'), open = pop.hidden;
+      closeCombos(open ? pop : null);
+      pop.hidden = !open;
+      if (open) {
+        pop.querySelectorAll('[data-combo-opt]').forEach(function (o) { o.hidden = false; });
+        positionCombo(trig, pop);
+        var s = pop.querySelector('[data-combo-search]'); if (s) { s.value = ''; s.focus(); }
+      }
+      return;
+    }
+    var opt = e.target.closest('[data-combo-opt]');
+    if (opt) {
+      var combo = opt.closest('[data-combo]');
+      combo.setAttribute('data-value', opt.getAttribute('data-val'));
+      combo.querySelector('.fm-combo__val').textContent = opt.textContent;
+      combo.querySelectorAll('[data-combo-opt]').forEach(function (o) { o.classList.toggle('is-sel', o === opt); });
+      combo.querySelector('.fm-combo__pop').hidden = true;
+      return;
+    }
+    if (!e.target.closest('.fm-combo')) closeCombos(null);
+  });
+  bodyEl.addEventListener('keydown', function (e) {
+    if (e.target.hasAttribute('data-tag-in') && e.key === 'Enter') {
+      e.preventDefault();
+      var v = e.target.value.trim(); if (!v) return;
+      var chip = document.createElement('span'); chip.className = 'tagchip';
+      chip.innerHTML = v + '<button type="button" data-tag-rm>✕</button>';
+      e.target.parentNode.insertBefore(chip, e.target);
+      e.target.value = '';
+    }
+  });
+  bodyEl.addEventListener('click', function (e) {
+    var sw = e.target.closest('[data-sw]'); if (sw) { sw.classList.toggle('is-on'); return; }
+    var rm = e.target.closest('[data-tag-rm]'); if (rm) { rm.closest('.tagchip').remove(); return; }
+    var ft = e.target.closest('[data-ftab]');
+    if (ft) {
+      bodyEl.querySelectorAll('[data-ftab]').forEach(function (x) { x.classList.toggle('is-active', x === ft); });
+      var key = ft.getAttribute('data-ftab');
+      bodyEl.querySelectorAll('[data-fpane]').forEach(function (p) { p.hidden = p.getAttribute('data-fpane') !== key; });
+    }
+  });
+})();
+</script>
+
+<script>
+/* Populate the page from the clicked row's data (sessionStorage), keep the basket
+   shared with the table page (localStorage), and wire Add-to-cart to a niche picker. */
+(function () {
+  var dom = new URLSearchParams(location.search).get('m') || '';
+
+  /* fallback sample (matches the static markup) so direct-opens + modals still work */
+  var SAMPLE = {
+    domain: 'thecricketpaper.com', publisher: 'Greenways Publishing',
+    favicon: 'https://www.google.com/s2/favicons?domain=thecricketpaper.com&sz=64',
+    internal: { Contact: 'neil.wooding@greenwayspublishing.co.uk / sam.emery@greenwayspublishing.com', Added: '01.06.2026', 'Added by': 'n/a', 'Last order': '05.06.2026', Currency: 'EUR', Prepayment: '0%', 'Metrics updated': '11.06.2026' },
+    notes: { 'Info for admin': 'Stock price is 150 GBP.', Note: '', Offers: '' },
+    country: 'Tanzania', language: 'English',
+    conditions: ['Dofollow'], categories: ['sports', 'cricket'], tags: ['cricket', 'sports', 'UK'],
+    metrics: { IP: '104.21.51.18', 'Indexed URLs': '71,974', 'TTF1 / TTF2': 'Shopping/Sports · Sports/Cricket', 'Domain Rating': '31', 'Ref. domains': '1,696', 'Total keywords': '144', 'Organic traffic': '865', 'Trust Flow': '24', 'Citation Flow': '45', 'Page Authority': '40', 'Domain Authority': '42', 'Spam score': '0%' },
+    niches: [{ niche: 'standard', price: '€198.39', stock: '€177.00', margin: '€21.39' }, { niche: 'casino', price: '€198.39', stock: '€177.00', margin: '€21.39' }, { niche: 'betting', price: '€198.39', stock: '€177.00', margin: '€21.39' }],
+    terms: { Currency: 'EUR', 'Publication duration': '1 year' }, prices: { standard: '€198.39', casino: '€198.39', betting: '€198.39' }
+  };
+  var d; try { d = JSON.parse(sessionStorage.getItem('ml-media:' + dom) || 'null'); } catch (e) { d = null; }
+  if (!d) d = SAMPLE;
+  if (!d.domain) d.domain = dom || SAMPLE.domain;
+  window.__media = d;                                  // modals prefill from this
+
+  var PENCIL = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+  var CHECK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>';
+  var X = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+  var COPY = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function clean(v) { return (v != null && v !== '—' && v !== 'n/a' && v !== '') ? v : ''; }
+  function get(o, k) { return (o && o[k] != null) ? o[k] : ''; }
+  function setHTML(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
+  function col(label, inner) { return '<div class="d-col"><span class="d-col__l">' + label + '</span>' + inner + '</div>'; }
+  function pad(html, count, total) { for (var i = count; i < total; i++) html += '<div class="d-col"></div>'; return html; }
+  function pencilBtn(kind) { return '<button class="d-pencil" data-edit="' + kind + '" title="Edit">' + PENCIL + '</button>'; }
+
+  var I = d.internal || {}, N = d.notes || {}, M = d.metrics || {}, T = d.terms || {}, niches = d.niches || [], cats = d.categories || [], tags = d.tags || [], cond = d.conditions || [];
+
+  /* ---- General ---- */
+  var contact = clean(get(I, 'Contact')), addedBy = clean(get(I, 'Added by')), lastOrder = clean(get(I, 'Last order'));
+  function noteCard(label, kind, body) { body = clean(body); return '<div class="d-card"><div class="d-card__head"><span class="d-card__l">' + label + '</span>' + pencilBtn(kind) + '</div><div class="d-body">' + (body ? body : '<span class="d-empty">—</span>') + '</div></div>'; }
+  setHTML('d-general',
+    '<div class="d-card"><div class="d-card__l">Publisher</div><div class="d-big" style="margin-top:6px">' + (d.publisher || '—') + '</div>' +
+      (contact ? '<div class="d-emails"><span>' + contact + '</span><button class="d-copy" title="Copy">' + COPY + '</button></div>' : '') + '</div>' +
+    '<div class="d-card"><div class="d-card__l">Activities</div><div style="margin-top:8px">' +
+      '<div class="d-kv"><span class="k">Added</span><span class="v">' + (clean(get(I, 'Added')) || '—') + '</span></div>' +
+      '<div class="d-kv"><span class="k">Added by ' + pencilBtn('added_by') + '</span><span class="v' + (addedBy ? '' : ' is-na') + '">' + (addedBy || 'n/a') + '</span></div>' +
+      '<div class="d-kv"><span class="k">Last order</span><span class="v' + (lastOrder ? '' : ' is-na') + '">' + (lastOrder || '—') + '</span></div>' +
+    '</div></div>' +
+    noteCard('Info for admin', 'info_for_admin', get(N, 'Info for admin')) + noteCard('Note', 'note', get(N, 'Note')) + noteCard('Offers', 'offers', get(N, 'Offers'))
+  );
+
+  /* ---- Media properties ---- */
+  function hasC(re) { return cond.some(function (c) { return re.test(c); }); }
+  var dofollow = !hasC(/nofollow/i), sponsor = hasC(/spons/i), permanent = hasC(/permanent/i), extra = hasC(/upgrad/i);
+  var prepay = clean(get(I, 'Prepayment')) || clean(get(T, 'Prepayment')) || '0%';
+  function condRow(label, on) { return '<div class="d-cond"><span>' + label + '</span><span class="' + (on ? 'd-yes' : 'd-no') + '">' + (on ? CHECK : X) + '</span></div>'; }
+  function catRow(label, v) { v = clean(v); return '<div class="d-kv"><span class="k">' + label + '</span><span class="v' + (v ? '' : ' is-na') + '">' + (v || '—') + '</span></div>'; }
+  var flagHtml = d.flagSrc ? '<span class="flagimg" style="margin-right:4px"><img src="' + d.flagSrc + '" width="20" height="20" alt=""></span>' : '';
+  setHTML('d-mediaprops',
+    '<div class="d-col"><span class="d-col__l">Country</span><div class="d-country">' + flagHtml + (d.country || '—') + '</div>' +
+      '<div class="d-col__foot"><div class="d-kv"><span class="k">Languages</span><span class="v">' + (d.language || '—') + '</span></div></div></div>' +
+    col('Conditions', condRow('Dofollow', dofollow) + condRow('Sponsor tag', sponsor) + condRow('Permanent post', permanent) + condRow('Permanent post extra price', extra) +
+      '<div class="d-cond"><span>Prepayment</span><span class="v" style="font-weight:var(--fw-semibold)">' + prepay + '</span></div>') +
+    col('Category', catRow('Category #1', cats[0]) + catRow('Category #2', cats[1]) + catRow('Category #3', cats[2])) +
+    col('Tags', tags.length ? '<div class="d-tags">' + tags.map(function (t) { return '<span class="tagchip">' + t + '</span>'; }).join('') + '</div>' : '<span class="d-empty">—</span>')
+  );
+
+  /* ---- Metrics ---- */
+  function mkv(k, v) { v = clean(v); return '<div class="d-kv"><span class="k">' + k + '</span><span class="v">' + (v || '—') + '</span></div>'; }
+  var ttf = (clean(get(M, 'TTF1 / TTF2')) || '').split('·').map(function (s) { return s.trim(); });
+  setHTML('d-metrics-panel',
+    col('Overview', mkv('IP', get(M, 'IP')) + mkv('Indexed URLs', get(M, 'Indexed URLs'))) +
+    col('Topical', mkv('Topical TF1', ttf[0]) + mkv('Topical TF2', ttf[1])) +
+    col('Ahrefs', mkv('Domain Rating', get(M, 'Domain Rating')) + mkv('Referring Domains', get(M, 'Ref. domains')) + mkv('Total Keywords', get(M, 'Total keywords')) + mkv('Organic traffic', get(M, 'Organic traffic'))) +
+    col('Majestic', mkv('TF', get(M, 'Trust Flow')) + mkv('CF', get(M, 'Citation Flow'))) +
+    col('Moz', mkv('PA', get(M, 'Page Authority')) + mkv('DA', get(M, 'Domain Authority')) + mkv('Spam Score', get(M, 'Spam score')))
+  );
+  var mu = document.getElementById('d-metupd'); if (mu) mu.textContent = 'Metrics updated: ' + (clean(get(I, 'Metrics updated')) || '—');
+
+  /* ---- Stock / Price / Margin ---- */
+  var currency = clean(get(T, 'Currency')) || clean(get(I, 'Currency')) || 'EUR';
+  function priceCol(niche, value, accent, sub) { return '<div class="d-col d-col--price' + (accent ? ' d-col--accent' : '') + '"><span class="d-col__l">' + cap(niche) + '</span><div class="nv">' + (clean(value) || '—') + '</div>' + (sub || '') + '</div>'; }
+  setHTML('d-stock', niches.map(function (n) { return priceCol(n.niche, n.stock, false, ''); }).join(''));
+  setHTML('d-margin', niches.map(function (n) { return priceCol(n.niche, n.margin, false, ''); }).join(''));
+  var priceFirst = '<div class="d-col"><span class="d-col__l">Publisher original currency</span><div class="d-big" style="margin-top:6px">' + currency + '</div></div>';
+  var priceCols = niches.map(function (n) { return priceCol(n.niche, n.price, true, '<div class="nsub"><span>Original price</span><span class="v">' + (clean(n.price) || '—') + '</span></div>'); }).join('');
+  setHTML('d-price-panel', priceFirst + priceCols);
+
+  /* "Not priced" note — niches in the system that this media has no price for */
+  var ALL_NICHES = ['crypto', 'cbd', 'standard', 'forex', 'casino', 'betting', 'loans', 'adult'];
+  var pricedSet = {}; niches.forEach(function (n) { pricedSet[n.niche] = 1; });
+  Object.keys(d.prices || {}).forEach(function (k) { if (d.prices[k] && d.prices[k] !== '—') pricedSet[k] = 1; });
+  var notPriced = ALL_NICHES.filter(function (k) { return !pricedSet[k]; });
+  var un = document.getElementById('d-niche-un');
+  if (un) un.innerHTML = notPriced.length ? '<b>Not priced:</b> ' + notPriced.join(', ') : '';
+
+  if (d.favicon) { var fi = document.getElementById('d-fav-img'); if (fi) fi.src = d.favicon; }
+
+  /* ============ Add to cart → niche picker + shared basket (localStorage) ============ */
+  var CART_KEY = 'ml-cart';
+  function loadCart() { try { return JSON.parse(localStorage.getItem(CART_KEY) || '{}') || {}; } catch (e) { return {}; } }
+  function saveCart(c) { try { localStorage.setItem(CART_KEY, JSON.stringify(c)); } catch (e) {} }
+  function lineKey(dm, nh) { return dm + '||' + nh; }
+  function toNum(s) { return parseFloat(String(s).replace(/[^0-9.]/g, '')) || 0; }
+  function pricedNiches() {
+    if (niches.length) return niches.map(function (n) { return { niche: n.niche, str: n.price }; }).filter(function (x) { return x.str && x.str !== '—'; });
+    var ps = d.prices || {}; return Object.keys(ps).filter(function (k) { return ps[k] && ps[k] !== '—'; }).map(function (k) { return { niche: k, str: ps[k] }; });
+  }
+  var addBtn = document.getElementById('d-addcart'), pop = document.getElementById('d-niche-pop');
+  function inCount() { var c = loadCart(), n = 0; for (var k in c) if (c[k].dom === d.domain) n++; return n; }
+  function updateAddBtn() {
+    var n = inCount(), pn = pricedNiches(), first = pn[0] ? pn[0].str : '';
+    if (n > 0) { addBtn.textContent = '✓ In basket (' + n + ')'; addBtn.classList.remove('btn--primary'); addBtn.classList.add('btn--secondary'); }
+    else { addBtn.textContent = '+ Add to cart' + (first ? ' · ' + first : ''); addBtn.classList.add('btn--primary'); addBtn.classList.remove('btn--secondary'); }
+  }
+  function renderPop() {
+    var c = loadCart(), pn = pricedNiches(), any = inCount() > 0;
+    var html = '<div class="niche-pop__title">' + (any ? 'In basket — add or remove niches' : 'Add to basket — choose niche(s)') + '</div>';
+    if (!pn.length) html += '<div class="niche-pop__none">No price available for this media.</div>';
+    else html += '<div class="niche-pop__list">' + pn.map(function (x) { var sel = !!c[lineKey(d.domain, x.niche)]; return '<button class="niche-pop__row' + (sel ? ' is-sel' : '') + '" type="button" data-niche="' + x.niche + '" data-str="' + x.str + '"><span class="npr-n">' + x.niche + '</span><span class="npr-p">' + x.str + '</span><span class="npr-a">' + (sel ? '✓ Added' : 'Add') + '</span></button>'; }).join('') + '</div>';
+    pop.innerHTML = html;
+  }
+  function positionPop() {
+    var r = addBtn.getBoundingClientRect(), gap = 6, m = 8;
+    pop.style.visibility = 'hidden'; pop.classList.remove('is-hidden');
+    var w = pop.offsetWidth, h = pop.offsetHeight;
+    var left = Math.min(r.right - w, window.innerWidth - w - m); if (left < m) left = m;
+    var top = r.bottom + gap; if (top + h > window.innerHeight - m) top = Math.max(m, r.top - gap - h);
+    pop.style.left = left + 'px'; pop.style.top = top + 'px'; pop.style.visibility = '';
+  }
+  if (addBtn && pop) {
+    addBtn.addEventListener('click', function (e) { e.stopPropagation(); if (!pop.classList.contains('is-hidden')) { pop.classList.add('is-hidden'); return; } renderPop(); positionPop(); });
+    pop.addEventListener('click', function (e) {
+      var row = e.target.closest('.niche-pop__row'); if (!row) return;
+      var c = loadCart(), key = lineKey(d.domain, row.getAttribute('data-niche'));
+      if (c[key]) delete c[key]; else c[key] = { dom: d.domain, niche: row.getAttribute('data-niche'), str: row.getAttribute('data-str'), num: toNum(row.getAttribute('data-str')) };
+      saveCart(c); renderPop(); updateAddBtn();
+    });
+    document.addEventListener('click', function (e) { if (!pop.classList.contains('is-hidden') && !e.target.closest('#d-niche-pop') && !e.target.closest('#d-addcart')) pop.classList.add('is-hidden'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') pop.classList.add('is-hidden'); });
+    updateAddBtn();
+  }
+})();
+</script>
+<script>
+/* Sidebar collapse — remembers the user's choice; defaults to collapsed on screens
+   too narrow to comfortably show the full layout. */
+(function () {
+  var sb = document.getElementById('m-sidebar'); if (!sb) return;
+  sb.addEventListener('click', function (e) {   // expandable nav groups (Market / Orders / Analytics)
+    var p = e.target.closest('.m-nav__parent'); if (!p || sb.classList.contains('is-collapsed')) return;
+    var g = p.closest('.m-nav__group'); if (g) g.classList.toggle('is-open');
+  });
+  var KEY = 'ml-sidebar', NARROW = 1280;
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(c) { sb.classList.toggle('is-collapsed', c); }
+  function apply() {
+    var s = stored();
+    set(s ? s === 'collapsed' : window.innerWidth < NARROW);
+  }
+  apply();
+  var btn = document.getElementById('m-side-toggle');
+  if (btn) btn.addEventListener('click', function () {
+    var c = !sb.classList.contains('is-collapsed');
+    set(c);
+    try { localStorage.setItem(KEY, c ? 'collapsed' : 'expanded'); } catch (e) {}
+  });
+  window.addEventListener('resize', function () { if (!stored()) set(window.innerWidth < NARROW); });
+})();
+</script>
+</body>
+</html>

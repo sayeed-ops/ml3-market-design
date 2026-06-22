@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — Marketplace (ML3)</title>
+  <!-- Production route: /cart (PlaceCard.vue) + per-item ContentRequirementsForm.vue -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./details.css" />
+  <link rel="stylesheet" href="./checkout.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+  <!-- No sidebar — focused checkout, like the details page. -->
+  <main class="m-main">
+
+    <!-- sticky sub-bar -->
+    <div class="d-bar">
+     <div class="d-bar__inner">
+      <a class="d-back" href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Basket</a>
+      <span class="d-domain" style="cursor:default">Checkout</span>
+      <span class="spacer"></span>
+      <button class="btn--iconxs" title="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+      <a class="btn--iconxs hdr-cart" href="index.html" title="Basket"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="hdr-cart__count" id="hdr-cart-count">0</span></a>
+     </div>
+    </div>
+
+    <div class="co-content">
+
+      <!-- ===== EMPTY STATE ===== -->
+      <div class="co-empty-page" id="co-empty" hidden>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg>
+        <h2>Your basket is empty</h2>
+        <p class="d-muted" style="margin:0 0 16px">Add some media from the market to check out.</p>
+        <a class="btn btn--primary btn--sm" href="index.html">Browse the market</a>
+      </div>
+
+      <!-- ===== CHECKOUT GRID ===== -->
+      <div class="co-grid" id="co-grid" hidden>
+        <div class="co-main">
+
+          <!-- STEP 1 — PROJECT & BILLING -->
+          <section class="d-section">
+            <div class="d-section__head"><h2><span class="co-step__n">1</span>Connect a project</h2></div>
+            <div class="d-card">
+              <p class="fm-desc" style="margin-bottom:var(--space-3)">Link your order to a project to keep your orders organized. Each order can only be linked to one project at a time.</p>
+              <!-- searchable project dropdown (mirrors CartProjectDropdown.vue) -->
+              <div class="co-combo" id="co-projcombo">
+                <button class="co-combo__trigger" id="co-projbtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="co-combo__val" id="co-projval">Select a project…</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="co-combo__pop" id="co-projpop" hidden>
+                  <div class="co-combo__search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input id="co-projsearch" placeholder="Search…" autocomplete="off" />
+                  </div>
+                  <div class="co-combo__list" id="co-projlist" role="listbox"></div>
+                </div>
+              </div>
+              <div class="co-checks" id="co-checks" hidden></div>
+              <div class="co-proj-cta" id="co-proj-cta" hidden></div>
+            </div>
+          </section>
+
+          <!-- STEP 2 — ITEMS & REQUIREMENTS -->
+          <section class="d-section">
+            <div class="d-section__head">
+              <h2><span class="co-step__n">2</span>Items &amp; requirements</h2>
+              <span class="co-meter" id="co-meter">
+                <svg class="co-meter__check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m5 12 5 5 9-11"/></svg>
+                <span id="co-meter-txt">0 of 0 ready</span>
+                <span class="co-meter__bar"><span class="co-meter__fill" id="co-meter-fill"></span></span>
+              </span>
+            </div>
+
+            <!-- FILL ONCE → APPLY TO ALL. Carries the type + content-by toggles so applying
+                 keeps every item's field set consistent (no toggle/field mismatch). -->
+            <details class="co-applyall" id="co-applyall">
+              <summary class="co-applyall__bar">
+                <span class="co-applyall__title">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg>
+                  Fill once, apply to every item
+                </span>
+                <svg class="co-applyall__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="co-applyall__body">
+                <div id="co-tpl"></div>
+                <div class="co-applyall__foot">
+                  <span class="d-muted" style="font-size:var(--fs-12)">Applies order type, content source &amp; the fields above to all items.</span>
+                  <button class="btn btn--secondary btn--sm" id="aa-apply" type="button">Apply to all items</button>
+                </div>
+              </div>
+            </details>
+
+            <div class="co-items" id="co-items"></div>
+          </section>
+
+        </div>
+
+        <!-- ASIDE — ORDER SUMMARY -->
+        <aside class="co-aside">
+          <div class="co-summary">
+            <h3 class="co-summary__t"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>Order summary</h3>
+            <div class="co-sum-row"><span id="co-sum-sites">0 sites</span><span class="v" id="co-sum-subtotal">€0</span></div>
+            <div class="co-sum-row is-muted"><span>Content</span><span class="v" id="co-sum-content">€0</span></div>
+            <div class="co-sum-div"></div>
+            <div class="co-sum-total"><span class="l">Total</span><span class="v" id="co-sum-total">€0</span></div>
+
+            <!-- adaptive alert (billing not verified / insufficient wallet / items missing) -->
+            <div class="co-alert" id="co-alert" hidden></div>
+
+            <!-- adaptive CTAs -->
+            <button class="btn btn--primary btn--sm co-cta co-depositbtn" id="co-deposit" type="button" hidden>Deposit</button>
+            <button class="btn btn--primary btn--sm co-cta" id="co-place" type="button">Place order</button>
+
+            <div class="co-draftblock">
+              <div class="co-draftblock__h">Save for later</div>
+              <!-- single button → dropdown holds New draft / Add to existing / Add to package -->
+              <div class="co-menu" id="co-savemenu">
+                <button class="btn btn--secondary btn--sm co-cta co-menu__btn" id="co-savebtn" type="button" aria-haspopup="menu" aria-expanded="false">
+                  Save as draft
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="co-menu__pop" id="co-savepop" hidden role="menu">
+                  <button class="co-menu__item" data-act="new" type="button" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg> New draft
+                  </button>
+                  <button class="co-menu__item" data-act="existing" type="button" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg> Add to existing draft
+                  </button>
+                  <div class="co-menu__div"></div>
+                  <button class="co-menu__item" data-act="package" type="button" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 8 12 3 3 8l9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/></svg> Add to package
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="co-secure"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Secure checkout · wallet charged on publication</div>
+            <p class="co-fine">By placing the order you agree to the marketplace terms.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+  </div><!-- /m-shell -->
+</div>
+
+<!-- New-draft modal -->
+<div class="d-modal is-hidden" id="draft-modal" role="dialog" aria-modal="true" aria-labelledby="draft-modal-title">
+  <div class="d-modal__scrim" data-draft-close></div>
+  <div class="d-modal__panel" style="width:460px">
+    <div class="d-modal__head"><span class="d-modal__title" id="draft-modal-title">New draft</span>
+      <button class="btn--iconxs d-modal__close" data-draft-close type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="d-modal__body">
+      <p class="fm-desc">Park this basket as a named draft. Assign it for review and turn it into an order later from the Drafts page.</p>
+      <div class="fm-row"><label class="fm-l" for="draft-name">Draft name <span class="co-req">*</span></label><input class="fm-input" id="draft-name" placeholder="e.g. Q3 iGaming push" /></div>
+      <div class="fm-row"><label class="fm-l" for="draft-assignee">Assignee</label>
+        <select class="fm-select" id="draft-assignee"><option value="">Unassigned</option><option>Sayeed Khan</option><option>Liviu Pop</option><option>Maria Silva</option><option>Jose Garcia</option></select>
+      </div>
+      <div class="fm-row"><label class="fm-l" for="draft-note">Note</label><textarea class="fm-textarea" id="draft-note" style="min-height:80px" placeholder="Optional context for the reviewer…"></textarea></div>
+    </div>
+    <div class="d-modal__foot"><span class="spacer"></span>
+      <button class="btn btn--secondary btn--sm" data-draft-close type="button">Cancel</button>
+      <button class="btn btn--primary btn--sm" id="draft-save" type="button">Save draft</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add-to-existing-draft modal -->
+<div class="d-modal is-hidden" id="existing-modal" role="dialog" aria-modal="true" aria-labelledby="existing-modal-title">
+  <div class="d-modal__scrim" data-existing-close></div>
+  <div class="d-modal__panel" style="width:480px">
+    <div class="d-modal__head"><span class="d-modal__title" id="existing-modal-title">Add to existing draft</span>
+      <button class="btn--iconxs d-modal__close" data-existing-close type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="d-modal__body">
+      <p class="fm-desc">Append these <b id="existing-count">0</b> media to a draft you've already started.</p>
+      <div class="co-combo__search" style="border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:0 10px;margin-bottom:var(--space-3)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="existing-search" placeholder="Search drafts…" autocomplete="off" />
+      </div>
+      <div class="co-draftlist" id="existing-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add-to-package modal (mock) -->
+<div class="d-modal is-hidden" id="package-modal" role="dialog" aria-modal="true" aria-labelledby="package-modal-title">
+  <div class="d-modal__scrim" data-package-close></div>
+  <div class="d-modal__panel" style="width:480px">
+    <div class="d-modal__head"><span class="d-modal__title" id="package-modal-title">Add to package</span>
+      <button class="btn--iconxs d-modal__close" data-package-close type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="d-modal__body">
+      <p class="fm-desc">Attach these media as items of an existing package campaign.</p>
+      <div class="co-draftlist" id="package-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Invite-users modal (per item) -->
+<div class="d-modal is-hidden" id="invite-modal" role="dialog" aria-modal="true" aria-labelledby="invite-modal-title">
+  <div class="d-modal__scrim" data-invite-close></div>
+  <div class="d-modal__panel" style="width:520px">
+    <div class="d-modal__head"><span class="d-modal__title" id="invite-modal-title">Invite users</span>
+      <button class="btn--iconxs d-modal__close" data-invite-close type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="d-modal__body">
+      <p class="fm-desc">Manually invite users to view this order item. You can change permissions anytime.</p>
+      <label class="fm-l">Invite users</label>
+      <div class="co-combo__search" style="border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:0 10px;margin-bottom:var(--space-3)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="invite-search" placeholder="Search by name or email" autocomplete="off" />
+      </div>
+      <div class="co-userlist" id="invite-list"></div>
+    </div>
+    <div class="d-modal__foot"><span class="spacer"></span>
+      <button class="btn btn--secondary btn--sm" data-invite-close type="button">Cancel</button>
+      <button class="btn btn--primary btn--sm" id="invite-save" type="button">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Media-details slide-over drawer -->
+<div class="co-drawer is-hidden" id="co-drawer" role="dialog" aria-modal="true" aria-labelledby="co-drawer-title">
+  <div class="co-drawer__scrim" data-drawer-close></div>
+  <aside class="co-drawer__panel">
+    <header class="co-drawer__head">
+      <span class="d-domain" id="co-drawer-title" style="cursor:default">media</span>
+      <button class="btn--iconxs" data-drawer-close type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </header>
+    <div class="co-drawer__body" id="co-drawer-body"></div>
+    <footer class="co-drawer__foot">
+      <span class="spacer"></span>
+      <button class="btn btn--secondary btn--sm" data-drawer-close type="button">Close</button>
+      <a class="btn btn--primary btn--sm" href="details.html" target="_blank" rel="noopener">View media page</a>
+    </footer>
+  </aside>
+</div>
+
+<!-- Success overlay -->
+<div class="co-success" id="co-success" hidden>
+  <div class="co-success__scrim"></div>
+  <div class="co-success__panel">
+    <span class="co-success__check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg></span>
+    <h2 class="co-success__t">Order placed</h2>
+    <p class="co-success__sub">Order <b id="co-success-id">#000000</b> · <b id="co-success-n">0 sites</b> · <b id="co-success-total">€0</b><br>You'll be notified as each placement progresses.</p>
+    <div class="co-success__acts">
+      <a class="btn btn--secondary btn--sm" href="index.html">To the market</a>
+      <a class="btn btn--primary btn--sm" href="index.html">Track order</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ML3 — Checkout. Reads the shared basket (localStorage['ml-cart']), collects per-item content
+   requirements (field set varies by Guest post / Link insertion and Motherlink / I provide — mirrors
+   ContentRequirementsForm.vue), computes totals, and drives the right CTA (Deposit vs Place order vs
+   billing-not-verified) per the selected project's wallet + billing (mirrors PlaceCard.vue). Mock. */
+(function () {
+  'use strict';
+  var CART_KEY = 'ml-cart', DRAFTS_KEY = 'ml-drafts';
+
+  function loadCart() { try { return JSON.parse(localStorage.getItem(CART_KEY) || '{}') || {}; } catch (e) { return {}; } }
+  function saveCart(c) { try { localStorage.setItem(CART_KEY, JSON.stringify(c)); } catch (e) {} }
+  function toNum(s) { return parseFloat(String(s).replace(/[^0-9.]/g, '')) || 0; }
+  function favUrl(dom) { return 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(dom) + '&sz=64'; }
+  function fmtEur(n) {
+    var euros = Math.floor(n), cents = Math.round((n - euros) * 100);
+    if (cents === 100) { euros += 1; cents = 0; }
+    return '€' + euros.toLocaleString('en-US') + '<sup>.' + (cents < 10 ? '0' + cents : cents) + '</sup>';
+  }
+  function eurPlain(n) { return '€' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---- reference data (mirrors ContentRequirementsForm.vue) ---- */
+  var LANGS = ['English', 'Spanish', 'Italian', 'Portuguese', 'German', 'French', 'Turkish', 'Finnish', 'Dutch', 'Polish'];
+  var PLACEMENTS = ['Anywhere', 'Beginning of the article', 'Middle of the article', 'End of the article'];
+  var WORDS = []; for (var w = 500; w <= 2000; w += 100) WORDS.push(String(w));
+  var PER_WORD = 0.075;
+
+  /* ---- sample projects (mirrors CartProjectDropdown rows: brand · domain · budget · entity balance).
+     A billing entity funds MANY projects, so the ENTITY BALANCE (wallet) is always >= a single
+     project's BUDGET. Projects under the same entity share its balance (see Acme's two projects).
+     billing: 'verified' | 'unverified' | 'none' (no entity assigned → balance 0). */
+  var PROJECTS = [
+    { id: 'pixel',    brand: 'Google',    name: 'pixel.store',  budget: 120000, wallet: 698437.51, billing: 'verified' },
+    { id: 'company2', brand: 'Google',    name: 'company2.com', budget: 200,    wallet: 0,         billing: 'none' },
+    { id: 'acme',     brand: 'Acme Corp', name: 'acme.com',     budget: 30000,  wallet: 45000,     billing: 'verified' },
+    { id: 'acme-eu',  brand: 'Acme Corp', name: 'acme.eu',      budget: 15000,  wallet: 45000,     billing: 'verified' },
+    { id: 'initech',  brand: 'Initech',   name: 'initech.io',   budget: 10000,  wallet: 30000,     billing: 'unverified' },
+    { id: 'globex',   brand: 'Globex',    name: 'globex.com',   budget: 60000,  wallet: 120000,    billing: 'verified' },
+    { id: 'betclub',  brand: 'BetClub',   name: 'betclub.bet',  budget: 4000,   wallet: 5000,      billing: 'verified' }
+  ];
+  var EXISTING_DRAFTS = ['Q3 iGaming push', 'Brazil news outreach', 'Tech authority links', 'EU finance batch'];
+  var PACKAGES = ['Authority Booster — 10 links', 'Local SEO Pack', 'News Splash campaign'];
+
+  /* ---- state ---- */
+  var cart = loadCart();
+  var reqs = {};
+  var tpl = defReq();
+  var project = null;
+  var itemsEl = $('co-items'), gridEl = $('co-grid'), emptyEl = $('co-empty');
+
+  function keys() { return Object.keys(cart); }
+  function defReq() { return { type: 'guest_post', by: 'motherlink', url: '', anchor: '', placement: 'Anywhere', language: 'English', words: '', comment: '', topic: '', keywords: '', trust: [], letml: false, perm: false, invited: [] }; }
+  function permExtraOf(k) { return (reqs[k] && reqs[k].perm) ? info(cart[k].dom).permExtra : 0; }
+  function lineNum(k) { return cart[k].num + permExtraOf(k); }
+  function getReq(scope) { return scope === 'tpl' ? tpl : reqs[scope]; }
+  function isReady(r) {
+    if (!r) return false;
+    var base = r.url.trim() && r.anchor.trim();
+    if (r.type === 'link_insertion' || r.by === 'me') return !!base;
+    return !!(base && r.language && r.words);                 // guest post + Motherlink
+  }
+  function fee(r) { return (r.type === 'guest_post' && r.by === 'motherlink' && r.words) ? Math.round(parseInt(r.words, 10) * PER_WORD) : 0; }
+
+  /* =================== form builders (shared by template + items) =================== */
+  function seg(scope, name, cur, opts) {
+    return '<div class="co-seg" data-seg="' + name + '">' + opts.map(function (o) {
+      return '<button class="co-seg__opt' + (cur === o[0] ? ' is-active' : '') + '" type="button" data-scope="' + scope + '" data-seg="' + name + '" data-v="' + o[0] + '">' + (o[2] ? '<span class="co-seg__ic">' + o[2] + '</span>' : '') + o[1] + '</button>';
+    }).join('') + '</div>';
+  }
+  function req() { return ' <span class="co-req">*</span>'; }
+  function txt(scope, f, val, ph) { return '<input class="fm-input" data-scope="' + scope + '" data-f="' + f + '" value="' + esc(val) + '" placeholder="' + esc(ph) + '" />'; }
+  function selField(scope, f, val, opts) {
+    return '<select class="fm-select" data-scope="' + scope + '" data-f="' + f + '">' +
+      (f === 'words' ? '<option value="">Select</option>' : '') +
+      opts.map(function (o) { return '<option' + (String(val) === String(o) ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+  }
+
+  /* core fields — present in the template bar AND each item (applied by "apply to all") */
+  function coreForm(r, scope) {
+    var gp = r.type === 'guest_post', ml = r.by === 'motherlink';
+    var h = '<div class="co-form">';
+    h += '<div class="fm-row"><label class="fm-l">Order type</label>' + seg(scope, 'type', r.type, [['guest_post', 'Guest post', IC.guest], ['link_insertion', 'Link insertion', IC.link]]) + '</div>';
+    if (gp) h += '<div class="fm-row"><label class="fm-l">Content by</label>' + seg(scope, 'by', r.by, [['motherlink', 'Content by Motherlink', IC.ml], ['me', 'Content by me', IC.me]]) + '</div>';
+    h += '<div class="fm-grid2">' +
+      '<div class="fm-row"><label class="fm-l">Target URL' + req() + '</label>' + txt(scope, 'url', r.url, 'e.g., https://example.com/product-page/') + '</div>' +
+      '<div class="fm-row"><label class="fm-l">Anchor text' + req() + '</label>' + txt(scope, 'anchor', r.anchor, 'e.g., learn more about our services') + '</div>' +
+    '</div>';
+    if (gp && ml) {
+      h += '<div class="fm-grid2">' +
+        '<div class="fm-row"><label class="fm-l">Target URL placement' + req() + '</label>' + selField(scope, 'placement', r.placement, PLACEMENTS) + '</div>' +
+        '<div class="fm-row"><label class="fm-l">Language' + req() + '</label>' + selField(scope, 'language', r.language, LANGS) + '</div>' +
+      '</div>';
+      h += '<div class="fm-row"><label class="fm-l">Number of words' + req() + '</label>' +
+        '<div class="co-words">' + selField(scope, 'words', r.words, WORDS) + '<span class="co-words__fee" data-fee="' + scope + '">' + fmtEur(fee(r)) + '</span></div></div>';
+    }
+    h += '</div>';
+    return h;
+  }
+
+  /* per-item extras (optional fields + content-source-specific uploads) — items only, not the bar */
+  function extraForm(r, scope) {
+    var gp = r.type === 'guest_post', ml = r.by === 'motherlink', h = '';
+    if (gp && ml) {
+      h += '<div class="co-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.7 4.5L18 9l-4.3 1.5L12 15l-1.7-4.5L6 9z"/><path d="M18.5 14l.6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6z"/></svg> Content is written by seasoned professional writers and reviewed to editorial standards.</div>';
+      h += '<div class="fm-row"><label class="fm-l">Article topic suggestion</label>' + txt(scope, 'topic', r.topic, '') + '</div>';
+      h += '<div class="fm-row"><label class="fm-l">Keywords</label>' + txt(scope, 'keywords', r.keywords, 'For example, Cars') + '</div>';
+      h += '<div class="fm-row"><label class="fm-l">Trust links</label>' +
+        '<div class="co-trust" data-scope="' + scope + '">' +
+          (r.trust.length ? '<div class="co-trust__chips">' + r.trust.map(function (l, i) { return '<span class="tagchip">' + esc(l) + '<button type="button" data-scope="' + scope + '" data-trust-rm="' + i + '" aria-label="Remove">×</button></span>'; }).join('') + '</div>' : '') +
+          '<div class="co-trust__add"><input class="fm-input" data-trust-input="' + scope + '" placeholder="For example, mywebsite.com" /><button class="btn btn--secondary btn--sm" type="button" data-trust-add="' + scope + '">Add</button></div>' +
+        '</div></div>';
+      h += '<div class="fm-row"><label class="fm-l">Images</label>' +
+        (r.letml ? '' : '<div class="co-drop"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16l4.6-4.6a2 2 0 0 1 2.8 0L16 16M14 14l1.6-1.6a2 2 0 0 1 2.8 0L20 14M3 5h18v14H3z"/><circle cx="8" cy="9" r="1.2"/></svg><b>Drag &amp; drop .jpg or .png</b> · or click to upload</div>') +
+        '<label class="co-check"><input type="checkbox" class="checkbox" data-scope="' + scope + '" data-check="letml"' + (r.letml ? ' checked' : '') + ' /> Let Motherlink choose images</label></div>';
+    }
+    h += '<div class="fm-row"><label class="fm-l">Comment</label><textarea class="fm-textarea" data-scope="' + scope + '" data-f="comment" style="min-height:70px" placeholder="Add your comment">' + esc(r.comment) + '</textarea></div>';
+    if (gp && !ml) {
+      h += '<div class="co-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg> No article yet? No worries — you can upload it later while we validate your order.</div>';
+      h += '<div class="fm-row"><label class="fm-l">Upload your article</label><div class="co-drop"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v4a1 1 0 0 0 1 1h4M5 3h9l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg><b>Drag &amp; drop .doc, .docx or .pdf</b> · or click to upload</div></div>';
+    }
+    return h;
+  }
+
+  /* =================== project dropdown =================== */
+  function projRowOK(p, total) { return { budget: total < p.budget, wallet: total <= p.wallet }; }
+  function renderProjList(filter) {
+    var total = orderTotal(), html = '', lastBrand = null;
+    PROJECTS.filter(function (p) { return !filter || (p.name + ' ' + p.brand).toLowerCase().indexOf(filter.toLowerCase()) > -1; })
+      .forEach(function (p) {
+        if (p.brand !== lastBrand) { html += '<div class="co-combo__group">' + esc(p.brand) + '</div>'; lastBrand = p.brand; }
+        var ok = projRowOK(p, total), warn = ' <svg class="co-warnic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>';
+        html += '<button class="co-combo__opt' + (project && project.id === p.id ? ' is-sel' : '') + '" type="button" data-proj="' + p.id + '" role="option">' +
+          '<span class="co-combo__name">' + esc(p.name) + '</span>' +
+          '<span class="co-combo__meta"><span>Project budget</span><span class="' + (ok.budget ? '' : 'is-short') + '">' + eurPlain(p.budget) + (ok.budget ? '' : warn) + '</span></span>' +
+          '<span class="co-combo__meta"><span>Entity balance</span><span class="' + (ok.wallet ? '' : 'is-short') + '">' + eurPlain(p.wallet) + (ok.wallet ? '' : warn) + '</span></span>' +
+        '</button>';
+      });
+    $('co-projlist').innerHTML = html || '<div class="co-combo__none">No projects match.</div>';
+  }
+  function openProj() { renderProjList($('co-projsearch').value); $('co-projpop').hidden = false; $('co-projbtn').setAttribute('aria-expanded', 'true'); $('co-projsearch').focus(); }
+  function closeProj() { $('co-projpop').hidden = true; $('co-projbtn').setAttribute('aria-expanded', 'false'); }
+  function selectProject(id) {
+    project = PROJECTS.filter(function (p) { return p.id === id; })[0] || null;
+    if (project) $('co-projval').innerHTML = '<span class="co-combo__brand">' + esc(project.brand) + '</span> ' + esc(project.name);
+    closeProj(); renderChecks(); update();
+  }
+  function renderChecks() {
+    var el = $('co-checks');
+    if (!project) { el.hidden = true; return; }
+    el.hidden = false;
+    var ok = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>';
+    var wn = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>';
+    var total = orderTotal(), h = '';
+    h += project.billing === 'verified'
+      ? '<span class="co-flag is-ok">' + ok + ' Billing entity verified</span>'
+      : (project.billing === 'unverified'
+          ? '<span class="co-flag is-warn">' + wn + ' Billing entity not verified</span>'
+          : '<span class="co-flag is-warn">' + wn + ' No billing entity assigned</span>');
+    h += (total <= project.wallet)
+      ? '<span class="co-flag is-ok">' + ok + ' Entity balance ' + eurPlain(project.wallet) + ' · covers this order</span>'
+      : '<span class="co-flag is-warn">' + wn + ' Entity balance ' + eurPlain(project.wallet) + ' · short of total</span>';
+    el.innerHTML = h;
+  }
+
+  /* =================== read-only media context (mock, derived from the domain) =================== */
+  function hashStr(s) { var h = 0; for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; } return Math.abs(h); }
+  var COUNTRIES = [['United States', '🇺🇸'], ['United Kingdom', '🇬🇧'], ['Germany', '🇩🇪'], ['Spain', '🇪🇸'], ['Italy', '🇮🇹'], ['Brazil', '🇧🇷'], ['Finland', '🇫🇮'], ['Turkey', '🇹🇷']];
+  var ILANGS = ['English', 'German', 'Spanish', 'Italian', 'Portuguese', 'Finnish', 'Turkish'];
+  var ICATS = [['news', 'media'], ['sports', 'football'], ['finance', 'crypto'], ['tech', 'software'], ['lifestyle', 'health']];
+  var MINFO = {};
+  function info(dom) { if (!MINFO[dom]) MINFO[dom] = mediaInfo(dom); return MINFO[dom]; }
+  function mediaInfo(dom) {
+    var h = hashStr(dom), c = COUNTRIES[h % COUNTRIES.length], base = dom.replace(/^www\./, '').split('.')[0];
+    var permIncluded = (h % 6 === 0);
+    var permExtra = permIncluded ? 0 : ((h % 2 === 0) ? 30 : 0);   // some media are upgradable to permanent
+    return {
+      publisher: 'publisher_' + (1000 + h % 9000),
+      email1: 'office@' + dom, email2: 'contact@' + base + 'digital.com',
+      dofollow: (h % 5 !== 0), sponsor: (h % 3 === 0),
+      permIncluded: permIncluded, permExtra: permExtra,
+      flag: c[1], country: c[0], language: ILANGS[h % ILANGS.length], cats: ICATS[h % ICATS.length],
+      prepayment: (h % 3 === 0) ? '50%' : '100%',
+      adminNote: (h % 2 === 0) ? ('NOTE FOR AMS: real stock price is ' + (20 + h % 60) + ' EUR. Publisher listed it in USD — convert before quoting.') : '',
+      ip: '100.' + (h % 200) + '.' + ((h * 7) % 200) + '.' + (h % 100), indexed: 3 + h % 1200,
+      dr: 40 + h % 55, rd: 200 + h % 4000, kw: 50 + h % 2000, traffic: 100 + (h * 13) % 9000,
+      tf: 1 + h % 70, cf: 1 + h % 70, pa: 20 + h % 60, da: 20 + h % 60, spam: (h % 9) + '%',
+      added: '01.06.2026', updated: '19.06.2026'
+    };
+  }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  /* invite-users directory (mock) + avatars */
+  var USERS = [
+    { id: 'u1', name: 'Misha Fedor', email: 'misha_fedor444@rover.info', role: 'Client' },
+    { id: 'u2', name: 'Oleksiy Herasymcnuk', email: 'oleksiy_herasymcnuk733@mailbox.in.ua', role: 'Client' },
+    { id: 'u3', name: 'Ksenia Adams', email: 'ksenia_adams@chithi.in', role: 'Client' },
+    { id: 'u4', name: 'Sasha Masters', email: 'sasha_masters1987@rover.info', role: 'Test role (Duplicate)' },
+    { id: 'u5', name: 'Yana Melly', email: 'yana_melly@rover.info', role: 'Client' },
+    { id: 'u6', name: 'Liviu Pop', email: 'liviu.pop@motherlink.io', role: 'Admin' },
+    { id: 'u7', name: 'Maria Silva', email: 'maria.silva@motherlink.io', role: 'Manager' }
+  ];
+  var AVCOLORS = ['#3d3aad', '#2f6bdd', '#128a5a', '#b0791a', '#d23b34', '#7a3aad'];
+  function avatar(name) {
+    var ini = name.split(' ').map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
+    return '<span class="co-av" style="background:' + AVCOLORS[hashStr(name) % AVCOLORS.length] + '">' + ini + '</span>';
+  }
+  function avatarFor(id) { var u = USERS.filter(function (x) { return x.id === id; })[0]; return u ? avatar(u.name) : ''; }
+  var YES_IC = '<span class="d-yes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg></span>';
+  var NO_IC = '<span class="d-no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>';
+  /* toggle + badge icons */
+  var IC = {
+    guest: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 3h9l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M9 13h6M9 17h4"/></svg>',
+    link: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 17H7A5 5 0 0 1 7 7h2M15 7h2a5 5 0 0 1 0 10h-2M8 12h8"/></svg>',
+    ml: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.7 4.5L18 9l-4.3 1.5L12 15l-1.7-4.5L6 9l4.3-1.5z"/><path d="M18.5 13.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>',
+    me: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>'
+  };
+  function badgeHTML(ready) {
+    return ready
+      ? '<span class="co-badge is-ready"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-11"/></svg>Ready</span>'
+      : '<span class="co-badge is-pending"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 1.5"/></svg>Needs info</span>';
+  }
+  function infoPanel(e, k) {
+    var m = info(e.dom), r = reqs[k] || {};
+    var ext = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>';
+    var permRow = m.permIncluded
+      ? '<div class="d-cond"><span>Permanent post</span>' + YES_IC + '</div>'
+      : (m.permExtra
+        ? '<div class="d-cond"><span>Permanent post</span><span class="co-cond-extra">+' + eurPlain(m.permExtra) + '</span></div>'
+        : '<div class="d-cond"><span>Permanent post</span>' + NO_IC + '</div>');
+    var inv = r.invited || [];
+    var invHtml = inv.length
+      ? '<div class="co-invited">' + inv.slice(0, 5).map(avatarFor).join('') + (inv.length > 5 ? '<span class="co-av co-av--more">+' + (inv.length - 5) + '</span>' : '') + '<button class="co-link" data-invite data-scope="' + k + '" type="button">Edit</button></div>'
+      : '<button class="btn btn--secondary btn--sm" data-invite data-scope="' + k + '" type="button">+ Add</button>';
+    var h = '';
+    h += '<div class="co-info__head"><span class="co-info__t">Media details</span>' +
+      '<button class="co-info__link" data-viewdetails data-dom="' + esc(e.dom) + '" type="button">View details ' + ext + '</button></div>';
+    h += '<div><span class="co-info__l">Conditions</span>' +
+      '<div class="d-cond"><span>Dofollow</span>' + (m.dofollow ? YES_IC : NO_IC) + '</div>' +
+      '<div class="d-cond"><span>Sponsor tag</span>' + (m.sponsor ? YES_IC : NO_IC) + '</div>' + permRow + '</div>';
+    h += '<div><span class="co-info__l">Publisher</span>' +
+      '<div class="co-pub__name">' + esc(m.publisher) + '</div>' +
+      '<div class="co-pub__mail">' + esc(m.email1) + ' · ' + esc(m.email2) + '</div></div>';
+    h += '<div class="co-adminnote' + (m.adminNote ? '' : ' is-empty') + '"><b><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg> Info for admin</b>' + (m.adminNote ? esc(m.adminNote) : 'No admin note for this media.') + '</div>';
+    h += '<div><span class="co-info__l">Price</span>' +
+      '<div class="co-info__price"><span class="d-muted" style="font-size:var(--fs-13)">' + esc(cap(e.niche)) + ' price</span><span class="v">' + e.str + '</span></div>' +
+      (m.permExtra ? '<label class="co-perm"><input type="checkbox" class="checkbox" data-perm data-scope="' + k + '"' + (r.perm ? ' checked' : '') + ' /><span class="co-perm__l">Permanent post</span><span class="co-perm__p">+' + eurPlain(m.permExtra) + '</span></label>' : '') +
+      '</div>';
+    h += '<div class="co-invite"><span class="co-info__l" style="margin:0">Invite users</span>' + invHtml + '</div>';
+    return h;
+  }
+
+  /* full read-only media details for the slide-over drawer */
+  function drawerHTML(e) {
+    var m = info(e.dom);
+    function kv(k, v) { return '<div class="d-kv"><span class="k">' + k + '</span><span class="v">' + v + '</span></div>'; }
+    function cond(l, b) { return '<div class="d-cond"><span>' + l + '</span>' + (b ? YES_IC : NO_IC) + '</div>'; }
+    var h = '';
+    h += '<div class="d-card"><div class="d-card__head"><span class="d-card__l">Info for admin</span></div><div class="d-body">' + (m.adminNote ? esc(m.adminNote) : '<span class="d-empty">—</span>') + '</div></div>';
+    h += '<div class="d-card"><div class="d-card__head"><span class="d-card__l">Media properties</span></div>' +
+      '<div class="co-mgrid">' + kv('Country', m.flag + ' ' + esc(m.country)) + kv('Language', esc(m.language)) + kv('Category #1', esc(m.cats[0])) + kv('Category #2', esc(m.cats[1] || '—')) + '</div>' +
+      '<div class="co-conds">' + cond('Dofollow', m.dofollow) + cond('Sponsor tag', m.sponsor) +
+        '<div class="d-cond"><span>Permanent post</span>' + (m.permIncluded ? YES_IC : (m.permExtra ? '<span class="co-cond-extra">+' + eurPlain(m.permExtra) + '</span>' : NO_IC)) + '</div>' +
+        '<div class="d-cond"><span>Prepayment</span><span class="v" style="font-weight:var(--fw-semibold)">' + m.prepayment + '</span></div></div></div>';
+    h += '<div class="d-card"><div class="d-card__head"><span class="d-card__l">Media metrics</span></div><div class="co-mgrid">' +
+      kv('IP', m.ip) + kv('Indexed URLs', m.indexed) + kv('Ahrefs DR', m.dr + '.00') + kv('Ahrefs RD', m.rd) +
+      kv('Ahrefs Keywords', m.kw) + kv('Ahrefs Traffic', m.traffic) + kv('Majestic TF', m.tf) + kv('Majestic CF', m.cf) +
+      kv('Moz PA', m.pa) + kv('Moz DA', m.da) + kv('Moz Spam', m.spam) + '</div></div>';
+    h += '<div class="d-card"><div class="d-card__head"><span class="d-card__l">Activity log</span></div><div class="co-mgrid">' +
+      kv('Added', m.added) + kv('Added by', '—') + kv('Metrics updated', m.updated) + kv('Last order', '—') + '</div></div>';
+    h += '<div class="d-card"><div class="d-card__head"><span class="d-card__l">Prices</span></div>' +
+      '<div class="co-info__price"><span>' + esc(cap(e.niche)) + ' price</span><span class="v">' + e.str + '</span></div>' +
+      (m.permExtra ? '<div class="co-info__price" style="margin-top:8px"><span>Permanent post</span><span class="v">+' + eurPlain(m.permExtra) + '</span></div>' : '') + '</div>';
+    return h;
+  }
+
+  /* =================== items =================== */
+  function renderTpl() { $('co-tpl').innerHTML = coreForm(tpl, 'tpl'); }
+  function renderItems() {
+    var html = '';
+    keys().forEach(function (k) {
+      var e = cart[k], r = reqs[k], ready = isReady(r);
+      var typeLabel = (r.type === 'link_insertion' ? 'Link insertion' : 'Guest post') + (r.perm ? ' · +Permanent' : '');
+      html += '<div class="co-item' + (ready ? ' is-ready' : '') + '" data-k="' + esc(k) + '">' +
+        '<div class="co-item__head" data-toggle>' +
+          '<span class="m-fav"><img src="' + favUrl(e.dom) + '" alt="" /></span>' +
+          '<span class="co-item__id"><span class="co-item__dom">' + esc(e.dom) + '</span>' +
+            '<span class="co-item__niche">' + esc(e.niche) + ' · ' + typeLabel + '</span></span>' +
+          '<span class="co-item__sp"></span>' +
+          '<span class="price-pill">' + e.str + '</span>' +
+          badgeHTML(ready) +
+          '<svg class="co-item__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>' +
+          '<button class="co-item__rm" type="button" data-rm aria-label="Remove"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+        '</div>' +
+        '<div class="co-item__body">' +
+          '<div class="co-reqs">' + coreForm(r, k) + extraForm(r, k) + '</div>' +
+          '<aside class="co-info">' + infoPanel(e, k) + '</aside>' +
+        '</div>' +
+      '</div>';
+    });
+    itemsEl.innerHTML = html;
+  }
+  function rerenderScope(scope, keepOpen) {
+    if (scope === 'tpl') { renderTpl(); return; }
+    var card = itemsEl.querySelector('.co-item[data-k="' + CSS.escape(scope) + '"]');
+    if (card) { card.querySelector('.co-reqs').innerHTML = coreForm(reqs[scope], scope) + extraForm(reqs[scope], scope); reflectReady(card, scope); if (keepOpen) card.classList.add('is-open'); }
+  }
+  function reflectReady(card, k) {
+    var ready = isReady(reqs[k]);
+    card.classList.toggle('is-ready', ready); card.classList.remove('is-flag');
+    var b = card.querySelector('.co-badge'); if (b) b.outerHTML = badgeHTML(ready);
+    var nm = card.querySelector('.co-item__niche'); if (nm) nm.textContent = cart[k].niche + ' · ' + (reqs[k].type === 'link_insertion' ? 'Link insertion' : 'Guest post') + (reqs[k].perm ? ' · +Permanent' : '');
+  }
+
+  /* =================== totals + CTA state =================== */
+  function orderTotal() { var sub = 0, con = 0; keys().forEach(function (k) { sub += lineNum(k); con += fee(reqs[k]); }); return sub + con; }
+  function update() {
+    var ks = keys(), n = ks.length, sub = 0, con = 0, ready = 0;
+    ks.forEach(function (k) { sub += lineNum(k); con += fee(reqs[k]); if (isReady(reqs[k])) ready++; });
+    var total = sub + con;
+    $('co-sum-sites').textContent = n + (n === 1 ? ' site' : ' sites');
+    $('co-sum-subtotal').innerHTML = fmtEur(sub);
+    $('co-sum-content').innerHTML = fmtEur(con);
+    $('co-sum-total').innerHTML = fmtEur(total);
+    var done = n > 0 && ready === n;
+    $('co-meter-txt').textContent = ready + ' of ' + n + ' ready';
+    $('co-meter-fill').style.width = (n ? (ready / n * 100) : 0) + '%';
+    $('co-meter').classList.toggle('is-done', done);
+    var hc = $('hdr-cart-count'); if (hc) { hc.textContent = n; hc.style.display = n ? '' : 'none'; }
+
+    // CTA state machine (mirrors PlaceCard.vue)
+    var billingUnverified = project && project.billing === 'unverified';
+    var overAmount = project && total > project.wallet;
+    var alertEl = $('co-alert'), msg = '';
+    if (!project) msg = '';
+    else if (billingUnverified) msg = '<b>Billing entity not verified.</b> Once verified you can place the order. Contact support if this seems wrong.';
+    else if (overAmount) msg = project.billing === 'none'
+      ? '<b>Insufficient wallet balance.</b> This project has no billing entity assigned. Configure billing to deposit funds.'
+      : '<b>Insufficient wallet balance.</b> The billing entity has insufficient balance. Please deposit funds.';
+    if (msg) { alertEl.hidden = false; alertEl.innerHTML = '<span class="co-alert__ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><span>' + msg + '</span>'; }
+    else { alertEl.hidden = true; }
+
+    // Deposit shows when over-amount & billing not (un)verified; Place otherwise.
+    // The same CTA is mirrored inline in the project section (#co-proj-cta).
+    var showDeposit = !!(overAmount && !billingUnverified);
+    var depositLabel = (project && project.billing === 'none') ? 'Set up billing' : 'Deposit';
+    var dep = $('co-deposit'); dep.textContent = depositLabel; dep.hidden = !showDeposit;
+    var placeBtn = $('co-place');
+    placeBtn.style.display = showDeposit ? 'none' : '';
+    var canPlace = project && !overAmount && !billingUnverified && done;
+    placeBtn.disabled = !canPlace;
+    placeBtn.title = canPlace ? '' : (!project ? 'Select a project' : (!done ? (n - ready) + ' item(s) need details' : ''));
+    // inline CTA in the project card — same action, where the user sees the warning
+    var pc = $('co-proj-cta');
+    if (showDeposit) { pc.hidden = false; pc.innerHTML = '<button class="btn btn--primary btn--sm co-depositbtn" type="button">' + depositLabel + '</button><span class="co-proj-cta__hint">' + (project.billing === 'none' ? 'Assign a billing entity, then deposit funds.' : 'Top up the entity balance to place this order.') + '</span>'; }
+    else { pc.hidden = true; pc.innerHTML = ''; }
+  }
+
+  /* =================== events =================== */
+  // project dropdown
+  $('co-projbtn').addEventListener('click', function () { $('co-projpop').hidden ? openProj() : closeProj(); });
+  $('co-projsearch').addEventListener('input', function () { renderProjList(this.value); });
+  $('co-projlist').addEventListener('click', function (e) { var o = e.target.closest('[data-proj]'); if (o) selectProject(o.getAttribute('data-proj')); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('#co-projcombo')) closeProj(); });
+
+  // form toggles / trust links (delegated on the main column)
+  $('co-grid').addEventListener('click', function (e) {
+    var vd = e.target.closest('[data-viewdetails]');
+    if (vd) { openDrawer(vd.getAttribute('data-dom')); return; }
+    var iv = e.target.closest('[data-invite]');
+    if (iv) { openInvite(iv.getAttribute('data-scope')); return; }
+    var segBtn = e.target.closest('.co-seg__opt');
+    if (segBtn) {
+      var scope = segBtn.getAttribute('data-scope'), name = segBtn.getAttribute('data-seg'), v = segBtn.getAttribute('data-v');
+      var r = getReq(scope); if (!r) return;
+      r[name] = v;
+      rerenderScope(scope, true); update(); return;
+    }
+    var addBtn = e.target.closest('[data-trust-add]');
+    if (addBtn) {
+      var sc = addBtn.getAttribute('data-trust-add'), inp = itemsEl.querySelector('[data-trust-input="' + CSS.escape(sc) + '"]');
+      if (inp && inp.value.trim()) { getReq(sc).trust.push(inp.value.trim()); rerenderScope(sc, true); }
+      return;
+    }
+    var rmT = e.target.closest('[data-trust-rm]');
+    if (rmT) { var s2 = rmT.getAttribute('data-scope'); getReq(s2).trust.splice(parseInt(rmT.getAttribute('data-trust-rm'), 10), 1); rerenderScope(s2, true); return; }
+
+    var card = e.target.closest('.co-item'); if (!card) return;
+    var k = card.getAttribute('data-k');
+    if (e.target.closest('[data-rm]')) { delete cart[k]; delete reqs[k]; saveCart(cart); render(); return; }
+    if (e.target.closest('[data-toggle]')) card.classList.toggle('is-open');
+  });
+
+  // text inputs / textareas
+  $('co-grid').addEventListener('input', function (e) {
+    var f = e.target.getAttribute && e.target.getAttribute('data-f'); if (!f) return;
+    var scope = e.target.getAttribute('data-scope'), r = getReq(scope); if (!r) return;
+    r[f] = e.target.value;
+    if (scope !== 'tpl') { var card = itemsEl.querySelector('.co-item[data-k="' + CSS.escape(scope) + '"]'); if (card) reflectReady(card, scope); }
+    update();
+  });
+  // selects + checkbox
+  $('co-grid').addEventListener('change', function (e) {
+    if (e.target.getAttribute && e.target.getAttribute('data-check') === 'letml') {
+      var sc = e.target.getAttribute('data-scope'); getReq(sc).letml = e.target.checked; rerenderScope(sc, true); return;
+    }
+    if (e.target.hasAttribute && e.target.hasAttribute('data-perm')) {
+      var pk = e.target.getAttribute('data-scope'); reqs[pk].perm = e.target.checked;
+      var pcard = itemsEl.querySelector('.co-item[data-k="' + CSS.escape(pk) + '"]'); if (pcard) reflectReady(pcard, pk);
+      update(); return;
+    }
+    var f = e.target.getAttribute && e.target.getAttribute('data-f'); if (!f || (f !== 'placement' && f !== 'language' && f !== 'words')) return;
+    var scope = e.target.getAttribute('data-scope'), r = getReq(scope); if (!r) return;
+    r[f] = e.target.value;
+    if (f === 'words') { var feeEl = document.querySelector('[data-fee="' + scope + '"]'); if (feeEl) feeEl.innerHTML = fmtEur(fee(r)); }
+    if (scope !== 'tpl') { var card2 = itemsEl.querySelector('.co-item[data-k="' + CSS.escape(scope) + '"]'); if (card2) reflectReady(card2, scope); }
+    update();
+  });
+
+  // apply to all
+  $('aa-apply').addEventListener('click', function () {
+    keys().forEach(function (k) {
+      var r = reqs[k];
+      ['type', 'by', 'url', 'anchor', 'placement', 'language', 'words', 'comment'].forEach(function (f) { if (tpl[f] !== '' || f === 'comment') r[f] = tpl[f]; });
+    });
+    renderItems(); update();
+    $('co-applyall').open = false;
+  });
+
+  // place order
+  $('co-place').addEventListener('click', function () {
+    if ($('co-place').disabled) {
+      var first = keys().filter(function (k) { return !isReady(reqs[k]); })[0];
+      if (first) { var c = itemsEl.querySelector('.co-item[data-k="' + CSS.escape(first) + '"]'); if (c) { c.classList.add('is-open', 'is-flag'); c.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+      else if (!project) { $('co-projbtn').focus(); openProj(); }
+      return;
+    }
+    var n = keys().length, total = orderTotal();
+    $('co-success-id').textContent = '#' + String(100000 + Math.floor((Date.now() / 1000) % 900000));
+    $('co-success-n').textContent = n + (n === 1 ? ' site' : ' sites');
+    $('co-success-total').innerHTML = fmtEur(total);
+    cart = {}; saveCart(cart); $('co-success').hidden = false;
+  });
+  // deposit / set-up-billing (mock) — delegated so both the summary + inline CTAs work
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.co-depositbtn')) return;
+    var none = project && project.billing === 'none';
+    alert((none ? 'Billing setup' : 'Deposit') + ' — would open the billing ' + (none ? 'entities page to assign an entity' : 'deposit page') + ' for ' + (project ? project.brand : '') + '.');
+  });
+
+  /* ---- save-for-later dropdown ---- */
+  var savePop = $('co-savepop'), saveBtn = $('co-savebtn');
+  function closeSave() { savePop.hidden = true; saveBtn.setAttribute('aria-expanded', 'false'); }
+  saveBtn.addEventListener('click', function (e) { e.stopPropagation(); var open = !savePop.hidden; savePop.hidden = open; saveBtn.setAttribute('aria-expanded', String(!open)); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('#co-savemenu')) closeSave(); });
+  savePop.addEventListener('click', function (e) {
+    var it = e.target.closest('[data-act]'); if (!it) return; closeSave();
+    var act = it.getAttribute('data-act');
+    if (act === 'new') openDraft();
+    else if (act === 'existing') openExisting();
+    else if (act === 'package') openPackage();
+  });
+
+  /* ---- new draft modal ---- */
+  var dm = $('draft-modal');
+  function openDraft() { $('draft-name').value = project ? (project.brand + ' batch') : ''; dm.classList.remove('is-hidden'); $('draft-name').focus(); }
+  function closeDraftModal() { dm.classList.add('is-hidden'); }
+  Array.prototype.forEach.call(dm.querySelectorAll('[data-draft-close]'), function (el) { el.addEventListener('click', closeDraftModal); });
+  function draftFromCart(name, assignee, note) {
+    var items = keys().map(function (k) { return { dom: cart[k].dom, niche: cart[k].niche, num: cart[k].num }; });
+    return { id: 'u' + Math.floor((Date.now() / 1000) % 1000000), name: name, project: project ? project.name : '—', brand: project ? project.brand : '—',
+      created: 'Today', createdAbs: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      createdBy: 'Sayeed Khan', assignee: assignee || '', note: note || '', status: 'pending', items: items };
+  }
+  function pushDraft(d) { var a = []; try { a = JSON.parse(localStorage.getItem(DRAFTS_KEY) || '[]') || []; } catch (e) {} a.unshift(d); try { localStorage.setItem(DRAFTS_KEY, JSON.stringify(a)); } catch (e) {} }
+  $('draft-save').addEventListener('click', function () {
+    var name = $('draft-name').value.trim(); if (!name) { $('draft-name').focus(); return; }
+    pushDraft(draftFromCart(name, $('draft-assignee').value, $('draft-note').value));
+    cart = {}; saveCart(cart); window.location.href = 'drafts.html';
+  });
+
+  /* ---- add to existing draft modal ---- */
+  var em = $('existing-modal');
+  function openExisting() {
+    $('existing-count').textContent = keys().length;
+    $('existing-search').value = ''; renderExisting(''); em.classList.remove('is-hidden'); $('existing-search').focus();
+  }
+  function renderExisting(filter) {
+    var list = EXISTING_DRAFTS.filter(function (n) { return !filter || n.toLowerCase().indexOf(filter.toLowerCase()) > -1; });
+    $('existing-list').innerHTML = list.length ? list.map(function (n) {
+      return '<button class="co-draftrow" type="button" data-draft="' + esc(n) + '"><span><span class="co-draftrow__n">' + esc(n) + '</span><span class="co-draftrow__m">Draft · pending</span></span><span class="co-draftrow__add">Add ' + keys().length + ' →</span></button>';
+    }).join('') : '<div class="co-combo__none">No drafts match.</div>';
+  }
+  $('existing-search').addEventListener('input', function () { renderExisting(this.value); });
+  Array.prototype.forEach.call(em.querySelectorAll('[data-existing-close]'), function (el) { el.addEventListener('click', function () { em.classList.add('is-hidden'); }); });
+  $('existing-list').addEventListener('click', function (e) {
+    var row = e.target.closest('[data-draft]'); if (!row) return;
+    var d = draftFromCart(row.getAttribute('data-draft'), '', 'Appended from checkout'); pushDraft(d);
+    cart = {}; saveCart(cart); window.location.href = 'drafts.html';
+  });
+
+  /* ---- add to package modal (mock) ---- */
+  var pm = $('package-modal');
+  function openPackage() {
+    $('package-list').innerHTML = PACKAGES.map(function (n) {
+      return '<button class="co-draftrow" type="button" data-pkg="' + esc(n) + '"><span><span class="co-draftrow__n">' + esc(n) + '</span><span class="co-draftrow__m">Package campaign</span></span><span class="co-draftrow__add">Add ' + keys().length + ' →</span></button>';
+    }).join('');
+    pm.classList.remove('is-hidden');
+  }
+  Array.prototype.forEach.call(pm.querySelectorAll('[data-package-close]'), function (el) { el.addEventListener('click', function () { pm.classList.add('is-hidden'); }); });
+  $('package-list').addEventListener('click', function (e) {
+    var row = e.target.closest('[data-pkg]'); if (!row) return;
+    pm.classList.add('is-hidden');
+    var n = keys().length, total = orderTotal();
+    $('co-success-id').textContent = '#' + String(100000 + Math.floor((Date.now() / 1000) % 900000));
+    $('co-success-n').textContent = n + ' sites → ' + row.getAttribute('data-pkg');
+    $('co-success-total').innerHTML = fmtEur(total);
+    cart = {}; saveCart(cart); $('co-success').hidden = false;
+  });
+
+  /* ---- re-render one item's info panel (after invite changes) ---- */
+  function rerenderInfo(scope) {
+    var card = itemsEl.querySelector('.co-item[data-k="' + CSS.escape(scope) + '"]');
+    if (card) card.querySelector('.co-info').innerHTML = infoPanel(cart[scope], scope);
+  }
+
+  /* ---- media-details slide-over drawer ---- */
+  var drawer = $('co-drawer');
+  function openDrawer(dom) {
+    var e = null; for (var kk in cart) { if (cart[kk].dom === dom) { e = cart[kk]; break; } }
+    if (!e) e = { dom: dom, niche: 'standard', str: '—' };
+    $('co-drawer-title').textContent = dom;
+    $('co-drawer-body').innerHTML = drawerHTML(e);
+    drawer.classList.remove('is-hidden');
+  }
+  function closeDrawer() { drawer.classList.add('is-hidden'); }
+  Array.prototype.forEach.call(drawer.querySelectorAll('[data-drawer-close]'), function (el) { el.addEventListener('click', closeDrawer); });
+
+  /* ---- invite-users modal (per item) ---- */
+  var im = $('invite-modal'), inviteScope = null, inviteSel = [];
+  var CHECK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>';
+  function openInvite(scope) { inviteScope = scope; inviteSel = (reqs[scope].invited || []).slice(); $('invite-search').value = ''; renderUsers(''); im.classList.remove('is-hidden'); $('invite-search').focus(); }
+  function renderUsers(filter) {
+    var f = (filter || '').toLowerCase();
+    $('invite-list').innerHTML = USERS.filter(function (u) { return !f || (u.name + ' ' + u.email).toLowerCase().indexOf(f) > -1; }).map(function (u) {
+      var sel = inviteSel.indexOf(u.id) > -1;
+      return '<button class="co-user' + (sel ? ' is-sel' : '') + '" type="button" data-user="' + u.id + '">' + avatar(u.name) +
+        '<span class="co-user__id"><span class="co-user__n">' + esc(u.name) + '</span><span class="co-user__e">' + esc(u.email) + '</span></span>' +
+        '<span class="co-user__role">' + esc(u.role) + '</span><span class="co-user__chk">' + (sel ? CHECK : '') + '</span></button>';
+    }).join('') || '<div class="co-combo__none">No users match.</div>';
+  }
+  $('invite-search').addEventListener('input', function () { renderUsers(this.value); });
+  $('invite-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-user]'); if (!b) return;
+    var id = b.getAttribute('data-user'), i = inviteSel.indexOf(id);
+    if (i > -1) inviteSel.splice(i, 1); else inviteSel.push(id);
+    renderUsers($('invite-search').value);
+  });
+  $('invite-save').addEventListener('click', function () { if (inviteScope) { reqs[inviteScope].invited = inviteSel.slice(); rerenderInfo(inviteScope); } im.classList.add('is-hidden'); });
+  Array.prototype.forEach.call(im.querySelectorAll('[data-invite-close]'), function (el) { el.addEventListener('click', function () { im.classList.add('is-hidden'); }); });
+
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeDraftModal(); em.classList.add('is-hidden'); pm.classList.add('is-hidden'); im.classList.add('is-hidden'); closeDrawer(); closeSave(); closeProj(); } });
+
+  /* =================== init =================== */
+  function render() {
+    var ks = keys();
+    if (!ks.length) { gridEl.hidden = true; emptyEl.hidden = false; var hc = $('hdr-cart-count'); if (hc) hc.style.display = 'none'; return; }
+    gridEl.hidden = false; emptyEl.hidden = true;
+    ks.forEach(function (k) { if (!reqs[k]) reqs[k] = defReq(); });
+    renderTpl(); renderItems(); update();
+  }
+  render();
+})();
+</script>
+</body>
+</html>
