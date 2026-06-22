@@ -48,6 +48,9 @@ overrides at the END of styles.css / details.css.
 Reference only (archived): `design-mockups/archive/market-mercury/` (v1) and other archived
 `market*`/`system*` dirs under `design-mockups/archive/`.
 
+**Live preview:** https://sayeed-ops.github.io/ml3-market-design/ (Pages; `index`/`details`/`drafts`/
+`checkout` under `market-ml3/`). Published from a standalone repo via `~/ml3-market-design/sync.sh`.
+
 **View:** open the HTML directly in a browser (no build step). Needs internet — favicons (Google)
 and flags (Twemoji) load from CDNs. **Self-verify** with headless Chrome:
 `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --screenshot=/tmp/x.png --window-size=1440,1000 "file://<abs-path>"` then Read the PNG. To drive JS state for a shot,
