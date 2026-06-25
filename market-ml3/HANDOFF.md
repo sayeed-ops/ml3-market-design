@@ -331,7 +331,14 @@ Notifications · Basket icon). Reuses `system-ml3` tokens + `details.css` `.d-*`
   consistent when the toggle differs** (the issue raised in review). Per-item overrides still allowed.
 - **Save for later** = a single **`.co-menu` dropdown** (not separate buttons): **New draft** (→ name
   modal) · **Add to existing draft** (→ picker modal, appends to a draft) · **Add to package** (→ mock
-  picker). New/existing-draft both write `ml-drafts` (shared with drafts.html) then go to Drafts.
+  picker) · **Export cart (CSV)**. New/existing-draft both write `ml-drafts` (shared with drafts.html)
+  then go to Drafts.
+- **Export cart (CSV)** (`exportCart()`): client-side download mirroring the production order-items
+  export — header/columns match the real export 1:1 (UTF-8 BOM, `export-order_items-DD.MM.YY-<token>.csv`
+  filename). One row per basket line = media properties (from `info(dom)`) + that line's content
+  requirements (from `reqs[k]`). Columns the mockup doesn't model (Tags, Note, Content flag, Topical
+  TF1/2, Anchor type) are left blank. Production's real export is **server-side** (`PlaceCard.exportCart`
+  POSTs the cart, backend returns a link); the mockup reproduces the same CSV shape locally.
 - **Summary rail:** sites subtotal · content · **Total** (no VAT — removed per request; total = items +
   permanent upgrades + content). CTAs are 44px (`.co-cta`); Place order is iconless (the lock lives only
   on the `.co-secure` line). Place → clears `ml-cart` + **success overlay** (`.co-success`).

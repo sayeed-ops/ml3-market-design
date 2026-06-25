@@ -140,6 +140,10 @@
                   <button class="co-menu__item" data-act="package" type="button" role="menuitem">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 8 12 3 3 8l9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/></svg> Add to package
                   </button>
+                  <div class="co-menu__div"></div>
+                  <button class="co-menu__item" data-act="export" type="button" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Export cart (CSV)
+                  </button>
                 </div>
               </div>
             </div>
@@ -723,7 +727,52 @@
     if (act === 'new') openDraft();
     else if (act === 'existing') openExisting();
     else if (act === 'package') openPackage();
+    else if (act === 'export') exportCart();
   });
+
+  /* ---- export cart → CSV (mirrors the production order-items export format) ----
+     One row per basket line: media properties (from info()) + per-item content
+     requirements (from reqs[]). Columns/header match the real export 1:1; fields the
+     mockup doesn't model (Tags, Note, Content flag, Topical TF1/2, Anchor type) are
+     left blank, same as a media with no value for them. */
+  var EXPORT_COLS = ['Project', 'Media', 'Publisher name', 'Publisher email', 'Info for admin', 'Note', 'Tags',
+    'Niche price', 'Permanent post', 'Dofollow', 'Sponsor tag', 'Content', 'Category 1', 'Category 3', 'Category 2',
+    'Indexed URLs', 'IP', 'Language', 'Country', 'Topical TF1', 'Topical TF2', 'Ahrefs DR', 'Ahrefs Ref. Domains',
+    'Ahrefs Total Keywords', 'Ahrefs Organic Traffic', 'Majestic TF', 'Majestic CF', 'Moz PA', 'Moz DA',
+    'Anchor text', 'Anchor type', 'Target URL', 'Target URL placement', 'Language', 'Amount of words',
+    'Article topic suggestion', 'Keywords', 'Trust links', 'Comment'];
+  function csvCell(v) {
+    var s = (v === null || v === undefined) ? '' : String(v);
+    return /[",\s]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;   // quote on space/comma/quote, like the real export
+  }
+  function csvRow(arr) { return arr.map(csvCell).join(','); }
+  function exportRow(k) {
+    var line = cart[k], m = info(line.dom), r = reqs[k] || defReq();
+    var cats = m.cats || [], gpml = r.type === 'guest_post' && r.by === 'motherlink';
+    return [
+      project ? project.name : '', line.dom, m.publisher, m.email1 + ' / ' + m.email2, m.adminNote, '', '',
+      Number(line.num || 0).toFixed(2), Number(m.permExtra || 0).toFixed(2), m.dofollow ? 'Yes' : 'No', m.sponsor ? 'Yes' : 'No', '',
+      cats[0] || '', cats[2] || '', cats[1] || '',
+      m.indexed, m.ip, m.language, m.country, '', '', m.dr, m.rd, m.kw, m.traffic, m.tf, m.cf, m.pa, m.da,
+      r.anchor, '', r.url, gpml ? r.placement : '', gpml ? r.language : '', gpml ? r.words : '',
+      r.topic, r.keywords, (r.trust || []).join(' / '), r.comment
+    ];
+  }
+  function exportFilename() {
+    var d = new Date(), p = function (n) { return ('0' + n).slice(-2); };
+    var stamp = p(d.getDate()) + '.' + p(d.getMonth() + 1) + '.' + String(d.getFullYear()).slice(-2);
+    var token = '', cs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < 11; i++) token += cs.charAt(Math.floor(Math.random() * cs.length));
+    return 'export-order_items-' + stamp + '-' + token + '.csv';
+  }
+  function exportCart() {
+    var ks = keys(); if (!ks.length) return;
+    var lines = [csvRow(EXPORT_COLS)].concat(ks.map(function (k) { return csvRow(exportRow(k)); }));
+    var blob = new Blob(['﻿' + lines.join('\r\n') + '\r\n'], { type: 'text/csv;charset=utf-8;' });   // BOM for Excel
+    var url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = exportFilename(); document.body.appendChild(a); a.click();
+    document.body.removeChild(a); setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
 
   /* ---- new draft modal ---- */
   var dm = $('draft-modal');

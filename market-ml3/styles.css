@@ -458,8 +458,14 @@ td .cnt { font-size: var(--fs-11); color: var(--text-faint); font-weight: var(--
 .exp2 > .m-exp-foot { margin-top: 0; }
 .exp2-main { grid-column: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-5); }
 
-/* dense metrics: 3 provider columns, label fixed-width so values sit close + aligned */
-.exp2-metrics { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-3) var(--space-6); }
+/* dense metrics: 3 provider columns. Ahrefs + Moz are short numerics → keep them
+   narrow; Majestic carries long text (Language, IP, Indexed URLs, the TTF1/TTF2 topical
+   path) → give it the extra width. Order is reflowed to Ahrefs · Moz · Majestic so the
+   two narrow columns sit together on the left and the wide one trails. CSS-only (the
+   markup order stays Ahrefs · Majestic · Moz). */
+.exp2-metrics { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,.8fr) minmax(0,1.4fr); gap: var(--space-3) var(--space-6); }
+.exp2-metrics .m-exp-group:nth-child(2) { order: 3; }   /* Majestic → rightmost (wide) */
+.exp2-metrics .m-exp-group:nth-child(3) { order: 2; }   /* Moz → middle (narrow) */
 .exp2-metrics .m-exp-group { min-width: 0; }
 .exp2-metrics .kv { justify-content: flex-start; gap: var(--space-2); align-items: baseline; }
 .exp2-metrics .kv .k { width: 106px; flex: none; }
@@ -772,7 +778,11 @@ td .cnt { font-size: var(--fs-11); color: var(--text-faint); font-weight: var(--
 /* ===== Sticky first column (media + price block freezes on horizontal scroll) ===== */
 .m-table thead th:first-child,
 .m-table tbody tr.data-row > td:first-child { position: sticky; left: 0; z-index: 2;
-  border-right: 1px solid var(--border); }   /* persistent vertical separator from the rest */
+  border-right: 1px solid var(--border);   /* persistent vertical separator from the rest */
+  will-change: transform; }   /* promote the frozen column to its own layer so it composites
+     on horizontal scroll instead of repainting on the main thread (kills Safari/iOS jank).
+     NB: per-cell layer at production scale (thousands of rows) is costly — for Vue, promote a
+     single column wrapper or only the in-viewport rows instead of every td. */
 .m-table thead th:first-child { z-index: 3; }
 /* opaque backgrounds so the scrolling columns don't show through the frozen cell */
 .m-table thead th:first-child { background: var(--bg); }
@@ -782,10 +792,19 @@ td .cnt { font-size: var(--fs-11); color: var(--text-faint); font-weight: var(--
 .m-table tbody tr.data-row.is-selected > td:first-child { background: var(--accent-tint); }
 /* an open ⋯ menu must rise above neighbouring frozen cells */
 .m-table tbody tr.data-row:has(.menu[open]) > td:first-child { z-index: 20; }
-/* edge shadow once scrolled, signalling the column is pinned */
-.m-table.is-scrolled thead th:first-child,
-.m-table.is-scrolled tbody tr.data-row > td:first-child { box-shadow: 6px 0 10px -6px rgba(16, 18, 23, .16); }
-.m-table.is-scrolled tbody tr.data-row.is-selected > td:first-child { box-shadow: inset 3px 0 0 var(--accent), 6px 0 10px -6px rgba(16, 18, 23, .16); }
+/* edge shadow once scrolled, signalling the column is pinned. Rendered as a flat gradient
+   strip on an ::after (no blur radius) instead of a blurred box-shadow: a blurred shadow on a
+   sticky cell repaints the full-height column every scroll frame; this strip composites with the
+   cell's own layer and just fades in via opacity. */
+.m-table thead th:first-child::after,
+.m-table tbody tr.data-row > td:first-child::after {
+  content: ""; position: absolute; top: 0; right: -7px; width: 7px; height: 100%;
+  pointer-events: none; opacity: 0; transition: opacity .15s ease;
+  background: linear-gradient(to right, rgba(16, 18, 23, .14), rgba(16, 18, 23, 0)); }
+.m-table.is-scrolled thead th:first-child::after,
+.m-table.is-scrolled tbody tr.data-row > td:first-child::after { opacity: 1; }
+/* selected row keeps its inset accent bar (cheap, no blur) */
+.m-table tbody tr.data-row.is-selected > td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
 /* scrolled: collapse the publisher line + fade the header Price label; the price
    tucks under the domain (moved there by JS). Micro transitions so it's not a hard snap. */
 .m-site .m-pubname { max-height: 1.6em; overflow: hidden; transition: opacity .15s ease, max-height .18s ease; }
