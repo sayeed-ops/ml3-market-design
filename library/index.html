@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ML3 Component Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <!-- settings ecosystem adds only scoped rules (.s-*, .b-*, .rw-* …); safe to include for live demos -->
+  <link rel="stylesheet" href="../settings-ml3/styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="lib">
+
+  <!-- ============ SIDEBAR NAV ============ -->
+  <aside class="lib-side">
+    <div class="lib-brand">
+      <div class="lib-brand__logo">M</div>
+      <div>
+        <div class="lib-brand__t">ML3 Library</div>
+        <div class="lib-brand__s">Design system reference</div>
+      </div>
+    </div>
+
+    <nav class="lib-nav" id="lib-nav">
+      <div class="lib-nav__sec">Overview</div>
+      <a href="#pages">Pages <span class="cnt">8</span></a>
+
+      <div class="lib-nav__sec">Foundations</div>
+      <a href="#color">Color</a>
+      <a href="#type">Typography</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#radius">Radius</a>
+      <a href="#elevation">Elevation</a>
+
+      <div class="lib-nav__sec">Components</div>
+      <a href="#buttons">Buttons</a>
+      <a href="#filterbtn">Toolbar buttons</a>
+      <a href="#inputs">Inputs &amp; search</a>
+      <a href="#tabs">Tabs</a>
+      <a href="#tags">Tags &amp; badges</a>
+      <a href="#spam">Spam &amp; status</a>
+      <a href="#avatars">Avatars</a>
+      <a href="#checkbox">Checkbox</a>
+      <a href="#meter">Quality meter</a>
+      <a href="#menu">Dropdown menu</a>
+      <a href="#nav">Sidebar nav</a>
+
+      <div class="lib-nav__sec">Settings ecosystem</div>
+      <a href="#s-badges">Status badges</a>
+      <a href="#s-subtabs">Sub-tabs</a>
+      <a href="#s-empty">Empty state</a>
+      <a href="#s-switch">Switch &amp; rows</a>
+      <a href="#s-modal">Modal</a>
+      <a href="#s-wizard">Role wizard</a>
+      <a href="#s-billing">Billing blocks</a>
+    </nav>
+  </aside>
+
+  <!-- ============ CONTENT ============ -->
+  <main class="lib-main">
+    <div class="lib-inner">
+
+      <header class="lib-hero">
+        <h1>ML3 Component Library</h1>
+        <p>The shared visual language for the Motherlink&nbsp;PRO redesign — clean white surfaces,
+           Geist/Inter type, and a <strong>#3d3aad</strong> purple accent. Every token and component
+           below is defined in <code>system-ml3/</code> and reused across the pages. Click any token
+           chip to copy it.</p>
+        <div class="lib-hero__meta">
+          <span class="tag tag--accent"><span class="dot"></span>Mercury style</span>
+          <span class="tag">Geist / Inter</span>
+          <span class="tag">Light theme</span>
+          <span class="tag">CSS variables</span>
+        </div>
+      </header>
+
+      <!-- ========================= PAGES ========================= -->
+      <section class="lib-sec" id="pages">
+        <h2>Pages</h2>
+        <p class="lib-lead">Every screen built in this prototype. These are static HTML/CSS/JS
+           mockups — a design prototype, not the production app. The real Vue/Nuxt app is the source
+           of truth for data and labels.</p>
+
+        <div class="lib-pages" style="margin-top:var(--space-5)">
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Link market</div><div class="lib-pcard__route">/market</div></div>
+            </div>
+            <p class="lib-pcard__d">The media marketplace table — buyer-first columns, sticky media
+               column, per-niche pricing buy-box, filters popover, saved searches, inline row expand,
+               and the basket drawer.</p>
+            <div class="lib-pcard__tags"><span class="tag">Table</span><span class="tag">Filters</span><span class="tag">Cart</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Main page</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/index.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h4"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Media details</div><div class="lib-pcard__route">/market/{id}</div></div>
+            </div>
+            <p class="lib-pcard__d">Focused record view of one media — publisher, media properties,
+               full metrics (Ahrefs/Majestic/Moz), per-niche stock/price/margin tiles, link history,
+               and edit modals. No sidebar, no header.</p>
+            <div class="lib-pcard__tags"><span class="tag">Record</span><span class="tag">Metrics</span><span class="tag">Modals</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Detail view</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/details.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v4H4zM4 12h10M4 16h10M18 12l3 3-3 3"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Drafts</div><div class="lib-pcard__route">/market/drafts</div></div>
+            </div>
+            <p class="lib-pcard__d">Saved baskets parked for approval — named draft rows with stacked
+               favicons, project/brand, assignee, status pills, inline line-items, and a bulk action
+               bar. Round-trips with checkout's “Save as draft”.</p>
+            <div class="lib-pcard__tags"><span class="tag">Table</span><span class="tag">Bulk actions</span><span class="tag">Status</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">List view</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/drafts.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.4 12.4a1 1 0 0 0 1 .8h9.2a1 1 0 0 0 1-.8L21 7H6"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Checkout</div><div class="lib-pcard__route">/cart</div></div>
+            </div>
+            <p class="lib-pcard__d">The full order flow — connect a project (budget/balance aware),
+               per-item content requirements with type-driven field sets, fill-once-apply-to-all,
+               invite users, save-as-draft, and an adaptive Place / Deposit CTA.</p>
+            <div class="lib-pcard__tags"><span class="tag">Forms</span><span class="tag">Summary</span><span class="tag">Validation</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Flow</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/checkout.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Settings</div><div class="lib-pcard__route">/settings</div></div>
+            </div>
+            <p class="lib-pcard__d">Vercel-style settings with a left sub-nav. All seven tabs built:
+               Users, User roles, Billing entities, Currencies, Publishers, Integrations, Customization.
+               Icon-less modals; copy follows the real app.</p>
+            <div class="lib-pcard__tags"><span class="tag">Settings</span><span class="tag">Users</span><span class="tag tag--green"><span class="dot"></span>Complete</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Admin · Users</span>
+              <a class="btn btn--secondary btn--sm" href="../settings-ml3/index.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">User roles</div><div class="lib-pcard__route">/settings/roles</div></div>
+            </div>
+            <p class="lib-pcard__d">Two role tables (admin + predefined) with a registration default, plus a
+               12-step permission wizard (create + edit modes): master switches, toggle/select rows,
+               notification matrix, and a review step.</p>
+            <div class="lib-pcard__tags"><span class="tag">Wizard</span><span class="tag">Permissions</span><span class="tag">Tables</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Wizard</span>
+              <a class="btn btn--secondary btn--sm" href="../settings-ml3/roles.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Billing entities</div><div class="lib-pcard__route">/settings/billings</div></div>
+            </div>
+            <p class="lib-pcard__d">Entity table + a full detail record with tabs: Details (balance meter),
+               Deposit (payment cards + VAT-aware receipt), Transaction history, Linked projects, and
+               Invoices (prepayment/paid, wire-transfer approval).</p>
+            <div class="lib-pcard__tags"><span class="tag">Record</span><span class="tag">Tabs</span><span class="tag">Payments</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Detail view</span>
+              <a class="btn btn--secondary btn--sm" href="../settings-ml3/billing.html">Open →</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ========================= COLOR ========================= -->
+      <section class="lib-sec" id="color">
+        <h2>Color</h2>
+        <p class="lib-lead">Purple is the brand accent and the “hero” signal (price, active state).
+           Surfaces are clean whites and cool neutrals; semantic colors carry a paired background tint.
+           <code>tokens.css</code></p>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Accent <code>--accent*</code></div>
+          <div class="lib-swatches" data-swatches="accent"></div>
+        </div>
+        <div class="lib-sub">
+          <div class="lib-sub__h">Surfaces &amp; borders</div>
+          <div class="lib-swatches" data-swatches="surface"></div>
+        </div>
+        <div class="lib-sub">
+          <div class="lib-sub__h">Text</div>
+          <div class="lib-swatches" data-swatches="text"></div>
+        </div>
+        <div class="lib-sub">
+          <div class="lib-sub__h">Semantic (money &amp; status)</div>
+          <div class="lib-swatches" data-swatches="semantic"></div>
+        </div>
+      </section>
+
+      <!-- ========================= TYPE ========================= -->
+      <section class="lib-sec" id="type">
+        <h2>Typography</h2>
+        <p class="lib-lead">All-sans. <strong>Geist</strong> with Inter fallback for UI;
+           <strong>Geist Mono</strong> for code and IDs. Tight tracking (<code>-.011em</code>) suits Geist.</p>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Type scale <code>--fs-11 → --fs-28</code></div>
+          <div class="lib-demo"><div class="lib-demo__stage lib-demo__stage--col" id="lib-typescale" style="gap:0;width:100%"></div></div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Weights</div>
+          <div class="lib-demo"><div class="lib-demo__stage">
+            <div class="lib-weights">
+              <div style="font-weight:400">Regular<span>400 · --fw-regular</span></div>
+              <div style="font-weight:500">Medium<span>500 · --fw-medium</span></div>
+              <div style="font-weight:600">Semibold<span>600 · --fw-semibold</span></div>
+              <div style="font-weight:700">Bold<span>700 · --fw-bold</span></div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Utilities</div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage lib-demo__stage--col">
+              <span class="eyebrow">Eyebrow label</span>
+              <span>Default text <span class="muted">· .muted</span> <span class="subtle">· .subtle</span></span>
+              <span class="amt">$5,216,471<sup>.18</sup></span>
+              <span class="num">1,234,567 · tabular .num</span>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.eyebrow</button>
+              <button class="lib-tk">.muted</button>
+              <button class="lib-tk">.subtle</button>
+              <button class="lib-tk">.amt / sup</button>
+              <button class="lib-tk">.num</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SPACING ========================= -->
+      <section class="lib-sec" id="spacing">
+        <h2>Spacing</h2>
+        <p class="lib-lead">A 4px base scale. The app follows a uniform <strong>16px</strong> rhythm
+           (<code>--space-4</code>). <code>--space-1 → --space-10</code></p>
+        <div class="lib-demo"><div class="lib-demo__stage" style="width:100%"><div class="lib-scale" id="lib-spacing" style="width:100%"></div></div></div>
+      </section>
+
+      <!-- ========================= RADIUS ========================= -->
+      <section class="lib-sec" id="radius">
+        <h2>Radius</h2>
+        <p class="lib-lead">Mercury-rounded. <code>--radius-sm → --radius-pill</code></p>
+        <div class="lib-demo"><div class="lib-demo__stage">
+          <div class="lib-radius" id="lib-radius"></div>
+        </div></div>
+      </section>
+
+      <!-- ========================= ELEVATION ========================= -->
+      <section class="lib-sec" id="elevation">
+        <h2>Elevation</h2>
+        <p class="lib-lead">Soft, cool shadows. Cards use <code>--shadow-sm</code>/<code>-card</code>;
+           popovers &amp; drawers use <code>--shadow-lg</code>.</p>
+        <div class="lib-demo"><div class="lib-demo__stage" style="background:var(--bg-sunken)">
+          <div class="lib-elev">
+            <div class="lib-elev__box" style="box-shadow:var(--shadow-sm)">--shadow-sm</div>
+            <div class="lib-elev__box" style="box-shadow:var(--shadow-card)">--shadow-card</div>
+            <div class="lib-elev__box" style="box-shadow:var(--shadow-md)">--shadow-md</div>
+            <div class="lib-elev__box" style="box-shadow:var(--shadow-lg)">--shadow-lg</div>
+          </div>
+        </div></div>
+      </section>
+
+      <!-- ========================= BUTTONS ========================= -->
+      <section class="lib-sec" id="buttons">
+        <h2>Buttons</h2>
+        <p class="lib-lead">One <code>.btn</code> base with variant + size modifiers.
+           Primary = accent; Add-to-cart CTAs use ink/black to avoid clashing with purple price chips.</p>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Variants</div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage">
+              <button class="btn btn--primary">Primary</button>
+              <button class="btn btn--secondary">Secondary</button>
+              <button class="btn btn--ghost">Ghost</button>
+              <button class="btn btn--soft">Soft</button>
+              <button class="btn" style="background:var(--text);color:#fff">Ink CTA</button>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.btn--primary</button>
+              <button class="lib-tk">.btn--secondary</button>
+              <button class="lib-tk">.btn--ghost</button>
+              <button class="lib-tk">.btn--soft</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Sizes &amp; icon</div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage">
+              <button class="btn btn--secondary">Default 34px</button>
+              <button class="btn btn--secondary btn--sm">Small 30px</button>
+              <button class="btn btn--secondary btn--xs">XS 26px</button>
+              <button class="btn btn--secondary btn--icon" aria-label="icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+              <button class="btn--iconxs" aria-label="more">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+              </button>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.btn--sm</button>
+              <button class="lib-tk">.btn--xs</button>
+              <button class="lib-tk">.btn--icon</button>
+              <button class="lib-tk">.btn--iconxs</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= FILTER BUTTONS ========================= -->
+      <section class="lib-sec" id="filterbtn">
+        <h2>Toolbar buttons</h2>
+        <p class="lib-lead">Compact dropdown/filter triggers used across table toolbars. Active state
+           fills with the accent tint; a count badge shows applied filters.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <button class="fbtn">Saved searches <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <button class="fbtn fbtn--active">Filters · 3 <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <button class="fbtn fbtn--ghost">Clear all</button>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.fbtn</button>
+            <button class="lib-tk">.fbtn--active</button>
+            <button class="lib-tk">.fbtn--ghost</button>
+            <button class="lib-tk">.caret</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= INPUTS ========================= -->
+      <section class="lib-sec" id="inputs">
+        <h2>Inputs &amp; search</h2>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="gap:var(--space-4)">
+            <div style="width:220px"><input class="input" placeholder="Text input" /></div>
+            <div class="search" style="width:240px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input class="input" placeholder="Search media…" />
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.input</button>
+            <button class="lib-tk">.search</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= TABS ========================= -->
+      <section class="lib-sec" id="tabs">
+        <h2>Tabs</h2>
+        <p class="lib-lead">Segmented control on a sunken track; the selected tab lifts to white.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <div class="tabs" role="tablist">
+              <button class="tab" aria-selected="true">Market</button>
+              <button class="tab">Ordered</button>
+              <button class="tab">Live</button>
+              <button class="tab">Rejected</button>
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.tabs</button>
+            <button class="lib-tk">.tab[aria-selected]</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= TAGS ========================= -->
+      <section class="lib-sec" id="tags">
+        <h2>Tags &amp; badges</h2>
+        <p class="lib-lead">Small labels for categories, niches, and states. Neutral by default,
+           with accent/green/amber/red tint variants. An optional <code>.dot</code> leads the label.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <span class="tag">Neutral</span>
+            <span class="tag tag--accent"><span class="dot"></span>Accent</span>
+            <span class="tag tag--green"><span class="dot"></span>Success</span>
+            <span class="tag tag--amber"><span class="dot"></span>Warning</span>
+            <span class="tag tag--red"><span class="dot"></span>Danger</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.tag</button>
+            <button class="lib-tk">.tag--accent</button>
+            <button class="lib-tk">.tag--green</button>
+            <button class="lib-tk">.tag--amber</button>
+            <button class="lib-tk">.tag--red</button>
+            <button class="lib-tk">.dot</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SPAM / STATUS ========================= -->
+      <section class="lib-sec" id="spam">
+        <h2>Spam &amp; status text</h2>
+        <p class="lib-lead">Inline colored metric text (used for spam score and link conditions:
+           Dofollow green / Sponsored amber / Nofollow red).</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <span class="spam spam--green"><span class="dot"></span>1% · Low</span>
+            <span class="spam spam--amber"><span class="dot"></span>7% · Medium</span>
+            <span class="spam spam--red"><span class="dot"></span>28% · High</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.spam</button>
+            <button class="lib-tk">.spam--green</button>
+            <button class="lib-tk">.spam--amber</button>
+            <button class="lib-tk">.spam--red</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= AVATARS ========================= -->
+      <section class="lib-sec" id="avatars">
+        <h2>Avatars</h2>
+        <p class="lib-lead">Circular initials; the dashed “none” variant is the empty / “+ Assign”
+           affordance.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <span class="avatar" style="background:var(--accent)">SA</span>
+            <span class="avatar" style="background:#128a5a">MK</span>
+            <span class="avatar" style="background:#2f6bdd">JD</span>
+            <span class="avatar" style="width:32px;height:32px;font-size:12px;background:#b0791a">RP</span>
+            <span class="avatar avatar--none"></span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.avatar</button>
+            <button class="lib-tk">.avatar--none</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= CHECKBOX ========================= -->
+      <section class="lib-sec" id="checkbox">
+        <h2>Checkbox</h2>
+        <p class="lib-lead">Accent fill with a white tick when checked; a white dash when
+           indeterminate (partial select-all).</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="gap:var(--space-6)">
+            <label class="row gap-2"><input type="checkbox" class="checkbox" /> Unchecked</label>
+            <label class="row gap-2"><input type="checkbox" class="checkbox" checked /> Checked</label>
+            <label class="row gap-2"><input type="checkbox" class="checkbox" id="lib-indet" /> Indeterminate</label>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.checkbox</button>
+            <button class="lib-tk">:checked</button>
+            <button class="lib-tk">:indeterminate</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= METER ========================= -->
+      <section class="lib-sec" id="meter">
+        <h2>Quality meter</h2>
+        <p class="lib-lead">A tiny progress bar for quality/completion. Fill color steps
+           accent → amber → red.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="gap:var(--space-6)">
+            <span class="row gap-2"><span class="meter"><span class="meter__fill" style="width:85%"></span></span> High</span>
+            <span class="row gap-2"><span class="meter"><span class="meter__fill meter__fill--mid" style="width:55%"></span></span> Mid</span>
+            <span class="row gap-2"><span class="meter"><span class="meter__fill meter__fill--low" style="width:25%"></span></span> Low</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.meter</button>
+            <button class="lib-tk">.meter__fill</button>
+            <button class="lib-tk">.meter__fill--mid</button>
+            <button class="lib-tk">.meter__fill--low</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= MENU ========================= -->
+      <section class="lib-sec" id="menu">
+        <h2>Dropdown menu</h2>
+        <p class="lib-lead">The row <code>⋯</code> action menu. Shown open below; in use it lives in a
+           <code>&lt;details class="menu"&gt;</code> and pops on click.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage lib-menu-demo" style="align-items:flex-start">
+            <div class="menu__pop">
+              <div class="menu__label">Actions</div>
+              <button class="menu__item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>View details</button>
+              <button class="menu__item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Rename</button>
+              <button class="menu__item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Duplicate</button>
+              <hr class="menu__sep" />
+              <button class="menu__item menu__item--danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/></svg>Delete</button>
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.menu / summary</button>
+            <button class="lib-tk">.menu__pop</button>
+            <button class="lib-tk">.menu__label</button>
+            <button class="lib-tk">.menu__item</button>
+            <button class="lib-tk">.menu__item--danger</button>
+            <button class="lib-tk">.menu__sep</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SIDEBAR NAV ========================= -->
+      <section class="lib-sec" id="nav">
+        <h2>Sidebar nav</h2>
+        <p class="lib-lead">Navigation rows for the app sidebar. Active row = accent tint pill; a
+           section eyebrow groups them.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <div class="lib-navdemo">
+              <div class="nav-section">Market</div>
+              <div class="nav-item" aria-current="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></svg>Link market</div>
+              <div class="nav-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Managed services</div>
+              <div class="nav-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>Drafts</div>
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.nav-item</button>
+            <button class="lib-tk">[aria-current="true"]</button>
+            <button class="lib-tk">.nav-section</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: STATUS BADGES ========================= -->
+      <section class="lib-sec" id="s-badges">
+        <h2>Status badges</h2>
+        <p class="lib-lead">Pill badges with a leading dot for entity/record status across the settings
+           tables (user status, billing entity status, invoice status).</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <span class="s-badge s-badge--active"><span class="dot"></span>Active</span>
+            <span class="s-badge s-badge--pending"><span class="dot"></span>Verification</span>
+            <span class="s-badge s-badge--susp"><span class="dot"></span>Suspended</span>
+            <span class="s-badge s-badge--invited"><span class="dot"></span>Invited</span>
+            <span class="s-badge s-badge--blue"><span class="dot"></span>Info</span>
+            <span class="s-badge s-badge--gray"><span class="dot"></span>Neutral</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.s-badge</button>
+            <button class="lib-tk">.s-badge--active</button>
+            <button class="lib-tk">.s-badge--pending</button>
+            <button class="lib-tk">.s-badge--susp</button>
+            <button class="lib-tk">.s-badge--invited</button>
+            <button class="lib-tk">.s-badge--blue</button>
+            <button class="lib-tk">.s-badge--gray</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: SUB-TABS ========================= -->
+      <section class="lib-sec" id="s-subtabs">
+        <h2>Sub-tabs</h2>
+        <p class="lib-lead">Underline tabs used inside a settings page (Publishers, Customization,
+           Invoices sub-views). Active tab carries the accent underline; an optional count follows.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="width:100%">
+            <div class="s-tabs" style="width:100%">
+              <button class="s-tab is-active">Imported <span class="s-tab__cnt">128</span></button>
+              <button class="s-tab">Registered <span class="s-tab__cnt">42</span></button>
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.s-tabs</button>
+            <button class="lib-tk">.s-tab</button>
+            <button class="lib-tk">.s-tab.is-active</button>
+            <button class="lib-tk">.s-tab__cnt</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: EMPTY STATE ========================= -->
+      <section class="lib-sec" id="s-empty">
+        <h2>Empty state</h2>
+        <p class="lib-lead">Centered icon + title + subtext + primary CTA, shown inside a table card when
+           a tab has no records yet.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="width:100%">
+            <div class="m-table-card" style="width:100%">
+              <div class="s-empty">
+                <div class="s-empty__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></div>
+                <div class="s-empty__title">No currencies yet</div>
+                <div class="s-empty__sub">Add a currency and set its conversion rate to start pricing media in more than one currency.</div>
+                <button class="btn btn--primary btn--sm">New currency</button>
+              </div>
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.s-empty</button>
+            <button class="lib-tk">.s-empty__icon</button>
+            <button class="lib-tk">.s-empty__title</button>
+            <button class="lib-tk">.s-empty__sub</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: SWITCH & ROWS ========================= -->
+      <section class="lib-sec" id="s-switch">
+        <h2>Switch &amp; toggle rows</h2>
+        <p class="lib-lead">The pill toggle and the label/caption + control row used throughout forms and
+           the permission wizard.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="gap:var(--space-6)">
+            <button type="button" class="switch" role="switch" aria-checked="false"></button>
+            <button type="button" class="switch is-on" role="switch" aria-checked="true"></button>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.switch</button>
+            <button class="lib-tk">.switch.is-on</button>
+          </div>
+        </div>
+        <div class="lib-sub">
+          <div class="lib-sub__h">Toggle row <code>.switch-row</code> / <code>.rw-row</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage" style="width:100%">
+              <div style="width:100%;max-width:520px">
+                <div class="switch-row"><span class="switch-row__l">No VAT number</span><button class="switch is-on"></button></div>
+              </div>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.switch-row</button>
+              <button class="lib-tk">.switch-row__l</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: MODAL ========================= -->
+      <section class="lib-sec" id="s-modal">
+        <h2>Modal</h2>
+        <p class="lib-lead">Icon-less dialog (title + close in the head, actions in the foot). Lives over a
+           <code>.ovl</code> scrim in use; shown here as the standalone card.</p>
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="width:100%">
+            <div class="modal" style="box-shadow:var(--shadow-lg)">
+              <div class="modal__head"><div class="modal__htext"><div class="modal__title">Delete currency</div><div class="modal__sub">This will permanently remove it from the currency list.</div></div>
+                <button class="modal__close" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+              <div class="modal__body"><div class="field"><span class="field__label">Type the name to confirm</span><input class="input" type="text" placeholder="US Dollar" /></div></div>
+              <div class="modal__foot"><button class="btn btn--ghost btn--sm">Cancel</button><button class="btn btn--sm" style="background:var(--red);color:#fff">Yes, delete</button></div>
+            </div>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.ovl</button>
+            <button class="lib-tk">.modal</button>
+            <button class="lib-tk">.modal__head</button>
+            <button class="lib-tk">.modal__title</button>
+            <button class="lib-tk">.modal__body</button>
+            <button class="lib-tk">.modal__foot</button>
+            <button class="lib-tk">.field</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: ROLE WIZARD ========================= -->
+      <section class="lib-sec" id="s-wizard">
+        <h2>Role wizard</h2>
+        <p class="lib-lead">Building blocks of the permission wizard and the billing add-entity flow: the
+           left step rail, the numbered stepper, and permission rows (toggle + select).</p>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Step rail <code>.rw-step</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage" style="width:100%">
+              <div style="width:240px;background:var(--bg-subtle);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 10px">
+                <button class="rw-step is-active"><span>General</span></button>
+                <button class="rw-step"><span>Market</span></button>
+                <button class="rw-step"><span>Orders</span></button>
+                <button class="rw-step"><span>Notifications</span></button>
+              </div>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.rw-step</button>
+              <button class="lib-tk">.rw-step.is-active</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Numbered stepper <code>.wz-steps</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage" style="width:100%">
+              <div class="wz-steps" style="width:100%;max-width:440px">
+                <div class="wz-step is-done"><span class="wz-step__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><span class="wz-step__tx"><span class="wz-step__k">Step 1</span><span class="wz-step__l">Company details</span></span></div>
+                <span class="wz-steps__bar is-done"></span>
+                <div class="wz-step is-active"><span class="wz-step__dot">2</span><span class="wz-step__tx"><span class="wz-step__k">Step 2</span><span class="wz-step__l">Company address</span></span></div>
+              </div>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.wz-steps</button>
+              <button class="lib-tk">.wz-step.is-done</button>
+              <button class="lib-tk">.wz-step.is-active</button>
+              <button class="lib-tk">.wz-steps__bar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Permission rows <code>.rw-sec</code> / <code>.rw-row</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage" style="width:100%">
+              <div class="rw-sec" style="width:100%;margin-top:0">
+                <div class="rw-sec__title">Market access &amp; controls</div>
+                <div class="rw-row"><div class="rw-row__l"><div class="rw-row__name">Market folders</div><div class="rw-row__cap">Allow access to folders containing media that require review.</div></div><div class="rw-row__c"><button class="switch is-on"></button></div></div>
+                <div class="rw-row"><div class="rw-row__l"><div class="rw-row__name">Show link history</div><div class="rw-row__cap">Control whether this role can see link purchase history.</div></div><div class="rw-row__c"><button class="btn btn--secondary btn--sm rw-select"><span>All projects</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button></div></div>
+              </div>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.rw-sec</button>
+              <button class="lib-tk">.rw-sec__title</button>
+              <button class="lib-tk">.rw-row</button>
+              <button class="lib-tk">.rw-row__name</button>
+              <button class="lib-tk">.rw-row__cap</button>
+              <button class="lib-tk">.rw-select</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= SETTINGS: BILLING BLOCKS ========================= -->
+      <section class="lib-sec" id="s-billing">
+        <h2>Billing blocks</h2>
+        <p class="lib-lead">Financial UI from the billing-entity detail: the balance meter, the selectable
+           payment-method cards, and the soft payment-method chips.</p>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Balance meter <code>.b-bal</code> / <code>.b-meter</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage" style="width:100%">
+              <div style="width:100%;max-width:440px">
+                <div class="b-bal">
+                  <div class="b-bal__item"><span class="b-bal__lbl"><span class="b-bal__dot" style="background:#a9c4f5"></span><span class="b-bal__k">Reserved</span></span><span class="b-bal__v">€4,200.00</span></div>
+                  <div class="b-bal__item"><span class="b-bal__lbl"><span class="b-bal__dot" style="background:#ebc784"></span><span class="b-bal__k">Spent</span></span><span class="b-bal__v">€18,640.50</span></div>
+                  <div class="b-bal__item"><span class="b-bal__lbl"><span class="b-bal__dot" style="background:#79cba6"></span><span class="b-bal__k">Available</span></span><span class="b-bal__v">€12,310.00</span></div>
+                </div>
+                <div class="b-meter"><span class="b-meter__seg" style="flex:12;background:#a9c4f5"></span><span class="b-meter__seg" style="flex:53;background:#ebc784"></span><span class="b-meter__seg" style="flex:35;background:#79cba6"></span></div>
+              </div>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.b-bal</button>
+              <button class="lib-tk">.b-bal__item</button>
+              <button class="lib-tk">.b-meter</button>
+              <button class="lib-tk">.b-meter__seg</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Payment cards <code>.b-pm</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage" style="width:100%">
+              <div class="b-pay" style="width:100%;max-width:560px">
+                <div class="b-pm is-sel"><span class="b-pm__radio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><div class="b-pm__body"><div class="b-pm__t">Bank cards</div><div class="b-pm__s">Transaction fee (4%)</div></div><span class="b-pm__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span></div>
+                <div class="b-pm"><span class="b-pm__radio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg></span><div class="b-pm__body"><div class="b-pm__t">Wire transfer</div><div class="b-pm__s">No transaction fee</div></div><span class="b-pm__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M5 10 12 4l7 6M6 10v11M18 10v11M10 10v11M14 10v11"/></svg></span></div>
+              </div>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.b-pm</button>
+              <button class="lib-tk">.b-pm.is-sel</button>
+              <button class="lib-tk">.b-pm__radio</button>
+              <button class="lib-tk">.b-pm__ic</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lib-sub">
+          <div class="lib-sub__h">Method chips <code>.pill</code></div>
+          <div class="lib-demo">
+            <div class="lib-demo__stage">
+              <span class="pill pill--stripe">Stripe</span>
+              <span class="pill pill--wire">Wire transfer</span>
+            </div>
+            <div class="lib-demo__foot">
+              <button class="lib-tk">.pill</button>
+              <button class="lib-tk">.pill--stripe</button>
+              <button class="lib-tk">.pill--wire</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  // ---- Color swatch data (mirrors tokens.css) ----
+  var GROUPS = {
+    accent: [
+      ['--accent', '#3d3aad'], ['--accent-hover', '#322f93'], ['--accent-active', '#2a2880'],
+      ['--accent-fg', '#ffffff'], ['--accent-tint', '#eeedfb'], ['--accent-tint-2', '#e1dff6'],
+    ],
+    surface: [
+      ['--bg-app', '#fafafb'], ['--bg', '#ffffff'], ['--bg-subtle', '#f8f9fb'],
+      ['--bg-sunken', '#eef0f3'], ['--border', '#e6e7ea'], ['--border-strong', '#d2d4d9'],
+    ],
+    text: [
+      ['--text', '#08090b'], ['--text-secondary', '#363a42'],
+      ['--text-muted', '#5d646e'], ['--text-faint', '#9097a1'],
+    ],
+    semantic: [
+      ['--green', '#128a5a'], ['--green-bg', '#e6f5ed'], ['--red', '#d23b34'], ['--red-bg', '#fcebe9'],
+      ['--amber', '#b0791a'], ['--amber-bg', '#fbf2dd'], ['--blue', '#2f6bdd'], ['--blue-bg', '#eaf1fd'],
+    ],
+  };
+  function copy(text, el) {
+    navigator.clipboard && navigator.clipboard.writeText(text);
+    el.classList.add('is-copied');
+    setTimeout(function () { el.classList.remove('is-copied'); }, 900);
+  }
+  Object.keys(GROUPS).forEach(function (key) {
+    var host = document.querySelector('[data-swatches="' + key + '"]');
+    if (!host) return;
+    GROUPS[key].forEach(function (pair) {
+      var v = pair[0], hex = pair[1];
+      var el = document.createElement('div');
+      el.className = 'sw';
+      var light = (key === 'accent' && v !== '--accent-fg' && v.indexOf('tint') === -1) || (key === 'text');
+      el.innerHTML =
+        '<div class="sw__chip" style="background:var(' + v + ');' +
+          (hex.toLowerCase() === '#ffffff' ? 'box-shadow:inset 0 0 0 1px var(--border);' : '') + '"></div>' +
+        '<div class="sw__meta"><div class="sw__name">' + v + '</div><div class="sw__val">' + hex + '</div></div>';
+      el.addEventListener('click', function () { copy('var(' + v + ')', el); });
+      host.appendChild(el);
+    });
+  });
+
+  // ---- Type scale ----
+  var TYPE = [
+    ['--fs-28', 28, 'The quick brown fox'],
+    ['--fs-24', 24, 'The quick brown fox (h1)'],
+    ['--fs-20', 20, 'The quick brown fox (h2)'],
+    ['--fs-18', 18, 'The quick brown fox'],
+    ['--fs-16', 16, 'The quick brown fox jumps'],
+    ['--fs-14', 14, 'The quick brown fox jumps over (body)'],
+    ['--fs-13', 13, 'The quick brown fox jumps over the lazy dog'],
+    ['--fs-12', 12, 'The quick brown fox jumps over the lazy dog'],
+    ['--fs-11', 11, 'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG'],
+  ];
+  var ts = document.getElementById('lib-typescale');
+  if (ts) TYPE.forEach(function (t) {
+    var row = document.createElement('div');
+    row.className = 'lib-type__row';
+    row.innerHTML = '<div class="lib-type__lbl">' + t[0] + ' · ' + t[1] + 'px</div>' +
+      '<div class="lib-type__eg" style="font-size:' + t[1] + 'px;font-weight:' + (t[1] >= 18 ? 600 : 400) + '">' + t[2] + '</div>';
+    ts.appendChild(row);
+  });
+
+  // ---- Spacing ----
+  var SPACE = [['--space-1', 4], ['--space-2', 8], ['--space-3', 12], ['--space-4', 16],
+    ['--space-5', 20], ['--space-6', 24], ['--space-7', 28], ['--space-8', 32], ['--space-10', 40]];
+  var sp = document.getElementById('lib-spacing');
+  if (sp) SPACE.forEach(function (s) {
+    var row = document.createElement('div');
+    row.className = 'lib-scale__row';
+    row.innerHTML = '<div class="lib-scale__lbl">' + s[0] + ' · ' + s[1] + 'px</div>' +
+      '<div class="lib-scale__bar" style="width:' + s[1] + 'px"></div>';
+    sp.appendChild(row);
+  });
+
+  // ---- Radius ----
+  var RAD = [['--radius-sm', '6px'], ['--radius-md', '8px'], ['--radius-lg', '12px'],
+    ['--radius-xl', '16px'], ['--radius-pill', '999px']];
+  var rd = document.getElementById('lib-radius');
+  if (rd) RAD.forEach(function (r) {
+    var i = document.createElement('div');
+    i.className = 'lib-radius__i';
+    i.innerHTML = '<div class="lib-radius__box" style="border-radius:var(' + r[0] + ')"></div>' +
+      '<div class="lib-radius__lbl">' + r[0].replace('--radius-', '') + ' · ' + r[1] + '</div>';
+    rd.appendChild(i);
+  });
+
+  // ---- Copy token chips ----
+  document.querySelectorAll('.lib-tk').forEach(function (el) {
+    el.addEventListener('click', function () { copy(el.textContent.trim(), el); });
+  });
+
+  // ---- Indeterminate checkbox ----
+  var indet = document.getElementById('lib-indet');
+  if (indet) indet.indeterminate = true;
+
+  // ---- Scrollspy for the side nav ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('#lib-nav a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        links.forEach(function (a) { a.classList.remove('is-active'); });
+        var a = byId[e.target.id];
+        if (a) a.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+  document.querySelectorAll('.lib-sec').forEach(function (s) { obs.observe(s); });
+})();
+</script>
+</body>
+</html>

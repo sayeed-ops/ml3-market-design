@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · New role</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <!-- ============ SIDEBAR — SCOPED TO SETTINGS ============ -->
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </span>
+          <span class="s-head__title">Settings</span>
+        </a>
+
+        <a class="m-nav__item" href="index.html" data-label="Users">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span>
+        </a>
+        <a class="m-nav__item is-active" href="roles.html" data-label="User roles">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span>
+          <span class="m-nav__tx">User roles</span>
+        </a>
+        <a class="m-nav__item" href="billing.html" data-label="Billing entities">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
+          <span class="m-nav__tx">Billing entities</span>
+        </a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span>
+          <span class="m-nav__tx">Currencies</span>
+        </a>
+        <a class="m-nav__item" href="publishers.html" data-label="Publishers">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+          <span class="m-nav__tx">Publishers</span>
+        </a>
+
+        <a class="m-nav__item" href="integrations.html" data-label="Integrations">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+          <span class="m-nav__tx">Integrations</span>
+        </a>
+        <a class="m-nav__item" href="customization.html" data-label="Customization">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <span class="m-nav__tx">Customization</span>
+        </a>
+      </nav>
+
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN — ROLE WIZARD ============ -->
+    <main class="m-main">
+      <div class="m-content">
+        <div class="rw-wrap">
+          <a class="b-back" href="roles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> User roles</a>
+          <div class="rw-head">
+            <h1 id="rw-title">New role</h1>
+            <div class="sub" id="rw-desc">Set up a custom role to control user access to MediaConsole features. You can update permissions anytime.</div>
+          </div>
+
+          <div class="rw-card" style="margin-top:16px">
+            <aside class="rw-side"><div id="rw-steps"></div></aside>
+            <div class="rw-body">
+              <div class="rw-main" id="rw-stage"></div>
+              <div class="rw-foot" id="rw-foot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="ovl-root" class="ovl is-hidden"></div>
+
+<script>
+(function () {
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function svg(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  function qp(k){ var m = new RegExp('[?&]' + k + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : null; }
+  var CHECK = svg('<path d="m5 12 5 5 9-11"/>');
+
+  var editName = qp('edit');
+  var MODE = editName ? 'edit' : 'create';
+
+  // ---- shorthand row builders ----
+  function tog(name, cap, def){ return { t:'toggle', name:name, cap:cap||'', def:!!def }; }
+  function sel(name, cap, opts, def){ return { t:'select', name:name, cap:cap||'', opts:opts, def:def||0 }; }
+  function nrow(name){ return { t:'notif', name:name }; }
+
+  // ---- wizard schema (copy lifted from components/roles-wizard/*) ----
+  var STEPS = [
+    { key:'general', label:'General', mandatory:true, desc:'Configure the main details and basic settings for this role.',
+      sections:[ { plain:true, rows:[
+        { t:'rolename' },
+        tog('Show role on signup form', 'Control if this role is visible at signup. Hidden roles can still be assigned later by an admin.')
+      ] } ] },
+
+    { key:'market', label:'Market', master:true, desc:'Allow this role to search, filter, and view media in the Market, adjust media details, control visibility, and create orders from the available database.',
+      sections:[
+        { title:'Market access & controls', rows:[
+          tog('Market folders','Allow access to folders containing media that require review or have incomplete data.'),
+          tog('Market settings','Allow this role to configure Market settings, including price categories, imports, and exports.'),
+          tog('Actions menu','Enable actions such as export, assignment, and approvals from the Market Actions menu.'),
+          tog('Offers filter'),
+          tog('Media assignee','Allow this role to view and filter media based on assigned users.'),
+          tog('Media activity data','Users can view data like: metrics updated, last order and etc.'),
+          tog('Info for admin','Users can view the “Info for admin” section in: the Checkout, Order Item page, Media page, and Media Preview.'),
+          tog('Note','Users can view the “Note” section in: the Checkout, Order Item page, Media page, and Media Preview.'),
+          tog('Publisher/Agency','Users can view the Publisher/Agency details in: the Market, Media page, All links, Order item page and checkout.'),
+          tog('Create packages','Allow this role to create managed-service packages from the Market.'),
+          sel('Show link history','Control whether this role can see link purchase history for media.',['All projects','Assigned only','None'],2),
+          { t:'input', name:'Extra price', cap:'Adds a fixed markup to all market prices for this role', suffix:'EUR', ph:'0.00' }
+        ] },
+        { title:'Media visibility by publisher', rows:[
+          sel('Outreached media','Choose whether this role can access media manually added through outreach.',['Show all','Custom','Hide all'],0),
+          sel('Publisher media','Choose whether this role can access media provided directly by publishers.',['Show all','Custom','Hide all'],0)
+        ] },
+        { title:'Media edit permissions', rows:[
+          tog('Allow editing Info for admin field'),
+          tog('Allow updating media pricing'),
+          tog('Stock prices & Margin','Show Stock price and Margin blocks on Media and Media preview pages.'),
+          tog('Allow editing media metrics'),
+          tog('Allow updating media properties (e.g., country, conditions, categories, or tags).')
+        ] },
+        { title:'Checkout permissions', rows:[
+          sel('Allow this role to create orders','Control how this role places orders — with full access, via approved drafts, or not at all.',['Full access','Drafts only','No access'],2),
+          tog('Actions'),
+          tog('Invite users','Allow this role to manually invite users to an order item during checkout.'),
+          tog('Transform to link insertions','Allow this role to switch a media cart item from guest post to link insertion during checkout.'),
+          tog('Packages','Allow this role to add order items to a managed-service package during checkout.')
+        ] }
+      ] },
+
+    { key:'orders', label:'Orders', master:true, desc:'Allow this role to view, edit, and track orders and order items, update their status, and manage related publication details.',
+      sections:[
+        { title:'Orders access', rows:[
+          sel('Orders','Allow this role to view, edit, and track the progress of orders.',['All','Assigned projects','None'],2),
+          sel('Order items','Allow this role to view, edit, and track the progress of order items.',['All','Assigned only','None'],2),
+          sel('All links','Allow this role to view, edit, and track the progress of all imported and purchased links.',['Assigned only','None'],1)
+        ] },
+        { title:'Order item edit permissions', rows:[
+          tog('Allow editing pricing'),
+          tog('Allow editing publication conditions'),
+          tog('Allow editing content requirements'),
+          tog('Allow uploading of images and publication files to order items'),
+          tog('Stock & Margin','Show Stock price and Margin on the Order item page.'),
+          tog('Show extra price','Show Extra price on the Order item page.'),
+          tog('Renew order item','Place an identical copy of the order item with the same details to reorder the link.'),
+          tog('Link audit','Allow running manual or automatic link checks against saved details.'),
+          sel('Manage access','Allow this role to invite additional users to collaborate on an order item.',['Full access','View only','No access'],2)
+        ] },
+        { title:'Status access', rows:[
+          sel('Status access','Define which order item statuses this role can view or update.',['Full access','Read only','Custom'],0)
+        ] },
+        { title:'Filters access & controls', rows:[
+          sel('Filter by brand','',['All','Assigned only','None'],2),
+          sel('Filter by project','',['All','Assigned only','None'],2),
+          tog('Ordered by'),
+          tog('Manager','Limit access to the “Manager” filter on the “Orders” page and “All links”.'),
+          tog('Publisher'),
+          tog('Lead source','Limit access to “Lead source” column and filter under “All links”.'),
+          tog('Settings','Limit access to “Settings” option under “All links”.')
+        ] }
+      ] },
+
+    { key:'brands', label:'Brands', master:true, desc:'Allow this role to create and edit brands, manage projects, access link history, assign team members, and configure budgets for projects or brands.',
+      sections:[
+        { title:'Brand permissions', rows:[
+          sel('Brand access','',['View all','Assigned only','None'],2),
+          tog('Manage brand user access','Allow this role to invite and remove users within a brand.'),
+          tog('Allow this role to reset budgets for all active projects in the brand')
+        ] },
+        { title:'Project permissions', rows:[
+          sel('Project access','',['View all','Assigned only','None'],2),
+          tog('Manage project user access','Allow this role to invite and remove users within a project.'),
+          tog('Allow this role to set a custom billing entity for a project','This replaces the publisher’s billing entity when generating invoices.'),
+          tog('Allow this role to reset the budget for a project')
+        ] }
+      ] },
+
+    { key:'invoices', label:'Invoices', master:true, desc:'Allow this role to manage order item financial data.',
+      sections:[
+        { title:'Invoices access & controls', rows:[
+          tog('Create invoices','Allow creation of both manual and automatic invoices.'),
+          tog('Invoice folders','Allow switching between manual and automatic invoice folders.'),
+          tog('Invoice filters','Allow filtering invoices by publisher or billing entity.'),
+          tog('View automatic invoice details','Allow viewing details for automatic invoices linked to a publisher and billing entity.'),
+          tog('Edit automatic invoice settings','Configure tax, media names, and default notes for invoices.')
+        ] },
+        { title:'Invoice edit permissions', rows:[
+          tog('Use invoice actions','Allow performing actions on invoices, such as edit, download, or mark as paid.'),
+          tog('Revert paid invoices','Allow reverting a paid invoice to its previous status, updating included order items.')
+        ] }
+      ] },
+
+    { key:'analytics', label:'Analytics', master:true, desc:'Allow this role to view analytics dashboards and access reports for brands and projects.',
+      sections:[
+        { title:'Analytics access & controls', rows:[
+          sel('Analytics access','Allow this role to view analytics dashboards and reports relevant to their assigned brands, brands, or orders.',['All','Assigned only'],0),
+          tog('Analytics per source','Show expenses, live links, and average cost per link broken down by source (Outreached, Publisher, etc.).')
+        ] }
+      ] },
+
+    { key:'settings', label:'Settings', master:true, desc:'Allow this role to manage platform settings to align MediaConsole with your business needs.',
+      sections:[
+        { title:'Settings access & controls', rows:[
+          tog('User roles','Allow this role to create, edit, and manage user roles.'),
+          tog('Users','Allow this role to invite, approve, and suspend platform users.'),
+          tog('Publishers','Allow this role to invite, approve, and suspend publishers.'),
+          tog('Currencies','Allow this role to create, edit, or remove currencies and manage conversion rates.'),
+          tog('Set primary currency','Allow this role to set the default currency for financial calculations (media prices, orders, invoices, reports).'),
+          tog('Integrations','Allow this role to add, edit, and manage API tokens and integrations with third-party services.'),
+          tog('Customization','Allow this role to manage customization settings and order item statuses.')
+        ] },
+        { title:'Billing entities & wallet', rows:[
+          sel('Billing entities','Control the level of access this role has to billing entities.',['All','Created by user','None'],2),
+          tog('Open wallets under verification','Allow this role to open and deposit into wallets that are under verification.'),
+          tog('Edit billing information','Allow this role to edit billing entity details.'),
+          tog('Change wallet status','Allow this role to change the active or verification status of a billing entity.'),
+          tog('Delete entity','Allow this role to delete billing entities.'),
+          tog('Approve transactions manually','Allow this role to manually approve wire transfer prepayment invoices once funds are received.')
+        ] }
+      ] },
+
+    { key:'background', label:'Background tasks', master:true, desc:'Allow this role to monitor and manage background processes.', sections:[] },
+
+    { key:'faq', label:'FAQ', master:true, desc:'Allow this role to access FAQs, tips, and common troubleshooting answers.', sections:[] },
+
+    { key:'notifications', label:'Notifications', master:true, desc:'Set which events trigger notifications for this role and where they are sent.',
+      sections:[
+        { title:'User and publisher registration', notif:true, rows:[ nrow('New user registration request'), nrow('New publisher registration request') ] },
+        { title:'Drafts', notif:true, rows:[ nrow('New draft assigned'), nrow('Draft approved') ] },
+        { title:'Orders and order items', notif:true, rows:[
+          nrow('New note is left in the order item'), nrow('A document is attached'), nrow('Publication conditions updated'),
+          nrow('Content requirements added'), nrow('Live link is added'), nrow('Notification for new orders'),
+          sel('Order item notifications access','Choose if role users receive notifications for all order items or only for projects they belong to.',['All projects','Assigned projects only','Placed orders only'],0),
+          sel('Order placed notifications access','Choose if role users are notified when an order is placed for all projects, only for assigned projects, or not at all.',['All projects','Assigned projects','None'],0)
+        ] },
+        { title:'Order item status updates', notif:true, rows:[ nrow('Status changed to Draft'), nrow('Status changed to Content in progress'), nrow('Status changed to Published'), nrow('Status changed to Completed'), nrow('Status changed to Rejected') ] },
+        { title:'Package item status updates', notif:true, rows:[ nrow('Status changed to In progress'), nrow('Status changed to Completed') ] },
+        { title:'Invoices', notif:true, rows:[ nrow('New invoice created'), nrow('New invoice paid') ] },
+        { title:'Billing entities & wallet', notif:true, rows:[ nrow('New billing entity created'), nrow('My billing entity is active'), nrow('New stripe deposit'), nrow('New wire transfer prepayment invoice') ] }
+      ] },
+
+    { key:'onboarding', label:'Onboarding', plainHead:true, desc:'Configure access specific to this client role',
+      sections:[
+        { title:'Welcome guide', rows:[ sel('Welcome guide modal','Choose a welcome guide tailored to the user type.',['None','Client'],0) ] },
+        { title:'In app guidance', rows:[
+          sel('Popup guidance','Show or hide in-app pop-up guidance in Billing entities, Franchise, Brands, Market, Basket, Order Items, and all links.',['None','Client'],0),
+          tog('Open on first visit','The guidance popup automatically appears the first time a user with this role visits the page.')
+        ] }
+      ] }
+  ];
+  // create adds a Complete step at the end
+  if (MODE === 'create') STEPS.push({ key:'complete', label:'Complete setup', complete:true, desc:'You’re ready to create this role. The settings you’ve chosen will be applied, and you can update them anytime. To make changes now, use the Back button to adjust any step.', sections:[] });
+
+  // ---- state ----
+  var state = {};
+  STEPS.forEach(function(s){
+    var st = { master: MODE === 'edit', rows: {} };
+    s.sections.forEach(function(sec, si){ (sec.rows||[]).forEach(function(r, ri){
+      var id = si + '.' + ri;
+      if (r.t === 'toggle') st.rows[id] = MODE === 'edit' ? !!r.def : !!r.def;
+      else if (r.t === 'select') st.rows[id] = r.def || 0;
+      else if (r.t === 'input') st.rows[id] = '';
+      else if (r.t === 'notif') st.rows[id] = { app:false, email:false };
+      else if (r.t === 'rolename') st.rows[id] = editName ? decodeURIComponent(editName) : '';
+    }); });
+    state[s.key] = st;
+  });
+  if (MODE === 'edit') { STEPS.forEach(function(s){ state[s.key].master = true; }); }
+
+  var active = 0;              // active step index
+  var done = new Set();        // completed step ids (indexes)
+  if (MODE === 'edit') STEPS.forEach(function(_, i){ done.add(i); });
+  var dirty = false;
+
+  var stepsEl = document.getElementById('rw-steps');
+  var stageEl = document.getElementById('rw-stage');
+  var footEl = document.getElementById('rw-foot');
+
+  if (MODE === 'edit') {
+    document.getElementById('rw-title').textContent = 'Role settings';
+    document.getElementById('rw-desc').textContent = 'Update this role’s permissions to adjust user access to MediaConsole features. Changes take effect immediately and can be updated anytime.';
+    document.title = 'Settings — Redesign (ML3) · Role settings';
+  }
+
+  // ---------- sidebar ----------
+  function renderSteps(){
+    stepsEl.innerHTML = STEPS.map(function(s, i){
+      var cls = 'rw-step' + (i === active ? ' is-active' : '');
+      return '<button class="' + cls + '" data-i="' + i + '"><span>' + esc(s.label) + '</span></button>';
+    }).join('');
+    stepsEl.querySelectorAll('.rw-step').forEach(function(b){
+      b.addEventListener('click', function(){ go(+b.dataset.i); });
+    });
+  }
+
+  // ---------- step body ----------
+  function renderStage(){
+    var s = STEPS[active];
+    var st = state[s.key];
+    var head = '<div class="rw-step-head"><h3>' + esc(s.label) + '</h3>' +
+      (s.master ? masterSwitch(st.master) : '') + '</div>' +
+      (s.desc ? '<p class="rw-step-desc">' + esc(s.desc) + '</p>' : '');
+
+    var body = '';
+    if (s.complete){
+      body = '<div class="rw-sec" style="margin-top:18px"><p class="rw-row__name">Review your choices and click <b>Create role</b> to finish.</p></div>';
+    } else {
+      var disabled = s.master ? !st.master : false;
+      body = s.sections.map(function(sec, si){
+        var rows = (sec.rows||[]).map(function(r, ri){ return renderRow(r, si + '.' + ri, disabled); }).join('');
+        if (sec.plain){ return '<div class="rw-sec' + (disabled ? ' is-disabled' : '') + '" style="margin-top:18px">' + rows + '</div>'; }
+        if (sec.notif){
+          return '<div class="rw-sec' + (disabled ? ' is-disabled' : '') + '">' +
+            '<div class="rw-nhead"><span class="rw-sec__title" style="border:0;padding:0">' + esc(sec.title) + '</span>' +
+            '<span class="rw-nhead__cols"><span>In-app</span><span>Email</span></span></div>' + rows + '</div>';
+        }
+        return '<div class="rw-sec' + (disabled ? ' is-disabled' : '') + '"><div class="rw-sec__title">' + esc(sec.title) + '</div>' + rows + '</div>';
+      }).join('');
+    }
+    stageEl.innerHTML = head + body;
+    wire(s, st);
+  }
+
+  function masterSwitch(on){
+    return '<button type="button" class="switch' + (on ? ' is-on' : '') + '" id="rw-master" role="switch" aria-checked="' + on + '"></button>';
+  }
+
+  function renderRow(r, id, disabled){
+    var st = state[STEPS[active].key];
+    if (r.t === 'rolename'){
+      return '<div class="rw-field">' +
+        '<label class="rw-field__label">Role name <span class="rw-req">*</span></label>' +
+        '<input class="input" type="text" id="rw-rolename" placeholder="For example, &quot;SEO manager&quot;" value="' + esc(st.rows[id]) + '" /></div>' +
+        '<div style="height:14px"></div>';
+    }
+    var left = '<div class="rw-row__l"><div class="rw-row__name">' + esc(r.name) + '</div>' + (r.cap ? '<div class="rw-row__cap">' + esc(r.cap) + '</div>' : '') + '</div>';
+    if (r.t === 'toggle'){
+      var on = !!st.rows[id];
+      return '<div class="rw-row">' + left + '<div class="rw-row__c"><button type="button" class="switch' + (on ? ' is-on' : '') + '" data-row="' + id + '"' + (disabled ? ' disabled' : '') + ' role="switch" aria-checked="' + on + '"></button></div></div>';
+    }
+    if (r.t === 'select'){
+      var label = r.opts[st.rows[id]] != null ? r.opts[st.rows[id]] : r.opts[0];
+      return '<div class="rw-row">' + left + '<div class="rw-row__c"><button type="button" class="btn btn--secondary btn--sm rw-select" data-row="' + id + '"' + (disabled ? ' disabled' : '') + '><span>' + esc(label) + '</span>' + svg('<path d="m6 9 6 6 6-6"/>') + '</button></div></div>';
+    }
+    if (r.t === 'input'){
+      return '<div class="rw-row">' + left + '<div class="rw-row__c"><div class="rw-price"><input class="input" type="text" inputmode="decimal" data-row="' + id + '" value="' + esc(st.rows[id]) + '" placeholder="' + esc(r.ph||'') + '"' + (disabled ? ' disabled' : '') + ' /><span class="rw-price__addon">' + esc(r.suffix) + '</span></div></div></div>';
+    }
+    if (r.t === 'notif'){
+      var v = st.rows[id] || { app:false, email:false };
+      return '<div class="rw-nrow"><div class="rw-row__l"><div class="rw-row__name">' + esc(r.name) + '</div></div>' +
+        '<div class="rw-nrow__c">' +
+          '<span class="checkbox-wrap"><input type="checkbox" class="checkbox" data-row="' + id + '" data-ch="app" ' + (v.app ? 'checked' : '') + (disabled ? ' disabled' : '') + ' /></span>' +
+          '<span class="checkbox-wrap"><input type="checkbox" class="checkbox" data-row="' + id + '" data-ch="email" ' + (v.email ? 'checked' : '') + (disabled ? ' disabled' : '') + ' /></span>' +
+        '</div></div>';
+    }
+    return '';
+  }
+
+  function wire(s, st){
+    // master switch
+    var m = document.getElementById('rw-master');
+    if (m) m.addEventListener('click', function(){
+      st.master = !st.master; markDirty(); renderStage();
+    });
+    // role name
+    var rn = document.getElementById('rw-rolename');
+    if (rn) rn.addEventListener('input', function(){
+      st.rows['0.0'] = rn.value; markDirty(); syncFoot();
+    });
+    // toggles
+    stageEl.querySelectorAll('.switch[data-row]').forEach(function(b){
+      b.addEventListener('click', function(){ if (b.hasAttribute('disabled')) return; var id = b.dataset.row; st.rows[id] = !st.rows[id]; b.classList.toggle('is-on', st.rows[id]); markDirty(); });
+    });
+    // selects
+    stageEl.querySelectorAll('.rw-select[data-row]').forEach(function(b){
+      b.addEventListener('click', function(e){ if (b.hasAttribute('disabled')) return; e.stopPropagation(); openSelect(b, st); });
+    });
+    // inputs
+    stageEl.querySelectorAll('.rw-price input[data-row]').forEach(function(inp){
+      inp.addEventListener('input', function(){ st.rows[inp.dataset.row] = inp.value; markDirty(); });
+    });
+    // checkboxes
+    stageEl.querySelectorAll('.checkbox[data-row]').forEach(function(c){
+      c.addEventListener('change', function(){ var v = st.rows[c.dataset.row] || {}; v[c.dataset.ch] = c.checked; st.rows[c.dataset.row] = v; markDirty(); });
+    });
+  }
+
+  // ---------- select dropdown (floating amenu) ----------
+  var openMenu = null;
+  function closeMenu(){ if (openMenu){ openMenu.remove(); openMenu = null; } }
+  function openSelect(btn, st){
+    closeMenu();
+    var id = btn.dataset.row;
+    var s = STEPS[active];
+    var parts = id.split('.'); var row = s.sections[+parts[0]].rows[+parts[1]];
+    var m = document.createElement('div'); m.className = 'amenu';
+    m.innerHTML = row.opts.map(function(o, i){ return '<button class="amenu__item" data-i="' + i + '">' + (i === st.rows[id] ? svg('<path d="m5 12 5 5 9-11"/>') : '<span style="width:18px;display:inline-block"></span>') + esc(o) + '</button>'; }).join('');
+    document.body.appendChild(m);
+    var r = btn.getBoundingClientRect(), w = Math.max(m.offsetWidth, r.width), h = m.offsetHeight;
+    m.style.minWidth = r.width + 'px';
+    m.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+    m.style.top = ((r.bottom + h + 8 > window.innerHeight) ? r.top - h - 6 : r.bottom + 6) + 'px';
+    m.addEventListener('click', function(e){ var it = e.target.closest('.amenu__item'); if (!it) return; st.rows[id] = +it.dataset.i; closeMenu(); markDirty(); renderStage(); });
+    openMenu = m;
+  }
+  document.addEventListener('click', function(e){ if (openMenu && !e.target.closest('.amenu')) closeMenu(); });
+  window.addEventListener('resize', closeMenu);
+  window.addEventListener('scroll', closeMenu, true);
+
+  // ---------- footer ----------
+  function renderFoot(){
+    if (MODE === 'edit'){
+      footEl.innerHTML = '<span></span><div class="rw-foot__r">' +
+        '<button class="btn btn--ghost btn--sm" id="rw-cancel"' + (dirty ? '' : ' disabled') + '>Cancel</button>' +
+        '<button class="btn btn--primary btn--sm" id="rw-save"' + (dirty ? '' : ' disabled') + '>Save</button></div>';
+      document.getElementById('rw-cancel').addEventListener('click', function(){ dirty = false; renderStage(); renderFoot(); });
+      document.getElementById('rw-save').addEventListener('click', function(){ dirty = false; renderFoot(); toast('Role updated'); });
+      return;
+    }
+    var isFirst = active === 0, isLast = active === STEPS.length - 1;
+    var hasName = (state.general.rows['0.0'] || '').trim().length > 0;
+    var right = isLast
+      ? '<button class="btn btn--primary btn--sm" id="rw-create"' + (hasName ? '' : ' disabled') + '>Create role</button>'
+      : '<button class="btn btn--primary btn--sm" id="rw-next"' + (isFirst && !hasName ? ' disabled' : '') + '>Next</button>';
+    footEl.innerHTML =
+      '<button class="btn btn--secondary btn--sm" id="rw-back"' + (isFirst ? ' disabled' : '') + '>Back</button>' +
+      (isLast && !hasName ? '<span class="rw-foot__note">Please complete all required steps before creating the role.</span>' : '<span></span>') +
+      '<div class="rw-foot__r">' + right + '</div>';
+    var back = document.getElementById('rw-back'); if (back) back.addEventListener('click', function(){ if (active > 0) go(active - 1); });
+    var next = document.getElementById('rw-next'); if (next) next.addEventListener('click', function(){ done.add(active); go(active + 1); });
+    var create = document.getElementById('rw-create'); if (create) create.addEventListener('click', function(){ toast('Role created'); setTimeout(function(){ location.href = 'roles.html'; }, 700); });
+  }
+  function syncFoot(){ renderFoot(); }
+
+  function markDirty(){ if (MODE === 'edit' && !dirty){ dirty = true; renderFoot(); } }
+
+  function go(i){
+    if (i < 0 || i >= STEPS.length) return;
+    active = i; closeMenu();
+    renderSteps(); renderStage(); renderFoot();
+    stageEl.scrollIntoView({ block:'start' });
+  }
+
+  // ---------- toast ----------
+  var toastEl = null, toastTmr = null;
+  function toast(msg){
+    if (toastEl) toastEl.remove();
+    toastEl = document.createElement('div'); toastEl.className = 'toast';
+    toastEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>' + esc(msg);
+    document.body.appendChild(toastEl);
+    clearTimeout(toastTmr); toastTmr = setTimeout(function(){ if (toastEl){ toastEl.remove(); toastEl = null; } }, 2600);
+  }
+
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+  renderSteps(); renderStage(); renderFoot();
+})();
+</script>
+</body>
+</html>

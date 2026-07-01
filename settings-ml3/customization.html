@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · Customization</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+          <span class="s-head__title">Settings</span>
+        </a>
+        <a class="m-nav__item" href="index.html" data-label="Users"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span></a>
+        <a class="m-nav__item" href="roles.html" data-label="User roles"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span><span class="m-nav__tx">User roles</span></a>
+        <a class="m-nav__item" href="billing.html" data-label="Billing entities"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span><span class="m-nav__tx">Billing entities</span></a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span><span class="m-nav__tx">Currencies</span></a>
+        <a class="m-nav__item" href="publishers.html" data-label="Publishers"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="m-nav__tx">Publishers</span></a>
+        <a class="m-nav__item" href="integrations.html" data-label="Integrations"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span><span class="m-nav__tx">Integrations</span></a>
+        <a class="m-nav__item is-active" href="customization.html" data-label="Customization"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Customization</span></a>
+      </nav>
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <main class="m-main">
+      <div class="m-content" style="max-width:860px;margin-left:auto;margin-right:auto;width:100%">
+        <div class="s-tabs" id="s-tabs">
+          <button class="s-tab is-active" data-tab="orders">Orders and Order Items</button>
+          <button class="s-tab" data-tab="price">Price Formation</button>
+        </div>
+        <div id="s-panel"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="ovl-root" class="ovl is-hidden"></div>
+<div class="toast is-hidden" id="toast"></div>
+
+<script>
+(function () {
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function svg(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  var DOTS = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>';
+  var LOCK = '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>';
+  var GRIP = '<path d="M4 9h16M4 15h16"/>';
+  var IC = { edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>', trash:'<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>' };
+
+  var ROOT = { id:0, name:'In queue', key:'ORDER_QUEUE' };
+  var MANUAL = [
+    { id:1, name:'Ready to publish', order_items_count:0 },
+    { id:2, name:'Content in review', order_items_count:0 },
+    { id:3, name:'Awaiting client', order_items_count:4 }
+  ];
+  var AUTOMATED = [
+    { id:10, name:'Published', key:'PUBLISHED' },
+    { id:11, name:'Canceled',  key:'CANCELED' }
+  ];
+  var PF = [
+    { id:1, from:0,   to:100,  fee:15, add:5  },
+    { id:2, from:100, to:500,  fee:12, add:10 },
+    { id:3, from:500, to:5000, fee:8,  add:20 }
+  ];
+
+  var TAB = /(\?|&)tab=price\b/.test(location.search) ? 'price' : 'orders';
+  var panel = document.getElementById('s-panel');
+
+  function setTabs(){ document.querySelectorAll('.s-tab').forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === TAB); }); }
+  function render(){ setTabs(); closeMenu(); if (TAB==='orders') renderOrders(); else renderPrice(); }
+
+  // ---------------- ORDERS & ORDER ITEMS ----------------
+  function lockedRow(s){
+    return '<div class="cz-row"><div class="cz-row__l"><span class="cz-lock">'+svg(LOCK)+'</span>' +
+      '<span class="cz-row__meta"><span class="cz-row__name">'+esc(s.name)+'</span><span class="cz-row__key">'+esc(s.key)+'</span></span></div>' +
+      '<button class="btn--iconxs cz-more" data-kind="locked" data-id="'+s.id+'">'+DOTS+'</button></div>';
+  }
+  function manualRow(s){
+    return '<div class="cz-row" draggable="true" data-id="'+s.id+'"><div class="cz-row__l">' +
+      '<span class="cz-drag" title="Drag to reorder">'+svg(GRIP)+'</span>' +
+      '<span class="cz-row__name">'+esc(s.name)+'</span></div>' +
+      '<button class="btn--iconxs cz-more" data-kind="manual" data-id="'+s.id+'">'+DOTS+'</button></div>';
+  }
+  function renderOrders(){
+    panel.innerHTML =
+      '<div class="cz-head" style="display:block"><div class="cz-head__title" style="font-size:var(--fs-20)">Orders and Order Items</div>' +
+      '<div class="cz-desc" style="margin:8px 0 20px">Customize orders and order items to better align with your team’s workflow, terminology, and processes. Adjust settings to reflect how your organization manages link building and campaign operations.</div></div>' +
+      '<div class="i-card"><div class="i-card__body">' +
+        '<div class="cz-head"><span class="cz-head__title">Order item status management</span>' +
+          '<button class="btn btn--secondary btn--sm" id="cz-new"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New</button></div>' +
+        '<div class="cz-desc">Order item statuses reflect workflow progress. You can rename, delete, reorder, or add new ones. Some statuses include logic and can’t be reordered or removed.</div>' +
+        '<div class="cz-list" id="cz-list">' +
+          lockedRow(ROOT) +
+          MANUAL.map(manualRow).join('') +
+          AUTOMATED.map(lockedRow).join('') +
+        '</div>' +
+      '</div></div>';
+    document.getElementById('cz-new').addEventListener('click', openAdd);
+    wireDrag();
+  }
+
+  // drag-to-reorder manual statuses
+  function wireDrag(){
+    var list = document.getElementById('cz-list');
+    var rows = Array.prototype.slice.call(list.querySelectorAll('.cz-row[draggable]'));
+    var srcId = null;
+    rows.forEach(function(row){
+      row.addEventListener('dragstart', function(){ srcId = +row.dataset.id; row.classList.add('is-drag'); });
+      row.addEventListener('dragend', function(){ row.classList.remove('is-drag'); rows.forEach(function(r){ r.classList.remove('is-over'); }); });
+      row.addEventListener('dragover', function(e){ e.preventDefault(); rows.forEach(function(r){ r.classList.toggle('is-over', r===row); }); });
+      row.addEventListener('drop', function(e){ e.preventDefault();
+        var dstId = +row.dataset.id; if (srcId===dstId) return;
+        var from = MANUAL.findIndex(function(s){return s.id===srcId;});
+        var to = MANUAL.findIndex(function(s){return s.id===dstId;});
+        var moved = MANUAL.splice(from,1)[0]; MANUAL.splice(to,0,moved);
+        renderOrders();
+      });
+    });
+  }
+
+  // ---------------- PRICE FORMATION ----------------
+  function renderPrice(){
+    var rows = PF.map(function(r,i){
+      return '<tr data-i="'+i+'">' +
+        num('from', r.from) + num('to', r.to) + num('fee', r.fee) + num('add', r.add) +
+        '<td class="cz-pf__actions"><div class="cz-pf__btns">' +
+          '<button class="btn btn--secondary btn--xs" data-save="'+i+'">Save</button>' +
+          '<button class="btn btn--secondary btn--xs cz-pf__del" data-del="'+i+'" title="Delete" aria-label="Delete"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+IC.trash+'</svg></button>' +
+        '</div></td></tr>';
+    }).join('');
+    var table = PF.length
+      ? '<table class="cz-pf"><thead><tr><th>Range from</th><th>Range to</th><th>Fee %</th><th>Additional fee</th><th class="cz-pf__actions"></th></tr></thead><tbody>' + rows + '</tbody></table>'
+      : '<div class="cz-pf__empty">No rules yet. Add one to start shaping market prices.</div>';
+    panel.innerHTML =
+      '<div class="cz-head" style="display:block"><div class="cz-head__title" style="font-size:var(--fs-20)">Price Formation</div>' +
+      '<div class="cz-desc" style="margin:8px 0 20px">Rules that convert a media’s imported Stock price into the Market Price buyers see. When a media’s Stock price falls within a rule’s range, Price = Stock price + (Stock price × Fee %) + Additional fee. Existing orders are not recalculated.</div></div>' +
+      '<div class="i-card"><div class="i-card__body">' +
+        '<div class="cz-head"><span class="cz-head__title">Rules</span>' +
+          '<button class="btn btn--secondary btn--sm" id="pf-new"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New</button></div>' +
+        table +
+      '</div></div>';
+    document.getElementById('pf-new').addEventListener('click', function(){ PF.push({id:null, from:0, to:0, fee:0, add:0}); renderPrice(); });
+    panel.querySelectorAll('[data-save]').forEach(function(b){ b.addEventListener('click', function(){ readRow(+b.dataset.save); showToast(PF[+b.dataset.save].id ? 'Rule updated successfully' : 'Rule saved successfully'); if(!PF[+b.dataset.save].id) PF[+b.dataset.save].id = Date.parse('2026-07-01'); }); });
+    panel.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', function(){ var i=+b.dataset.del; var had=PF[i].id; PF.splice(i,1); renderPrice(); if(had) showToast('Rule deleted'); }); });
+  }
+  function num(field, val){ return '<td><input class="input" type="number" step="0.01" min="0" value="'+val+'" data-f="'+field+'" /></td>'; }
+  function readRow(i){ var tr = panel.querySelector('tr[data-i="'+i+'"]'); if(!tr) return; ['from','to','fee','add'].forEach(function(f){ var el=tr.querySelector('[data-f="'+f+'"]'); if(el) PF[i][f]=Number(el.value); }); }
+
+  // ---------------- MODALS ----------------
+  var ovl = document.getElementById('ovl-root');
+  function closeModal(){ ovl.classList.add('is-hidden'); ovl.innerHTML=''; }
+  ovl.addEventListener('click', function(e){ if (e.target===ovl || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape'){ closeMenu(); closeModal(); } });
+  function modal(o){
+    var d=o.danger;
+    ovl.innerHTML = '<div class="modal" role="dialog" aria-modal="true">' +
+      '<div class="modal__head"><div class="modal__htext"><div class="modal__title">'+esc(o.title)+'</div>'+(o.sub?'<div class="modal__sub">'+o.sub+'</div>':'')+'</div>' +
+        '<button class="modal__close" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
+      '<div class="modal__body">'+(o.body||'')+'</div>' +
+      '<div class="modal__foot">' + (o.hideCancel?'':'<button class="btn btn--ghost btn--sm" data-close>'+(o.cancel||'Cancel')+'</button>') +
+        '<button class="btn '+(d?'':'btn--primary')+' btn--sm" id="modal-confirm"'+(d?' style="background:var(--red);color:#fff"':'')+'>'+esc(o.confirm)+'</button></div>' +
+    '</div>';
+    ovl.classList.remove('is-hidden');
+    document.getElementById('modal-confirm').addEventListener('click', function(){ if(o.onConfirm && o.onConfirm()===false) return; closeModal(); });
+    if (o.onMount) o.onMount(ovl);
+  }
+  function field(label, value, ph){ return '<div class="field">'+(label?'<span class="field__label">'+esc(label)+'</span>':'')+'<input class="input" type="text" value="'+esc(value||'')+'" placeholder="'+esc(ph||'')+'" /></div>'; }
+
+  function statusById(id){ return [ROOT].concat(MANUAL, AUTOMATED).find(function(s){return s.id===id;}); }
+  function openAdd(){
+    modal({ title:'New status', confirm:'Save',
+      sub:'The new status will be automatically added to your list, so you can use it in the workflow at any time.',
+      body: field('', '', 'Status name (e.g., Ready to publish)'),
+      onConfirm: function(){ var v = ovl.querySelector('.input').value.trim(); if(!v) return; MANUAL.push({id:Date.parse('2026-07-01T00:00:'+(MANUAL.length),10)||(100+MANUAL.length), name:v, order_items_count:0}); if(TAB==='orders') renderOrders(); showToast('Order item status created.'); }
+    });
+  }
+  function openEdit(id){
+    var s = statusById(id);
+    modal({ title:'Edit status', confirm:'Save',
+      sub:'The new status will be automatically added to your list, so you can use it in the workflow at any time.',
+      body: field('', s.name, ''),
+      onConfirm: function(){ var v = ovl.querySelector('.input').value.trim(); if(!v) return; s.name=v; render(); showToast('Status updated'); }
+    });
+  }
+  function openDelete(id){
+    var s = statusById(id);
+    var manualCount = MANUAL.length;
+    if (manualCount <= 1){ // last manual status guard
+      modal({ title:"You can't delete this status", confirm:'Ok', hideCancel:true,
+        body:'<div class="modal__sub" style="margin:0">This is your last manual status. Please create another one before removing it.</div>' });
+      return;
+    }
+    var reassign = (s.order_items_count||0) > 0;
+    var others = MANUAL.filter(function(m){return m.id!==id;}).concat(AUTOMATED.filter(function(a){return a.key==='CANCELED';}));
+    var body = '<div class="modal__sub" style="margin:0">This will remove the status from your list and make it unavailable for future use in the workflow. This action cannot be undone.</div>';
+    if (reassign){
+      body += '<div class="field" style="margin-top:16px"><span class="field__label">Select new status</span>' +
+        '<div class="field__hint" style="margin-bottom:8px">This status can’t be deleted because it’s currently assigned to one or more order items. Move those items to a different status to proceed.</div>' +
+        '<select class="select">'+['Select'].concat(others.map(function(o){return o.name;})).map(function(n){return '<option>'+esc(n)+'</option>';}).join('')+'</select></div>';
+    }
+    modal({ danger:true, title:'Delete status', confirm:'Yes, delete', body:body,
+      onMount: reassign ? function(root){
+        var sel = root.querySelector('select'), btn = root.querySelector('#modal-confirm');
+        function sync(){ var ok = sel.value !== 'Select'; btn.disabled = !ok; btn.style.opacity = ok ? 1 : .5; btn.style.cursor = ok ? 'pointer' : 'not-allowed'; }
+        sel.addEventListener('change', sync); sync();
+      } : null,
+      onConfirm: function(){ MANUAL = MANUAL.filter(function(m){return m.id!==id;}); renderOrders(); showToast('Status deleted'); }
+    });
+  }
+
+  // ---------------- ROW MENU ----------------
+  var openM = null;
+  function closeMenu(){ if (openM){ openM.remove(); openM=null; } }
+  function openMenu(btn, items){
+    closeMenu(); var m=document.createElement('div'); m.className='amenu';
+    m.innerHTML = items.map(function(it){ return '<button class="amenu__item'+(it.danger?' amenu__item--danger':'')+'" data-act="'+it.act+'">'+svg(it.icon)+esc(it.label)+'</button>'; }).join('');
+    document.body.appendChild(m); var r=btn.getBoundingClientRect(), w=m.offsetWidth, h=m.offsetHeight;
+    m.style.left = Math.max(8, Math.min(r.right-w, window.innerWidth-w-8))+'px';
+    m.style.top = ((r.bottom+h+8>window.innerHeight)?r.top-h-6:r.bottom+6)+'px';
+    m.addEventListener('click', function(e){ var it=e.target.closest('.amenu__item'); if(!it) return; closeMenu(); items.filter(function(x){return x.act===it.dataset.act;})[0].run(); });
+    openM = m;
+  }
+  document.addEventListener('click', function(e){
+    var more = e.target.closest('.cz-more');
+    if (more){ e.stopPropagation(); var id=+more.dataset.id, kind=more.dataset.kind;
+      var items=[{label:'Edit', icon:IC.edit, act:'edit', run:function(){ openEdit(id); }}];
+      if (kind==='manual') items.push({label:'Delete', icon:IC.trash, act:'del', danger:true, run:function(){ openDelete(id); }});
+      openMenu(more, items); return;
+    }
+    if (openM && !e.target.closest('.amenu')) closeMenu();
+  });
+  window.addEventListener('resize', closeMenu); window.addEventListener('scroll', closeMenu, true);
+
+  // ---------------- TOAST ----------------
+  var toast = document.getElementById('toast'), tt;
+  function showToast(msg){ toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>'+esc(msg); toast.classList.remove('is-hidden'); clearTimeout(tt); tt=setTimeout(function(){ toast.classList.add('is-hidden'); }, 2600); }
+
+  // ---------------- INIT ----------------
+  document.querySelectorAll('.s-tab').forEach(function(t){ t.addEventListener('click', function(){ TAB=t.dataset.tab; render(); }); });
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+  render();
+})();
+</script>
+</body>
+</html>

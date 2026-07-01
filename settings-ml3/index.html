@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · Users</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <!-- ============ SIDEBAR — SCOPED TO SETTINGS ============ -->
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+
+      <nav class="m-nav">
+        <!-- compact header: whole row links back to the app -->
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </span>
+          <span class="s-head__title">Settings</span>
+        </a>
+
+        <a class="m-nav__item is-active" href="index.html" data-label="Users">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span>
+        </a>
+        <a class="m-nav__item" href="roles.html" data-label="User roles">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span>
+          <span class="m-nav__tx">User roles</span>
+        </a>
+        <a class="m-nav__item" href="billing.html" data-label="Billing entities">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
+          <span class="m-nav__tx">Billing entities</span>
+        </a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span>
+          <span class="m-nav__tx">Currencies</span>
+        </a>
+        <a class="m-nav__item" href="publishers.html" data-label="Publishers">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+          <span class="m-nav__tx">Publishers</span>
+        </a>
+
+        <a class="m-nav__item" href="integrations.html" data-label="Integrations">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+          <span class="m-nav__tx">Integrations</span>
+        </a>
+        <a class="m-nav__item" href="customization.html" data-label="Customization">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <span class="m-nav__tx">Customization</span>
+        </a>
+      </nav>
+
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN — USERS TAB ============ -->
+    <main class="m-main">
+      <div class="m-content">
+
+        <div class="m-head">
+          <div>
+            <h1>Users</h1>
+            <div class="sub">Manage who can access this workspace, their roles and account status.</div>
+          </div>
+          <div class="m-head__actions">
+            <div class="s-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input class="input" type="text" placeholder="Search users…" />
+            </div>
+            <button class="btn btn--primary btn--sm" id="s-invite"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Invite</button>
+          </div>
+        </div>
+
+        <!-- selection bar (hidden until rows checked) -->
+        <div class="s-selbar" id="s-selbar" style="display:none">
+          <input type="checkbox" class="checkbox" id="s-selbar-cb" checked />
+          <span id="s-selcount">0 selected</span>
+          <span class="grow"></span>
+          <button class="btn btn--ghost btn--sm" data-bulk="assign">Assign manager</button>
+          <button class="btn btn--ghost btn--sm" data-bulk="role">Change role</button>
+          <button class="btn btn--ghost btn--sm" data-bulk="suspend" style="color:var(--red)">Suspend</button>
+        </div>
+
+        <div class="m-table-card">
+          <table class="m-table">
+            <thead>
+              <tr>
+                <th style="width:36px"><input type="checkbox" class="checkbox" id="s-selall" /></th>
+                <th style="width:88px">User ID</th>
+                <th>User</th>
+                <th>Source</th>
+                <th>Roles</th>
+                <th>Status</th>
+                <th>Manager</th>
+                <th>Registered</th>
+                <th>Last seen</th>
+                <th class="tc" style="width:56px"></th>
+              </tr>
+            </thead>
+            <tbody id="s-tbody"><!-- rows injected by JS --></tbody>
+          </table>
+        </div>
+
+        <div class="s-foot">
+          <span>Showing <b>1–8</b> of <b>128</b> users</span>
+          <span class="s-foot__pages">
+            <button class="btn btn--secondary btn--xs" disabled>Prev</button>
+            <span class="muted">Page 1 of 16</span>
+            <button class="btn btn--secondary btn--xs">Next</button>
+          </span>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- modal host -->
+<div id="ovl-root" class="ovl is-hidden"></div>
+
+<script>
+(function () {
+  // ---- demo data (fields mirror pages/users/index.vue) ----
+  var COLORS = ['#3d3aad','#128a5a','#b0791a','#2f6bdd','#d23b34','#6d4aff','#0f766e','#9333ea'];
+  function initials(n){ return n.split(' ').map(function(p){return p[0];}).slice(0,2).join('').toUpperCase(); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  // role names only — the app's roles are workspace-defined labels, no descriptions
+  var ROLES = ['Super admin','General manager','Finance manager','Outreach manager','Account manager','Client'];
+  // candidate account managers for the "Assign account manager" combobox
+  var MANAGERS = [
+    { name:'Sayeed Khan',   email:'sayeed@motherlink.io',        role:'Super admin' },
+    { name:'Anna Volkova',  email:'anna@motherlink.io',          role:'Super admin' },
+    { name:'Daniel Okafor', email:'daniel.okafor@mediastack.co', role:'Finance manager' },
+    { name:'Nelson Alex',   email:'alex.nelson@rover.info',      role:'Account manager' },
+    { name:'Melton Kate',   email:'kate.melton@fexpost.com',     role:'Account manager' },
+    { name:'Adams Ksenia',  email:'ksenia.adams@chitthi.in',     role:'Account manager' }
+  ];
+
+  var USERS = [
+    { id:1042, name:'Olivia Hartman', email:'olivia@brightlabs.io', source:'Manual', roles:['Super admin'], status:'active', manager:'Sayeed Khan', reg:'12 Jan 2026', seen:'2 min ago' },
+    { id:1041, name:'Marcus Lindqvist', email:'marcus@nordiclinks.se', source:'Self sign-up', roles:['Account manager'], status:'active', manager:'Sayeed Khan', reg:'04 Jan 2026', seen:'1 hr ago' },
+    { id:1039, name:'Priya Raman', email:'priya@contentforge.in', source:'Invite', roles:['Client'], status:'invited', manager:null, reg:'—', seen:'—' },
+    { id:1036, name:'Daniel Okafor', email:'daniel.okafor@mediastack.co', source:'Manual', roles:['Finance manager'], status:'active', manager:'Anna Volkova', reg:'28 Dec 2025', seen:'Yesterday' },
+    { id:1031, name:'Sofia Marchetti', email:'sofia@linkrise.it', source:'Self sign-up', roles:['Client'], status:'pending', manager:null, reg:'19 Dec 2025', seen:'3 days ago' },
+    { id:1028, name:'James Whitaker', email:'james@whitaker-seo.com', source:'Invite', roles:['Client'], status:'active', manager:'Anna Volkova', reg:'11 Dec 2025', seen:'5 days ago' },
+    { id:1020, name:'Yuki Tanaka', email:'yuki@tokyo-reach.jp', source:'Manual', roles:['Account manager'], status:'suspended', manager:'Sayeed Khan', reg:'02 Dec 2025', seen:'3 wk ago' },
+    { id:1004, name:'Anna Volkova', email:'anna@motherlink.io', source:'Manual', roles:['Super admin'], status:'active', manager:null, reg:'15 Nov 2025', seen:'4 min ago' }
+  ];
+  var STATUS = {
+    active:    ['s-badge--active','Active'],
+    invited:   ['s-badge--invited','Invited'],
+    pending:   ['s-badge--pending','Pending approval'],
+    suspended: ['s-badge--susp','Suspended']
+  };
+
+  // ---- tiny icon set used by the action menus/modals ----
+  var IC = {
+    managerUp:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
+    role:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M16 11l2 2 4-4"/>',
+    review:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m15 11 2 2 4-4"/>',
+    suspend:'<circle cx="12" cy="12" r="9"/><path d="M9 9h.01M15 9h.01M9 15h6"/>',
+    reactivate:'<circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/>',
+    resend:'<path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/>',
+    revoke:'<path d="M4 4h16v4H4zM4 8v12h16V8M9 12h6"/>',
+    invite:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
+    warn:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+    info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>'
+  };
+  function svg(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+
+  // ---- render rows ----
+  var tbody = document.getElementById('s-tbody');
+  function rowHtml(u, i){
+    var st = STATUS[u.status];
+    var roleHtml = '<span class="r-chip">' + esc(u.roles[0]) + '</span>';
+    return '<td><input type="checkbox" class="checkbox s-rowcb" /></td>' +
+      '<td><span class="u-id">#' + u.id + '</span></td>' +
+      '<td><div class="u-cell"><span class="u-av" style="background:' + COLORS[i % COLORS.length] + '">' + initials(u.name) + '</span>' +
+        '<span class="u-meta"><span class="u-name">' + esc(u.name) + '</span><span class="u-sub">' + esc(u.email) + '</span></span></div></td>' +
+      '<td>' + esc(u.source) + '</td>' +
+      '<td>' + roleHtml + '</td>' +
+      '<td><span class="s-badge ' + st[0] + '"><span class="dot"></span>' + st[1] + '</span></td>' +
+      '<td>' + (u.manager ? esc(u.manager) : '<span class="muted">—</span>') + '</td>' +
+      '<td class="num">' + u.reg + '</td>' +
+      '<td class="num">' + u.seen + '</td>' +
+      '<td class="tc"><button class="btn--iconxs s-rowmore" title="Actions"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button></td>';
+  }
+  function render(){
+    tbody.innerHTML = '';
+    USERS.forEach(function (u, i) {
+      var tr = document.createElement('tr');
+      tr.className = 'data-row';
+      tr.dataset.idx = i;
+      tr.innerHTML = rowHtml(u, i);
+      tbody.appendChild(tr);
+    });
+    refresh();
+  }
+
+  // =====================================================================
+  // SELECTION
+  // =====================================================================
+  var selbar = document.getElementById('s-selbar');
+  var selcount = document.getElementById('s-selcount');
+  var selall = document.getElementById('s-selall');
+  function rowCbs(){ return Array.prototype.slice.call(document.querySelectorAll('.s-rowcb')); }
+  function selectedIdx(){ return rowCbs().map(function(c,i){ return c.checked ? i : -1; }).filter(function(i){ return i>=0; }); }
+  function refresh(){
+    var cbs = rowCbs();
+    var n = 0;
+    cbs.forEach(function(c){ c.closest('tr').classList.toggle('is-selected', c.checked); if(c.checked) n++; });
+    selbar.style.display = n ? 'flex' : 'none';
+    selcount.textContent = n + ' selected';
+    selall.indeterminate = n > 0 && n < cbs.length;
+    selall.checked = n === cbs.length && cbs.length > 0;
+  }
+  document.addEventListener('change', function(e){
+    if (e.target.classList.contains('s-rowcb')) refresh();
+    if (e.target === selall){ rowCbs().forEach(function(c){ c.checked = selall.checked; }); refresh(); }
+  });
+
+  // =====================================================================
+  // ROW ACTION MENU (floating, context-aware by status)
+  // =====================================================================
+  var openMenu = null;
+  function closeMenu(){ if (openMenu){ openMenu.remove(); openMenu = null; } }
+  function menuItemsFor(u){
+    var assign = { label:'Assign manager', icon:IC.managerUp, act:'assign' };
+    var role   = { label:'Change role', icon:IC.role, act:'role' };
+    switch (u.status){
+      case 'pending': return [assign, { sep:true }, { label:'Review request', icon:IC.review, act:'review' }];
+      case 'invited': return [assign, role, { label:'Resend invite', icon:IC.resend, act:'resend' }, { sep:true }, { label:'Revoke invite', icon:IC.revoke, act:'revoke', danger:true }];
+      case 'suspended': return [assign, role, { sep:true }, { label:'Reactivate user', icon:IC.reactivate, act:'reactivate' }];
+      default: return [assign, role, { sep:true }, { label:'Suspend user', icon:IC.suspend, act:'suspend', danger:true }];
+    }
+  }
+  function openRowMenu(btn, idx){
+    closeMenu();
+    var u = USERS[idx];
+    var m = document.createElement('div');
+    m.className = 'amenu';
+    m.innerHTML = menuItemsFor(u).map(function(it){
+      if (it.sep) return '<hr class="amenu__sep" />';
+      return '<button class="amenu__item' + (it.danger ? ' amenu__item--danger':'') + '" data-act="' + it.act + '">' + svg(it.icon) + esc(it.label) + '</button>';
+    }).join('');
+    document.body.appendChild(m);
+    var r = btn.getBoundingClientRect();
+    var w = m.offsetWidth, h = m.offsetHeight;
+    var left = Math.min(r.right - w, window.innerWidth - w - 8);
+    var top = (r.bottom + h + 8 > window.innerHeight) ? r.top - h - 6 : r.bottom + 6;
+    m.style.left = Math.max(8, left) + 'px';
+    m.style.top = top + 'px';
+    m.addEventListener('click', function(e){
+      var item = e.target.closest('.amenu__item'); if (!item) return;
+      closeMenu();
+      runAction(item.dataset.act, [idx]);
+    });
+    openMenu = m;
+  }
+  document.addEventListener('click', function(e){
+    var more = e.target.closest('.s-rowmore');
+    if (more){ e.stopPropagation(); openRowMenu(more, +more.closest('tr').dataset.idx); return; }
+    if (openMenu && !e.target.closest('.amenu')) closeMenu();
+  });
+  window.addEventListener('resize', closeMenu);
+  window.addEventListener('scroll', closeMenu, true);
+
+  // =====================================================================
+  // MODALS
+  // =====================================================================
+  var ovl = document.getElementById('ovl-root');
+  function closeModal(){ ovl.classList.add('is-hidden'); ovl.innerHTML = ''; }
+  ovl.addEventListener('click', function(e){ if (e.target === ovl || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ closeMenu(); closeModal(); } });
+
+  function modal(opts){
+    var danger = opts.danger;
+    ovl.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true">' +
+        '<div class="modal__head">' +
+          (opts.icon ? '<span class="modal__icon' + (danger ? ' modal__icon--danger':'') + '">' + svg(opts.icon) + '</span>' : '') +
+          '<div class="modal__htext"><div class="modal__title">' + esc(opts.title) + '</div>' +
+            (opts.sub ? '<div class="modal__sub">' + opts.sub + '</div>' : '') + '</div>' +
+          '<button class="modal__close" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+        '</div>' +
+        '<div class="modal__body">' + (opts.body || '') + '</div>' +
+        (opts.noFoot ? '' :
+        '<div class="modal__foot">' + (opts.footLeft || '') +
+          '<button class="btn btn--ghost btn--sm" data-close>' + (opts.cancel || 'Cancel') + '</button>' +
+          '<button class="btn ' + (danger ? '' : 'btn--primary') + ' btn--sm" id="modal-confirm"' + (danger ? ' style="background:var(--red);color:#fff"':'') + '>' + esc(opts.confirm) + '</button>' +
+        '</div>') +
+      '</div>';
+    ovl.classList.remove('is-hidden');
+    var c = document.getElementById('modal-confirm');
+    if (c) c.addEventListener('click', function(){ if (opts.onConfirm) opts.onConfirm(); closeModal(); });
+    if (opts.onMount) opts.onMount(ovl);
+  }
+
+  function avatar(name, i, size){ return '<span class="u-av" style="width:' + size + 'px;height:' + size + 'px;background:' + COLORS[i % COLORS.length] + '">' + initials(name) + '</span>'; }
+  function userChip(u, rightRole){
+    var i = USERS.indexOf(u);
+    return '<div class="mu-head">' + avatar(u.name, i, 34) +
+      '<span class="u-meta"><span class="u-name">' + esc(u.name) + '</span><span class="u-sub">' + esc(u.email) + ' · #' + u.id + '</span></span>' +
+      (rightRole ? '<span class="mu-head__role">' + esc(rightRole) + '</span>' : '') + '</div>';
+  }
+  function targetSub(idxs){ return idxs.length === 1 ? null : '<b>' + idxs.length + ' users</b> selected.'; }
+  function targetBlock(idxs){ return idxs.length === 1 ? userChip(USERS[idxs[0]]) : ''; }
+
+  // single-select role radio list (no descriptions)
+  function roleList(current){
+    return '<div class="rlist">' + ROLES.map(function(r, k){
+      return '<label class="ropt"><input type="radio" name="role" class="checkbox" style="border-radius:50%" ' + (r === current ? 'checked' : '') + ' /><span class="ropt__name">' + esc(r) + '</span></label>';
+    }).join('') + '</div>';
+  }
+
+  // searchable combobox for picking an account manager (+ a "None" option)
+  function managerSelect(){
+    var rows = MANAGERS.map(function(m, i){
+      return '<button type="button" class="ssel__opt" data-name="' + esc(m.name) + '" data-search="' + esc((m.name + ' ' + m.email).toLowerCase()) + '">' +
+        avatar(m.name, i + 2, 30) + '<span class="u-meta"><span class="u-name">' + esc(m.name) + '</span><span class="u-sub">' + esc(m.email) + '</span></span>' +
+        '<span class="ssel__role">' + esc(m.role) + '</span></button>';
+    }).join('');
+    return '<div class="field"><span class="field__label">Account manager</span>' +
+      '<div class="ssel" data-ssel>' +
+        '<button type="button" class="ssel__btn" data-toggle><span class="ssel__ph">Select an account manager…</span>' +
+          '<svg class="ssel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>' +
+        '<div class="ssel__panel" hidden>' +
+          '<div class="ssel__search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
+            '<input type="text" placeholder="Search…" data-search /></div>' +
+          '<div class="ssel__list">' +
+            '<button type="button" class="ssel__opt" data-name="" data-search="none"><span class="ssel__none">None</span></button>' +
+            rows +
+            '<div class="ssel__empty" hidden>No users found</div>' +
+          '</div>' +
+        '</div>' +
+      '</div></div>';
+  }
+  function wireManagerSelect(root){
+    root.querySelectorAll('[data-ssel]').forEach(function(ss){
+      var btn = ss.querySelector('[data-toggle]');
+      var panel = ss.querySelector('.ssel__panel');
+      var search = ss.querySelector('[data-search]');
+      var empty = ss.querySelector('.ssel__empty');
+      btn.addEventListener('click', function(){
+        var open = ss.classList.toggle('is-open'); panel.hidden = !open;
+        if (open){ search.value=''; filter(''); setTimeout(function(){ search.focus(); }, 0); }
+      });
+      function filter(q){
+        var n = 0;
+        ss.querySelectorAll('.ssel__opt').forEach(function(o){
+          if (o.dataset.name === '') { o.hidden = q !== ''; return; } // hide "None" while searching
+          var hit = o.dataset.search.indexOf(q) >= 0; o.hidden = !hit; if (hit) n++;
+        });
+        empty.hidden = n > 0 || q === '';
+      }
+      search.addEventListener('input', function(){ filter(this.value.trim().toLowerCase()); });
+      ss.querySelectorAll('.ssel__opt').forEach(function(o){
+        o.addEventListener('click', function(){
+          ss.querySelectorAll('.ssel__opt').forEach(function(x){ x.classList.remove('is-sel'); });
+          o.classList.add('is-sel');
+          var name = o.dataset.name;
+          if (!name){ btn.innerHTML = '<span class="ssel__none" style="padding:0">None</span><svg class="ssel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'; }
+          else {
+            var m = MANAGERS.filter(function(x){ return x.name === name; })[0];
+            var i = MANAGERS.indexOf(m);
+            btn.innerHTML = avatar(name, i + 2, 28) + '<span class="u-meta"><span class="u-name">' + esc(name) + '</span><span class="u-sub">' + esc(m.email) + '</span></span>' +
+              '<svg class="ssel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>';
+          }
+          ss.classList.remove('is-open'); panel.hidden = true;
+        });
+      });
+    });
+  }
+
+  // ---- the action dispatcher (copy follows the production app) ----
+  function runAction(act, idxs){
+    var single = idxs.length === 1 ? USERS[idxs[0]] : null;
+    var many = idxs.length > 1;
+    switch (act){
+      case 'assign':
+        modal({ title:'Assign account manager',
+          sub:'Select a user from the dropdown to assign them to the selected ' + (many ? 'users' : 'user') + '.',
+          body: (many ? '<div class="modal__sub" style="margin:0">' + targetSub(idxs) + '</div>' : '') + managerSelect(),
+          confirm:'Assign', onMount:wireManagerSelect });
+        break;
+      case 'role':
+        modal({ title:'Change role',
+          body: (single ? userChip(single, single.roles[0]) : '<div class="modal__sub" style="margin:0">' + targetSub(idxs) + '</div>') +
+            '<div class="field"><span class="field__label">New role</span>' + roleList(single ? single.roles[0] : null) + '</div>',
+          confirm:'Save' });
+        break;
+      case 'review':
+        modal({ title:'Review registration request',
+          sub:'Approve to grant access, or reject to decline this sign-up.',
+          body: targetBlock(idxs) +
+            '<div class="field"><span class="field__label">Role on approval</span>' + roleList(ROLES[ROLES.length-1]) + '</div>',
+          footLeft:'<button class="btn btn--ghost btn--sm" data-close style="color:var(--red)">Reject</button><span class="grow"></span>',
+          confirm:'Approve' });
+        break;
+      case 'suspend':
+        modal({ danger:true, title: many ? 'Suspend users?' : 'Suspend user?',
+          body:'<div class="modal__sub" style="margin:0">' + (many
+            ? 'Once these users are suspended, they will no longer be able to access their accounts. Ensure all orders assigned to them are completed or canceled, and their media is reassigned on the market before proceeding.'
+            : 'Once a user is suspended, they will no longer be able to access their account. Ensure all orders assigned to this user are completed or canceled, and their media is reassigned on the market before proceeding.'
+          ) + '</div>',
+          confirm:'Yes, suspend' });
+        break;
+      case 'reactivate':
+        modal({ title:'Reactivate user?',
+          body:'<div class="modal__sub" style="margin:0">Reactivating restores account access and the user’s previous roles.</div>',
+          confirm:'Yes, reactivate' });
+        break;
+      case 'resend':
+        modal({ title:'Resend invite',
+          body:'<div class="modal__sub" style="margin:0">A new invitation link will be emailed and any previous link will stop working.</div>',
+          confirm:'Resend invite' });
+        break;
+      case 'revoke':
+        modal({ danger:true, title:'Revoke invite?',
+          body:'<div class="modal__sub" style="margin:0">The invitation link will stop working immediately and the user will not be able to join.</div>',
+          confirm:'Yes, revoke' });
+        break;
+    }
+  }
+
+  // ---- Invite (header CTA) — share the registration-form link ----
+  var SIGNUP_URL = 'https://ml3.motherlink.io/signup';
+  function openInvite(){
+    modal({ title:'Invite users', noFoot:true,
+      sub:'Send the link to this registration form to anyone you want to invite to Motherlink. You will receive an email after they submit the form.',
+      body:
+        '<div class="ig">' +
+          '<span class="ig__addon">URL</span>' +
+          '<input class="ig__input" type="text" readonly value="' + SIGNUP_URL + '" />' +
+          '<button class="ig__copy" data-copy="' + SIGNUP_URL + '" title="Copy link" aria-label="Copy link">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+          '</button>' +
+        '</div>',
+      onMount: function(root){
+        var btn = root.querySelector('[data-copy]');
+        btn.addEventListener('click', function(){
+          var inp = root.querySelector('.ig__input'); inp.select();
+          try { navigator.clipboard.writeText(btn.dataset.copy); } catch (e) {}
+          btn.classList.add('is-done');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>';
+        });
+      }
+    });
+  }
+
+  // =====================================================================
+  // WIRE UP
+  // =====================================================================
+  document.getElementById('s-invite').addEventListener('click', openInvite);
+  document.querySelectorAll('[data-bulk]').forEach(function(b){
+    b.addEventListener('click', function(){ var s = selectedIdx(); if (s.length) runAction(b.dataset.bulk, s); });
+  });
+  document.getElementById('m-side-toggle').addEventListener('click', function(){
+    document.getElementById('m-sidebar').classList.toggle('is-collapsed');
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

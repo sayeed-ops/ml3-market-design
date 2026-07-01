@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · Integrations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+          <span class="s-head__title">Settings</span>
+        </a>
+        <a class="m-nav__item" href="index.html" data-label="Users"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span></a>
+        <a class="m-nav__item" href="roles.html" data-label="User roles"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span><span class="m-nav__tx">User roles</span></a>
+        <a class="m-nav__item" href="billing.html" data-label="Billing entities"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span><span class="m-nav__tx">Billing entities</span></a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span><span class="m-nav__tx">Currencies</span></a>
+        <a class="m-nav__item" href="publishers.html" data-label="Publishers"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="m-nav__tx">Publishers</span></a>
+        <a class="m-nav__item is-active" href="integrations.html" data-label="Integrations"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span><span class="m-nav__tx">Integrations</span></a>
+        <a class="m-nav__item" href="customization.html" data-label="Customization"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Customization</span></a>
+      </nav>
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <main class="m-main">
+      <div class="m-content" style="max-width:820px;margin-left:auto;margin-right:auto;width:100%">
+        <div class="m-head"><div><h1>Integrations</h1><div class="sub">Connect the SEO data providers and indexing service that power your market metrics.</div></div></div>
+
+        <!-- Indexer API Keys -->
+        <div class="i-card">
+          <div class="i-card__head"><div><div class="i-card__title">Indexer API Keys</div><div class="i-card__sub">Enter your API keys to check whether your links are indexed on Google.</div></div></div>
+          <div class="i-card__body">
+            <div class="field"><span class="field__label">IndexCheckr API Key</span>
+              <div class="input-key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10 13 7-7 3 3M15 8l2 2"/></svg><input class="input" type="text" placeholder="Enter key" /></div>
+            </div>
+          </div>
+          <div class="i-card__foot"><button class="btn btn--primary btn--sm" data-save="IndexCheckr API Key updated">Save</button></div>
+        </div>
+
+        <!-- Media API Keys -->
+        <div class="i-card">
+          <div class="i-card__head"><div><div class="i-card__title">Media API Keys</div><div class="i-card__sub">Enter your API keys to update media metrics in the Market.</div></div></div>
+          <div class="i-card__body" id="providers"><!-- provider cards injected --></div>
+          <div class="i-card__foot"><button class="btn btn--primary btn--sm" data-save="Media API Keys updated">Save</button></div>
+        </div>
+
+        <!-- API Requests -->
+        <div class="i-card">
+          <div class="i-card__head">
+            <div class="i-card__title">API Requests</div>
+            <div class="dr" id="dr">
+              <button class="fbtn" id="dr-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> <span id="dr-label">1 Jul – 31 Jul 2026</span> <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+              <div class="dr__pop" id="dr-pop" hidden>
+                <div class="field"><span class="field__label">From</span><input type="date" id="dr-from" value="2026-07-01" /></div>
+                <div class="field"><span class="field__label">To</span><input type="date" id="dr-to" value="2026-07-31" /></div>
+                <button class="btn btn--primary btn--sm" id="dr-apply" style="justify-content:center">Apply</button>
+              </div>
+            </div>
+          </div>
+          <div class="i-card__body"><div class="i-stats" id="stats"></div></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast is-hidden" id="toast"></div>
+
+<script>
+(function () {
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var KEY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10 13 7-7 3 3M15 8l2 2"/></svg>';
+
+  // providers + metrics — from pages/integrations/index.vue (metricDefinitions)
+  var PROVIDERS = [
+    { key:'ahrefs',   name:'Ahrefs',   logo:'A', active:true,  keys:[{label:'Ahrefs API Key'}],
+      metrics:['Domain Rating','Referring Domains','Total Keywords','Organic Traffic','Country'] },
+    { key:'majestic', name:'Majestic', logo:'M', active:true,  keys:[{label:'Majestic API Key'}],
+      metrics:['TF','CF','IP','Language','Indexed URLs','TTF1','TTF2'] },
+    { key:'moz',      name:'Moz',      logo:'Mz', active:false, keys:[{label:'Moz ID'},{label:'Moz API Key'}],
+      metrics:['PA','DA'] }
+  ];
+  var STATS = [ {p:'Ahrefs', total:12480}, {p:'Majestic', total:8210}, {p:'Moz', total:0} ];
+
+  // ---- render provider cards ----
+  var host = document.getElementById('providers');
+  host.innerHTML = PROVIDERS.map(function(p){
+    var keys = p.keys.length === 2
+      ? '<div class="row2">' + p.keys.map(keyField).join('') + '</div>'
+      : p.keys.map(keyField).join('');
+    var metrics = '<div><div class="i-metrics__label">Metrics to import</div><div class="i-metrics' + (p.active?'':' is-off') + '" data-metrics>' +
+      p.metrics.map(function(m){ return '<label class="i-metric"><input type="checkbox" class="checkbox" ' + (p.active?'checked':'checked disabled') + ' /><span>' + esc(m) + '</span></label>'; }).join('') + '</div></div>';
+    return '<div class="i-prov" data-prov="' + p.key + '">' +
+      '<div class="i-prov__head"><span class="i-prov__name"><span class="i-prov__logo">' + esc(p.logo) + '</span>' + esc(p.name) + '</span>' +
+        '<button type="button" class="switch' + (p.active?' is-on':'') + '" data-switch aria-label="Toggle ' + esc(p.name) + '"></button></div>' +
+      '<div class="i-prov__body">' + keys + metrics + '</div></div>';
+  }).join('');
+  function keyField(k){ return '<div class="field"><span class="field__label">' + esc(k.label) + '</span><div class="input-key">' + KEY + '<input class="input" type="text" placeholder="Enter key" /></div></div>'; }
+
+  // switch toggles metrics dim + disabled
+  host.querySelectorAll('[data-prov]').forEach(function(card){
+    var sw = card.querySelector('[data-switch]'), metrics = card.querySelector('[data-metrics]');
+    sw.addEventListener('click', function(){
+      var on = sw.classList.toggle('is-on');
+      metrics.classList.toggle('is-off', !on);
+      metrics.querySelectorAll('input').forEach(function(cb){ cb.disabled = !on; });
+    });
+  });
+
+  // ---- stats ----
+  document.getElementById('stats').innerHTML = STATS.map(function(s){
+    return '<div class="i-stat"><div class="i-stat__label">' + esc(s.p) + '</div><div class="i-stat__val">' + s.total.toLocaleString('en-US') + '</div></div>';
+  }).join('');
+
+  // ---- toast ----
+  var toast = document.getElementById('toast'), toastTimer;
+  function showToast(msg){
+    toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>' + esc(msg);
+    toast.classList.remove('is-hidden');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toast.classList.add('is-hidden'); }, 2600);
+  }
+  document.querySelectorAll('[data-save]').forEach(function(b){ b.addEventListener('click', function(){ showToast(b.dataset.save); }); });
+
+  // ---- date range popover ----
+  var drBtn = document.getElementById('dr-btn'), drPop = document.getElementById('dr-pop');
+  drBtn.addEventListener('click', function(e){ e.stopPropagation(); drPop.hidden = !drPop.hidden; });
+  document.addEventListener('click', function(e){ if (!e.target.closest('#dr')) drPop.hidden = true; });
+  function fmt(v){ var d = new Date(v + 'T00:00:00'); return d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getFullYear(); }
+  document.getElementById('dr-apply').addEventListener('click', function(){
+    var f = document.getElementById('dr-from').value, t = document.getElementById('dr-to').value;
+    if (f && t) document.getElementById('dr-label').textContent = fmt(f) + ' – ' + fmt(t);
+    drPop.hidden = true;
+  });
+
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+})();
+</script>
+</body>
+</html>

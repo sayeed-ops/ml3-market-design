@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · Billing entities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <!-- ============ SIDEBAR — SCOPED TO SETTINGS ============ -->
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </span>
+          <span class="s-head__title">Settings</span>
+        </a>
+
+        <a class="m-nav__item" href="index.html" data-label="Users">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span>
+        </a>
+        <a class="m-nav__item" href="roles.html" data-label="User roles">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span>
+          <span class="m-nav__tx">User roles</span>
+        </a>
+        <a class="m-nav__item is-active" href="billing.html" data-label="Billing entities">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
+          <span class="m-nav__tx">Billing entities</span>
+        </a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span>
+          <span class="m-nav__tx">Currencies</span>
+        </a>
+        <a class="m-nav__item" href="publishers.html" data-label="Publishers">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+          <span class="m-nav__tx">Publishers</span>
+        </a>
+
+        <a class="m-nav__item" href="integrations.html" data-label="Integrations">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+          <span class="m-nav__tx">Integrations</span>
+        </a>
+        <a class="m-nav__item" href="customization.html" data-label="Customization">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <span class="m-nav__tx">Customization</span>
+        </a>
+      </nav>
+
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN — BILLING ENTITIES TAB ============ -->
+    <main class="m-main">
+      <div class="m-content">
+
+        <div class="m-head">
+          <div>
+            <h1>Billing entities</h1>
+            <div class="sub">Set up billing entities for accurate invoice generation between brokers and projects.</div>
+          </div>
+          <div class="m-head__actions">
+            <div class="s-search" id="s-searchwrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input class="input" type="text" id="s-search" placeholder="Search by name or reg. number…" />
+            </div>
+            <button class="btn btn--primary btn--sm" id="s-new"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New entity</button>
+          </div>
+        </div>
+
+        <div id="s-stage"><!-- table or empty state injected --></div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- modal host -->
+<div id="ovl-root" class="ovl is-hidden"></div>
+
+<script>
+(function () {
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function svg(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  function eur(v){ if (v == null || v === '') v = 0; return '€' + Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+  var COUNTRIES = ['Estonia','Germany','France','Netherlands','Spain','Italy','Ireland','United Kingdom','United States','Canada','Australia'];
+  // EU member states drive VAT behaviour in the app; kept here for the deposit-page mockup.
+  var EU = ['Estonia','Germany','France','Netherlands','Spain','Italy','Ireland'];
+
+  // demo data — fields mirror pages/billings/index.vue (billing_table)
+  var ENTITIES = [
+    { id:1, name:'Motherlink OÜ',        reg_number:'14682301', vat_number:'EE102156987', status:'Active',       user:{ name:'Sayeed Ahmed', email:'sayeed@motherlink.io' }, created_at:'12 Jan 2025', total_brands:8, wallet_reserve:4200,   wallet_spent:18640.5, wallet_available:12310, country:'Estonia',        address:'Tornimäe 5',        city:'Tallinn',   state:'Harju',        zip_code:'10145' },
+    { id:2, name:'Northwind Media GmbH', reg_number:'HRB 90211', vat_number:'DE811205789', status:'Active',       user:{ name:'Lena Vogt',    email:'lena@northwind.de' },     created_at:'28 Feb 2025', total_brands:5, wallet_reserve:1500,   wallet_spent:9320,    wallet_available:6180,  country:'Germany',        address:'Friedrichstr. 12',  city:'Berlin',    state:'Berlin',       zip_code:'10117' },
+    { id:3, name:'Atlas Digital Ltd',    reg_number:'09823145',  vat_number:null,          status:'Verification', user:{ name:'Tom Bradley',  email:'tom@atlasdigital.co.uk' }, created_at:'04 Mar 2025', total_brands:0, wallet_reserve:0,      wallet_spent:0,       wallet_available:0,     country:'United Kingdom', address:'221B Baker St',     city:'London',    state:'England',      zip_code:'NW16XE' },
+    { id:4, name:'Voyager SAS',          reg_number:'FR552108',  vat_number:'FR40552108234', status:'Active',     user:{ name:'Camille Roy',  email:'camille@voyager.fr' },    created_at:'19 Mar 2025', total_brands:3, wallet_reserve:800,    wallet_spent:2450.75, wallet_available:4100,  country:'France',         address:'14 Rue de Rivoli',  city:'Paris',     state:'Île-de-France',zip_code:'75001' },
+    { id:5, name:'Redwood Ventures LLC', reg_number:'US-88-1245',vat_number:null,          status:'Verification', user:{ name:'Grace Kim',    email:'grace@redwood.io' },      created_at:'22 Mar 2025', total_brands:0, wallet_reserve:0,      wallet_spent:0,       wallet_available:0,     country:'United States',  address:'500 Market St',     city:'San Francisco', state:'CA',       zip_code:'94105' },
+    { id:6, name:'Lowlands BV',          reg_number:'NL64821903',vat_number:'NL812345678B01', status:'Active',    user:{ name:'Daan Visser',  email:'daan@lowlands.nl' },      created_at:'02 Apr 2025', total_brands:2, wallet_reserve:2600,   wallet_spent:5010,    wallet_available:3990,  country:'Netherlands',    address:'Herengracht 90',    city:'Amsterdam', state:'North Holland',zip_code:'1015BS' }
+  ];
+  var EMPTY = /(\?|&)empty\b/.test(location.search);
+
+  var stage = document.getElementById('s-stage');
+  var searchwrap = document.getElementById('s-searchwrap');
+  var searchInput = document.getElementById('s-search');
+  var query = '';
+
+  function filtered(){
+    if (!query) return ENTITIES;
+    var q = query.toLowerCase();
+    return ENTITIES.filter(function(e){ return e.name.toLowerCase().indexOf(q) > -1 || (e.reg_number||'').toLowerCase().indexOf(q) > -1; });
+  }
+
+  function statusBadge(s){
+    var cls = s === 'Active' ? 's-badge--active' : 's-badge--pending';
+    return '<span class="s-badge ' + cls + '"><span class="dot"></span>' + esc(s) + '</span>';
+  }
+
+  function render(){
+    if (EMPTY || ENTITIES.length === 0){
+      searchwrap.style.visibility = 'hidden';
+      stage.innerHTML =
+        '<div class="m-table-card"><div class="s-empty">' +
+          '<div class="s-empty__icon">' + svg('<path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/>') + '</div>' +
+          '<div class="s-empty__title">No billing entities created</div>' +
+          '<div class="s-empty__sub">Set up billing entities for accurate invoice generation between brokers and projects.</div>' +
+          '<button class="btn btn--primary btn--sm" id="s-empty-new"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New entity</button>' +
+        '</div></div>';
+      document.getElementById('s-empty-new').addEventListener('click', openAdd);
+      return;
+    }
+    searchwrap.style.visibility = 'visible';
+    var list = filtered();
+    var rows = list.map(function(e){
+      return '<tr class="data-row" data-id="' + e.id + '">' +
+        '<td><span class="b-co">' + esc(e.name) + '</span><span class="b-reg">Reg. ' + esc(e.reg_number || '—') + '</span></td>' +
+        '<td>' + statusBadge(e.status) + '</td>' +
+        '<td>' + (e.user ? '<span class="u-meta"><span class="u-name">' + esc(e.user.name) + '</span><span class="u-sub">' + esc(e.user.email) + '</span></span>' : '<span class="muted">--</span>') + '</td>' +
+        '<td class="num">' + esc(e.created_at) + '</td>' +
+        '<td class="num tc">' + e.total_brands + '</td>' +
+        '<td class="num tr">' + eur(e.wallet_reserve) + '</td>' +
+        '<td class="num tr">' + eur(e.wallet_spent) + '</td>' +
+        '<td class="num tr b-avail">' + eur(e.wallet_available) + '</td>' +
+        '<td class="tc"><button class="btn--iconxs s-rowmore" title="Actions"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button></td>' +
+      '</tr>';
+    }).join('');
+    stage.innerHTML =
+      '<div class="m-table-card"><table class="m-table"><thead><tr>' +
+        '<th style="width:300px">Company name</th>' +
+        '<th style="width:132px">Status</th>' +
+        '<th style="width:190px">Created by</th>' +
+        '<th style="width:120px">Created</th>' +
+        '<th class="tc" style="width:84px">Projects</th>' +
+        '<th class="tr" style="width:118px">Reserve</th>' +
+        '<th class="tr" style="width:118px">Spent</th>' +
+        '<th class="tr" style="width:118px">Available</th>' +
+        '<th class="tc" style="width:56px"></th>' +
+      '</tr></thead><tbody>' + (rows || '<tr><td colspan="9" style="text-align:center;padding:28px" class="muted">No entities match “' + esc(query) + '”.</td></tr>') + '</tbody></table></div>' +
+      '<div class="s-foot"><span>' + list.length + ' of ' + ENTITIES.length + ' entities</span></div>';
+  }
+
+  // ---------- floating row menu (status-aware) ----------
+  var openMenu = null;
+  function closeMenu(){ if (openMenu){ openMenu.remove(); openMenu = null; } }
+  function openRowMenu(btn, id){
+    closeMenu();
+    var e = ENTITIES.filter(function(x){ return x.id === id; })[0];
+    if (!e) return;
+    var m = document.createElement('div');
+    m.className = 'amenu';
+    m.innerHTML =
+      '<button class="amenu__item" data-act="open">' + svg('<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>') + 'Open</button>' +
+      '<button class="amenu__item" data-act="deposit">' + svg('<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12l4 4 4-4"/>') + 'Deposit</button>' +
+      '<div class="amenu__sep"></div>' +
+      '<button class="amenu__item" data-act="active"' + (e.status === 'Active' ? ' disabled' : '') + '>' + svg('<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/>') + 'Set active</button>' +
+      '<button class="amenu__item" data-act="verify"' + (e.status === 'Verification' ? ' disabled' : '') + '>' + svg('<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>') + 'Set verification</button>' +
+      '<div class="amenu__sep"></div>' +
+      '<button class="amenu__item" data-act="edit">' + svg('<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/>') + 'Edit</button>' +
+      '<button class="amenu__item amenu__item--danger" data-act="delete">' + svg('<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>') + 'Delete</button>';
+    document.body.appendChild(m);
+    var r = btn.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+    m.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+    m.style.top = ((r.bottom + h + 8 > window.innerHeight) ? r.top - h - 6 : r.bottom + 6) + 'px';
+    m.addEventListener('click', function(ev){
+      var it = ev.target.closest('.amenu__item'); if (!it || it.hasAttribute('disabled')) return; closeMenu();
+      var act = it.dataset.act;
+      if (act === 'open') go(id, 'details');
+      else if (act === 'deposit') go(id, 'deposit');
+      else if (act === 'active') setStatus(id, 'Active');
+      else if (act === 'verify') setStatus(id, 'Verification');
+      else if (act === 'edit') openUpdate(id);
+      else if (act === 'delete') openDelete(id);
+    });
+    openMenu = m;
+  }
+  function go(id, tab){ location.href = 'billing-detail.html?id=' + id + '&tab=' + tab; }
+  function setStatus(id, status){
+    var e = ENTITIES.filter(function(x){ return x.id === id; })[0];
+    if (e){ e.status = status; render(); toast('Billing entity updated'); }
+  }
+
+  document.addEventListener('click', function(e){
+    var more = e.target.closest('.s-rowmore');
+    if (more){ e.stopPropagation(); openRowMenu(more, +more.closest('tr').dataset.id); return; }
+    var row = e.target.closest('tr.data-row');
+    if (row && !e.target.closest('.amenu')){ go(+row.dataset.id, 'details'); return; }
+    if (openMenu && !e.target.closest('.amenu')) closeMenu();
+  });
+  window.addEventListener('resize', closeMenu);
+  window.addEventListener('scroll', closeMenu, true);
+
+  // ---------- modal ----------
+  var ovl = document.getElementById('ovl-root');
+  function closeModal(){ ovl.classList.add('is-hidden'); ovl.innerHTML = ''; }
+  ovl.addEventListener('click', function(e){ if (e.target === ovl || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ closeMenu(); closeModal(); } });
+
+  function modal(opts){
+    var danger = opts.danger;
+    ovl.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true"' + (opts.wide ? ' style="max-width:560px"' : '') + '>' +
+        '<div class="modal__head"><div class="modal__htext"><div class="modal__title">' + esc(opts.title) + '</div>' +
+          (opts.sub ? '<div class="modal__sub">' + opts.sub + '</div>' : '') + '</div>' +
+          '<button class="modal__close" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
+        '<div class="modal__body">' + (opts.body || '') + '</div>' +
+        (opts.noFoot ? '' :
+        '<div class="modal__foot">' +
+          '<button class="btn btn--ghost btn--sm" data-close>' + (opts.cancel || 'Cancel') + '</button>' +
+          '<button class="btn ' + (danger ? '' : 'btn--primary') + ' btn--sm" id="modal-confirm"' + (danger ? ' style="background:var(--red);color:#fff"':'') + '>' + esc(opts.confirm) + '</button>' +
+        '</div>') +
+      '</div>';
+    ovl.classList.remove('is-hidden');
+    var c = document.getElementById('modal-confirm');
+    if (c) c.addEventListener('click', function(){ if (opts.onConfirm) opts.onConfirm(); if (!opts.keepOpen) closeModal(); });
+    if (opts.onMount) opts.onMount(ovl);
+  }
+
+  // ---------- toast ----------
+  var toastEl = null, toastTmr = null;
+  function toast(msg){
+    if (toastEl) toastEl.remove();
+    toastEl = document.createElement('div');
+    toastEl.className = 'toast';
+    toastEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>' + esc(msg);
+    document.body.appendChild(toastEl);
+    clearTimeout(toastTmr);
+    toastTmr = setTimeout(function(){ if (toastEl){ toastEl.remove(); toastEl = null; } }, 2600);
+  }
+
+  // ---------- shared form fields ----------
+  function detailsFields(f){
+    f = f || {};
+    return '' +
+      '<div class="field"><span class="field__label">Company name</span>' +
+        '<input class="input" type="text" data-k="name" value="' + esc(f.name) + '" /></div>' +
+      '<div class="field"><span class="field__label">Registration code</span>' +
+        '<input class="input" type="text" data-k="reg_number" value="' + esc(f.reg_number) + '" /></div>' +
+      '<div class="field"><span class="field__label">VAT number</span>' +
+        '<input class="input" type="text" data-k="vat_number" value="' + esc(f.noVat ? '' : f.vat_number) + '" ' + (f.noVat ? 'disabled' : '') + ' /></div>' +
+      '<div class="callout callout--info" style="margin:2px 0 4px">' + svg('<path d="M12 16v-4M12 8h.01"/><circle cx="12" cy="12" r="9"/>') +
+        '<span>EU companies must provide a valid VAT number. If no valid VAT number is provided, VAT will be added automatically to all deposits.</span></div>' +
+      '<div class="switch-row"><span class="switch-row__l">No VAT number</span>' +
+        '<button type="button" class="switch' + (f.noVat ? ' is-on' : '') + '" data-k="noVat" role="switch" aria-checked="' + (!!f.noVat) + '"></button></div>';
+  }
+  function addressFields(f){
+    f = f || {};
+    var opts = '<option value="">Select</option>' + COUNTRIES.map(function(c){ return '<option ' + (c === f.country ? 'selected' : '') + '>' + esc(c) + '</option>'; }).join('');
+    return '' +
+      '<div class="field"><span class="field__label">Country</span><select class="select" data-k="country">' + opts + '</select></div>' +
+      '<div class="field"><span class="field__label">Address</span><input class="input" type="text" data-k="address" value="' + esc(f.address) + '" /></div>' +
+      '<div class="field"><span class="field__label">City</span><input class="input" type="text" data-k="city" value="' + esc(f.city) + '" /></div>' +
+      '<div class="row2">' +
+        '<div class="field"><span class="field__label">State/Province</span><input class="input" type="text" data-k="state" value="' + esc(f.state) + '" /></div>' +
+        '<div class="field"><span class="field__label">Zip/Postal code</span><input class="input" type="text" data-k="zip_code" value="' + esc(f.zip_code) + '" /></div>' +
+      '</div>';
+  }
+  function wireNoVat(root){
+    var sw = root.querySelector('[data-k="noVat"]');
+    var vat = root.querySelector('[data-k="vat_number"]');
+    if (!sw || !vat) return;
+    sw.addEventListener('click', function(){
+      var on = !sw.classList.contains('is-on');
+      sw.classList.toggle('is-on', on); sw.setAttribute('aria-checked', on);
+      vat.disabled = on; if (on) vat.value = '';
+    });
+  }
+
+  // ---------- add flow (2-step wizard) ----------
+  function stepper(step){
+    function node(n, label, done, active){
+      return '<div class="wz-step' + (active ? ' is-active' : '') + (done ? ' is-done' : '') + '">' +
+        '<span class="wz-step__dot">' + (done ? svg('<path d="m5 12 5 5 9-11"/>') : n) + '</span>' +
+        '<span class="wz-step__tx"><span class="wz-step__k">Step ' + n + '</span><span class="wz-step__l">' + label + '</span></span></div>';
+    }
+    return '<div class="wz-steps">' + node(1,'Company details', step > 1, step === 1) +
+      '<span class="wz-steps__bar' + (step > 1 ? ' is-done' : '') + '"></span>' +
+      node(2,'Company address', false, step === 2) + '</div>';
+  }
+  function openAdd(){
+    var form = {};
+    function readStep(root){
+      root.querySelectorAll('[data-k]').forEach(function(el){
+        if (el.dataset.k === 'noVat') return;
+        form[el.dataset.k] = el.value;
+      });
+      var sw = root.querySelector('[data-k="noVat"]');
+      if (sw) form.noVat = sw.classList.contains('is-on');
+    }
+    function step1(){
+      modal({ title:'New billing entity', noFoot:true,
+        body: stepper(1) + '<div class="wz-body">' + detailsFields(form) + '</div>' +
+          '<div class="modal__foot" style="margin:0 -20px -18px;padding:14px 20px">' +
+            '<button class="btn btn--ghost btn--sm" data-close>Cancel</button>' +
+            '<button class="btn btn--primary btn--sm" id="wz-next">Next</button></div>',
+        onMount: function(root){
+          wireNoVat(root);
+          root.querySelector('#wz-next').addEventListener('click', function(){ readStep(root); step2(); });
+        } });
+    }
+    function step2(){
+      modal({ title:'New billing entity', noFoot:true,
+        body: stepper(2) + '<div class="wz-body">' + addressFields(form) + '</div>' +
+          '<div class="modal__foot" style="margin:0 -20px -18px;padding:14px 20px">' +
+            '<button class="btn btn--ghost btn--sm" id="wz-back">Back</button>' +
+            '<button class="btn btn--primary btn--sm" id="wz-done">Done</button></div>',
+        onMount: function(root){
+          root.querySelector('#wz-back').addEventListener('click', function(){ readStep(root); step1(); });
+          root.querySelector('#wz-done').addEventListener('click', function(){
+            readStep(root);
+            var id = Math.max.apply(null, ENTITIES.map(function(e){ return e.id; })) + 1;
+            ENTITIES.unshift({ id:id, name:form.name || 'New entity', reg_number:form.reg_number || '—',
+              vat_number: form.noVat ? null : (form.vat_number || null), status:'Verification',
+              user:{ name:'Sayeed Ahmed', email:'sayeed@motherlink.io' }, created_at:'Just now',
+              total_brands:0, wallet_reserve:0, wallet_spent:0, wallet_available:0,
+              country:form.country, address:form.address, city:form.city, state:form.state, zip_code:form.zip_code });
+            closeModal(); render(); toast('Billing entity created');
+          });
+        } });
+    }
+    step1();
+  }
+
+  // ---------- update flow (tabbed: details / address) ----------
+  function openUpdate(id){
+    var e = ENTITIES.filter(function(x){ return x.id === id; })[0];
+    if (!e) return;
+    var form = { name:e.name, reg_number:e.reg_number, vat_number:e.vat_number, noVat:e.vat_number == null, country:e.country, address:e.address, city:e.city, state:e.state, zip_code:e.zip_code };
+    var tab = 'details';
+    function readTab(root){
+      root.querySelectorAll('.wz-body [data-k]').forEach(function(el){
+        if (el.dataset.k === 'noVat') return; form[el.dataset.k] = el.value;
+      });
+      var sw = root.querySelector('.wz-body [data-k="noVat"]');
+      if (sw) form.noVat = sw.classList.contains('is-on');
+    }
+    function draw(){
+      modal({ title:'Billing entity', noFoot:true,
+        body:
+          '<div class="s-tabs" style="margin-top:4px">' +
+            '<button class="s-tab' + (tab === 'details' ? ' is-active' : '') + '" data-tab="details">Company details</button>' +
+            '<button class="s-tab' + (tab === 'address' ? ' is-active' : '') + '" data-tab="address">Company address</button>' +
+          '</div>' +
+          '<div class="wz-body">' + (tab === 'details' ? detailsFields(form) : addressFields(form)) + '</div>' +
+          '<div class="modal__foot" style="margin:0 -20px -18px;padding:14px 20px">' +
+            '<button class="btn btn--ghost btn--sm" data-close>Cancel</button>' +
+            '<button class="btn btn--primary btn--sm" id="up-save">Save</button></div>',
+        onMount: function(root){
+          if (tab === 'details') wireNoVat(root);
+          root.querySelectorAll('.s-tab').forEach(function(t){
+            t.addEventListener('click', function(){ readTab(root); tab = t.dataset.tab; draw(); });
+          });
+          root.querySelector('#up-save').addEventListener('click', function(){
+            readTab(root);
+            e.name = form.name; e.reg_number = form.reg_number; e.vat_number = form.noVat ? null : form.vat_number;
+            e.country = form.country; e.address = form.address; e.city = form.city; e.state = form.state; e.zip_code = form.zip_code;
+            closeModal(); render(); toast('Billing entity updated');
+          });
+        } });
+    }
+    draw();
+  }
+
+  // ---------- delete flow ----------
+  function openDelete(id){
+    var e = ENTITIES.filter(function(x){ return x.id === id; })[0];
+    if (!e) return;
+    modal({ danger:true, title:'Delete billing entity', confirm:'Yes, delete',
+      body:'<div class="modal__sub" style="margin:0">Deleting the entity will permanently remove it from the platform. This action cannot be undone.</div>',
+      onConfirm: function(){
+        ENTITIES = ENTITIES.filter(function(x){ return x.id !== id; });
+        render(); toast('Billing entity deleted');
+      } });
+  }
+
+  document.getElementById('s-new').addEventListener('click', openAdd);
+  searchInput.addEventListener('input', function(){ query = this.value.trim(); render(); });
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+
+  render();
+})();
+</script>
+</body>
+</html>

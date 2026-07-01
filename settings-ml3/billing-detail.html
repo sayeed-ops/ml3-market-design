@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · Billing entity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <!-- ============ SIDEBAR — SCOPED TO SETTINGS ============ -->
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </span>
+          <span class="s-head__title">Settings</span>
+        </a>
+
+        <a class="m-nav__item" href="index.html" data-label="Users">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span>
+        </a>
+        <a class="m-nav__item" href="roles.html" data-label="User roles">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span>
+          <span class="m-nav__tx">User roles</span>
+        </a>
+        <a class="m-nav__item is-active" href="billing.html" data-label="Billing entities">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
+          <span class="m-nav__tx">Billing entities</span>
+        </a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span>
+          <span class="m-nav__tx">Currencies</span>
+        </a>
+        <a class="m-nav__item" href="publishers.html" data-label="Publishers">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+          <span class="m-nav__tx">Publishers</span>
+        </a>
+
+        <a class="m-nav__item" href="integrations.html" data-label="Integrations">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+          <span class="m-nav__tx">Integrations</span>
+        </a>
+        <a class="m-nav__item" href="customization.html" data-label="Customization">
+          <span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <span class="m-nav__tx">Customization</span>
+        </a>
+      </nav>
+
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN — BILLING ENTITY DETAIL ============ -->
+    <main class="m-main">
+      <div class="m-content">
+
+        <div>
+          <a class="b-back" href="billing.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Billing entities</a>
+          <div class="b-title"><h1 id="b-name">Billing entity</h1><span id="b-status"></span></div>
+        </div>
+
+        <div class="s-tabs" id="b-tabs">
+          <button class="s-tab" data-tab="details">Details</button>
+          <button class="s-tab" data-tab="deposit">Deposit</button>
+          <button class="s-tab" data-tab="transaction_history">Transaction history</button>
+          <button class="s-tab" data-tab="linked_projects">Linked projects</button>
+          <button class="s-tab" data-tab="invoices">Invoices</button>
+        </div>
+
+        <div id="tabstage"><!-- active tab injected --></div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- modal host -->
+<div id="ovl-root" class="ovl is-hidden"></div>
+
+<script>
+(function () {
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function svg(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  function eur(v){ if (v == null || v === '') v = 0; return '€' + Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function qp(k){ var m = new RegExp('[?&]' + k + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : null; }
+
+  var EU = ['Estonia','Germany','France','Netherlands','Spain','Italy','Ireland'];
+
+  // demo entities (mirrors billing.html; keyed by ?id)
+  var DB = {
+    1: { id:1, name:'Motherlink OÜ', reg_number:'14682301', vat_number:'EE102156987', status:'Active', created_at:'12 Jan 2025', wallet_reserve:4200, wallet_spent:18640.5, wallet_available:12310, country:'Estonia', address:'Tornimäe 5', city:'Tallinn', state:'Harju', zip_code:'10145' },
+    3: { id:3, name:'Atlas Digital Ltd', reg_number:'09823145', vat_number:null, status:'Verification', created_at:'04 Mar 2025', wallet_reserve:0, wallet_spent:0, wallet_available:0, country:'United Kingdom', address:'221B Baker St', city:'London', state:'England', zip_code:'NW16XE' }
+  };
+  var id = qp('id') || 1;
+  var E = DB[id] || DB[1];
+  var activeTab = qp('tab') || 'details';
+
+  // demo detail datasets
+  var TX = [
+    { id:1, created_at:'02 Apr 2025', time:'14:22', type:'deposit',                method:'stripe',        ref:'INV-2025-0041', project:null,               brand:null,           amount:5000,    reserved:4200, spent:18640.5, available:12310 },
+    { id:2, created_at:'31 Mar 2025', time:'09:10', type:'order',                  method:null,            ref:'ORD-8842',      project:'skylinehomes.com', brand:'Skyline Homes', amount:-1250,   reserved:4200, spent:13640.5, available:7310 },
+    { id:3, created_at:'27 Mar 2025', time:'17:48', type:'publication_approved',   method:null,            ref:'ITM-33019',     project:'skylinehomes.com', brand:'Skyline Homes', amount:-480,    reserved:2950, spent:12390.5, available:8560 },
+    { id:4, created_at:'20 Mar 2025', time:'11:05', type:'publication_cancelled',  method:null,            ref:'ITM-32880',     project:'verdeliving.eu',   brand:'Verde Living', amount:320,     reserved:3430, spent:11910.5, available:9040 },
+    { id:5, created_at:'12 Mar 2025', time:'08:30', type:'deposit',                method:'wire_transfer', ref:'INV-2025-0032', project:null,               brand:null,           amount:10000,   reserved:3110, spent:11910.5, available:8720 }
+  ];
+  var TYPE_LABEL = { deposit:'Deposit', order:'Order placed', publication_approved:'Publication approved', publication_cancelled:'Publication cancelled', package_delivered:'Package delivered', withdrawn:'Withdrawn', top_up:'Top-up (Discount)' };
+  var METHOD_LABEL = { stripe:'Stripe', wire_transfer:'Wire transfer' };
+  var PROJECTS = [
+    { id:11, domain:'skylinehomes.com', brand:'Skyline Homes' },
+    { id:12, domain:'verdeliving.eu',   brand:'Verde Living' },
+    { id:13, domain:'urban-nest.co',    brand:'Urban Nest' }
+  ];
+  var PREPAY = [
+    { id:1, invoice_number:'PRE-2025-0041', created_at:'02 Apr 2025', status:'pending',  status_label:'Pending',  method:'wire_transfer', total:5000, currency:'EUR' },
+    { id:2, invoice_number:'PRE-2025-0038', created_at:'28 Mar 2025', status:'pending',  status_label:'Pending',  method:'stripe',        total:1200, currency:'EUR' },
+    { id:3, invoice_number:'PRE-2025-0032', created_at:'12 Mar 2025', status:'paid',     status_label:'Paid',     method:'wire_transfer', total:10000, currency:'EUR' },
+    { id:4, invoice_number:'PRE-2025-0025', created_at:'01 Mar 2025', status:'canceled', status_label:'Canceled', method:'stripe',        total:800,  currency:'EUR' }
+  ];
+  var PAID = [
+    { id:1, invoice_number:'INV-2025-0032', prepayment:'PRE-2025-0032', paid_at:'13 Mar 2025', method:'wire_transfer', total:10000, currency:'EUR' },
+    { id:2, invoice_number:'INV-2025-0018', prepayment:'PRE-2025-0018', paid_at:'20 Feb 2025', method:'stripe',        total:2500,  currency:'EUR' }
+  ];
+  // CAN_APPROVE mirrors $acl.is('BILLING_APPROVE_WIRE_TRANSFER')
+  var CAN_APPROVE = true;
+
+  // ---------- header ----------
+  function statusBadge(s){
+    var cls = s === 'Active' ? 's-badge--active' : 's-badge--pending';
+    return '<span class="s-badge ' + cls + '"><span class="dot"></span>' + esc(s) + '</span>';
+  }
+  document.getElementById('b-name').textContent = E.name;
+  document.getElementById('b-status').innerHTML = statusBadge(E.status);
+
+  var stage = document.getElementById('tabstage');
+
+  // =========================================================
+  //  DETAILS TAB
+  // =========================================================
+  function tabDetails(){
+    var addr2 = [E.zip_code, E.city, E.state, E.country].filter(Boolean).join(', ');
+    stage.innerHTML =
+      '<div class="b-grid2">' +
+        '<div class="b-card">' +
+          '<div class="b-card__head"><span class="b-card__title">Company details</span>' +
+            '<button class="btn--iconxs" id="b-detmore" title="Actions"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button></div>' +
+          '<div class="b-split">' +
+            '<div>' +
+              kv('Company name', E.name) + kv('Registration', E.reg_number || '--') + kv('VAT', E.vat_number || '--') +
+            '</div>' +
+            '<div><div class="b-addr"><b>Address</b>' + esc(E.address) + ',<br>' + esc(addr2) + '</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="b-card">' +
+          '<div class="b-card__title" style="margin-bottom:16px">Balance</div>' +
+          balanceMeter() +
+          '<hr style="border:0;border-top:1px solid var(--border);margin:18px 0" />' +
+          '<button class="btn btn--primary" id="b-dep" style="width:100%"' + (E.status !== 'Active' ? ' disabled' : '') + '>Deposit</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('b-dep').addEventListener('click', function(){ if (E.status === 'Active') selectTab('deposit'); });
+    document.getElementById('b-detmore').addEventListener('click', function(e){
+      e.stopPropagation();
+      openMenuFor(this, [{ label:'Edit', act:'edit', icon:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/>' }], function(act){ if (act === 'edit') toast('Opens the edit modal (see list page)'); });
+    });
+  }
+  function kv(k, v){ return '<div class="b-kv"><span class="b-kv__k">' + esc(k) + '</span><span class="b-kv__v">' + esc(v) + '</span></div>'; }
+  var BAL_COLORS = { reserved:'#a9c4f5', spent:'#ebc784', available:'#79cba6' };
+  function balanceMeter(){
+    var total = (E.wallet_reserve||0) + (E.wallet_spent||0) + (E.wallet_available||0);
+    function pct(v){ return total > 0 ? (v / total * 100) : 0; }
+    var meter = total > 0
+      ? '<div class="b-meter">' +
+          '<span class="b-meter__seg" style="flex:' + pct(E.wallet_reserve) + ';background:' + BAL_COLORS.reserved + '"></span>' +
+          '<span class="b-meter__seg" style="flex:' + pct(E.wallet_spent) + ';background:' + BAL_COLORS.spent + '"></span>' +
+          '<span class="b-meter__seg" style="flex:' + pct(E.wallet_available) + ';background:' + BAL_COLORS.available + '"></span>' +
+        '</div>'
+      : '<div class="b-meter b-meter--empty"></div>';
+    return '<div class="b-bal">' +
+      balItem('Reserved', E.wallet_reserve, BAL_COLORS.reserved) +
+      balItem('Spent', E.wallet_spent, BAL_COLORS.spent) +
+      balItem('Available', E.wallet_available, BAL_COLORS.available) +
+    '</div>' + meter;
+  }
+  function balItem(k, v, c){
+    return '<div class="b-bal__item"><span class="b-bal__lbl"><span class="b-bal__dot" style="background:' + c + '"></span>' +
+      '<span class="b-bal__k">' + k + '</span></span><span class="b-bal__v">' + eur(v) + '</span></div>';
+  }
+
+  // =========================================================
+  //  DEPOSIT TAB
+  // =========================================================
+  var depMethod = 'bank_cards';
+  var COMMISSION = 4;
+  function vatInfo(){
+    // mirrors billing.deposit_vat: EU + no VAT → standard rate; reverse charge / non-EU → 0%
+    if (EU.indexOf(E.country) === -1) return { rate:0, reason:'Customer is outside the EU.', directive:'No EU VAT applies to supplies made to customers established outside the European Union.' };
+    if (E.vat_number) return { rate:0, reason:'Reverse charge — valid EU VAT number.', directive:'Reverse charge, Article 196 of Council Directive 2006/112/EC.' };
+    return { rate:24, reason:'', directive:'' };
+  }
+  function tabDeposit(){
+    if (E.status !== 'Active'){
+      stage.innerHTML = '<div class="b-card"><div class="muted" style="text-align:center;padding:22px">This billing entity is under verification. You do not have permission to deposit.</div></div>';
+      return;
+    }
+    var vat = vatInfo();
+    stage.innerHTML =
+      '<div class="b-card"><div class="b-grid2" style="align-items:start">' +
+        '<div>' +
+          '<div class="b-card__title" style="margin-bottom:14px">Payment systems</div>' +
+          '<div class="b-pay">' +
+            payCard('bank_cards', 'Bank cards', 'Transaction fee (' + COMMISSION + '%)', '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>') +
+            payCard('wire_transfer', 'Wire transfer', 'No transaction fee', '<path d="M3 21h18M4 10h16M5 10 12 4l7 6M6 10v11M18 10v11M10 10v11M14 10v11"/>') +
+          '</div>' +
+        '</div>' +
+        '<div class="b-summary">' +
+          '<div class="b-card__title" style="margin-bottom:14px">To balance</div>' +
+          '<label class="b-summary__lbl" for="dep-amt">Amount to add</label>' +
+          '<div class="b-inputgroup"><input class="input" type="number" id="dep-amt" value="1000" min="0" /><span class="b-inputgroup__addon">EUR</span></div>' +
+          '<div class="b-receipt" id="dep-lines"></div>' +
+          '<button class="btn btn--primary" id="dep-go" style="width:100%">Proceed to payment</button>' +
+        '</div>' +
+      '</div></div>';
+    document.querySelectorAll('.b-pm').forEach(function(c){ c.addEventListener('click', function(){ depMethod = c.dataset.m; document.querySelectorAll('.b-pm').forEach(function(x){ x.classList.toggle('is-sel', x === c); }); drawLines(); }); });
+    document.getElementById('dep-amt').addEventListener('input', drawLines);
+    document.getElementById('dep-go').addEventListener('click', function(){
+      if (depMethod === 'wire_transfer') wireCreatedModal();
+      else toast('Redirecting to payment…');
+    });
+    drawLines();
+
+    function drawLines(){
+      var amt = parseFloat(document.getElementById('dep-amt').value) || 0;
+      var fee = depMethod === 'wire_transfer' ? 0 : amt * COMMISSION / 100;
+      var vatAmt = amt * vat.rate / 100;
+      var total = amt + fee + vatAmt;
+      var html = line('Amount to balance', eur(amt));
+      if (depMethod !== 'wire_transfer') html += line('Transaction fee (' + COMMISSION + '%)', eur(fee));
+      html += line('VAT (' + vat.rate + '%)', eur(vatAmt));
+      if (vat.reason && vat.rate === 0) html += '<div class="b-rnote">' + esc(vat.reason) + '</div>';
+      html += '<div class="b-rtotal"><span>Total payable</span><span>' + eur(total) + '</span></div>';
+      if (vat.directive && vat.rate === 0) html += '<p class="b-directive"><b>Directive:</b> ' + esc(vat.directive) + '</p>';
+      document.getElementById('dep-lines').innerHTML = html;
+    }
+    function line(k, v){ return '<div class="b-rrow"><span>' + k + '</span><span class="b-rrow__v">' + v + '</span></div>'; }
+  }
+  function payCard(m, t, s, icon){
+    return '<div class="b-pm' + (depMethod === m ? ' is-sel' : '') + '" data-m="' + m + '">' +
+      '<span class="b-pm__radio">' + svg('<path d="m5 12 5 5 9-11"/>') + '</span>' +
+      '<div class="b-pm__body"><div class="b-pm__t">' + t + '</div><div class="b-pm__s">' + s + '</div></div>' +
+      '<span class="b-pm__ic">' + svg(icon) + '</span></div>';
+  }
+
+  // =========================================================
+  //  TRANSACTION HISTORY TAB
+  // =========================================================
+  var txSearch = '', txFrom = null, txTo = null;
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function parseTxDate(str){ var p = str.split(' '); return new Date(+p[2], MONTHS.indexOf(p[1]), +p[0]); }
+  function txFiltered(){
+    var q = txSearch.toLowerCase();
+    return TX.filter(function(t){
+      if (q && (t.brand||'').toLowerCase().indexOf(q) === -1 && (t.project||'').toLowerCase().indexOf(q) === -1 && (TYPE_LABEL[t.type]||'').toLowerCase().indexOf(q) === -1 && (t.ref||'').toLowerCase().indexOf(q) === -1) return false;
+      if (txFrom || txTo){ var d = parseTxDate(t.created_at); if (txFrom && d < txFrom) return false; if (txTo && d > txTo) return false; }
+      return true;
+    });
+  }
+  function fmtShort(d){ return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+  function tabTransactions(){
+    var dateLbl = (txFrom || txTo) ? (txFrom ? fmtShort(txFrom) : '…') + ' – ' + (txTo ? fmtShort(txTo) : '…') : 'Date';
+    stage.innerHTML =
+      '<div class="b-card" style="padding:0">' +
+        '<div style="padding:20px 20px 0"><div class="b-bal" style="gap:0">' +
+          balCol('Reserved', E.wallet_reserve, false) + balCol('Spent', E.wallet_spent, true) + balCol('Available', E.wallet_available, true) +
+        '</div></div>' +
+        '<div style="padding:16px 20px" class="b-toolbar">' +
+          '<div class="s-search" style="width:220px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="tx-search" type="text" placeholder="Search transactions…" /></div>' +
+          '<button class="btn btn--secondary btn--sm" id="tx-filters">' + svg('<path d="M3 5h18M6 12h12M10 19h4"/>') + ' Filters</button>' +
+          '<div class="dr" id="tx-dr">' +
+            '<button class="btn btn--secondary btn--sm" id="tx-date">' + svg('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>') + ' <span id="tx-date-lbl">' + esc(dateLbl) + '</span> <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>' +
+            '<div class="dr__pop" id="tx-dr-pop" hidden>' +
+              '<div class="field"><span class="field__label">From</span><input type="date" id="tx-from" /></div>' +
+              '<div class="field"><span class="field__label">To</span><input type="date" id="tx-to" /></div>' +
+              '<div style="display:flex;gap:8px"><button class="btn btn--ghost btn--sm" id="tx-dr-clear" style="flex:1;justify-content:center">Clear</button><button class="btn btn--primary btn--sm" id="tx-dr-apply" style="flex:1;justify-content:center">Apply</button></div>' +
+            '</div>' +
+          '</div>' +
+          '<span class="b-toolbar__spacer"></span>' +
+          '<button class="btn btn--secondary btn--sm" id="tx-exp1">' + svg('<path d="M12 3v12M8 11l4 4 4-4M4 21h16"/>') + ' Export all (CSV)</button>' +
+          '<button class="btn btn--secondary btn--sm" id="tx-exp2">' + svg('<path d="M12 3v12M8 11l4 4 4-4M4 21h16"/>') + ' Export filtered (CSV)</button>' +
+        '</div>' +
+        '<div id="tx-table"></div>' +
+        '<div class="s-foot" style="padding:12px 20px"><span id="tx-foot"></span></div>' +
+      '</div>';
+    document.getElementById('tx-search').addEventListener('input', function(){ txSearch = this.value.trim(); drawTx(); });
+    document.getElementById('tx-filters').addEventListener('click', openTxFilters);
+    var pop = document.getElementById('tx-dr-pop');
+    if (txFrom) document.getElementById('tx-from').valueAsDate = txFrom;
+    if (txTo) document.getElementById('tx-to').valueAsDate = txTo;
+    document.getElementById('tx-date').addEventListener('click', function(e){ e.stopPropagation(); pop.hidden = !pop.hidden; });
+    document.getElementById('tx-dr').addEventListener('click', function(e){ e.stopPropagation(); });
+    document.getElementById('tx-dr-apply').addEventListener('click', function(){
+      var f = document.getElementById('tx-from').value, t = document.getElementById('tx-to').value;
+      txFrom = f ? new Date(f + 'T00:00:00') : null;
+      txTo = t ? new Date(t + 'T23:59:59') : null;
+      pop.hidden = true;
+      document.getElementById('tx-date-lbl').textContent = (txFrom || txTo) ? (txFrom ? fmtShort(txFrom) : '…') + ' – ' + (txTo ? fmtShort(txTo) : '…') : 'Date';
+      drawTx();
+    });
+    document.getElementById('tx-dr-clear').addEventListener('click', function(){
+      txFrom = txTo = null; document.getElementById('tx-from').value = ''; document.getElementById('tx-to').value = '';
+      pop.hidden = true; document.getElementById('tx-date-lbl').textContent = 'Date'; drawTx();
+    });
+    document.getElementById('tx-exp1').addEventListener('click', function(){ toast('Export completed successfully'); });
+    document.getElementById('tx-exp2').addEventListener('click', function(){ toast('Export completed successfully'); });
+    drawTx();
+  }
+  function balCol(k, v, bordered){
+    return '<div style="width:160px' + (bordered ? ';border-left:1px solid var(--border);padding-left:20px' : '') + '">' +
+      '<span class="b-bal__k">' + k + '</span><span class="b-bal__v">' + eur(v) + '</span></div>';
+  }
+  // recoloured to the ML3 palette: neutral sunken tile + muted glyph, green badge for funds in, accent badge for funds out
+  var GLYPH = '<rect width="40" height="40" rx="8" fill="var(--bg-sunken)"/><path d="M24.375 22.5H24.3825M14.25 15.75V26.25C14.25 27.0784 14.9216 27.75 15.75 27.75H26.25C27.0784 27.75 27.75 27.0784 27.75 26.25V18.75C27.75 17.9216 27.0784 17.25 26.25 17.25L15.75 17.25C14.9216 17.25 14.25 16.5784 14.25 15.75ZM14.25 15.75C14.25 14.9216 14.9216 14.25 15.75 14.25H24.75M24.75 22.5C24.75 22.7071 24.5821 22.875 24.375 22.875C24.1679 22.875 24 22.7071 24 22.5C24 22.2929 24.1679 22.125 24.375 22.125C24.5821 22.125 24.75 22.2929 24.75 22.5Z" stroke="var(--text-muted)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>';
+  // incoming (funds in): green badge, arrow into the box
+  var ICON_IN = '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">' + GLYPH + '<rect x="28" y="27" width="10" height="10" rx="5" fill="var(--green)"/><path d="M35.0834 34.0846L30.9167 29.918M35.0834 29.918H30.9167V34.0846" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  // outgoing (funds out): accent badge, arrow out of the box
+  var ICON_OUT = '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">' + GLYPH + '<rect x="28" y="27" width="10" height="10" rx="5" fill="var(--accent)"/><path d="M30.9167 29.918L35.0834 34.0846M30.9167 34.0846H35.0834V29.918" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function txIcon(type){
+    var inflow = type === 'deposit' || type === 'publication_cancelled';
+    return '<span class="tx-ic">' + (inflow ? ICON_IN : ICON_OUT) + '</span>';
+  }
+  function drawTx(){
+    var list = txFiltered();
+    var rows = list.map(function(t){
+      var pb = t.project
+        ? '<span class="u-meta"><span class="u-name">' + esc(t.project) + '</span><span class="u-sub">' + esc(t.brand || '--') + '</span></span>'
+        : '<span class="muted">--</span>';
+      return '<tr>' +
+        '<td><span class="u-meta"><span class="u-name">' + esc(t.created_at) + '</span><span class="u-sub">' + esc(t.time) + '</span></span></td>' +
+        '<td><div class="tx-type">' + txIcon(t.type) + '<span class="u-meta"><span class="u-name">' + esc(TYPE_LABEL[t.type] || t.type) + '</span><button class="tx-ref" data-ref="' + esc(t.ref) + '">' + esc(t.ref) + '</button></span></div></td>' +
+        '<td>' + (METHOD_LABEL[t.method] || '<span class="muted">--</span>') + '</td>' +
+        '<td>' + pb + '</td>' +
+        '<td class="num tr" style="color:' + (t.amount >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:var(--fw-semibold)">' + (t.amount >= 0 ? '+' : '−') + eur(Math.abs(t.amount)) + '</td>' +
+        '<td class="num tr">' + eur(t.reserved) + '</td>' +
+        '<td class="num tr">' + eur(t.spent) + '</td>' +
+        '<td class="num tr">' + eur(t.available) + '</td>' +
+      '</tr>';
+    }).join('');
+    document.getElementById('tx-table').innerHTML =
+      '<div style="overflow-x:auto"><table class="m-table"><thead><tr>' +
+        '<th style="width:130px">Date</th><th>Type</th><th style="width:110px">Method</th><th style="width:160px">Project / Brand</th>' +
+        '<th class="tr" style="width:120px">Amount</th><th class="tr" style="width:110px">Reserved</th><th class="tr" style="width:110px">Spent</th><th class="tr" style="width:110px">Available</th>' +
+      '</tr></thead><tbody>' + (rows || '<tr><td colspan="8" class="muted" style="text-align:center;padding:24px">No transactions found</td></tr>') + '</tbody></table></div>';
+    document.querySelectorAll('#tx-table .tx-ref').forEach(function(b){ b.addEventListener('click', function(){ toast('Opening ' + b.dataset.ref + '…'); }); });
+    var foot = document.getElementById('tx-foot'); if (foot) foot.textContent = list.length + ' transaction' + (list.length === 1 ? '' : 's');
+  }
+  function openTxFilters(){
+    function sel(label, opts){
+      return '<div class="field"><span class="field__label">' + label + '</span><select class="select">' + opts.map(function(o){ return '<option>' + o + '</option>'; }).join('') + '</select></div>';
+    }
+    modal({ title:'Filters', noFoot:true,
+      body: '<div class="wz-body">' +
+        sel('Type', ['Show all'].concat(Object.keys(TYPE_LABEL).map(function(k){ return TYPE_LABEL[k]; }))) +
+        sel('Method', ['All methods','Stripe','Wire transfer']) +
+        sel('Brand', ['All brands','Skyline Homes','Verde Living','Urban Nest']) +
+        sel('Project', ['All projects','skylinehomes.com','verdeliving.eu','urban-nest.co']) +
+        '</div>' +
+        '<div class="modal__foot" style="margin:0 -20px -18px;padding:14px 20px">' +
+          '<button class="btn btn--ghost btn--sm" data-close>Clear all</button>' +
+          '<button class="btn btn--primary btn--sm" data-close>Apply</button></div>' });
+  }
+
+  // =========================================================
+  //  LINKED PROJECTS TAB
+  // =========================================================
+  function tabLinked(){
+    if (PROJECTS.length === 0){
+      stage.innerHTML = '<div class="b-card"><div class="muted" style="text-align:center;padding:22px">No projects linked to this billing entity</div></div>';
+      return;
+    }
+    var rows = PROJECTS.map(function(p){
+      return '<tr><td><span class="u-name">' + esc(p.domain) + '</span></td><td>' + esc(p.brand || '--') + '</td>' +
+        '<td class="tr"><a class="btn btn--secondary btn--sm" href="#">View</a></td></tr>';
+    }).join('');
+    stage.innerHTML =
+      '<div class="m-table-card"><table class="m-table"><thead><tr>' +
+        '<th>Project</th><th>Brand</th><th class="tr" style="width:100px"></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  // =========================================================
+  //  INVOICES TAB (Prepayment / Paid subtabs)
+  // =========================================================
+  var invSub = qp('invoices_tab') || 'prepayment';
+  function tabInvoices(){
+    stage.innerHTML =
+      '<div class="s-tabs" id="inv-tabs" style="margin-bottom:16px">' +
+        '<button class="s-tab' + (invSub === 'prepayment' ? ' is-active' : '') + '" data-sub="prepayment">Prepayment</button>' +
+        '<button class="s-tab' + (invSub === 'paid' ? ' is-active' : '') + '" data-sub="paid">Paid</button>' +
+      '</div><div id="inv-stage"></div>';
+    document.querySelectorAll('#inv-tabs .s-tab').forEach(function(t){ t.addEventListener('click', function(){ invSub = t.dataset.sub; tabInvoices(); }); });
+    if (invSub === 'prepayment') drawPrepay(); else drawPaid();
+  }
+  function invStatusBadge(s, label){
+    var cls = { pending:'s-badge--pending', paid:'s-badge--active', canceled:'s-badge--gray' }[s] || 's-badge--gray';
+    return '<span class="s-badge ' + cls + '"><span class="dot"></span>' + esc(label) + '</span>';
+  }
+  function methodPill(m){
+    if (m === 'stripe') return '<span class="pill pill--stripe">Stripe</span>';
+    if (m === 'wire_transfer') return '<span class="pill pill--wire">Wire transfer</span>';
+    return '<span class="muted">—</span>';
+  }
+  function drawPrepay(){
+    if (PREPAY.length === 0){ document.getElementById('inv-stage').innerHTML = emptyRow('No prepayment invoices found'); return; }
+    var rows = PREPAY.map(function(iv){
+      var actions = '<button class="btn btn--secondary btn--xs" data-act="view" data-id="' + iv.id + '">View</button>';
+      if (iv.status === 'pending' && iv.method !== 'wire_transfer') actions += ' <button class="btn btn--primary btn--xs" data-act="pay" data-id="' + iv.id + '">Pay</button>';
+      if (iv.status === 'pending' && iv.method === 'wire_transfer' && CAN_APPROVE) actions += ' <button class="btn btn--primary btn--xs" data-act="approve" data-id="' + iv.id + '">Approve</button>';
+      if (iv.status === 'pending') actions += ' <button class="btn btn--ghost btn--xs" data-act="cancel" data-id="' + iv.id + '">Cancel</button>';
+      return '<tr>' +
+        '<td><span class="text-link">' + esc(iv.invoice_number) + '</span></td>' +
+        '<td class="num">' + esc(iv.created_at) + '</td>' +
+        '<td>' + invStatusBadge(iv.status, iv.status_label) + '</td>' +
+        '<td>' + methodPill(iv.method) + '</td>' +
+        '<td class="num tr">' + eur(iv.total) + '</td>' +
+        '<td class="tr"><div class="inv-acts">' + actions + '</div></td></tr>';
+    }).join('');
+    document.getElementById('inv-stage').innerHTML =
+      '<div class="m-table-card"><table class="m-table"><thead><tr>' +
+        '<th>Invoice ID</th><th style="width:130px">Date</th><th style="width:120px">Status</th><th style="width:130px">Method</th>' +
+        '<th class="tr" style="width:120px">Total</th><th class="tr" style="width:260px">Actions</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+    document.querySelectorAll('#inv-stage [data-act]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var iv = PREPAY.filter(function(x){ return x.id === +b.dataset.id; })[0];
+        var act = b.dataset.act;
+        if (act === 'view') toast('Opening invoice PDF…');
+        else if (act === 'pay') toast('Redirecting to payment…');
+        else if (act === 'approve') approveModal(iv);
+        else if (act === 'cancel') cancelModal(iv);
+      });
+    });
+  }
+  function drawPaid(){
+    if (PAID.length === 0){ document.getElementById('inv-stage').innerHTML = emptyRow('No paid invoices found'); return; }
+    var rows = PAID.map(function(iv){
+      return '<tr>' +
+        '<td><span class="text-link">' + esc(iv.invoice_number) + '</span></td>' +
+        '<td>' + (iv.prepayment ? '<span class="text-link">' + esc(iv.prepayment) + '</span>' : '<span class="muted">-</span>') + '</td>' +
+        '<td class="num">' + esc(iv.paid_at) + '</td>' +
+        '<td>' + invStatusBadge('paid', 'Paid') + '</td>' +
+        '<td>' + methodPill(iv.method) + '</td>' +
+        '<td class="num tr">' + eur(iv.total) + '</td>' +
+        '<td class="tr"><button class="btn btn--secondary btn--xs" data-view="' + iv.id + '">View</button></td></tr>';
+    }).join('');
+    document.getElementById('inv-stage').innerHTML =
+      '<div class="m-table-card"><table class="m-table"><thead><tr>' +
+        '<th>Invoice ID</th><th>Prepayment</th><th style="width:130px">Date</th><th style="width:100px">Status</th><th style="width:130px">Method</th>' +
+        '<th class="tr" style="width:120px">Total</th><th class="tr" style="width:100px">Actions</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+    document.querySelectorAll('#inv-stage [data-view]').forEach(function(b){ b.addEventListener('click', function(){ toast('Opening invoice PDF…'); }); });
+  }
+  function emptyRow(msg){ return '<div class="b-card"><div class="muted" style="text-align:center;padding:22px">' + msg + '</div></div>'; }
+
+  // invoice modals
+  function cancelModal(iv){
+    modal({ danger:true, title:'Cancel prepayment', confirm:'Confirm cancel', cancel:'Go back',
+      body:'<div class="modal__sub" style="margin:0">Are you sure you want to cancel this transaction? This action is irreversible.</div>',
+      onConfirm: function(){ iv.status = 'canceled'; iv.status_label = 'Canceled'; drawPrepay(); toast('Prepayment canceled'); } });
+  }
+  function approveModal(iv){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2,'0'), mm = String(today.getMonth()+1).padStart(2,'0');
+    modal({ title:'Approve wire transfer', confirm:'Approve transaction', keepOpen:true,
+      body:
+        '<div class="b-approve">' +
+          '<div class="b-kv"><span class="b-kv__k">Billing entity</span><span class="b-kv__v">' + esc(E.name) + '</span></div>' +
+          '<div class="b-kv"><span class="b-kv__k">Invoice</span><span class="b-kv__v">' + esc(iv.invoice_number) + '</span></div>' +
+          '<div class="b-kv"><span class="b-kv__k">Amount</span><span class="b-kv__v">' + eur(iv.total) + '</span></div>' +
+        '</div>' +
+        '<div class="field" style="margin-top:14px"><span class="field__label">Paid date</span>' +
+          '<input class="input" type="text" id="ap-date" value="' + dd + '.' + mm + '.' + today.getFullYear() + '" /></div>',
+      onConfirm: function(){
+        iv.status = 'paid'; iv.status_label = 'Paid';
+        PAID.unshift({ id: PAID.length + 10, invoice_number: iv.invoice_number.replace('PRE','INV'), prepayment: iv.invoice_number, paid_at: dd + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][today.getMonth()] + ' ' + today.getFullYear(), method: iv.method, total: iv.total, currency:'EUR' });
+        closeModal(); toast('Wire transfer approved.'); invSub = 'paid'; tabInvoices();
+      } });
+  }
+  function wireCreatedModal(){
+    modal({ title:'Invoice ready for wire transfer', confirm:'Go to invoices', hideCancel:true, keepOpen:true,
+      body:
+        '<div style="text-align:center">' +
+          '<div class="b-wireicon">' + svg('<path d="M3 21h18M4 10h16M5 10 12 4l7 6M6 10v11M18 10v11M10 10v11M14 10v11"/>') + '</div>' +
+          '<p class="modal__sub" style="margin:14px 0 0">Your prepayment invoice is ready. Pay it from your bank using the details on the invoice — your balance will be topped up once we receive the funds.</p>' +
+          '<p class="muted" style="font-size:var(--fs-12);margin-top:14px">Have questions? Don\'t hesitate to reach out to your manager or our support team.</p>' +
+        '</div>',
+      onConfirm: function(){ closeModal(); selectTab('invoices', 'prepayment'); } });
+  }
+
+  // =========================================================
+  //  shared: floating menu, modal, toast, tabs
+  // =========================================================
+  var openMenu = null;
+  function closeMenu(){ if (openMenu){ openMenu.remove(); openMenu = null; } }
+  function openMenuFor(btn, items, onPick){
+    closeMenu();
+    var m = document.createElement('div'); m.className = 'amenu';
+    m.innerHTML = items.map(function(it){ return '<button class="amenu__item' + (it.danger ? ' amenu__item--danger' : '') + '" data-act="' + it.act + '">' + svg(it.icon) + esc(it.label) + '</button>'; }).join('');
+    document.body.appendChild(m);
+    var r = btn.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+    m.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+    m.style.top = ((r.bottom + h + 8 > window.innerHeight) ? r.top - h - 6 : r.bottom + 6) + 'px';
+    m.addEventListener('click', function(e){ var it = e.target.closest('.amenu__item'); if (!it) return; closeMenu(); onPick(it.dataset.act); });
+    openMenu = m;
+  }
+  document.addEventListener('click', function(e){
+    if (openMenu && !e.target.closest('.amenu') && !e.target.closest('#b-detmore')) closeMenu();
+    var pop = document.getElementById('tx-dr-pop');
+    if (pop && !pop.hidden && !e.target.closest('#tx-dr')) pop.hidden = true;
+  });
+  window.addEventListener('resize', closeMenu);
+  window.addEventListener('scroll', closeMenu, true);
+
+  var ovl = document.getElementById('ovl-root');
+  function closeModal(){ ovl.classList.add('is-hidden'); ovl.innerHTML = ''; }
+  ovl.addEventListener('click', function(e){ if (e.target === ovl || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ closeMenu(); closeModal(); } });
+  function modal(opts){
+    var danger = opts.danger;
+    ovl.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true">' +
+        '<div class="modal__head"><div class="modal__htext"><div class="modal__title">' + esc(opts.title) + '</div>' +
+          (opts.sub ? '<div class="modal__sub">' + opts.sub + '</div>' : '') + '</div>' +
+          '<button class="modal__close" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
+        '<div class="modal__body">' + (opts.body || '') + '</div>' +
+        (opts.noFoot ? '' :
+        '<div class="modal__foot">' +
+          (opts.hideCancel ? '' : '<button class="btn btn--ghost btn--sm" data-close>' + (opts.cancel || 'Cancel') + '</button>') +
+          '<button class="btn ' + (danger ? '' : 'btn--primary') + ' btn--sm" id="modal-confirm"' + (danger ? ' style="background:var(--red);color:#fff"':'') + (opts.hideCancel ? ' style="flex:1"' : '') + '>' + esc(opts.confirm) + '</button>' +
+        '</div>') +
+      '</div>';
+    ovl.classList.remove('is-hidden');
+    var c = document.getElementById('modal-confirm');
+    if (c) c.addEventListener('click', function(){ if (opts.onConfirm) opts.onConfirm(); if (!opts.keepOpen) closeModal(); });
+    if (opts.onMount) opts.onMount(ovl);
+  }
+
+  var toastEl = null, toastTmr = null;
+  function toast(msg){
+    if (toastEl) toastEl.remove();
+    toastEl = document.createElement('div'); toastEl.className = 'toast';
+    toastEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>' + esc(msg);
+    document.body.appendChild(toastEl);
+    clearTimeout(toastTmr); toastTmr = setTimeout(function(){ if (toastEl){ toastEl.remove(); toastEl = null; } }, 2600);
+  }
+
+  var RENDERERS = { details:tabDetails, deposit:tabDeposit, transaction_history:tabTransactions, linked_projects:tabLinked, invoices:tabInvoices };
+  function selectTab(tab, sub){
+    activeTab = tab; if (sub) invSub = sub;
+    document.querySelectorAll('#b-tabs .s-tab').forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === tab); });
+    (RENDERERS[tab] || tabDetails)();
+    var q = '?id=' + id + '&tab=' + tab + (tab === 'invoices' ? '&invoices_tab=' + invSub : '');
+    history.replaceState(null, '', location.pathname + q);
+  }
+  document.querySelectorAll('#b-tabs .s-tab').forEach(function(t){ t.addEventListener('click', function(){ selectTab(t.dataset.tab); }); });
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+
+  selectTab(activeTab);
+})();
+</script>
+</body>
+</html>

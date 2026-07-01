@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Redesign (ML3) · Publishers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+          <span class="s-head__title">Settings</span>
+        </a>
+        <a class="m-nav__item" href="index.html" data-label="Users"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="m-nav__tx">Users</span><span class="m-nav__cnt">128</span></a>
+        <a class="m-nav__item" href="roles.html" data-label="User roles"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7h-7M14 17H4M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg></span><span class="m-nav__tx">User roles</span></a>
+        <a class="m-nav__item" href="billing.html" data-label="Billing entities"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span><span class="m-nav__tx">Billing entities</span></a>
+        <a class="m-nav__item" href="currencies.html" data-label="Currencies"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5 1-2.5 2.25S10.5 12 12 12s2.5.75 2.5 2.25S13.5 16.5 12 16.5A2.5 2.5 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></svg></span><span class="m-nav__tx">Currencies</span></a>
+        <a class="m-nav__item is-active" href="publishers.html" data-label="Publishers"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="m-nav__tx">Publishers</span></a>
+        <a class="m-nav__item" href="integrations.html" data-label="Integrations"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span><span class="m-nav__tx">Integrations</span></a>
+        <a class="m-nav__item" href="customization.html" data-label="Customization"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Customization</span></a>
+      </nav>
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <main class="m-main">
+      <div class="m-content">
+        <div class="m-head"><div><h1>Publishers</h1></div></div>
+        <div class="s-tabs" id="s-tabs">
+          <button class="s-tab is-active" data-tab="imported">Imported</button>
+          <button class="s-tab" data-tab="registered">Registered</button>
+        </div>
+        <div id="s-panel"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="ovl-root" class="ovl is-hidden"></div>
+
+<script>
+(function () {
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function svg(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  var CHECK = '<span class="c-yes">'+svg('<path d="m5 12 5 5 9-11"/>')+'</span>';
+  var DOTS = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>';
+  var CARET = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>';
+
+  var CURRENCIES = ['EUR','USD','GBP','SEK','INR'];
+  var BILLING_ENTITIES = ['Motherlink OÜ','Motherlink Ltd','Motherlink Inc'];
+  var COUNTRIES = ['Czechia','Spain','Japan','Germany','United Kingdom','United States','Estonia','Sweden','India'];
+
+  var IMPORTED = [
+    { agency:'BrightLabs',    name:'Olivia Hartman',   email:'olivia@brightlabs.io',   currency:'EUR', content:true,  media:34 },
+    { agency:'Nordic Links',  name:'Marcus Lindqvist', email:'marcus@nordiclinks.se',  currency:'SEK', content:true,  media:21 },
+    { agency:'ContentForge',  name:'Priya Raman',      email:'priya@contentforge.in',  currency:'INR', content:false, media:12 },
+    { agency:'MediaStack',    name:'Daniel Okafor',    email:'daniel@mediastack.co',   currency:'USD', content:true,  media:58 },
+    { agency:'LinkRise',      name:'Sofia Marchetti',  email:'sofia@linkrise.it',      currency:'EUR', content:false, media:9  },
+    { agency:'Whitaker SEO',  name:'James Whitaker',   email:'james@whitaker-seo.com', currency:'GBP', content:false, media:16 },
+    { agency:'Tokyo Reach',   name:'Yuki Tanaka',      email:'yuki@tokyo-reach.jp',    currency:'USD', content:true,  media:27 },
+    { agency:'Alpine Press',  name:'Noah Berger',      email:'noah@alpinepress.de',    currency:'EUR', content:false, media:5  }
+  ];
+
+  function comp(name,address,reg,vat,country,city,state,zip){ return {name:name,address:address,reg:reg,vat:vat,country:country,city:city,state:state,zip:zip}; }
+  function bill(iban,swift,bank,country,currency){ return {iban:iban,swift:swift,bank:bank,country:country,currency:currency}; }
+  var REGISTERED = [
+    { name:'Liam Novak', short:'LN', email:'liam@novakmedia.cz', agency:'Novak Media', media:42, entity:'Motherlink OÜ', last:'2 hours ago', status:'Active',
+      company:comp('Novak Media s.r.o.','Vinohradská 12, Prague','CZ2846155','CZ2846155','Czechia','Prague','Prague','120 00'),
+      billing:bill('CZ65 0800 0000 1920 0014 5399','GIBACZPX','Česká spořitelna','Czechia','EUR') },
+    { name:'María Santos', short:'MS', email:'maria@santospress.es', agency:'Santos Press', media:0, entity:'—', last:'—', status:'Pending',
+      company:comp('Santos Press S.L.','Gran Vía 28, Madrid','B87654321','ESB87654321','Spain','Madrid','Madrid','28013'),
+      billing:bill('ES91 2100 0418 4502 0005 1332','CAIXESBBXXX','CaixaBank','Spain','EUR') },
+    { name:'Kenji Watanabe', short:'KW', email:'kenji@wtnb.jp', agency:'WTNB Digital', media:7, entity:'Motherlink OÜ', last:'3 weeks ago', status:'Suspended',
+      company:comp('WTNB Co., Ltd.','2-4-1 Shibuya, Tokyo','0123-01-004567','JP004567','Japan','Tokyo','Tokyo','150-0002'),
+      billing:bill('—','MHCBJPJT','MUFG Bank','Japan','USD') },
+    { name:'Emma Fischer', short:'EF', email:'emma@fischermedia.de', agency:'Fischer Media', media:63, entity:'Motherlink Ltd', last:'Yesterday', status:'Active',
+      company:comp('Fischer Media GmbH','Kurfürstendamm 21, Berlin','HRB 210934','DE302019456','Germany','Berlin','Berlin','10719'),
+      billing:bill('DE89 3704 0044 0532 0130 00','COBADEFFXXX','Commerzbank','Germany','EUR') },
+    { name:'Oliver Grant', short:'OG', email:'oliver@grantdigital.co.uk', agency:'Grant Digital', media:0, entity:'—', last:'—', status:'Pending',
+      company:comp('Grant Digital Ltd','221B Baker St, London','09876543','GB287654321','United Kingdom','London','England','NW1 6XE'),
+      billing:bill('GB29 NWBK 6016 1331 9268 19','NWBKGB2L','NatWest','United Kingdom','GBP') },
+    { name:'Aisha Karim', short:'AK', email:'aisha@karimmedia.se', agency:'Karim Media', media:11, entity:'Motherlink OÜ', last:'5 days ago', status:'Active',
+      company:comp('Karim Media AB','Sveavägen 44, Stockholm','556677-8899','SE556677889901','Sweden','Stockholm','Stockholm','111 34'),
+      billing:bill('SE35 5000 0000 0549 1000 0003','ESSESESS','SEB','Sweden','SEK') }
+  ];
+  var STATUS = { Active:'s-badge--active', Pending:'s-badge--blue', Suspended:'s-badge--gray' };
+
+  var EMPTY = /(\?|&)empty\b/.test(location.search);
+  var TAB = /(\?|&)tab=registered\b/.test(location.search) ? 'registered' : 'imported';
+  var panel = document.getElementById('s-panel');
+  var selected = {};                 // imported selection: idx -> true
+  var currencyFilter = null;         // imported
+  var statusFilter = 'all';          // registered
+
+  // ============================ RENDER ============================
+  function setTabs(){
+    document.querySelectorAll('.s-tab').forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === TAB); });
+  }
+  function render(){
+    setTabs();
+    closeMenu();
+    if (TAB === 'imported') renderImported(); else renderRegistered();
+  }
+
+  function emptyCard(title, sub, ctaHtml){
+    return '<div class="m-table-card"><div class="s-empty">' +
+      '<div class="s-empty__icon">' + svg('<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>') + '</div>' +
+      '<div class="s-empty__title">' + esc(title) + '</div>' +
+      '<div class="s-empty__sub">' + esc(sub) + '</div>' + ctaHtml + '</div></div>';
+  }
+
+  // ---------------- IMPORTED ----------------
+  function renderImported(){
+    var sel = Object.keys(selected).length;
+    if (EMPTY){
+      panel.innerHTML = emptyCard('No publishers on the platform',
+        'Publishers are added automatically when the media is imported to the market.',
+        '<a class="btn btn--primary btn--sm" href="../market-ml3/index.html">Go to Market</a>');
+      return;
+    }
+    var rows = IMPORTED.map(function(p, i){
+      if (currencyFilter && p.currency !== currencyFilter) return '';
+      return '<tr class="data-row' + (selected[i]?' is-selected':'') + '" data-idx="' + i + '">' +
+        '<td style="width:44px"><input type="checkbox" class="checkbox s-rowcb" ' + (selected[i]?'checked':'') + ' /></td>' +
+        '<td><span class="c-fullname">' + esc(p.agency) + '</span></td>' +
+        '<td>' + esc(p.name) + '</td>' +
+        '<td>' + esc(p.email) + '</td>' +
+        '<td>' + esc(p.currency) + '</td>' +
+        '<td class="tc">' + (p.content ? CHECK : '<span class="muted">—</span>') + '</td>' +
+        '<td class="num">' + p.media + '</td>' +
+        '<td class="tc"><button class="btn--iconxs s-rowmore" title="Actions">' + DOTS + '</button></td>' +
+      '</tr>';
+    }).join('');
+    panel.innerHTML =
+      '<div class="s-toolbar"><div class="s-toolbar__l">' +
+        '<button class="fbtn" id="imp-bulk"' + (sel?'':' disabled') + '>Actions' + (sel?' ('+sel+')':'') + ' ' + CARET + '</button>' +
+        '<button class="fbtn" id="imp-curr">' + (currencyFilter || 'All currencies') + ' ' + CARET + '</button>' +
+      '</div><div class="s-toolbar__r">' +
+        '<div class="s-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" type="text" placeholder="Search publishers…" /></div>' +
+      '</div></div>' +
+      '<div class="m-table-card"><table class="m-table"><thead><tr>' +
+        '<th style="width:44px"><input type="checkbox" class="checkbox" id="imp-selall" /></th>' +
+        '<th>Agency</th><th>Name</th><th>Email</th><th>Currency</th><th class="tc">Content</th><th>Media</th><th class="tc" style="width:56px"></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+    wireImported();
+  }
+  function wireImported(){
+    var selall = document.getElementById('imp-selall');
+    function refreshBulk(){ renderImported(); }
+    document.querySelectorAll('#s-panel .s-rowcb').forEach(function(cb){
+      cb.addEventListener('change', function(){ var idx = +cb.closest('tr').dataset.idx; if (cb.checked) selected[idx]=true; else delete selected[idx]; refreshBulk(); });
+    });
+    if (selall){
+      var vis = IMPORTED.map(function(p,i){return i;}).filter(function(i){ return !currencyFilter || IMPORTED[i].currency===currencyFilter; });
+      var all = vis.length && vis.every(function(i){ return selected[i]; });
+      selall.checked = all; selall.indeterminate = !all && vis.some(function(i){ return selected[i]; });
+      selall.addEventListener('change', function(){ vis.forEach(function(i){ if (selall.checked) selected[i]=true; else delete selected[i]; }); refreshBulk(); });
+    }
+    var bulk = document.getElementById('imp-bulk');
+    if (bulk && !bulk.disabled) bulk.addEventListener('click', function(e){ e.stopPropagation(); openFilterMenu(bulk, [
+      {label:'Edit currency', act:'editcur'}, {label:'Delete', act:'del', danger:true}
+    ], null, function(o){ if (o.act==='editcur') openBulkEditCurrency(); else openBulkDelete(); }); });
+    var curr = document.getElementById('imp-curr');
+    curr.addEventListener('click', function(e){ e.stopPropagation(); openFilterMenu(curr,
+      [{label:'All currencies', val:null}].concat(CURRENCIES.map(function(c){return {label:c, val:c};})),
+      currencyFilter, function(o){ currencyFilter = o.val; renderImported(); }); });
+  }
+
+  // ---------------- REGISTERED ----------------
+  function reg(){ return REGISTERED.filter(function(p){ return statusFilter==='all' || p.status===statusFilter; }); }
+  function renderRegistered(){
+    if (EMPTY){
+      panel.innerHTML = emptyCard('No publishers on the platform',
+        'Publishers are added automatically when they sign up to the platform or when media is imported to the market.',
+        '<button class="btn btn--primary btn--sm" id="reg-invite2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Invite</button>');
+      document.getElementById('reg-invite2').addEventListener('click', openInvite);
+      return;
+    }
+    var list = reg();
+    var rows = list.map(function(p){
+      var i = REGISTERED.indexOf(p);
+      return '<tr class="data-row" data-idx="' + i + '">' +
+        '<td><span class="c-fullname">' + esc(p.name) + '</span></td>' +
+        '<td>' + esc(p.email) + '</td>' +
+        '<td>' + esc(p.agency) + '</td>' +
+        '<td>' + esc(p.company.name) + '</td>' +
+        '<td>' + esc(p.company.address) + '</td>' +
+        '<td>' + esc(p.company.reg) + '</td>' +
+        '<td>' + esc(p.company.vat) + '</td>' +
+        '<td>' + esc(p.billing.iban) + '</td>' +
+        '<td>' + esc(p.billing.swift) + '</td>' +
+        '<td>' + esc(p.billing.bank) + '</td>' +
+        '<td>' + esc(p.billing.country) + '</td>' +
+        '<td>' + esc(p.billing.currency) + '</td>' +
+        '<td class="num">' + (p.media || '<span class="muted">0</span>') + '</td>' +
+        '<td>' + (p.entity==='—' ? '<span class="muted">—</span>' : esc(p.entity)) + '</td>' +
+        '<td>' + (p.last==='—' ? '<span class="muted">—</span>' : esc(p.last)) + '</td>' +
+        '<td><span class="s-badge ' + STATUS[p.status] + '"><span class="dot"></span>' + p.status + '</span></td>' +
+        '<td class="tc"><button class="btn--iconxs s-rowmore" title="Actions">' + DOTS + '</button></td>' +
+      '</tr>';
+    }).join('');
+    var body = list.length
+      ? '<div class="m-table-card"><table class="m-table m-table--wide"><thead><tr>' +
+          '<th>Name</th><th>Email</th><th>Agency</th><th>Company name</th><th>Company address</th><th>Registration code</th><th>VAT</th>' +
+          '<th>IBAN / Account number</th><th>SWIFT / BIC code</th><th>Bank name</th><th>Bank country</th><th>Billed currency</th><th>Media</th>' +
+          '<th>Billing entity</th><th>Last seen</th><th>Status</th><th class="tc" style="width:56px"></th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>'
+      : '<div class="m-table-card"><div class="s-empty"><div class="s-empty__sub" style="margin:24px 0">No publishers match this filter.</div></div></div>';
+    panel.innerHTML =
+      '<div class="s-toolbar"><div class="s-toolbar__l">' +
+        '<button class="fbtn" id="reg-status">Status: ' + (statusFilter==='all'?'All':statusFilter) + ' ' + CARET + '</button>' +
+      '</div><div class="s-toolbar__r">' +
+        '<div class="s-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" type="text" placeholder="Search publishers…" /></div>' +
+        '<button class="btn btn--primary btn--sm" id="reg-invite"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Invite</button>' +
+      '</div></div>' + body;
+    document.getElementById('reg-invite').addEventListener('click', openInvite);
+    document.getElementById('reg-status').addEventListener('click', function(e){ e.stopPropagation(); openFilterMenu(this,
+      [{label:'Show all',val:'all'},{label:'Pending',val:'Pending'},{label:'Active',val:'Active'},{label:'Suspended',val:'Suspended'}],
+      statusFilter, function(o){ statusFilter=o.val; renderRegistered(); }); });
+  }
+
+  // ============================ MENUS ============================
+  var openM = null;
+  function closeMenu(){ if (openM){ openM.remove(); openM=null; } }
+  function place(m, btn, alignRight){
+    document.body.appendChild(m); var r = btn.getBoundingClientRect(), w=m.offsetWidth, h=m.offsetHeight;
+    var left = alignRight ? r.right - w : r.left;
+    m.style.left = Math.max(8, Math.min(left, window.innerWidth - w - 8)) + 'px';
+    m.style.top = ((r.bottom + h + 8 > window.innerHeight) ? r.top - h - 6 : r.bottom + 6) + 'px';
+  }
+  function openFilterMenu(btn, options, current, onPick){
+    closeMenu(); var m = document.createElement('div'); m.className='amenu';
+    m.innerHTML = options.map(function(o,k){
+      var isCur = current !== undefined && (o.val===current);
+      return (o.sep?'<hr class="amenu__sep"/>':'') + '<button class="amenu__item' + (o.danger?' amenu__item--danger':'') + '" data-k="'+k+'">' +
+        (isCur?svg('<path d="m5 12 5 5 9-11"/>'):'<span style="width:16px"></span>') + esc(o.label) + '</button>';
+    }).join('');
+    place(m, btn, true);
+    m.addEventListener('click', function(e){ var it=e.target.closest('.amenu__item'); if(!it) return; closeMenu(); onPick(options[+it.dataset.k]); });
+    openM = m;
+  }
+  function openRowMenu(btn, items){
+    closeMenu(); var m = document.createElement('div'); m.className='amenu';
+    m.innerHTML = items.map(function(it){ return it.sep?'<hr class="amenu__sep"/>':'<button class="amenu__item'+(it.danger?' amenu__item--danger':'')+'" data-act="'+it.act+'">'+svg(it.icon)+esc(it.label)+'</button>'; }).join('');
+    place(m, btn, true);
+    m.addEventListener('click', function(e){ var it=e.target.closest('.amenu__item'); if(!it) return; closeMenu(); items.filter(function(x){return x.act===it.dataset.act;})[0].run(); });
+    openM = m;
+  }
+  var IC = { edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+    trash:'<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>',
+    review:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/>',
+    suspend:'<circle cx="12" cy="12" r="9"/><path d="M9 9h.01M15 9h.01M9 15h6"/>',
+    reactivate:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6M19 8v6"/>' };
+
+  document.addEventListener('click', function(e){
+    var more = e.target.closest('.s-rowmore');
+    if (more){ e.stopPropagation(); var idx=+more.closest('tr').dataset.idx;
+      if (TAB==='imported') openRowMenu(more, [
+        {label:'Edit', icon:IC.edit, act:'edit', run:function(){ openEditImported(idx); }},
+        {label:'Delete', icon:IC.trash, act:'del', danger:true, run:function(){ openDeleteImported(idx); }}
+      ]);
+      else { var s=REGISTERED[idx].status, items=[];
+        if (s==='Pending') items.push({label:'Review request', icon:IC.review, act:'rev', run:function(){ openReview(idx); }});
+        if (s==='Active'){ items.push({label:'Edit', icon:IC.edit, act:'edit', run:function(){ openEditRegistered(idx); }});
+          items.push({label:'Suspend', icon:IC.suspend, act:'susp', danger:true, run:function(){ openSuspend(idx); }}); }
+        if (s==='Suspended') items.push({label:'Reactivate', icon:IC.reactivate, act:'react', run:function(){ openReactivate(idx); }});
+        openRowMenu(more, items);
+      }
+      return;
+    }
+    if (openM && !e.target.closest('.amenu')) closeMenu();
+  });
+  window.addEventListener('resize', closeMenu); window.addEventListener('scroll', closeMenu, true);
+
+  // ============================ MODAL ============================
+  var ovl = document.getElementById('ovl-root');
+  function closeModal(){ ovl.classList.add('is-hidden'); ovl.innerHTML=''; }
+  ovl.addEventListener('click', function(e){ if (e.target===ovl || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape'){ closeMenu(); closeModal(); } });
+  function modal(o){
+    var d=o.danger;
+    ovl.innerHTML = '<div class="modal" role="dialog" aria-modal="true"'+(o.wide?' style="width:582px"':'')+'>' +
+      '<div class="modal__head"><div class="modal__htext"><div class="modal__title">'+esc(o.title)+'</div>'+(o.sub?'<div class="modal__sub">'+o.sub+'</div>':'')+'</div>'+
+        '<button class="modal__close" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>'+
+      '<div class="modal__body">'+(o.body||'')+'</div>'+
+      (o.noFoot?'':'<div class="modal__foot">'+(o.footLeft||'')+
+        '<button class="btn btn--ghost btn--sm" data-close>'+(o.cancel||'Cancel')+'</button>'+
+        '<button class="btn '+(d?'':'btn--primary')+' btn--sm" id="modal-confirm"'+(d?' style="background:var(--red);color:#fff"':'')+'>'+esc(o.confirm)+'</button></div>')+
+    '</div>';
+    ovl.classList.remove('is-hidden');
+    var c=document.getElementById('modal-confirm'); if(c) c.addEventListener('click', function(){ if(o.onConfirm)o.onConfirm(); closeModal(); });
+    wireModal(ovl); if (o.onMount) o.onMount(ovl);
+  }
+  function wireModal(root){
+    root.querySelectorAll('.switch').forEach(function(s){ s.addEventListener('click', function(){ s.classList.toggle('is-on'); }); });
+    root.querySelectorAll('.acc__head').forEach(function(h){ h.addEventListener('click', function(){ h.closest('.acc__sec').classList.toggle('is-open'); }); });
+  }
+
+  // form helpers
+  function field(label, value){ return '<div class="field"><span class="field__label">'+esc(label)+'</span><input class="input" type="text" value="'+esc(value)+'" /></div>'; }
+  function selectField(label, value, options){ return '<div class="field"><span class="field__label">'+esc(label)+'</span><select class="select">'+options.map(function(o){ return '<option'+(o===value?' selected':'')+'>'+esc(o)+'</option>'; }).join('')+'</select></div>'; }
+  function switchRow(label, on){ return '<div class="switch-row"><span class="switch-row__l">'+esc(label)+'</span><button type="button" class="switch'+(on?' is-on':'')+'"></button></div>'; }
+  function pcard(p){ return '<div class="pcard"><span class="pcard__av">'+esc(p.short)+'</span><div class="pcard__meta"><div class="pcard__name">'+esc(p.name)+'</div><div class="pcard__line">'+esc(p.email)+'</div><div class="pcard__line">'+esc(p.agency)+'</div></div><span class="pcard__role">Publisher</span></div>'; }
+  function accordion(p){
+    var c=p.company, b=p.billing;
+    var biz = field('Company name', c.name) + field('Registration code', c.reg) + switchRow('No registration code', false) +
+      field('VAT number', c.vat) + switchRow('Does not pay VAT', false) + selectField('Country', c.country, COUNTRIES) +
+      field('Address', c.address) + field('City', c.city) +
+      '<div class="row2">' + field('State/Province', c.state) + field('Zip/Postal code', c.zip) + '</div>';
+    var binfo = field('IBAN / Account number', b.iban) + field('SWIFT / BIC code', b.swift) + field('Bank name', b.bank) +
+      selectField('Bank country', b.country, COUNTRIES) + selectField('Billed currency', b.currency, CURRENCIES);
+    return '<div class="acc">' +
+      '<div class="acc__sec is-open"><button type="button" class="acc__head">Business details ' + CARET + '</button><div class="acc__body">' + biz + '</div></div>' +
+      '<div class="acc__sec"><button type="button" class="acc__head">Billing info ' + CARET + '</button><div class="acc__body">' + binfo + '</div></div>' +
+    '</div>';
+  }
+  function billingEntityBlock(p){
+    return '<div style="margin-top:4px"><div class="field__label" style="margin-bottom:6px">Billing entity</div>' +
+      '<div class="field__hint" style="margin-bottom:8px">Please choose the billing entity you want to use for invoicing with this publisher.</div>' +
+      '<select class="select">'+['Select'].concat(BILLING_ENTITIES).map(function(o){ return '<option'+(o===p.entity?' selected':'')+'>'+esc(o)+'</option>'; }).join('')+'</select></div>';
+  }
+
+  // ============================ FLOWS: IMPORTED ============================
+  function openEditImported(idx){ var p=IMPORTED[idx];
+    modal({ title:'Edit publisher', confirm:'Save', body:
+      field('Publisher/Agency name', p.agency) + field('Name', p.name) + field('Email', p.email) +
+      selectField('Currency', p.currency, CURRENCIES) + switchRow('This publisher offers content', p.content) });
+  }
+  function openDeleteImported(idx){ var p=IMPORTED[idx];
+    modal({ danger:true, title:'Delete publisher', confirm:'Yes, delete', body:
+      '<div class="modal__sub" style="margin:0"><b>'+esc(p.name)+'</b> and '+p.media+' media will be permanently removed from the platform, but brands and projects will not be affected.</div>' +
+      '<div class="modal__sub" style="margin:12px 0 0"><b>Note:</b> This action cannot be undone.</div>' });
+  }
+  function openBulkDelete(){ var ids=Object.keys(selected), n=ids.length, media=ids.reduce(function(s,i){return s+IMPORTED[+i].media;},0);
+    modal({ danger:true, title:'Delete '+n+' publishers', confirm:'Yes, delete', body:
+      '<div class="modal__sub" style="margin:0">'+n+' publishers and '+media+' media will be permanently removed from the platform, but brands and projects will not be affected.</div>' +
+      '<div class="modal__sub" style="margin:12px 0 0"><b>Note:</b> This action cannot be undone.</div>' });
+  }
+  function openBulkEditCurrency(){ var n=Object.keys(selected).length;
+    modal({ title:'Edit currency for '+n+' publishers', confirm:'Save', body:
+      '<div class="modal__sub" style="margin:0 0 4px">'+n+' publishers will have their currency updated.</div>' +
+      selectField('Currency', 'EUR', CURRENCIES) });
+  }
+
+  // ============================ FLOWS: REGISTERED ============================
+  function openReview(idx){ var p=REGISTERED[idx];
+    modal({ wide:true, title:'Review request', confirm:'Approve',
+      sub:'Please review the details of the submitted registration form below.',
+      body: pcard(p) + '<div style="margin-top:4px">' + accordion(p) + '</div>' + billingEntityBlock(p),
+      footLeft:'<button class="btn btn--ghost btn--sm" data-close style="color:var(--red)">Reject</button><span class="grow" style="flex:1"></span>' });
+  }
+  function openEditRegistered(idx){ var p=REGISTERED[idx];
+    modal({ wide:true, title:'Edit publisher', confirm:'Save',
+      body: pcard(p) + '<div style="margin-top:4px">' + accordion(p) + '</div>' + billingEntityBlock(p) });
+  }
+  function openSuspend(idx){
+    modal({ danger:true, title:'Suspend publisher?', confirm:'Yes, suspend',
+      body:'<div class="modal__sub" style="margin:0">Once a publisher is suspended, they will no longer be able to access their account. Ensure all orders assigned to this user are completed or canceled, and their media is reassigned on the market before proceeding.</div>' });
+  }
+  function openReactivate(idx){
+    modal({ title:'Reactivate publisher?', confirm:'Yes, reactivate',
+      body:'<div class="modal__sub" style="margin:0">Reactivating this publisher will restore their account access.</div>' });
+  }
+  var SIGNUP_URL = 'https://ml3.motherlink.io/publisher-signup';
+  function openInvite(){
+    modal({ title:'Invite publishers', noFoot:true,
+      sub:'Send the link to this registration form to anyone you want to invite to Motherlink. You will receive an email after they submit the form.',
+      body:'<div class="ig"><span class="ig__addon">URL</span><input class="ig__input" type="text" readonly value="'+SIGNUP_URL+'" />' +
+        '<button class="ig__copy" data-copy="'+SIGNUP_URL+'" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>',
+      onMount:function(root){ var b=root.querySelector('[data-copy]'); b.addEventListener('click', function(){ var i=root.querySelector('.ig__input'); i.select(); try{navigator.clipboard.writeText(b.dataset.copy);}catch(e){} b.classList.add('is-done'); b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>'; }); } });
+  }
+
+  // ============================ INIT ============================
+  document.querySelectorAll('.s-tab').forEach(function(t){ t.addEventListener('click', function(){ TAB=t.dataset.tab; selected={}; render(); }); });
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+  render();
+})();
+</script>
+</body>
+</html>

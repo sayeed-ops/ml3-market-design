@@ -8,22 +8,25 @@ SRC="/Users/sayeed/Ai projects/ml3-ui/design-mockups"
 # Destination: this repo (the directory this script lives in).
 DST="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for d in market-ml3 system-ml3; do
+for d in market-ml3 system-ml3 settings-ml3 library; do
   if [ ! -d "$SRC/$d" ]; then
     echo "✗ Source folder missing: $SRC/$d" >&2
     exit 1
   fi
 done
 
-echo "→ Syncing market-ml3 + system-ml3 from:"
+echo "→ Syncing market-ml3 + system-ml3 + settings-ml3 + library from:"
 echo "    $SRC"
 echo "  into:"
 echo "    $DST"
 
-# Mirror only the two design folders (--delete removes files deleted upstream).
+# Mirror the design folders (--delete removes files deleted upstream).
 # Root files (index.html, README.md, .nojekyll, sync.sh, .git) are left untouched.
-rsync -a --delete --exclude '.DS_Store' "$SRC/market-ml3/"  "$DST/market-ml3/"
-rsync -a --delete --exclude '.DS_Store' "$SRC/system-ml3/"  "$DST/system-ml3/"
+# .backup-pre-ux/ is a local snapshot dir — never publish it.
+rsync -a --delete --exclude '.DS_Store' "$SRC/market-ml3/"   "$DST/market-ml3/"
+rsync -a --delete --exclude '.DS_Store' "$SRC/system-ml3/"   "$DST/system-ml3/"
+rsync -a --delete --exclude '.DS_Store' --exclude '.backup-pre-ux' "$SRC/settings-ml3/" "$DST/settings-ml3/"
+rsync -a --delete --exclude '.DS_Store' "$SRC/library/"      "$DST/library/"
 
 cd "$DST"
 if git diff --quiet && git diff --cached --quiet; then
