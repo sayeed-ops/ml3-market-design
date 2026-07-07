@@ -38,9 +38,9 @@
       <div class="m-nav__group" data-group>
         <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
         <div class="m-nav__sub">
-          <a class="m-nav__item m-nav__child" href="#" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="orders.html" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
           <a class="m-nav__item m-nav__child" href="#" data-label="Order items"><span class="m-nav__tx">Order items</span><span class="m-nav__cnt">5</span></a>
-          <a class="m-nav__item m-nav__child" href="#" data-label="All links"><span class="m-nav__tx">All links</span></a>
+          <a class="m-nav__item m-nav__child" href="all-links.html" data-label="All links"><span class="m-nav__tx">All links</span></a>
         </div>
       </div>
 
@@ -72,23 +72,24 @@
 
   <!-- ============ MAIN ============ -->
   <main class="m-main">
+
+    <!-- App Bar · Section -->
+    <header class="appbar">
+      <span class="appbar__title">Drafts</span>
+      <span class="appbar__spacer"></span>
+      <div class="appbar__actions">
+        <a class="btn btn--secondary btn--sm" href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Go to Market</a>
+      </div>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <a class="ab-ic hdr-cart" href="index.html" title="Basket"><span class="ab-cart__count" id="hdr-cart-count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+      </div>
+    </header>
+
     <div class="m-content">
 
-      <!-- Floating actions -->
-      <div class="m-pageacts">
-        <a class="btn btn--secondary btn--sm" href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Go to Market</a>
-        <span class="m-pageacts__sep"></span>
-        <button class="btn--iconxs" title="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
-        <a class="btn--iconxs hdr-cart" href="index.html" title="Basket"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="hdr-cart__count" id="hdr-cart-count">2</span></a>
-      </div>
-
-      <!-- Header -->
-      <div class="m-head">
-        <div>
-          <h1 class="m-h1">Drafts</h1>
-          <div class="sub">Saved carts you can name, assign, approve and turn into orders.</div>
-        </div>
-      </div>
+      <div class="cintro">Saved carts you can name, assign, approve and turn into orders.</div>
 
       <!-- Status summary segments (also filter the table) + parked value -->
       <div class="m-statseg" role="tablist">

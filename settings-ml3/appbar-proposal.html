@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App Bar — unified header proposal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    body { background: var(--bg-subtle); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 96px; }
+    .pt { font-size: var(--fs-24); font-weight: var(--fw-semibold); letter-spacing: -.02em; }
+    .psub { color: var(--text-muted); font-size: var(--fs-14); margin-top: 6px; max-width: 760px; line-height: 1.55; }
+    .vlabel { display:flex; align-items:baseline; gap:10px; margin: 44px 0 12px; flex-wrap: wrap; }
+    .vlabel .k { font-size: var(--fs-11); font-weight: var(--fw-semibold); letter-spacing:.08em; text-transform:uppercase;
+      color: var(--accent); background: var(--accent-tint); padding: 3px 8px; border-radius: 999px; }
+    .vlabel .t { font-size: var(--fs-16); font-weight: var(--fw-semibold); }
+    .vlabel .d { font-size: var(--fs-13); color: var(--text-muted); }
+    .mini { font-size: var(--fs-12); color: var(--text-faint); margin: 14px 0 7px; }
+    .mini code { font-family: var(--font-mono, ui-monospace, monospace); background: var(--bg-sunken); padding: 1px 5px; border-radius: 5px; color: var(--text-secondary); }
+
+    .win { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .win__body { padding: 16px 20px 22px; }
+    .ghost { height: 10px; border-radius: 6px; background: var(--bg-sunken); }
+    .ghost + .ghost { margin-top: 10px; }
+
+    /* ===== realistic shell (rail + pane) for the Bar A example ===== */
+    .shell { display: flex; height: 520px; }
+    .rail { width: 216px; flex: none; background: var(--bg-subtle); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; padding: 12px; }
+    .rail__brand { display:flex; align-items:center; gap:9px; padding: 6px 8px 12px; font-weight: var(--fw-semibold); font-size: var(--fs-14); }
+    .rail__brand .dot { width: 22px; height: 22px; border-radius: 7px; background: linear-gradient(135deg,#6d6ae6,#3d3aad); }
+    .rail__nav { display:flex; flex-direction:column; gap:2px; margin-top: 4px; }
+    .rnav { display:flex; align-items:center; gap:10px; padding: 8px 10px; border-radius: var(--radius-md); font-size: var(--fs-13);
+      font-weight: var(--fw-medium); color: var(--text-secondary); cursor: pointer; }
+    .rnav svg { width: 17px; height: 17px; opacity: .8; }
+    .rnav:hover { background: #fff; color: var(--text); }
+    .rnav.is-active { background: #fff; color: var(--text); box-shadow: var(--shadow-sm); }
+    .rail__foot { margin-top: auto; display:flex; align-items:center; gap:10px; padding: 9px 8px; border-top: 1px solid var(--border); }
+    .rail__foot .u-av { width: 30px; height: 30px; font-size: 11px; }
+    .rail__foot .nm { font-size: var(--fs-13); font-weight: var(--fw-semibold); line-height: 1.15; }
+    .rail__foot .em { font-size: var(--fs-11); color: var(--text-muted); }
+    .rail__foot .tag { margin-left:auto; font-size: 10px; color: var(--accent); background: var(--accent-tint); padding:2px 6px; border-radius: 999px; }
+    .pane { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; background: var(--bg); }
+    .pane__scroll { flex: 1; overflow: auto; padding: 18px 20px 22px; }
+
+    /* ============================================================
+       APP BAR — the single shared header component
+       ============================================================ */
+    .appbar { display: flex; align-items: center; gap: var(--space-3); height: 56px; padding: 0 20px; flex: none;
+      background: var(--bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; }
+    .appbar__spacer { flex: 1 1 auto; }
+    .appbar__title { font-size: var(--fs-17, 17px); font-weight: var(--fw-semibold); letter-spacing: -.01em; color: var(--text); }
+    .appbar__count { margin-left: 8px; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-muted);
+      background: var(--bg-sunken); border-radius: 999px; padding: 2px 8px; vertical-align: middle; }
+    .appbar__actions { display: inline-flex; align-items: center; gap: var(--space-2); }
+    /* the FIXED global cluster — byte-for-byte identical on every variant */
+    .appbar__sep { width: 1px; height: 22px; background: var(--border); margin: 0 6px; flex: none; }
+    .appbar__global { display: inline-flex; align-items: center; gap: 2px; }
+    .ab-ic { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border-radius: var(--radius-md);
+      color: var(--text-secondary); background: transparent; border: 0; cursor: pointer; transition: background .12s, color .12s; }
+    .ab-ic:hover, .ab-ic.is-hover { background: var(--bg-sunken); color: var(--text); }
+    .ab-ic .dotmark { position: absolute; top: 7px; right: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); border: 1.5px solid var(--bg); }
+    .ab-cart__count { position: absolute; top: 3px; right: 3px; min-width: 16px; height: 16px; padding: 0 4px; display: grid; place-items: center;
+      border-radius: 999px; background: var(--accent); color: var(--accent-fg); font-size: 10px; font-weight: var(--fw-semibold); line-height: 1; border: 1.5px solid var(--bg); }
+
+    /* variant B — detail identity block */
+    .appbar__back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: var(--fs-13);
+      font-weight: var(--fw-medium); text-decoration: none; padding: 5px 8px 5px 4px; border-radius: var(--radius-md); }
+    .appbar__back:hover { background: var(--bg-sunken); color: var(--text); }
+    .appbar__div { width: 1px; height: 20px; background: var(--border); flex: none; }
+    .appbar__id { display: inline-flex; align-items: center; gap: 9px; }
+    .appbar__id .u-av { width: 26px; height: 26px; font-size: 10px; }
+    .appbar__id .fav { width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--border); display:grid; place-items:center; overflow:hidden; background:#fff; }
+    .appbar__id .fav img { width: 16px; height: 16px; }
+    .appbar__idname { font-size: var(--fs-15); font-weight: var(--fw-semibold); color: var(--text); }
+    .appbar-tabs { display: flex; gap: 2px; padding: 0 20px; background: var(--bg); border-bottom: 1px solid var(--border); flex: none; }
+    .appbar-tab { appearance: none; border: 0; background: transparent; cursor: pointer; padding: 11px 12px; font-size: var(--fs-13);
+      font-weight: var(--fw-medium); color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .appbar-tab:hover { color: var(--text); }
+    .appbar-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+
+    /* content toolbar (where per-page search + filters live — NOT in the bar) */
+    .ctoolbar { display:flex; align-items:center; gap: 10px; margin-bottom: 16px; }
+    .csearch { position: relative; width: 260px; }
+    .csearch input { width:100%; height: 34px; padding-left: 32px; background: var(--bg); }
+    .csearch svg { position:absolute; left:10px; top:50%; transform:translateY(-50%); width:15px; height:15px; color: var(--text-muted); }
+    .cintro { font-size: var(--fs-12); color: var(--text-muted); margin-bottom: 14px; }
+
+    .rulewrap { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .rule { border:1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; background: var(--bg); }
+    .rule h4 { font-size: var(--fs-13); font-weight: var(--fw-semibold); margin: 0 0 4px; }
+    .rule p { font-size: var(--fs-12); color: var(--text-muted); margin: 0; line-height: 1.5; }
+    @media (max-width: 720px){ .rulewrap { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pt">One App Bar, three variants</div>
+    <div class="psub">A single sticky header at the top of the main column. Its <b>right edge is byte-for-byte identical everywhere</b>
+      — hairline divider, then Notifications and Cart — so both are always reachable. Only the <b>left context</b> and the
+      <b>page CTAs</b> (just left of the divider) change. Per-page <b>search &amp; filters live in a content toolbar under the bar</b>,
+      never in it. A page sets one class (<code>.appbar--section / --detail / --minimal</code>) and never invents header markup.</div>
+
+    <!-- ============ VARIANT A — in a realistic shell ============ -->
+    <div class="vlabel"><span class="k">Bar A</span><span class="t">Section</span>
+      <span class="d">— default for list / table / overview pages. Shown in the real shell: note the avatar stays in the sidebar foot.</span></div>
+    <div class="win">
+      <div class="shell">
+        <!-- sidebar rail -->
+        <aside class="rail">
+          <div class="rail__brand"><span class="dot"></span> Motherlink</div>
+          <div class="rail__nav">
+            <div class="rnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg> Overview</div>
+            <div class="rnav is-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/></svg> Users</div>
+            <div class="rnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg> Publishers</div>
+            <div class="rnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h4.5a1.5 1.5 0 0 1 0 3H9"/></svg> Currencies</div>
+            <div class="rnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg> Billing entities</div>
+          </div>
+          <div class="rail__foot">
+            <span class="u-av" style="background:#3d3aad">SK</span>
+            <span><span class="nm">Sayeed</span><br><span class="em">sayeed@motherlink.io</span></span>
+            <span class="tag">Owner</span>
+          </div>
+        </aside>
+        <!-- main pane -->
+        <div class="pane">
+          <div class="appbar">
+            <span class="appbar__title">Users <span class="appbar__count">128</span></span>
+            <span class="appbar__spacer"></span>
+            <div class="appbar__actions">
+              <button class="btn btn--secondary btn--sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Export users</button>
+              <button class="btn btn--primary btn--sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Invite</button>
+            </div>
+            <span class="appbar__sep"></span>
+            <div class="appbar__global">
+              <button class="ab-ic" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+              <button class="ab-ic" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+            </div>
+          </div>
+          <div class="pane__scroll">
+            <div class="cintro">Manage who can access this workspace, their roles and account status. <span style="color:var(--text-faint)">— the page description sits here, in content.</span></div>
+            <div class="ctoolbar">
+              <div class="csearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" placeholder="Search users…" /></div>
+              <button class="btn btn--secondary btn--sm">Filters</button>
+            </div>
+            <div class="ghost" style="width:97%"></div>
+            <div class="ghost" style="width:90%"></div>
+            <div class="ghost" style="width:94%"></div>
+            <div class="ghost" style="width:88%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mini">A section page with <b>no CTAs</b> (e.g. a read-only overview) simply drops <code>.appbar__actions</code>; the bar becomes <code>Title &nbsp;……&nbsp; │ &nbsp;🔔 🛒</code>. When there are 3+ actions, secondaries collapse into a <code>⋯</code> menu so the bar never wraps.</div>
+
+    <!-- ============ VARIANT B ============ -->
+    <div class="vlabel"><span class="k">Bar B</span><span class="t">Detail</span>
+      <span class="d">— deep entity pages + their tabs. Section title collapses to a back-link; tabs dock directly under the bar (sticky together).</span></div>
+    <div class="win">
+      <div class="appbar">
+        <a class="appbar__back" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Billing entities</a>
+        <span class="appbar__div"></span>
+        <span class="appbar__id">
+          <span class="u-av" style="background:#2f6bdd">NM</span>
+          <span class="appbar__idname">Northwind Media Ltd</span>
+          <span class="s-badge s-badge--active"><span class="dot"></span>Active</span>
+        </span>
+        <span class="appbar__spacer"></span>
+        <div class="appbar__actions">
+          <button class="btn btn--secondary btn--sm">Edit</button>
+          <button class="btn btn--primary btn--sm">Deposit</button>
+        </div>
+        <span class="appbar__sep"></span>
+        <div class="appbar__global">
+          <button class="ab-ic" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <button class="ab-ic" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+        </div>
+      </div>
+      <div class="appbar-tabs">
+        <button class="appbar-tab" aria-selected="true">Details</button>
+        <button class="appbar-tab">Deposit</button>
+        <button class="appbar-tab">Transaction history</button>
+        <button class="appbar-tab">Linked projects</button>
+        <button class="appbar-tab">Invoices</button>
+      </div>
+      <div class="win__body"><div class="ghost" style="width:70%"></div><div class="ghost" style="width:80%"></div></div>
+    </div>
+
+    <div class="mini">Same variant, market “view details” — it absorbs the existing bespoke <code>.d-bar</code> one-for-one (favicon + domain + status, page actions, then the fixed cluster):</div>
+    <div class="win">
+      <div class="appbar">
+        <a class="appbar__back" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Market</a>
+        <span class="appbar__div"></span>
+        <span class="appbar__id">
+          <span class="fav"><img src="https://www.google.com/s2/favicons?domain=thecricketpaper.com&sz=64" alt="" /></span>
+          <span class="appbar__idname">thecricketpaper.com</span>
+          <span class="s-badge s-badge--active"><span class="dot"></span>Ready</span>
+        </span>
+        <span class="appbar__spacer"></span>
+        <div class="appbar__actions">
+          <button class="btn btn--secondary btn--sm">Update metrics</button>
+          <button class="btn btn--primary btn--sm">+ Add to cart · €198.39</button>
+        </div>
+        <span class="appbar__sep"></span>
+        <div class="appbar__global">
+          <button class="ab-ic" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <button class="ab-ic" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+        </div>
+      </div>
+      <div class="win__body"><div class="ghost" style="width:60%"></div></div>
+    </div>
+
+    <!-- ============ VARIANT C ============ -->
+    <div class="vlabel"><span class="k">Bar C</span><span class="t">Minimal</span>
+      <span class="d">— the “eliminate the header” case, reconciled: full-canvas / focus flows (Checkout, role-create wizard). Left is a bare back-link; only the fixed cluster remains.</span></div>
+    <div class="win">
+      <div class="appbar">
+        <a class="appbar__back" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Back to market</a>
+        <span class="appbar__spacer"></span>
+        <div class="appbar__global">
+          <button class="ab-ic" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <button class="ab-ic" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+        </div>
+      </div>
+      <div class="win__body"><div class="mini" style="margin:0 0 12px">Page owns its own controls below (checkout summary, wizard footer). No page CTA in the bar.</div><div class="ghost" style="width:50%"></div></div>
+    </div>
+
+    <!-- ============ RULES ============ -->
+    <div class="vlabel"><span class="k">Rules</span><span class="t">System guarantees</span></div>
+    <div class="rulewrap">
+      <div class="rule"><h4>Fixed right cluster</h4><p>Divider + Notifications + Cart is one shared partial, rendered identically on A / B / C. Cart shows a count badge; a bell dot marks unread. Account avatar is <b>not</b> here — it stays in the sidebar foot.</p></div>
+      <div class="rule"><h4>Search &amp; filters ≠ header</h4><p>Per-page search, filters and segmented status tabs live in a content toolbar directly under the bar, so the bar stays a constant height and never competes with page controls.</p></div>
+      <div class="rule"><h4>One height, sticky</h4><p>All variants are 56px and stick to the top of the scroll area. Bar B’s tab strip sticks with it. The old floating <code>.m-pageacts</code> and per-page <code>.m-head</code> are retired.</p></div>
+      <div class="rule"><h4>Overflow, never wrap</h4><p>≤2 primary CTAs sit inline; extras collapse into a <code>⋯</code> menu left of the divider. On narrow widths the detail identity truncates with an ellipsis before anything else gives.</p></div>
+    </div>
+
+  </div>
+</body>
+</html>

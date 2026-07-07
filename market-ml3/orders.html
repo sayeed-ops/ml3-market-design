@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders — Redesign (ML3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./pager.js"></script>
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+  <!-- ============ SIDEBAR (sole navigation) ============ -->
+  <aside class="m-sidebar" id="m-sidebar">
+    <div class="m-side-top">
+      <a class="m-brand" href="index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+      <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+    </div>
+
+    <nav class="m-nav">
+      <!-- Market -->
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
+          <a class="m-nav__item m-nav__child" href="drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
+        </div>
+      </div>
+
+      <!-- Orders -->
+      <div class="m-nav__group is-open" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child is-active" href="orders.html" aria-current="page" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="Order items"><span class="m-nav__tx">Order items</span><span class="m-nav__cnt">5</span></a>
+          <a class="m-nav__item m-nav__child" href="all-links.html" data-label="All links"><span class="m-nav__tx">All links</span></a>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <a class="m-nav__item" href="#" data-label="Projects"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="m-nav__tx">Projects</span></a>
+
+      <!-- Invoices -->
+      <a class="m-nav__item" href="#" data-label="Invoices"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="m-nav__tx">Invoices</span></a>
+
+      <!-- Analytics -->
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Analytics"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span><span class="m-nav__tx">Analytics</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="#" data-label="By ordered date"><span class="m-nav__tx">By ordered date</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="By live date"><span class="m-nav__tx">By live date</span></a>
+        </div>
+      </div>
+
+      <span class="m-nav__spacer"></span>
+      <hr class="m-nav__div" />
+      <a class="m-nav__item" href="#" data-label="Support"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span><span class="m-nav__tx">Support</span></a>
+      <a class="m-nav__item" href="../settings-ml3/index.html" data-label="Settings"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Settings</span></a>
+    </nav>
+
+    <div class="m-side-foot">
+      <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="m-main">
+
+    <!-- App Bar · Section -->
+    <header class="appbar">
+      <span class="appbar__title">Orders <span class="appbar__count" id="ord-hdr-count">0</span></span>
+      <span class="appbar__spacer"></span>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <a class="ab-ic hdr-cart" href="checkout.html" title="Basket"><span class="ab-cart__count" id="hdr-cart-count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+      </div>
+    </header>
+
+    <div class="m-content">
+
+      <div class="cintro">Every placed order and where each link is in the fulfilment pipeline — from order queue to live.</div>
+
+      <!-- Toolbar -->
+      <div class="m-toolbar">
+        <details class="fdrop"><summary class="fbtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> All projects <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:210px"><div class="fpop__scroll"><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>All projects</button><button class="vopt">Q3 iGaming</button><button class="vopt">LatAm Launch</button><button class="vopt">Dev Tools SEO</button><button class="vopt">EU Finance</button></div></div>
+        </details>
+        <details class="fdrop"><summary class="fbtn">Ordered by: <span>Anyone</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:210px"><div class="fpop__scroll"><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Anyone</button><button class="vopt">Liviu Pop</button><button class="vopt">Jose Garcia</button><button class="vopt">Sayeed Khan</button><button class="vopt">Maria Silva</button></div></div>
+        </details>
+        <details class="fdrop"><summary class="fbtn">Manager: <span>Anyone</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:210px"><div class="fpop__scroll"><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Anyone</button><button class="vopt">Unassigned</button><button class="vopt">Sayeed Khan</button><button class="vopt">Liviu Pop</button><button class="vopt">Maria Silva</button></div></div>
+        </details>
+        <span class="spacer"></span>
+        <details class="fdrop fpop-r"><summary class="fbtn">Sort by: <span id="ord-sort-lbl">Latest first</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop fpop--right" style="width:190px"><div class="fpop__scroll">
+            <div class="fpop__title">Date</div>
+            <button class="vopt is-active" data-sort="date-desc"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Latest first</button>
+            <button class="vopt" data-sort="date-asc"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Oldest first</button>
+            <div class="fpop__title">Price</div>
+            <button class="vopt" data-sort="total-asc"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Low to high</button>
+            <button class="vopt" data-sort="total-desc"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>High to low</button>
+          </div></div>
+        </details>
+        <div class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="ord-search" placeholder="Search order ID, media, project…" /></div>
+      </div>
+
+      <!-- Bulk action bar -->
+      <div class="m-bulk is-hidden" id="ord-bulk">
+        <span class="sel">0 selected</span>
+        <span class="divider-v"></span>
+        <button class="btn btn--ghost btn--sm" data-bulk="invoice">Download invoices</button>
+        <button class="btn btn--ghost btn--sm" data-bulk="export">Export</button>
+      </div>
+
+      <!-- Table -->
+      <div class="m-table-card">
+        <table class="m-table" id="ord-table">
+          <thead>
+            <tr>
+              <th class="tl"><span class="m-site"><span class="exp-toggle" style="visibility:hidden"></span><input type="checkbox" class="checkbox" id="select-all" /> Order</span></th>
+              <th class="tl">Project · Brand</th>
+              <th class="tl">Ordered</th>
+              <th class="tl">Ordered by</th>
+              <th class="tl">Manager</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th class="tl">Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="ord-body"></tbody>
+        </table>
+        <!-- Empty state -->
+        <div class="dr-empty" id="ord-empty">
+          <span class="dr-empty__ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+          <h3>No orders here</h3>
+          <p>Placed orders appear here so you can track every link from order queue to live. Assemble a basket in the Market and check out to place your first order.</p>
+          <a class="btn btn--primary btn--sm" href="index.html" style="margin-top:8px">Go to Market</a>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="m-pager" id="ord-pager"></div>
+
+    </div>
+  </main>
+  </div>
+</div>
+
+<script>
+/* ============ Orders = placed carts. Each order groups line items that each move
+   through the 13-stage fulfilment pipeline. Static page driven by a data model. ============ */
+(function () {
+  var fav = function (d) { return 'https://www.google.com/s2/favicons?domain=' + d + '&sz=64'; };
+
+  /* --- pipeline status metadata: label + phase (1 order · 2 content · 3 publication · 4 live) + bucket --- */
+  var STATUS = {
+    ORDER_QUEUE:          { label: 'Order queue',          phase: 1, bucket: 'queued' },
+    CONFIRMING_ORDER:     { label: 'Confirming order',     phase: 1, bucket: 'queued' },
+    ADDING_REQUIREMENTS:  { label: 'Adding requirements',  phase: 1, bucket: 'queued' },
+    CONTENT_QUEUE:        { label: 'Content queue',        phase: 2, bucket: 'progress' },
+    CREATING_CONTENT:     { label: 'Creating content',     phase: 2, bucket: 'progress' },
+    REVIEWING_CONTENT:    { label: 'Reviewing content',    phase: 2, bucket: 'progress' },
+    FIXING_CONTENT:       { label: 'Fixing content',       phase: 2, bucket: 'progress' },
+    PUBLICATION_QUEUE:    { label: 'Publication queue',    phase: 3, bucket: 'progress' },
+    PUBLISHING:           { label: 'Publishing',           phase: 3, bucket: 'progress' },
+    FIXING_PUBLICATION:   { label: 'Fixing publication',   phase: 3, bucket: 'progress' },
+    PUBLISHED:            { label: 'Published',            phase: 4, bucket: 'live' },
+    APPROVED_PUBLICATION: { label: 'Approved publication', phase: 4, bucket: 'done' },
+    CANCELED:             { label: 'Canceled',             phase: 0, bucket: 'canceled' }
+  };
+  function meta(s) { return STATUS[s] || { label: s, phase: 1, bucket: 'progress' }; }
+
+  /* item helper: total = publication + content */
+  function it(num, dom, type, status, pub, content) {
+    return { num: num, dom: dom, type: type, status: status, pub: pub, content: content || 0 };
+  }
+
+  /* sample orders (an order = a placed basket; items carry their own pipeline status) */
+  var ORDERS = [
+    { id: 1051, num: 'ORD-1051', date: 'Today', dateAbs: '5 Jul 2026', project: 'Q3 iGaming', brand: 'BetClub', by: 'Liviu Pop', manager: 'Sayeed Khan',
+      items: [
+        it('OI-9007', 'goal.com', 'guest_post', 'CREATING_CONTENT', 4800, 360),
+        it('OI-9008', 'tribuna.com', 'link_insertion', 'ADDING_REQUIREMENTS', 3200, 0),
+        it('OI-9009', 'fotmob.com', 'guest_post', 'ORDER_QUEUE', 2430, 285)
+      ] },
+    { id: 1050, num: 'ORD-1050', date: 'Yesterday', dateAbs: '4 Jul 2026', project: 'LatAm Launch', brand: 'Acme Corp', by: 'Jose Garcia', manager: 'Maria Silva',
+      items: [
+        it('OI-8990', 'uol.com.br', 'guest_post', 'PUBLISHED', 18000, 540),
+        it('OI-8991', 'terra.com.br', 'guest_post', 'PUBLISHING', 464, 285),
+        it('OI-8992', 'cnnbrasil.com.br', 'link_insertion', 'PUBLISHED', 2200, 0),
+        it('OI-8993', 'infobae.com', 'guest_post', 'REVIEWING_CONTENT', 1900, 360)
+      ] },
+    { id: 1048, num: 'ORD-1048', date: '3 days ago', dateAbs: '2 Jul 2026', project: 'Dev Tools SEO', brand: 'Globex', by: 'Sayeed Khan', manager: '',
+      items: [
+        it('OI-8955', 'learn.microsoft.com', 'guest_post', 'APPROVED_PUBLICATION', 919, 300),
+        it('OI-8956', 'aws.amazon.com', 'link_insertion', 'APPROVED_PUBLICATION', 1200, 0)
+      ] },
+    { id: 1045, num: 'ORD-1045', date: '5 days ago', dateAbs: '30 Jun 2026', project: 'EU Finance', brand: 'Initech', by: 'Maria Silva', manager: 'Liviu Pop',
+      packages: [
+        { num: 'PK-441', title: 'Managed 6-link finance package', status: 'PUBLISHING', items: [
+          it('OI-8901', 'elpais.com', 'guest_post', 'PUBLISHED', 3400, 360),
+          it('OI-8902', 'corriere.it', 'guest_post', 'PUBLISHING', 4100, 360),
+          it('OI-8903', 'iltalehti.fi', 'guest_post', 'CREATING_CONTENT', 1500, 285)
+        ] }
+      ],
+      items: [
+        it('OI-8904', 'goal.com', 'link_insertion', 'PUBLISHED', 2100, 0)
+      ] },
+    { id: 1042, num: 'ORD-1042', date: '1 week ago', dateAbs: '28 Jun 2026', project: 'TR Sports', brand: 'Acme Corp', by: 'Liviu Pop', manager: 'Sayeed Khan',
+      items: [
+        it('OI-8850', 'mynet.com', 'guest_post', 'PUBLISHED', 780, 285),
+        it('OI-8851', 'fotmob.com', 'guest_post', 'PUBLISHED', 2430, 360),
+        it('OI-8852', 'haberler.com', 'link_insertion', 'PUBLISHED', 640, 0),
+        it('OI-8853', 'sondakika.com', 'guest_post', 'FIXING_PUBLICATION', 420, 285)
+      ] },
+    { id: 1039, num: 'ORD-1039', date: '1 week ago', dateAbs: '27 Jun 2026', project: 'Crypto Q4', brand: 'BitWave', by: 'Sayeed Khan', manager: 'Jose Garcia',
+      items: [
+        it('OI-8800', 'goal.com', 'guest_post', 'CONTENT_QUEUE', 4200, 360),
+        it('OI-8801', 'tribuna.com', 'guest_post', 'ADDING_REQUIREMENTS', 2900, 285)
+      ] },
+    { id: 1036, num: 'ORD-1036', date: '2 weeks ago', dateAbs: '22 Jun 2026', project: 'ES Expansion', brand: 'Acme Corp', by: 'Maria Silva', manager: '',
+      items: [
+        it('OI-8750', 'elpais.com', 'guest_post', 'APPROVED_PUBLICATION', 5200, 360),
+        it('OI-8751', 'corriere.it', 'guest_post', 'APPROVED_PUBLICATION', 3100, 360),
+        it('OI-8752', 'infobae.com', 'link_insertion', 'APPROVED_PUBLICATION', 1900, 0)
+      ] },
+    { id: 1033, num: 'ORD-1033', date: '2 weeks ago', dateAbs: '21 Jun 2026', project: 'Nordics', brand: 'Globex', by: 'Liviu Pop', manager: 'Maria Silva',
+      items: [
+        it('OI-8700', 'iltalehti.fi', 'guest_post', 'REVIEWING_CONTENT', 1500, 285),
+        it('OI-8701', 'mynet.com', 'guest_post', 'CREATING_CONTENT', 780, 285),
+        it('OI-8702', 'haberler.com', 'link_insertion', 'CONTENT_QUEUE', 640, 0)
+      ] },
+    { id: 1030, num: 'ORD-1030', date: '3 weeks ago', dateAbs: '16 Jun 2026', project: 'Dev Tools SEO', brand: 'Globex', by: 'Sayeed Khan', manager: 'Liviu Pop',
+      items: [
+        it('OI-8650', 'aws.amazon.com', 'guest_post', 'PUBLISHED', 1200, 300),
+        it('OI-8651', 'learn.microsoft.com', 'link_insertion', 'PUBLICATION_QUEUE', 919, 0)
+      ] },
+    { id: 1028, num: 'ORD-1028', date: '3 weeks ago', dateAbs: '15 Jun 2026', project: 'Q3 iGaming', brand: 'BetClub', by: 'Jose Garcia', manager: 'Sayeed Khan',
+      items: [
+        it('OI-8600', 'uol.com.br', 'guest_post', 'APPROVED_PUBLICATION', 28800, 540),
+        it('OI-8601', 'goal.com', 'guest_post', 'APPROVED_PUBLICATION', 4800, 360)
+      ] },
+    { id: 1024, num: 'ORD-1024', date: '4 weeks ago', dateAbs: '9 Jun 2026', project: 'LatAm Launch', brand: 'Acme Corp', by: 'Liviu Pop', manager: '',
+      items: [
+        it('OI-8550', 'infobae.com', 'link_insertion', 'CANCELED', 1900, 0),
+        it('OI-8551', 'cnnbrasil.com.br', 'guest_post', 'CANCELED', 2200, 360)
+      ] },
+    { id: 1019, num: 'ORD-1019', date: '5 weeks ago', dateAbs: '2 Jun 2026', project: 'Wellness', brand: 'BitWave', by: 'Maria Silva', manager: 'Jose Garcia',
+      items: [
+        it('OI-8500', 'fotmob.com', 'guest_post', 'APPROVED_PUBLICATION', 3400, 285),
+        it('OI-8501', 'tribuna.com', 'guest_post', 'PUBLISHED', 2900, 360),
+        it('OI-8502', 'goal.com', 'link_insertion', 'CANCELED', 4200, 0)
+      ] }
+  ];
+
+  /* ---- derived helpers ---- */
+  function allItems(o) {
+    var list = (o.items || []).slice();
+    (o.packages || []).forEach(function (p) { (p.items || []).forEach(function (i) { list.push(i); }); });
+    return list;
+  }
+  function total(o) { return allItems(o).reduce(function (s, i) { return s + i.pub + i.content; }, 0); }
+  function itemCount(o) { return allItems(o).length; }
+
+  /* per-order counts by bucket */
+  function counts(o) {
+    var c = { queued: 0, progress: 0, live: 0, done: 0, canceled: 0 };
+    allItems(o).forEach(function (i) { c[meta(i.status).bucket]++; });
+    return c;
+  }
+  /* aggregate order status */
+  function agg(o) {
+    var c = counts(o), n = itemCount(o);
+    if (c.canceled === n) return 'canceled';
+    var active = n - c.canceled;
+    if (c.done === active && active > 0) return 'completed';
+    if (c.live + c.done > 0) return 'live';
+    return 'progress';
+  }
+  var body = document.getElementById('ord-body');
+  var table = document.getElementById('ord-table');
+  var emptyEl = document.getElementById('ord-empty');
+  var bulk = document.getElementById('ord-bulk');
+  var selectAll = document.getElementById('select-all');
+  var searchEl = document.getElementById('ord-search');
+  var stabs = Array.prototype.slice.call(document.querySelectorAll('.m-statseg .stab'));
+  var pagerEl = document.getElementById('ord-pager');
+  var state = { status: 'all', search: '', sort: 'date-desc', page: 1, pageSize: 10 };
+  var selected = {};
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+  var AV_COLORS = ['#3d3aad', '#128a5a', '#b0791a', '#2f6bdd', '#d23b34', '#7c3aed'];
+  function who(name) {
+    if (!name) return '<span class="who-empty">—</span>';
+    var p = name.trim().split(' '), ini = (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase();
+    var c = AV_COLORS[name.length % AV_COLORS.length];
+    return '<span class="who"><span class="av" style="background:' + c + '">' + ini + '</span><span class="who-nm">' + esc(name) + '</span></span>';
+  }
+  function proj(o) {
+    return '<span class="dr-proj"><span class="dr-proj-p">' + esc(o.project || '—') + '</span><span class="dr-proj-b">' + esc(o.brand || '—') + '</span></span>';
+  }
+  function favStack(o) {
+    var items = allItems(o), max = 4, h = '<span class="fav-stack">';
+    items.slice(0, max).forEach(function (i) { h += '<span class="fav-ic"><img src="' + fav(i.dom) + '" alt="" loading="lazy"/></span>'; });
+    if (items.length > max) h += '<span class="fav-more">+' + (items.length - max) + '</span>';
+    return h + '</span>';
+  }
+
+  var AGG = {
+    progress:  ['In progress', 'st-progress'],
+    live:      ['Live',        'st-live'],
+    completed: ['Completed',   'st-approved'],
+    canceled:  ['Canceled',    'st-canceled']
+  };
+  function statusPill(o) { var m = AGG[agg(o)] || ['—', '']; return '<span class="st-pill ' + m[1] + '">' + m[0] + '</span>'; }
+
+  function itemStatus(status) {
+    var m = meta(status);
+    return '<span class="oi-status oi-b-' + m.bucket + '">' + m.label + '</span>';
+  }
+  var TYPE = { guest_post: ['Guest post', 'oi-type--gp'], link_insertion: ['Link insertion', 'oi-type--li'] };
+  function typeBadge(t) { var m = TYPE[t] || [t, '']; return '<span class="oi-type ' + m[1] + '">' + m[0] + '</span>'; }
+
+  function itemRow(i) {
+    return '<tr>' +
+      '<td class="oi-id">' + esc(i.num) + '</td>' +
+      '<td class="oi-media"><span class="fav-ic"><img src="' + fav(i.dom) + '" alt="" loading="lazy"/></span><span class="oi-dom">' + esc(i.dom) + '</span></td>' +
+      '<td class="oi-st">' + itemStatus(i.status) + '</td>' +
+      '<td>' + typeBadge(i.type) + '</td>' +
+      '<td class="oi-n">' + fmt(i.pub) + '</td>' +
+      '<td class="oi-n">' + (i.content ? fmt(i.content) : '<span class="who-empty">—</span>') + '</td>' +
+      '<td class="oi-n oi-tot">' + fmt(i.pub + i.content) + '</td>' +
+      '<td class="oi-view"><a href="order-item.html" class="oi-viewlink">View</a></td>' +
+      '</tr>';
+  }
+  function itemsTable(items) {
+    return '<table class="oi-mtable"><thead><tr>' +
+      '<th class="oi-id">ID</th><th class="tl">Media</th><th class="tl">Status</th><th class="tl">Type</th>' +
+      '<th class="oi-n">Publication</th><th class="oi-n">Content</th><th class="oi-n">Total</th><th></th>' +
+      '</tr></thead><tbody>' + items.map(itemRow).join('') + '</tbody></table>';
+  }
+
+  function expandBody(o) {
+    var h = '<div class="ord-exp">';
+    (o.packages || []).forEach(function (p) {
+      var pm = meta(p.status);
+      h += '<div class="ord-pkg">' +
+        '<div class="ord-pkg__head"><span class="ord-pkg__tag">Package</span><span class="ord-pkg__nm">' + esc(p.title) + '</span>' +
+        '<span class="ord-pkg__id">' + esc(p.num) + '</span><span class="spacer"></span>' +
+        '<span class="oi-status oi-b-' + pm.bucket + '">' + pm.label + '</span></div>' +
+        itemsTable(p.items) + '</div>';
+    });
+    if ((o.items || []).length) {
+      if (o.packages && o.packages.length) h += '<div class="ord-links-h">Additional links</div>';
+      h += itemsTable(o.items);
+    }
+    h += '<div class="ord-foot"><span class="ord-foot-sub">' + itemCount(o) + ' links · <b>' + fmt(total(o)) + '</b></span></div>';
+    return h + '</div>';
+  }
+
+  function visible() {
+    var q = state.search.toLowerCase();
+    var list = ORDERS.filter(function (o) {
+      var statusOk = state.status === 'all' || agg(o) === state.status;
+      var hay = (o.num + ' ' + o.project + ' ' + o.brand + ' ' + o.by + ' ' + o.manager + ' ' +
+        allItems(o).map(function (i) { return i.dom; }).join(' ')).toLowerCase();
+      return statusOk && (!q || hay.indexOf(q) !== -1);
+    });
+    var s = state.sort;
+    list.sort(function (a, b) {
+      if (s === 'date-desc') return b.id - a.id;
+      if (s === 'date-asc') return a.id - b.id;
+      if (s === 'total-asc') return total(a) - total(b);
+      if (s === 'total-desc') return total(b) - total(a);
+      return 0;
+    });
+    return list;
+  }
+
+  var CHEV = '<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 6 6 6-6 6"/></svg>';
+  var MENU = '<div class="menu__pop"><button class="menu__item" data-act="invoice">Download invoice</button><hr class="menu__sep"/><button class="menu__item menu__item--danger" data-act="cancel">Cancel order</button></div>';
+
+  function render() {
+    var all = visible();
+    var pages = Math.max(1, Math.ceil(all.length / state.pageSize));
+    if (state.page > pages) state.page = pages;
+    var start = (state.page - 1) * state.pageSize;
+    var list = all.slice(start, start + state.pageSize);
+    body.innerHTML = list.map(function (o) {
+      return '<tr class="data-row ord-row" data-id="' + o.id + '">' +
+          '<td class="tl"><div class="m-site"><span class="exp-toggle">' + CHEV + '</span><input type="checkbox" class="checkbox row-select"' + (selected[o.id] ? ' checked' : '') + ' /><div class="dr-name"><span class="dr-title">' + esc(o.num) + '</span>' + favStack(o) + '</div></div></td>' +
+          '<td class="tl">' + proj(o) + '</td>' +
+          '<td class="tl"><span class="dr-date" title="' + esc(o.dateAbs) + '">' + esc(o.date) + '</span></td>' +
+          '<td class="tl">' + who(o.by) + '</td>' +
+          '<td class="tl">' + who(o.manager) + '</td>' +
+          '<td><span class="dr-mcount">' + itemCount(o) + '</span></td>' +
+          '<td><span class="price-pill">' + fmt(total(o)) + '</span></td>' +
+          '<td class="tl">' + statusPill(o) + '</td>' +
+          '<td><div class="dr-acts"><details class="menu"><summary class="btn--iconxs">⋯</summary>' + MENU + '</details></div></td>' +
+        '</tr>' +
+        '<tr class="m-exp" data-id="' + o.id + '"><td colspan="9"><div class="m-exp-inner">' + expandBody(o) + '</div></td></tr>';
+    }).join('');
+    Array.prototype.forEach.call(body.querySelectorAll('.ord-row'), function (r) { r.classList.toggle('is-selected', !!selected[r.dataset.id]); });
+    emptyEl.classList.toggle('is-on', all.length === 0);
+    if (pagerEl) {
+      pagerEl.classList.toggle('is-hidden', all.length === 0);
+      renderPager(pagerEl, { page: state.page, pageSize: state.pageSize, total: all.length, sizes: [10, 25, 50] },
+        { page: function (p) { state.page = p; render(); }, size: function (s) { state.pageSize = s; state.page = 1; render(); } });
+    }
+    updateSummary();
+    updateBulk();
+  }
+
+  function updateSummary() {
+    var hc = document.getElementById('ord-hdr-count'); if (hc) hc.textContent = ORDERS.length;
+  }
+
+  function updateBulk() {
+    var ids = Object.keys(selected).filter(function (id) { return selected[id]; });
+    bulk.classList.toggle('is-hidden', ids.length === 0);
+    bulk.querySelector('.sel').textContent = ids.length + ' selected';
+    var vis = visible();
+    var visSel = vis.filter(function (o) { return selected[o.id]; }).length;
+    if (selectAll) { selectAll.checked = vis.length > 0 && visSel === vis.length; selectAll.indeterminate = visSel > 0 && visSel < vis.length; }
+  }
+
+  function byId(id) { return ORDERS.filter(function (o) { return String(o.id) === String(id); })[0]; }
+
+  /* ---- interactions ---- */
+  table.addEventListener('click', function (e) {
+    var act = e.target.closest('[data-act]');
+    if (act) { e.stopPropagation(); doAct(act.getAttribute('data-act'), act.closest('[data-id]').dataset.id, act); return; }
+    if (e.target.closest('input, summary, .menu__pop, a')) return;
+    var row = e.target.closest('tr.ord-row'); if (!row) return;
+    var willOpen = !row.classList.contains('is-open');
+    Array.prototype.forEach.call(body.querySelectorAll('.ord-row.is-open'), function (r) { if (r !== row) r.classList.remove('is-open'); });
+    row.classList.toggle('is-open', willOpen);
+  });
+  table.addEventListener('change', function (e) {
+    var cb = e.target.closest('.row-select'); if (!cb) return;
+    var id = cb.closest('[data-id]').dataset.id;
+    selected[id] = cb.checked;
+    cb.closest('tr').classList.toggle('is-selected', cb.checked);
+    updateBulk();
+  });
+  if (selectAll) selectAll.addEventListener('change', function () {
+    visible().forEach(function (o) { selected[o.id] = selectAll.checked; });
+    render();
+  });
+
+  function toast(msg) {
+    var t = document.createElement('div'); t.className = 'ord-toast'; t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add('on'); });
+    setTimeout(function () { t.classList.remove('on'); setTimeout(function () { t.remove(); }, 250); }, 1800);
+  }
+  function doAct(act, id) {
+    var o = byId(id); if (!o) return;
+    if (act === 'items') { var r = body.querySelector('.ord-row[data-id="' + id + '"]'); if (r) { var open = !r.classList.contains('is-open'); Array.prototype.forEach.call(body.querySelectorAll('.ord-row.is-open'), function (x) { x.classList.remove('is-open'); }); r.classList.toggle('is-open', open); } return; }
+    if (act === 'invoice') { toast('Invoice for ' + o.num + ' downloaded'); return; }
+    if (act === 'reorder') { toast('Added ' + itemCount(o) + ' items from ' + o.num + ' to basket'); return; }
+    if (act === 'cancel') { if (window.confirm('Cancel ' + o.num + '? Items not yet in production will be stopped.')) { allItems(o).forEach(function (i) { if (meta(i.status).bucket === 'queued' || meta(i.status).bucket === 'progress') i.status = 'CANCELED'; }); render(); } return; }
+  }
+
+  bulk.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-bulk]'); if (!b) return;
+    var ids = Object.keys(selected).filter(function (id) { return selected[id]; });
+    toast(b.getAttribute('data-bulk') === 'invoice' ? 'Invoices for ' + ids.length + ' order(s) downloaded' : 'Exported ' + ids.length + ' order(s)');
+  });
+
+  stabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      stabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      state.status = tab.getAttribute('data-status'); state.page = 1;
+      render();
+    });
+  });
+  searchEl.addEventListener('input', function () { state.search = searchEl.value.trim(); state.page = 1; render(); });
+
+  /* sort dropdown */
+  document.querySelectorAll('.vopt[data-sort]').forEach(function (opt) {
+    opt.addEventListener('click', function () {
+      document.querySelectorAll('.vopt[data-sort]').forEach(function (o) { o.classList.remove('is-active'); });
+      opt.classList.add('is-active');
+      state.sort = opt.getAttribute('data-sort');
+      document.getElementById('ord-sort-lbl').textContent = opt.textContent.trim();
+      var dt = opt.closest('details'); if (dt) dt.removeAttribute('open');
+      render();
+    });
+  });
+
+  /* close any open dropdown/menu on outside click */
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('details[open]').forEach(function (dt) { if (!dt.contains(e.target)) dt.removeAttribute('open'); });
+  });
+
+  /* flip the row ⋯ menu upward when opening down would clip at the card's bottom */
+  var cardEl = table.closest('.m-table-card');
+  table.addEventListener('toggle', function (e) {
+    var m = e.target; if (!m.classList || !m.classList.contains('menu')) return;
+    if (!m.open) { m.classList.remove('is-up'); return; }
+    var pop = m.querySelector('.menu__pop'); if (!pop) return;
+    m.classList.remove('is-up');
+    var limit = cardEl ? cardEl.getBoundingClientRect().bottom : window.innerHeight;
+    if (m.getBoundingClientRect().bottom + pop.offsetHeight + 8 > limit) m.classList.add('is-up');
+  }, true);
+
+  /* keep the basket badge honest with the shared cart */
+  try {
+    var cart = JSON.parse(localStorage.getItem('ml-cart') || '{}');
+    var n = Object.keys(cart).length, badge = document.getElementById('hdr-cart-count');
+    if (badge) { badge.textContent = n; badge.style.display = n ? '' : 'none'; }
+  } catch (e) {}
+
+  render();
+})();
+</script>
+<script>
+/* Sidebar collapse — mirrors index.html so nav behaves identically. */
+(function () {
+  var sb = document.getElementById('m-sidebar'); if (!sb) return;
+  sb.addEventListener('click', function (e) {
+    var p = e.target.closest('.m-nav__parent'); if (!p || sb.classList.contains('is-collapsed')) return;
+    var g = p.closest('.m-nav__group'); if (g) g.classList.toggle('is-open');
+  });
+  var KEY = 'ml-sidebar', NARROW = 1280;
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(c) { sb.classList.toggle('is-collapsed', c); }
+  function apply() { var s = stored(); set(s ? s === 'collapsed' : window.innerWidth < NARROW); }
+  apply();
+  var btn = document.getElementById('m-side-toggle');
+  if (btn) btn.addEventListener('click', function () {
+    var c = !sb.classList.contains('is-collapsed'); set(c);
+    try { localStorage.setItem(KEY, c ? 'collapsed' : 'expanded'); } catch (e) {}
+  });
+  window.addEventListener('resize', function () { if (!stored()) set(window.innerWidth < NARROW); });
+})();
+</script>
+</body>
+</html>

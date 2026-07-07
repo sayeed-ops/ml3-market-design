@@ -122,3 +122,7 @@
   .lib-main { padding: var(--space-5); }
   .lib-pages, .lib-swatches { grid-template-columns: 1fr; }
 }
+
+/* App-bar demo (override sticky so it sits inside the demo card) */
+.lib-appbar-wrap { display: block; }
+.lib-appbar, .lib-appbar-tabs { position: static !important; top: auto !important; }

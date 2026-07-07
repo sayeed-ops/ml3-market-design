@@ -70,44 +70,45 @@
 
     <!-- ============ MAIN — USERS TAB ============ -->
     <main class="m-main">
+
+      <!-- App Bar · Section -->
+      <header class="appbar">
+        <span class="appbar__title">Users <span class="appbar__count">128</span></span>
+        <span class="appbar__spacer"></span>
+        <div class="appbar__actions">
+          <button class="btn btn--secondary btn--sm" id="s-export"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Export users</button>
+          <button class="btn btn--primary btn--sm" id="s-invite"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Invite</button>
+        </div>
+        <span class="appbar__sep"></span>
+        <div class="appbar__global">
+          <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <a class="ab-ic" href="../market-ml3/checkout.html" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+        </div>
+      </header>
+
       <div class="m-content">
 
-        <div class="m-head">
-          <div>
-            <h1>Users</h1>
-            <div class="sub">Manage who can access this workspace, their roles and account status.</div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div class="cintro">Manage who can access this workspace, their roles and account status.</div>
+          <div class="s-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input class="input" type="text" placeholder="Search users…" />
           </div>
-          <div class="m-head__actions">
-            <div class="s-search">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-              <input class="input" type="text" placeholder="Search users…" />
-            </div>
-            <button class="btn btn--primary btn--sm" id="s-invite"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Invite</button>
-          </div>
-        </div>
-
-        <!-- selection bar (hidden until rows checked) -->
-        <div class="s-selbar" id="s-selbar" style="display:none">
-          <input type="checkbox" class="checkbox" id="s-selbar-cb" checked />
-          <span id="s-selcount">0 selected</span>
-          <span class="grow"></span>
-          <button class="btn btn--ghost btn--sm" data-bulk="assign">Assign manager</button>
-          <button class="btn btn--ghost btn--sm" data-bulk="role">Change role</button>
-          <button class="btn btn--ghost btn--sm" data-bulk="suspend" style="color:var(--red)">Suspend</button>
         </div>
 
         <div class="m-table-card">
           <table class="m-table">
             <thead>
               <tr>
-                <th style="width:36px"><input type="checkbox" class="checkbox" id="s-selall" /></th>
                 <th style="width:88px">User ID</th>
                 <th>User</th>
                 <th>Source</th>
                 <th>Roles</th>
                 <th>Status</th>
                 <th>Manager</th>
+                <th class="tc" style="width:140px">Default manager</th>
                 <th>Registered</th>
+                <th>Suspended</th>
                 <th>Last seen</th>
                 <th class="tc" style="width:56px"></th>
               </tr>
@@ -152,19 +153,21 @@
     { name:'Adams Ksenia',  email:'ksenia.adams@chitthi.in',     role:'Account manager' }
   ];
 
+  // the user pinned atop the table as the default manager for new registrations (null = none)
+  var DEFAULT_MGR_ID = 1041;
+
   var USERS = [
-    { id:1042, name:'Olivia Hartman', email:'olivia@brightlabs.io', source:'Manual', roles:['Super admin'], status:'active', manager:'Sayeed Khan', reg:'12 Jan 2026', seen:'2 min ago' },
-    { id:1041, name:'Marcus Lindqvist', email:'marcus@nordiclinks.se', source:'Self sign-up', roles:['Account manager'], status:'active', manager:'Sayeed Khan', reg:'04 Jan 2026', seen:'1 hr ago' },
-    { id:1039, name:'Priya Raman', email:'priya@contentforge.in', source:'Invite', roles:['Client'], status:'invited', manager:null, reg:'—', seen:'—' },
-    { id:1036, name:'Daniel Okafor', email:'daniel.okafor@mediastack.co', source:'Manual', roles:['Finance manager'], status:'active', manager:'Anna Volkova', reg:'28 Dec 2025', seen:'Yesterday' },
-    { id:1031, name:'Sofia Marchetti', email:'sofia@linkrise.it', source:'Self sign-up', roles:['Client'], status:'pending', manager:null, reg:'19 Dec 2025', seen:'3 days ago' },
-    { id:1028, name:'James Whitaker', email:'james@whitaker-seo.com', source:'Invite', roles:['Client'], status:'active', manager:'Anna Volkova', reg:'11 Dec 2025', seen:'5 days ago' },
-    { id:1020, name:'Yuki Tanaka', email:'yuki@tokyo-reach.jp', source:'Manual', roles:['Account manager'], status:'suspended', manager:'Sayeed Khan', reg:'02 Dec 2025', seen:'3 wk ago' },
-    { id:1004, name:'Anna Volkova', email:'anna@motherlink.io', source:'Manual', roles:['Super admin'], status:'active', manager:null, reg:'15 Nov 2025', seen:'4 min ago' }
+    { id:1042, name:'Olivia Hartman', email:'olivia@brightlabs.io', source:'Manual', roles:['Super admin'], status:'active', manager:'Sayeed Khan', reg:'12 Jan 2026', suspended:'—', seen:'2 min ago' },
+    { id:1041, name:'Marcus Lindqvist', email:'marcus@nordiclinks.se', source:'Self sign-up', roles:['Account manager'], status:'active', manager:'Sayeed Khan', reg:'04 Jan 2026', suspended:'—', seen:'1 hr ago' },
+    { id:1039, name:'Priya Raman', email:'priya@contentforge.in', source:'Self sign-up', roles:['Client'], status:'pending', manager:null, reg:'—', suspended:'—', seen:'—' },
+    { id:1036, name:'Daniel Okafor', email:'daniel.okafor@mediastack.co', source:'Manual', roles:['Finance manager'], status:'active', manager:'Anna Volkova', reg:'28 Dec 2025', suspended:'—', seen:'Yesterday' },
+    { id:1031, name:'Sofia Marchetti', email:'sofia@linkrise.it', source:'Self sign-up', roles:['Client'], status:'pending', manager:null, reg:'19 Dec 2025', suspended:'—', seen:'3 days ago' },
+    { id:1028, name:'James Whitaker', email:'james@whitaker-seo.com', source:'Invite', roles:['Client'], status:'active', manager:'Anna Volkova', reg:'11 Dec 2025', suspended:'—', seen:'5 days ago' },
+    { id:1020, name:'Yuki Tanaka', email:'yuki@tokyo-reach.jp', source:'Manual', roles:['Account manager'], status:'suspended', manager:'Sayeed Khan', reg:'02 Dec 2025', suspended:'18 Jan 2026', seen:'3 wk ago' },
+    { id:1004, name:'Anna Volkova', email:'anna@motherlink.io', source:'Manual', roles:['Super admin'], status:'active', manager:null, reg:'15 Nov 2025', suspended:'—', seen:'4 min ago' }
   ];
   var STATUS = {
     active:    ['s-badge--active','Active'],
-    invited:   ['s-badge--invited','Invited'],
     pending:   ['s-badge--pending','Pending approval'],
     suspended: ['s-badge--susp','Suspended']
   };
@@ -186,53 +189,56 @@
 
   // ---- render rows ----
   var tbody = document.getElementById('s-tbody');
-  function rowHtml(u, i){
+  function findUser(id){ return USERS.filter(function(u){ return u.id === id; })[0] || null; }
+  // radio to set/clear this user as the default manager for new registrations
+  function dmCell(u){
+    var checked = u.id === DEFAULT_MGR_ID ? ' checked' : '';
+    return '<td class="tc"><input type="radio" class="dm-radio" name="default-manager" data-id="' + u.id +
+      '"' + checked + ' title="Set as the default manager for new registrations (click the selected one again to clear)" /></td>';
+  }
+  function rowHtml(u, i, pinned){
     var st = STATUS[u.status];
     var roleHtml = '<span class="r-chip">' + esc(u.roles[0]) + '</span>';
-    return '<td><input type="checkbox" class="checkbox s-rowcb" /></td>' +
-      '<td><span class="u-id">#' + u.id + '</span></td>' +
+    var badge = pinned ? '<span class="pin-mark" data-tip="Default manager for new registrations" aria-label="Default manager for new registrations"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span>' : '';
+    return '<td><span class="u-id">#' + u.id + '</span></td>' +
       '<td><div class="u-cell"><span class="u-av" style="background:' + COLORS[i % COLORS.length] + '">' + initials(u.name) + '</span>' +
-        '<span class="u-meta"><span class="u-name">' + esc(u.name) + '</span><span class="u-sub">' + esc(u.email) + '</span></span></div></td>' +
+        '<span class="u-meta"><span class="u-nameRow"><span class="u-name">' + esc(u.name) + '</span>' + badge + '</span>' +
+        '<span class="u-sub">' + esc(u.email) + '</span></span></div></td>' +
       '<td>' + esc(u.source) + '</td>' +
       '<td>' + roleHtml + '</td>' +
       '<td><span class="s-badge ' + st[0] + '"><span class="dot"></span>' + st[1] + '</span></td>' +
       '<td>' + (u.manager ? esc(u.manager) : '<span class="muted">—</span>') + '</td>' +
+      dmCell(u) +
       '<td class="num">' + u.reg + '</td>' +
+      '<td class="num">' + u.suspended + '</td>' +
       '<td class="num">' + u.seen + '</td>' +
       '<td class="tc"><button class="btn--iconxs s-rowmore" title="Actions"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button></td>';
   }
+  function makeRow(u, pinned){
+    var tr = document.createElement('tr');
+    tr.className = 'data-row' + (pinned ? ' pin-row' : '');
+    tr.dataset.idx = USERS.indexOf(u);
+    tr.innerHTML = rowHtml(u, USERS.indexOf(u), pinned);
+    return tr;
+  }
   function render(){
     tbody.innerHTML = '';
-    USERS.forEach(function (u, i) {
-      var tr = document.createElement('tr');
-      tr.className = 'data-row';
-      tr.dataset.idx = i;
-      tr.innerHTML = rowHtml(u, i);
-      tbody.appendChild(tr);
+    var pinned = DEFAULT_MGR_ID != null ? findUser(DEFAULT_MGR_ID) : null;
+    if (pinned) tbody.appendChild(makeRow(pinned, true));
+    USERS.forEach(function (u) {
+      if (pinned && u.id === pinned.id) return; // shown as the pinned row above
+      tbody.appendChild(makeRow(u, false));
     });
-    refresh();
   }
 
   // =====================================================================
-  // SELECTION
+  // DEFAULT MANAGER (radio column — pins the chosen user atop the table)
   // =====================================================================
-  var selbar = document.getElementById('s-selbar');
-  var selcount = document.getElementById('s-selcount');
-  var selall = document.getElementById('s-selall');
-  function rowCbs(){ return Array.prototype.slice.call(document.querySelectorAll('.s-rowcb')); }
-  function selectedIdx(){ return rowCbs().map(function(c,i){ return c.checked ? i : -1; }).filter(function(i){ return i>=0; }); }
-  function refresh(){
-    var cbs = rowCbs();
-    var n = 0;
-    cbs.forEach(function(c){ c.closest('tr').classList.toggle('is-selected', c.checked); if(c.checked) n++; });
-    selbar.style.display = n ? 'flex' : 'none';
-    selcount.textContent = n + ' selected';
-    selall.indeterminate = n > 0 && n < cbs.length;
-    selall.checked = n === cbs.length && cbs.length > 0;
-  }
-  document.addEventListener('change', function(e){
-    if (e.target.classList.contains('s-rowcb')) refresh();
-    if (e.target === selall){ rowCbs().forEach(function(c){ c.checked = selall.checked; }); refresh(); }
+  document.addEventListener('click', function(e){
+    var r = e.target.closest('.dm-radio'); if (!r) return;
+    var id = +r.dataset.id;
+    if (id === DEFAULT_MGR_ID){ DEFAULT_MGR_ID = null; render(); toast('Default manager cleared'); }
+    else { DEFAULT_MGR_ID = id; render(); toast('Default manager updated'); }
   });
 
   // =====================================================================
@@ -244,8 +250,8 @@
     var assign = { label:'Assign manager', icon:IC.managerUp, act:'assign' };
     var role   = { label:'Change role', icon:IC.role, act:'role' };
     switch (u.status){
+      // pending = frozen (registration submitted) → review, not change-role/suspend
       case 'pending': return [assign, { sep:true }, { label:'Review request', icon:IC.review, act:'review' }];
-      case 'invited': return [assign, role, { label:'Resend invite', icon:IC.resend, act:'resend' }, { sep:true }, { label:'Revoke invite', icon:IC.revoke, act:'revoke', danger:true }];
       case 'suspended': return [assign, role, { sep:true }, { label:'Reactivate user', icon:IC.reactivate, act:'reactivate' }];
       default: return [assign, role, { sep:true }, { label:'Suspend user', icon:IC.suspend, act:'suspend', danger:true }];
     }
@@ -426,17 +432,17 @@
           body:'<div class="modal__sub" style="margin:0">Reactivating restores account access and the user’s previous roles.</div>',
           confirm:'Yes, reactivate' });
         break;
-      case 'resend':
-        modal({ title:'Resend invite',
-          body:'<div class="modal__sub" style="margin:0">A new invitation link will be emailed and any previous link will stop working.</div>',
-          confirm:'Resend invite' });
-        break;
-      case 'revoke':
-        modal({ danger:true, title:'Revoke invite?',
-          body:'<div class="modal__sub" style="margin:0">The invitation link will stop working immediately and the user will not be able to join.</div>',
-          confirm:'Yes, revoke' });
-        break;
     }
+  }
+
+  // ---- toast (save/update feedback) ----
+  var toastEl = null, toastTmr = null;
+  function toast(msg){
+    if (toastEl) toastEl.remove();
+    toastEl = document.createElement('div'); toastEl.className = 'toast';
+    toastEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>' + esc(msg);
+    document.body.appendChild(toastEl);
+    clearTimeout(toastTmr); toastTmr = setTimeout(function(){ if (toastEl){ toastEl.remove(); toastEl = null; } }, 2600);
   }
 
   // ---- Invite (header CTA) — share the registration-form link ----
@@ -468,9 +474,7 @@
   // WIRE UP
   // =====================================================================
   document.getElementById('s-invite').addEventListener('click', openInvite);
-  document.querySelectorAll('[data-bulk]').forEach(function(b){
-    b.addEventListener('click', function(){ var s = selectedIdx(); if (s.length) runAction(b.dataset.bulk, s); });
-  });
+  document.getElementById('s-export').addEventListener('click', function(){ toast('Export started!'); });
   document.getElementById('m-side-toggle').addEventListener('click', function(){
     document.getElementById('m-sidebar').classList.toggle('is-collapsed');
   });

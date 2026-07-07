@@ -13,14 +13,13 @@
 .m-shell { display: flex; flex: 1; min-height: 0; background: #f9fafb; }
 
 /* ============ Sidebar — grey body, framed like Untitled UI ============ */
-.m-sidebar { --side-w: 224px; width: var(--side-w); flex: none; align-self: flex-start;
-  position: sticky; top: 16px; height: calc(100vh - 32px); margin: 16px 0 16px 16px; display: flex; flex-direction: column;
-  background: #f5f6f8; border: 3px solid #fff; border-radius: var(--radius-lg);
-  box-shadow: 0 0 0 1px var(--border), 0 6px 20px rgba(16,18,23,.06);
+.m-sidebar { --side-w: 224px; width: var(--side-w); flex: none; align-self: stretch;
+  position: sticky; top: 0; height: 100vh; margin: 0; display: flex; flex-direction: column;
+  background: #f7f8fa; border-right: 1px solid var(--border);
   color: var(--text-secondary); transition: width var(--dur) var(--ease); z-index: 20; }
 .m-sidebar.is-collapsed { --side-w: 64px; }
 
-.m-side-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); height: 52px; padding: 0 12px; }
+.m-side-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); height: 56px; padding: 0 14px; border-bottom: 1px solid var(--border); }
 .m-side-top .m-brand { display: flex; align-items: center; min-width: 0; flex: 1; text-decoration: none; }
 .m-side-top .m-brand__full { max-height: 18px; max-width: 100%; width: auto; object-fit: contain; display: block; }
 .m-side-toggle { width: 30px; height: 30px; display: grid; place-items: center; cursor: pointer; border: none;
@@ -100,6 +99,21 @@
 .m-table tbody tr.data-row:hover td { background: var(--bg-subtle); }
 .m-table tbody tr.is-selected td { background: var(--accent-tint); }
 .m-table tbody tr.is-selected td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* default-manager pinned row + radio column */
+.m-table tbody tr.pin-row td { background: var(--accent-tint); }
+.m-table tbody tr.pin-row:hover td { background: var(--accent-tint); }
+.m-table tbody tr.pin-row td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+.u-nameRow { display: inline-flex; align-items: center; gap: 6px; }
+.pin-mark { position: relative; display: inline-flex; align-items: center; color: var(--accent); flex-shrink: 0; }
+.pin-mark svg { width: 13px; height: 13px; }
+.pin-mark::after {
+  content: attr(data-tip); position: absolute; left: 50%; top: calc(100% + 8px); transform: translateX(-50%);
+  padding: 5px 9px; background: var(--text); color: #fff; font-size: var(--fs-12); font-weight: var(--fw-medium);
+  border-radius: var(--radius-sm); white-space: nowrap; box-shadow: var(--shadow-lg); z-index: 60; pointer-events: none;
+  opacity: 0; visibility: hidden; transition: opacity var(--dur) var(--ease); }
+.pin-mark:hover::after { opacity: 1; visibility: visible; }
+.dm-radio { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); cursor: pointer; vertical-align: middle; }
 .m-table .num { font-variant-numeric: tabular-nums; }
 .m-table th.tr, .m-table td.tr { text-align: right; }
 .m-table th.tc, .m-table td.tc { text-align: center; }
@@ -109,7 +123,7 @@
    ===================================================================== */
 
 /* compact "Settings" header — whole row is the back-to-app link (Vercel-style) */
-.s-head { position: relative; display: flex; align-items: center; justify-content: center; height: 36px; margin: 2px 0 6px; padding: 0 4px;
+.s-head { position: relative; display: flex; align-items: center; justify-content: center; height: 36px; margin: 6px 0; padding: 0 4px;
   border-radius: var(--radius-md); text-decoration: none; cursor: pointer; transition: background var(--dur) var(--ease); }
 .s-head:hover { background: #fff; }
 .s-head__back { position: absolute; left: 6px; display: grid; place-items: center; color: var(--text-muted); }

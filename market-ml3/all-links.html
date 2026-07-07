@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All links — Redesign (ML3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./pager.js"></script>
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="m-sidebar" id="m-sidebar">
+    <div class="m-side-top">
+      <a class="m-brand" href="index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+      <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+    </div>
+
+    <nav class="m-nav">
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
+          <a class="m-nav__item m-nav__child" href="drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
+        </div>
+      </div>
+
+      <div class="m-nav__group is-open" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="orders.html" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="Order items"><span class="m-nav__tx">Order items</span><span class="m-nav__cnt">5</span></a>
+          <a class="m-nav__item m-nav__child is-active" href="all-links.html" aria-current="page" data-label="All links"><span class="m-nav__tx">All links</span></a>
+        </div>
+      </div>
+
+      <a class="m-nav__item" href="#" data-label="Projects"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="m-nav__tx">Projects</span></a>
+      <a class="m-nav__item" href="#" data-label="Invoices"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="m-nav__tx">Invoices</span></a>
+
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Analytics"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span><span class="m-nav__tx">Analytics</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="#" data-label="By ordered date"><span class="m-nav__tx">By ordered date</span></a>
+          <a class="m-nav__item m-nav__child" href="#" data-label="By live date"><span class="m-nav__tx">By live date</span></a>
+        </div>
+      </div>
+
+      <span class="m-nav__spacer"></span>
+      <hr class="m-nav__div" />
+      <a class="m-nav__item" href="#" data-label="Support"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span><span class="m-nav__tx">Support</span></a>
+      <a class="m-nav__item" href="../settings-ml3/index.html" data-label="Settings"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Settings</span></a>
+    </nav>
+
+    <div class="m-side-foot">
+      <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="m-main">
+
+    <!-- App Bar · Section -->
+    <header class="appbar">
+      <span class="appbar__title">All links <span class="appbar__count" id="al-hdr-count">0</span></span>
+      <span class="appbar__spacer"></span>
+      <div class="appbar__actions">
+        <details class="fdrop fpop-r">
+          <summary class="btn btn--secondary btn--sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Export <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop fpop--right" style="width:200px"><button class="vopt" data-export="filtered">Export result</button><button class="vopt" data-export="all">Export all</button></div>
+        </details>
+      </div>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <a class="ab-ic hdr-cart" href="checkout.html" title="Basket"><span class="ab-cart__count" id="hdr-cart-count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+      </div>
+    </header>
+
+    <div class="m-content">
+
+      <div class="cintro">Every ordered and imported link across your projects — status, live URL and the automated link audit in one place.</div>
+
+      <!-- Toolbar -->
+      <div class="m-toolbar">
+        <button class="fbtn" id="al-filters-btn" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18M6 12h12M10 19h4"/></svg> Filters <span class="fbtn-badge" id="al-fcount" hidden>2</span></button>
+        <button class="fbtn fbtn--ghost is-hidden" id="al-clearall"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg> Clear all</button>
+
+        <details class="fdrop"><summary class="fbtn">Source: <span id="al-src-lbl">All</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:190px"><button class="vopt is-active" data-src="all"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>All</button><button class="vopt" data-src="OUTREACH"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Ordered links</button><button class="vopt" data-src="IMPORTED"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Imported links</button></div>
+        </details>
+        <details class="fdrop"><summary class="fbtn">Type: <span id="al-type-lbl">All</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:190px"><button class="vopt is-active" data-type="all"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>All</button><button class="vopt" data-type="guest_post"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Guest post</button><button class="vopt" data-type="link_insertion"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Link insertion</button></div>
+        </details>
+        <details class="fdrop al-datedrop" data-dk="added"><summary class="fbtn"><span class="al-dcal"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="al-ddot" hidden></span></span> <span class="al-dlbl">Ordered</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:240px">
+            <div class="al-fld"><label class="al-fld__l">From</label><input type="date" class="input" data-df="from" /></div>
+            <div class="al-fld" style="margin-bottom:0"><label class="al-fld__l">To</label><input type="date" class="input" data-df="to" /></div>
+            <div class="fpop__foot"><button class="btn btn--ghost btn--sm" data-dclear type="button">Clear</button><span class="spacer"></span><button class="btn btn--primary btn--sm" data-dapply type="button">Apply</button></div>
+          </div>
+        </details>
+        <details class="fdrop al-datedrop" data-dk="live"><summary class="fbtn"><span class="al-dcal"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="al-ddot" hidden></span></span> <span class="al-dlbl">Live</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:240px">
+            <div class="al-fld"><label class="al-fld__l">From</label><input type="date" class="input" data-df="from" /></div>
+            <div class="al-fld" style="margin-bottom:0"><label class="al-fld__l">To</label><input type="date" class="input" data-df="to" /></div>
+            <div class="fpop__foot"><button class="btn btn--ghost btn--sm" data-dclear type="button">Clear</button><span class="spacer"></span><button class="btn btn--primary btn--sm" data-dapply type="button">Apply</button></div>
+          </div>
+        </details>
+        <details class="fdrop al-datedrop" data-dk="audit"><summary class="fbtn"><span class="al-dcal"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="al-ddot" hidden></span></span> <span class="al-dlbl">Audit</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop" style="width:240px">
+            <div class="al-fld"><label class="al-fld__l">From</label><input type="date" class="input" data-df="from" /></div>
+            <div class="al-fld" style="margin-bottom:0"><label class="al-fld__l">To</label><input type="date" class="input" data-df="to" /></div>
+            <div class="fpop__foot"><button class="btn btn--ghost btn--sm" data-dclear type="button">Clear</button><span class="spacer"></span><button class="btn btn--primary btn--sm" data-dapply type="button">Apply</button></div>
+          </div>
+        </details>
+
+        <span class="spacer"></span>
+
+        <div class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="al-search" placeholder="Search links…" /></div>
+        <details class="fdrop fpop-r"><summary class="fbtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="8" cy="18" r="2" fill="currentColor" stroke="none"/></svg> Columns <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop fpop--right" style="width:250px">
+            <div class="search" style="margin-bottom:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="al-colsearch" placeholder="Find column…" /></div>
+            <div class="fpop__scroll" id="al-collist" style="max-height:320px"></div>
+            <div class="fpop__foot"><button class="btn btn--ghost btn--sm" id="al-colreset">Reset</button></div>
+          </div>
+        </details>
+        <details class="fdrop fpop-r al-actions is-disabled" id="al-actions">
+          <summary class="fbtn">Actions <span class="al-actn" id="al-actn" hidden></span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop fpop--right" style="width:210px"><button class="vopt" data-aact="export" type="button">Export selected</button><button class="vopt" data-aact="audit" type="button">Audit selected items</button></div>
+        </details>
+      </div>
+
+      <!-- Table -->
+      <div class="m-table-card al-card">
+        <div class="al-scroll">
+          <table class="al-table" id="al-table">
+            <thead><tr id="al-head"></tr></thead>
+            <tbody id="al-body"></tbody>
+          </table>
+        </div>
+        <div class="dr-empty" id="al-empty">
+          <span class="dr-empty__ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
+          <h3>No links found</h3>
+          <p>No links match the current filters. Adjust the source, type or search to see more.</p>
+        </div>
+      </div>
+
+      <div class="m-pager" id="al-pager"></div>
+
+    </div>
+  </main>
+  </div>
+</div>
+
+<!-- ============ Filters modal (Filters and presets) ============ -->
+<div class="al-scrim" id="al-scrim" hidden></div>
+<div class="al-modal" id="al-filtermodal" role="dialog" aria-hidden="true">
+  <div class="al-modal__head"><h3 class="al-modal__t">Filters and presets</h3><button class="al-x" data-fclose type="button" aria-label="Close">✕</button></div>
+  <div class="al-tabs">
+    <button class="al-tab is-active" data-ftab="filters" type="button">All filters</button>
+    <button class="al-tab" data-ftab="presets" type="button">Presets</button>
+  </div>
+  <div class="al-modal__body">
+    <div class="al-fpane is-active" data-fpane="filters" id="al-filterfields"></div>
+    <div class="al-fpane" data-fpane="presets" id="al-presetpane"></div>
+  </div>
+  <div class="al-modal__foot"><button class="btn btn--secondary btn--sm" id="al-fclearall" type="button">Clear all</button><span class="spacer"></span><button class="btn btn--primary btn--sm" id="al-fapply" type="button">Apply</button></div>
+</div>
+
+<script>
+/* ============ All links — every ordered + imported link with status & link audit.
+   Wide, column-configurable table. Static, driven by a sample data model. ============ */
+(function () {
+  var fav = function (d) { return 'https://www.google.com/s2/favicons?domain=' + d + '&sz=64'; };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(n) { return n == null || n === '' ? '<span class="al-empty">—</span>' : '€' + Math.round(n).toLocaleString('en-US'); }
+  function intf(n) { return n == null || n === '' ? '<span class="al-empty">—</span>' : Number(n).toLocaleString('en-US'); }
+  function txt(v) { return v == null || v === '' ? '<span class="al-empty">—</span>' : esc(v); }
+
+  /* pipeline status metadata (bucket → color) — mirrors orders.html */
+  var STATUS = {
+    ORDER_QUEUE:{l:'Order queue',b:'queued'}, CONFIRMING_ORDER:{l:'Confirming order',b:'queued'}, ADDING_REQUIREMENTS:{l:'Adding requirements',b:'queued'},
+    CONTENT_QUEUE:{l:'Content queue',b:'progress'}, CREATING_CONTENT:{l:'Creating content',b:'progress'}, REVIEWING_CONTENT:{l:'Reviewing content',b:'progress'},
+    FIXING_CONTENT:{l:'Fixing content',b:'progress'}, PUBLICATION_QUEUE:{l:'Publication queue',b:'progress'}, PUBLISHING:{l:'Publishing',b:'progress'},
+    FIXING_PUBLICATION:{l:'Fixing publication',b:'progress'}, PUBLISHED:{l:'Published',b:'live'}, APPROVED_PUBLICATION:{l:'Approved publication',b:'done'}, CANCELED:{l:'Canceled',b:'canceled'}
+  };
+  function statusCell(s) { var m = STATUS[s] || { l: s, b: 'progress' }; return '<span class="oi-status oi-b-' + m.b + '">' + m.l + '</span>'; }
+
+  var SRC = { OUTREACH: ['Order', 'al-src--o'], IMPORTED: ['Imported', 'al-src--i'], PUBLISHER: ['Publisher', 'al-src--p'] };
+  function srcCell(s) { var m = SRC[s] || [s, '']; return '<span class="al-src ' + m[1] + '">' + m[0] + '</span>'; }
+  var TYPE = { guest_post: ['Guest post', 'oi-type--gp'], link_insertion: ['Link insertion', 'oi-type--li'] };
+  function typeCell(t) { var m = TYPE[t] || [t, '']; return '<span class="oi-type ' + m[1] + '">' + m[0] + '</span>'; }
+  function mediaCell(dom, t) { return '<span class="al-mediapill ' + (t === 'link_insertion' ? 'al-mp--li' : 'al-mp--gp') + '"><span class="fav-ic"><img src="' + fav(dom) + '" alt="" loading="lazy"/></span>' + esc(dom) + '</span>'; }
+  function linkCell(u) { return u ? '<a href="#" class="al-link" title="' + esc(u) + '">' + esc(u) + '</a>' : '<span class="al-empty">—</span>'; }
+  function urlCell(u) { return u ? '<span class="al-url" title="' + esc(u) + '">' + esc(u) + '</span>' : '<span class="al-empty">—</span>'; }
+  /* link-audit chip: 2=Yes(green) 3=No(red) 1/0=n/a(grey) */
+  function auditCell(v) {
+    if (v === 2) return '<span class="al-audit al-audit--y">Yes</span>';
+    if (v === 3) return '<span class="al-audit al-audit--n">No</span>';
+    return '<span class="al-audit al-audit--na">n/a</span>';
+  }
+  function tagsCell(tags) {
+    if (!tags || !tags.length) return '<span class="al-empty">—</span>';
+    var h = tags.slice(0, 2).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join(' ');
+    if (tags.length > 2) h += ' <span class="tag">+' + (tags.length - 2) + '</span>';
+    return '<span class="al-tags">' + h + '</span>';
+  }
+  var AV = ['#3d3aad', '#128a5a', '#b0791a', '#2f6bdd', '#d23b34', '#7c3aed'];
+  function who(name) {
+    if (!name) return '<span class="al-empty">—</span>';
+    var p = name.trim().split(' '), ini = (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase();
+    return '<span class="who"><span class="av" style="background:' + AV[name.length % AV.length] + '">' + ini + '</span><span class="who-nm">' + esc(name) + '</span></span>';
+  }
+
+  function originCell(o) { return o === 'renewal' ? '<span class="al-origin al-origin--r">Renewal</span>' : '<span class="al-origin al-origin--o">Order</span>'; }
+  function renewalCell(s) {
+    if (!s || s === 'n/a') return '<span class="al-empty">—</span>';
+    if (s === 'Expiring') return '<span class="st-pill st-pending">Expiring</span>';
+    if (s === 'Active') return '<span class="st-pill st-approved">Active</span>';
+    return '<span class="st-pill st-progress">' + esc(s) + '</span>';
+  }
+  function chatCell(r) {
+    return '<span class="al-chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' + (r.unread ? '<span class="al-chatdot"></span>' : '') + '</span>';
+  }
+
+  /* ---- column model (order + keys mirror components/orders/items/all/fields.data.js) ---- */
+  var COLUMNS = [
+    { key: 'order_item_number', label: 'ID', def: true, lock: true, stick: 'l', w: 118, render: function (r) { return '<span class="al-id">' + esc(r.num) + '</span>'; } },
+    { key: 'origin_type', label: 'Source', def: true, w: 110, render: function (r) { return srcCell(r.source); } },
+    { key: 'media_type', label: 'Type', def: true, w: 128, render: function (r) { return typeCell(r.type); } },
+    { key: 'live_link', label: 'Live link', def: true, w: 300, render: function (r) { return linkCell(r.live_link); } },
+    { key: 'target_url', label: 'Target url', def: true, w: 300, render: function (r) { return urlCell(r.target_url); } },
+    { key: 'anchor_text', label: 'Anchor text', def: true, w: 180, render: function (r) { return txt(r.anchor); } },
+    { key: 'status', label: 'Status', def: true, w: 190, render: function (r) { return statusCell(r.status); } },
+    { key: 'renewal_status', label: 'Renewal status', def: false, w: 150, render: function (r) { return renewalCell(r.renewalStatus); } },
+    { key: 'origin', label: 'Origin', def: true, w: 120, render: function (r) { return originCell(r.origin); } },
+    { key: 'renewal_date', label: 'Renewal date', def: false, w: 140, render: function (r) { return txt(r.renewalDate); } },
+    { key: 'is_target_url_live', label: 'Linking', def: true, align: 'c', w: 96, render: function (r) { return auditCell(r.a.linking); } },
+    { key: 'link_juice', label: 'Dofollow', def: true, align: 'c', w: 104, render: function (r) { return auditCell(r.a.dofollow); } },
+    { key: 'paid_link', label: 'Sponsored', def: true, align: 'c', w: 110, render: function (r) { return auditCell(r.a.sponsored); } },
+    { key: 'is_target_url_match', label: 'URL match', def: true, align: 'c', w: 108, render: function (r) { return auditCell(r.a.urlMatch); } },
+    { key: 'is_anchor_match', label: 'Anchor match', def: true, align: 'c', w: 122, render: function (r) { return auditCell(r.a.anchorMatch); } },
+    { key: 'is_search_visible', label: 'Indexed', def: true, align: 'c', w: 96, render: function (r) { return auditCell(r.a.indexed); } },
+    { key: 'brand', label: 'Brand', def: true, w: 150, render: function (r) { return txt(r.brand); } },
+    { key: 'project', label: 'Project', def: true, w: 160, render: function (r) { return txt(r.project); } },
+    { key: 'package_id_number', label: 'Package', def: true, w: 130, render: function (r) { return r.package ? '<span class="al-pkg">' + esc(r.package) + '</span>' : '<span class="al-empty">—</span>'; } },
+    { key: 'ordered_by', label: 'Ordered by', def: true, w: 160, render: function (r) { return who(r.orderedBy); } },
+    { key: 'media', label: 'Media', def: true, w: 210, render: function (r) { return mediaCell(r.media, r.type); } },
+    { key: 'tags', label: 'Tags', def: true, w: 190, render: function (r) { return tagsCell(r.tags); } },
+    { key: 'agency', label: 'Agency', def: false, w: 160, render: function (r) { return txt(r.agency); } },
+    { key: 'publisher_name', label: 'Publisher name', def: false, w: 170, render: function (r) { return txt(r.publisher); } },
+    { key: 'publisher_email', label: 'Publisher email', def: false, w: 210, render: function (r) { return txt(r.publisherEmail); } },
+    { key: 'lead_source', label: 'Lead source', def: false, w: 150, render: function (r) { return txt(r.leadSource); } },
+    { key: 'media_outreach_specialist', label: 'Assignee', def: false, w: 160, render: function (r) { return who(r.assignee); } },
+    { key: 'indexed_urls', label: 'Indexed URLs', def: false, align: 'r', w: 150, render: function (r) { return r.indexedUrls == null ? '<span class="al-empty">—</span>' : intf(r.indexedUrls); } },
+    { key: 'ahrefs_domain_rating', label: 'Ahrefs DR', def: true, align: 'r', w: 108, render: function (r) { return intf(r.dr); } },
+    { key: 'ahrefs_ref_domains', label: 'Ahrefs RD', def: false, align: 'r', w: 120, render: function (r) { return intf(r.rd); } },
+    { key: 'ahrefs_total_keywords', label: 'Ahrefs Keywords', def: false, align: 'r', w: 150, render: function (r) { return intf(r.kw); } },
+    { key: 'ahrefs_organic_traffic', label: 'Ahrefs Organic Traffic', def: false, align: 'r', w: 180, render: function (r) { return intf(r.traffic); } },
+    { key: 'majestic_tf', label: 'Majestic TF', def: false, align: 'r', w: 130, render: function (r) { return intf(r.tf); } },
+    { key: 'majestic_cf', label: 'Majestic CF', def: false, align: 'r', w: 130, render: function (r) { return intf(r.cf); } },
+    { key: 'pa', label: 'Moz PA', def: false, align: 'r', w: 100, render: function (r) { return intf(r.pa); } },
+    { key: 'da', label: 'Moz DA', def: false, align: 'r', w: 100, render: function (r) { return intf(r.da); } },
+    { key: 'moz_spam_score', label: 'Moz Spam Score', def: false, align: 'r', w: 150, render: function (r) { return r.spam == null ? '<span class="al-empty">—</span>' : r.spam + '%'; } },
+    { key: 'ttf1', label: 'Topical TF1', def: false, w: 170, render: function (r) { return txt(r.ttf1); } },
+    { key: 'ttf2', label: 'Topical TF2', def: false, w: 170, render: function (r) { return txt(r.ttf2); } },
+    { key: 'ip', label: 'IP', def: false, w: 150, render: function (r) { return txt(r.ip); } },
+    { key: 'language', label: 'Language', def: false, w: 130, render: function (r) { return txt(r.language); } },
+    { key: 'country', label: 'Country', def: true, w: 150, render: function (r) { return txt(r.country); } },
+    { key: 'anchor_type', label: 'Anchor type', def: false, w: 150, render: function (r) { return txt(r.anchorType); } },
+    { key: 'invoice_number', label: 'Invoice', def: false, w: 130, render: function (r) { return txt(r.invoice); } },
+    { key: 'updated_time', label: 'Last audit', def: false, w: 120, render: function (r) { return txt(r.lastAudit); } },
+    { key: 'created_at', label: 'Ordered date', def: true, w: 120, render: function (r) { return txt(r.orderedDate); } },
+    { key: 'live_date', label: 'Live date', def: true, w: 110, render: function (r) { return txt(r.liveDate); } },
+    { key: 'publication', label: 'Publication', def: true, align: 'r', w: 130, render: function (r) { return fmt(r.pub); } },
+    { key: 'permanent', label: 'Permanent', def: false, align: 'r', w: 120, render: function (r) { return r.permanent ? fmt(r.permanent) : '<span class="al-empty">—</span>'; } },
+    { key: 'publication_content', label: 'Content', def: true, align: 'r', w: 120, render: function (r) { return r.content ? fmt(r.content) : '<span class="al-empty">—</span>'; } }
+  ];
+  /* Total, is_read_history (chat) and View (actions) are fixed sticky-right columns — not toggleable, mirroring fields.data.js */
+  /* sticky-right totals + actions handled outside the toggleable set */
+
+  /* ---- sample data ---- */
+  var A_LIVE = { linking: 2, dofollow: 2, sponsored: 3, urlMatch: 2, anchorMatch: 2, indexed: 2 };
+  var A_WARN = { linking: 2, dofollow: 3, sponsored: 3, urlMatch: 2, anchorMatch: 3, indexed: 2 };
+  var A_NA = { linking: 1, dofollow: 1, sponsored: 1, urlMatch: 1, anchorMatch: 1, indexed: 1 };
+  function row(o) {
+    o.a = o.a || A_NA; o.total = (o.pub || 0) + (o.content || 0) + (o.permanent || 0);
+    /* derived fields for the extra (default-hidden) columns */
+    o.origin = (o.source === 'IMPORTED' && o.renewalStatus && o.renewalStatus !== 'n/a') ? 'renewal' : 'order';
+    o.renewalDate = (o.renewalStatus === 'Active' || o.renewalStatus === 'Expiring') && o.liveDate ? o.liveDate.replace('2026', '2027') : '';
+    o.leadSource = o.source === 'IMPORTED' ? 'CSV import' : (o.source === 'PUBLISHER' ? 'Publisher portal' : 'Outreach');
+    o.indexedUrls = (o.a === A_LIVE || o.a === A_WARN) ? Math.max(1, Math.round((o.rd || 0) * 0.12)) : null;
+    o.unread = (o.id % 4) === 1;
+    return o;
+  }
+  var ROWS = [
+    row({ id: 8801, num: 'OI-8801', source: 'OUTREACH', type: 'guest_post', status: 'APPROVED_PUBLICATION', live_link: 'goal.com/opinion/best-casino-apps-2026', target_url: 'betclub.com/casino', anchor: 'best casino apps', media: 'goal.com', project: 'iGaming EU', brand: 'BetClub', package: '', orderedBy: 'Liviu Pop', tags: ['sports', 'casino'], dr: 91, rd: 84200, kw: 2100000, traffic: 4800000, tf: 62, cf: 58, pa: 71, da: 88, spam: 2, ttf1: 'Sports', ttf2: 'Gambling', ip: '104.18.22.5', anchorType: 'Exact match', renewalStatus: 'Active', agency: 'Perform Group', publisher: 'Marco Rossi', publisherEmail: 'marco@goal.com', assignee: 'Sayeed Khan', invoice: 'INV-2043', lastAudit: '2 Jul 2026', orderedDate: '15 May 2026', liveDate: '2 Jun 2026', pub: 4800, content: 360, permanent: 0, country: 'United Kingdom', language: 'English', a: A_LIVE }),
+    row({ id: 8850, num: 'OI-8850', source: 'OUTREACH', type: 'guest_post', status: 'PUBLISHED', live_link: 'mynet.com/haber/kripto-rehberi', target_url: 'bitwave.io/learn', anchor: 'crypto guide', media: 'mynet.com', project: 'TR Sports', brand: 'Acme Corp', package: '', orderedBy: 'Liviu Pop', tags: ['news'], dr: 78, rd: 21400, kw: 540000, traffic: 980000, tf: 41, cf: 45, pa: 55, da: 74, spam: 4, ttf1: 'News', ttf2: 'Finance', ip: '212.58.9.1', anchorType: 'Partial match', renewalStatus: 'n/a', agency: 'Doğan Media', publisher: 'Elif Demir', publisherEmail: 'elif@mynet.com', assignee: 'Maria Silva', invoice: 'INV-2051', lastAudit: '1 Jul 2026', orderedDate: '28 May 2026', liveDate: '20 Jun 2026', pub: 780, content: 285, permanent: 0, country: 'Türkiye', language: 'Turkish', a: A_LIVE }),
+    row({ id: 8902, num: 'OI-8902', source: 'OUTREACH', type: 'guest_post', status: 'PUBLISHING', live_link: '', target_url: 'initech.com/loans', anchor: 'personal loans Italy', media: 'corriere.it', project: 'EU Finance', brand: 'Initech', package: 'PK-441', orderedBy: 'Maria Silva', tags: ['finance', 'news', 'loans'], dr: 89, rd: 61200, kw: 1500000, traffic: 3100000, tf: 55, cf: 52, pa: 66, da: 85, spam: 3, ttf1: 'News', ttf2: 'Finance', ip: '2.19.44.7', anchorType: 'Partial match', renewalStatus: 'n/a', agency: 'RCS MediaGroup', publisher: 'Giulia Bianchi', publisherEmail: 'g.bianchi@corriere.it', assignee: 'Liviu Pop', invoice: '', lastAudit: '', orderedDate: '30 Jun 2026', liveDate: '', pub: 4100, content: 360, permanent: 0, country: 'Italy', language: 'Italian', a: A_NA }),
+    row({ id: 8903, num: 'OI-8903', source: 'OUTREACH', type: 'guest_post', status: 'CREATING_CONTENT', live_link: '', target_url: 'initech.com/forex', anchor: 'forex brokers', media: 'iltalehti.fi', project: 'EU Finance', brand: 'Initech', package: 'PK-441', orderedBy: 'Maria Silva', tags: ['finance'], dr: 82, rd: 33800, kw: 720000, traffic: 1400000, tf: 44, cf: 48, pa: 60, da: 79, spam: 5, ttf1: 'News', ttf2: 'Finance', ip: '62.142.5.9', anchorType: 'Branded', renewalStatus: 'n/a', agency: 'Alma Media', publisher: 'Aino Virtanen', publisherEmail: 'aino@iltalehti.fi', assignee: 'Liviu Pop', invoice: '', lastAudit: '', orderedDate: '30 Jun 2026', liveDate: '', pub: 1500, content: 285, permanent: 0, country: 'Finland', language: 'Finnish', a: A_NA }),
+    row({ id: 8955, num: 'OI-8955', source: 'OUTREACH', type: 'guest_post', status: 'APPROVED_PUBLICATION', live_link: 'learn.microsoft.com/community/azure-guide', target_url: 'globex.dev/docs', anchor: 'azure deployment', media: 'learn.microsoft.com', project: 'Dev Tools SEO', brand: 'Globex', package: '', orderedBy: 'Sayeed Khan', tags: ['tech', 'saas'], dr: 96, rd: 412000, kw: 8400000, traffic: 22000000, tf: 71, cf: 66, pa: 82, da: 95, spam: 1, ttf1: 'Technology', ttf2: 'Computers', ip: '13.107.42.14', anchorType: 'Partial match', renewalStatus: 'Active', agency: 'Microsoft', publisher: 'Editorial team', publisherEmail: 'editors@microsoft.com', assignee: 'Sayeed Khan', invoice: 'INV-1998', lastAudit: '28 Jun 2026', orderedDate: '10 May 2026', liveDate: '25 May 2026', pub: 919, content: 300, permanent: 0, country: 'United States', language: 'English', a: A_LIVE }),
+    row({ id: 8956, num: 'OI-8956', source: 'OUTREACH', type: 'link_insertion', status: 'APPROVED_PUBLICATION', live_link: 'aws.amazon.com/blogs/architecture/scaling', target_url: 'globex.dev/pricing', anchor: 'globex', media: 'aws.amazon.com', project: 'Dev Tools SEO', brand: 'Globex', package: '', orderedBy: 'Sayeed Khan', tags: ['tech'], dr: 95, rd: 388000, kw: 7100000, traffic: 19500000, tf: 70, cf: 64, pa: 80, da: 94, spam: 1, ttf1: 'Technology', ttf2: 'Computers', ip: '52.94.228.1', anchorType: 'Branded', renewalStatus: 'Active', agency: 'Amazon', publisher: 'AWS team', publisherEmail: 'blogs@aws.amazon.com', assignee: 'Sayeed Khan', invoice: 'INV-1998', lastAudit: '28 Jun 2026', orderedDate: '10 May 2026', liveDate: '24 May 2026', pub: 1200, content: 0, permanent: 0, country: 'United States', language: 'English', a: A_WARN }),
+    row({ id: 8990, num: 'OI-8990', source: 'OUTREACH', type: 'guest_post', status: 'PUBLISHED', live_link: 'uol.com.br/esporte/apostas-online', target_url: 'acme.com/br', anchor: 'apostas online', media: 'uol.com.br', project: 'LatAm Launch', brand: 'Acme Corp', package: '', orderedBy: 'Jose Garcia', tags: ['news', 'sports'], dr: 92, rd: 156000, kw: 5200000, traffic: 14000000, tf: 60, cf: 57, pa: 74, da: 90, spam: 2, ttf1: 'News', ttf2: 'Sports', ip: '200.147.100.1', anchorType: 'Exact match', renewalStatus: 'n/a', agency: 'Grupo UOL', publisher: 'Pedro Alves', publisherEmail: 'pedro@uol.com.br', assignee: 'Maria Silva', invoice: 'INV-2060', lastAudit: '3 Jul 2026', orderedDate: '4 Jun 2026', liveDate: '30 Jun 2026', pub: 18000, content: 540, permanent: 0, country: 'Brazil', language: 'Portuguese', a: A_LIVE }),
+    row({ id: 8991, num: 'OI-8991', source: 'PUBLISHER', type: 'guest_post', status: 'PUBLISHING', live_link: '', target_url: 'acme.com/br/news', anchor: 'notícias', media: 'terra.com.br', project: 'LatAm Launch', brand: 'Acme Corp', package: '', orderedBy: 'Jose Garcia', tags: ['news'], dr: 88, rd: 98000, kw: 3100000, traffic: 8200000, tf: 52, cf: 50, pa: 68, da: 86, spam: 3, ttf1: 'News', ttf2: 'General', ip: '208.84.244.1', anchorType: 'Branded', renewalStatus: 'n/a', agency: 'Telefônica', publisher: 'Camila Souza', publisherEmail: 'camila@terra.com.br', assignee: 'Maria Silva', invoice: '', lastAudit: '', orderedDate: '4 Jun 2026', liveDate: '', pub: 464, content: 285, permanent: 0, country: 'Brazil', language: 'Portuguese', a: A_NA }),
+    row({ id: 7702, num: 'OI-7702', source: 'IMPORTED', type: 'link_insertion', status: 'APPROVED_PUBLICATION', live_link: 'elpais.com/economia/mercados-cripto', target_url: 'acme.com/es', anchor: 'mercados cripto', media: 'elpais.com', project: 'ES Expansion', brand: 'Acme Corp', package: '', orderedBy: 'Maria Silva', tags: ['news', 'finance'], dr: 93, rd: 210000, kw: 6100000, traffic: 16000000, tf: 63, cf: 59, pa: 76, da: 91, spam: 2, ttf1: 'News', ttf2: 'Finance', ip: '23.45.109.2', anchorType: 'Partial match', renewalStatus: 'Expiring', agency: 'PRISA', publisher: 'Sofía Núñez', publisherEmail: 'sofia@elpais.com', assignee: 'Maria Silva', invoice: 'INV-1870', lastAudit: '20 Jun 2026', orderedDate: '2 Apr 2026', liveDate: '18 Apr 2026', pub: 5200, content: 0, permanent: 1200, country: 'Spain', language: 'Spanish', a: A_LIVE }),
+    row({ id: 7655, num: 'OI-7655', source: 'IMPORTED', type: 'guest_post', status: 'APPROVED_PUBLICATION', live_link: 'infobae.com/tecno/mejores-vpn', target_url: 'acme.com/ar', anchor: 'mejores vpn', media: 'infobae.com', project: 'LatAm Launch', brand: 'Acme Corp', package: '', orderedBy: 'Liviu Pop', tags: ['news', 'tech'], dr: 90, rd: 132000, kw: 4400000, traffic: 11500000, tf: 57, cf: 54, pa: 72, da: 89, spam: 3, ttf1: 'News', ttf2: 'Technology', ip: '190.210.5.4', anchorType: 'Exact match', renewalStatus: 'Active', agency: 'Infobae', publisher: 'Diego Fernández', publisherEmail: 'diego@infobae.com', assignee: 'Sayeed Khan', invoice: 'INV-1902', lastAudit: '19 Jun 2026', orderedDate: '28 Mar 2026', liveDate: '12 Apr 2026', pub: 1900, content: 360, permanent: 0, country: 'Argentina', language: 'Spanish', a: A_LIVE }),
+    row({ id: 8800, num: 'OI-8800', source: 'OUTREACH', type: 'guest_post', status: 'CONTENT_QUEUE', live_link: '', target_url: 'bitwave.io/crypto', anchor: 'crypto casino', media: 'goal.com', project: 'Crypto Q4', brand: 'BitWave', package: '', orderedBy: 'Sayeed Khan', tags: ['sports', 'crypto'], dr: 91, rd: 84200, kw: 2100000, traffic: 4800000, tf: 62, cf: 58, pa: 71, da: 88, spam: 2, ttf1: 'Sports', ttf2: 'Gambling', ip: '104.18.22.5', anchorType: 'Exact match', renewalStatus: 'n/a', agency: 'Perform Group', publisher: 'Marco Rossi', publisherEmail: 'marco@goal.com', assignee: 'Jose Garcia', invoice: '', lastAudit: '', orderedDate: '27 Jun 2026', liveDate: '', pub: 4200, content: 360, permanent: 0, country: 'United Kingdom', language: 'English', a: A_NA }),
+    row({ id: 8853, num: 'OI-8853', source: 'OUTREACH', type: 'guest_post', status: 'FIXING_PUBLICATION', live_link: 'sondakika.com/spor/bahis-rehberi', target_url: 'acme.com/tr', anchor: 'bahis rehberi', media: 'sondakika.com', project: 'TR Sports', brand: 'Acme Corp', package: '', orderedBy: 'Liviu Pop', tags: ['news'], dr: 71, rd: 12800, kw: 320000, traffic: 610000, tf: 36, cf: 40, pa: 50, da: 68, spam: 6, ttf1: 'News', ttf2: 'General', ip: '95.0.0.9', anchorType: 'Partial match', renewalStatus: 'n/a', agency: 'Ciner Media', publisher: 'Kerem Yıldız', publisherEmail: 'kerem@sondakika.com', assignee: 'Maria Silva', invoice: '', lastAudit: '30 Jun 2026', orderedDate: '28 May 2026', liveDate: '22 Jun 2026', pub: 420, content: 285, permanent: 0, country: 'Türkiye', language: 'Turkish', a: A_WARN }),
+    row({ id: 8550, num: 'OI-8550', source: 'OUTREACH', type: 'link_insertion', status: 'CANCELED', live_link: '', target_url: 'acme.com/ar/vpn', anchor: 'vpn argentina', media: 'infobae.com', project: 'LatAm Launch', brand: 'Acme Corp', package: '', orderedBy: 'Liviu Pop', tags: ['tech'], dr: 90, rd: 132000, kw: 4400000, traffic: 11500000, tf: 57, cf: 54, pa: 72, da: 89, spam: 3, ttf1: 'News', ttf2: 'Technology', ip: '190.210.5.4', anchorType: 'Exact match', renewalStatus: 'n/a', agency: 'Infobae', publisher: 'Diego Fernández', publisherEmail: 'diego@infobae.com', assignee: '', invoice: '', lastAudit: '', orderedDate: '9 Jun 2026', liveDate: '', pub: 1900, content: 0, permanent: 0, country: 'Argentina', language: 'Spanish', a: A_NA }),
+    row({ id: 7420, num: 'OI-7420', source: 'IMPORTED', type: 'guest_post', status: 'APPROVED_PUBLICATION', live_link: 'tribuna.com/betting/premier-tips', target_url: 'betclub.com/tips', anchor: 'premier league tips', media: 'tribuna.com', project: 'iGaming EU', brand: 'BetClub', package: '', orderedBy: 'Sayeed Khan', tags: ['sports', 'betting'], dr: 84, rd: 44100, kw: 1100000, traffic: 2600000, tf: 48, cf: 49, pa: 63, da: 81, spam: 4, ttf1: 'Sports', ttf2: 'Gambling', ip: '172.67.70.3', anchorType: 'Exact match', renewalStatus: 'Active', agency: 'Tribuna Digital', publisher: 'Oleh Ivanov', publisherEmail: 'oleh@tribuna.com', assignee: 'Sayeed Khan', invoice: 'INV-1780', lastAudit: '15 Jun 2026', orderedDate: '20 Mar 2026', liveDate: '5 Apr 2026', pub: 3200, content: 360, permanent: 0, country: 'United Kingdom', language: 'English', a: A_LIVE })
+  ];
+
+  var head = document.getElementById('al-head');
+  var body = document.getElementById('al-body');
+  var emptyEl = document.getElementById('al-empty');
+  var searchEl = document.getElementById('al-search');
+  var pagerEl = document.getElementById('al-pager');
+  var collist = document.getElementById('al-collist');
+  var state = { search: '', src: 'all', type: 'all', page: 1, pageSize: 25, sort: { key: null, dir: 'asc' } };
+  var visibleCols = COLUMNS.filter(function (c) { return c.def; }).map(function (c) { return c.key; });
+  var selected = {};
+
+  function colByKey(k) { return COLUMNS.filter(function (c) { return c.key === k; })[0]; }
+  function visList() { return visibleCols.map(colByKey).filter(Boolean); }
+  function alignCls(c) { return c.align === 'r' ? ' al-r' : c.align === 'c' ? ' al-c' : ''; }
+
+  /* ---- column sorting (mirrors the fields.data sortField set) ---- */
+  var MO = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+  function pdate(s) { var p = String(s || '').split(' '); return p.length < 3 ? -Infinity : new Date(+p[2], MO[p[1]] || 0, +p[0]).getTime(); }
+  var STORDER = Object.keys(STATUS);
+  var SORTVAL = {
+    order_item_number: function (r) { return r.id; }, origin_type: function (r) { return r.source; }, media_type: function (r) { return r.type; },
+    anchor_text: function (r) { return r.anchor || ''; }, status: function (r) { return STORDER.indexOf(r.status); },
+    renewal_status: function (r) { return r.renewalStatus || ''; }, origin: function (r) { return r.origin || ''; }, brand: function (r) { return r.brand || ''; },
+    project: function (r) { return r.project || ''; }, ordered_by: function (r) { return r.orderedBy || ''; }, media: function (r) { return r.media || ''; },
+    tags: function (r) { return (r.tags || []).join(','); }, agency: function (r) { return r.agency || ''; }, publisher_name: function (r) { return r.publisher || ''; },
+    publisher_email: function (r) { return r.publisherEmail || ''; }, lead_source: function (r) { return r.leadSource || ''; }, media_outreach_specialist: function (r) { return r.assignee || ''; },
+    indexed_urls: function (r) { return r.indexedUrls == null ? -1 : r.indexedUrls; }, ahrefs_domain_rating: function (r) { return r.dr; }, ahrefs_ref_domains: function (r) { return r.rd; },
+    ahrefs_total_keywords: function (r) { return r.kw; }, ahrefs_organic_traffic: function (r) { return r.traffic; }, majestic_tf: function (r) { return r.tf; }, majestic_cf: function (r) { return r.cf; },
+    pa: function (r) { return r.pa; }, da: function (r) { return r.da; }, moz_spam_score: function (r) { return r.spam == null ? -1 : r.spam; }, ttf1: function (r) { return r.ttf1 || ''; }, ttf2: function (r) { return r.ttf2 || ''; },
+    ip: function (r) { return r.ip || ''; }, language: function (r) { return r.language || ''; }, country: function (r) { return r.country || ''; }, anchor_type: function (r) { return r.anchorType || ''; },
+    invoice_number: function (r) { return r.invoice || ''; }, updated_time: function (r) { return pdate(r.lastAudit); }, created_at: function (r) { return pdate(r.orderedDate); }, live_date: function (r) { return pdate(r.liveDate); },
+    publication: function (r) { return r.pub; }, permanent: function (r) { return r.permanent || 0; }, publication_content: function (r) { return r.content || 0; }, final_total: function (r) { return r.total; }
+  };
+  function sortable(key) { return !!SORTVAL[key]; }
+  var CBOTH = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 9 4-4 4 4M8 15l4 4 4-4"/></svg>';
+  var CUP = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m6 15 6-6 6 6"/></svg>';
+  var CDN = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m6 9 6 6 6-6"/></svg>';
+  function sortCaret(key) {
+    if (!sortable(key)) return '';
+    var active = state.sort.key === key;
+    return '<span class="al-sortc' + (active ? ' is-active' : '') + '">' + (active ? (state.sort.dir === 'asc' ? CUP : CDN) : CBOTH) + '</span>';
+  }
+  function thAttrs(key) { return sortable(key) ? (' data-sortkey="' + key + '"') : ''; }
+  function thSortCls(key) { return sortable(key) ? (' al-th--sort' + (state.sort.key === key ? ' is-sorted' : '')) : ''; }
+
+  function visibleRows() {
+    var q = state.search.toLowerCase();
+    var list = ROWS.filter(function (r) {
+      if (state.src !== 'all' && r.source !== state.src) return false;
+      if (state.type !== 'all' && r.type !== state.type) return false;
+      if (q) {
+        var hay = (r.num + ' ' + r.media + ' ' + r.project + ' ' + r.brand + ' ' + (r.anchor || '') + ' ' + (r.target_url || '') + ' ' + (r.live_link || '') + ' ' + (r.orderedBy || '')).toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    if (state.sort.key && SORTVAL[state.sort.key]) {
+      var acc = SORTVAL[state.sort.key], dir = state.sort.dir === 'desc' ? -1 : 1;
+      list = list.slice().sort(function (a, b) { var va = acc(a), vb = acc(b); if (va < vb) return -dir; if (va > vb) return dir; return a.id - b.id; });
+    }
+    return list;
+  }
+
+  function renderHead() {
+    var h = '<th class="al-th al-sel al-stick-l0"><input type="checkbox" class="checkbox" id="al-selall" /></th>';
+    visList().forEach(function (c) {
+      h += '<th class="al-th' + alignCls(c) + (c.stick === 'l' ? ' al-stick-l1' : '') + thSortCls(c.key) + '"' + thAttrs(c.key) + ' style="width:' + c.w + 'px;min-width:' + c.w + 'px"><span class="al-thc">' + esc(c.label) + sortCaret(c.key) + '</span></th>';
+    });
+    h += '<th class="al-th al-r al-stick-r1' + thSortCls('final_total') + '"' + thAttrs('final_total') + ' style="width:118px;min-width:118px"><span class="al-thc">Total' + sortCaret('final_total') + '</span></th>';
+    h += '<th class="al-th al-c al-stick-rc"></th>';
+    h += '<th class="al-th al-stick-r0"></th>';
+    head.innerHTML = h;
+    var sa = document.getElementById('al-selall');
+    if (sa) sa.addEventListener('change', function () { var vis = visibleRows(); vis.forEach(function (r) { selected[r.id] = sa.checked; }); render(); });
+  }
+  /* sortable header click (delegated once — the <tr> persists across renderHead) */
+  head.addEventListener('click', function (e) {
+    var th = e.target.closest('.al-th--sort'); if (!th) return;
+    var key = th.getAttribute('data-sortkey');
+    if (state.sort.key !== key) state.sort = { key: key, dir: 'asc' };
+    else if (state.sort.dir === 'asc') state.sort.dir = 'desc';
+    else state.sort = { key: null, dir: 'asc' };
+    state.page = 1; render();
+  });
+
+  function render() {
+    renderHead();
+    var all = visibleRows();
+    var pages = Math.max(1, Math.ceil(all.length / state.pageSize));
+    if (state.page > pages) state.page = pages;
+    var start = (state.page - 1) * state.pageSize;
+    var list = all.slice(start, start + state.pageSize);
+    var cols = visList();
+    body.innerHTML = list.map(function (r) {
+      var cells = '<td class="al-td al-sel al-stick-l0"><input type="checkbox" class="checkbox al-rowsel" data-id="' + r.id + '"' + (selected[r.id] ? ' checked' : '') + ' /></td>';
+      cols.forEach(function (c) {
+        cells += '<td class="al-td' + alignCls(c) + (c.stick === 'l' ? ' al-stick-l1' : '') + '" style="width:' + c.w + 'px;min-width:' + c.w + 'px">' + c.render(r) + '</td>';
+      });
+      cells += '<td class="al-td al-r al-tot al-stick-r1" style="width:118px;min-width:118px">' + fmt(r.total) + '</td>';
+      cells += '<td class="al-td al-c al-stick-rc">' + chatCell(r) + '</td>';
+      cells += '<td class="al-td al-stick-r0"><a class="btn btn--secondary btn--xs al-view" href="order-item.html">View</a></td>';
+      return '<tr class="al-row' + (selected[r.id] ? ' is-selected' : '') + '" data-id="' + r.id + '">' + cells + '</tr>';
+    }).join('');
+    emptyEl.classList.toggle('is-on', all.length === 0);
+    if (pagerEl) {
+      pagerEl.classList.toggle('is-hidden', all.length === 0);
+      renderPager(pagerEl, { page: state.page, pageSize: state.pageSize, total: all.length, sizes: [25, 50, 100] },
+        { page: function (p) { state.page = p; render(); }, size: function (s) { state.pageSize = s; state.page = 1; render(); } });
+    }
+    var hc = document.getElementById('al-hdr-count'); if (hc) hc.textContent = all.length;
+    updateActions();
+  }
+
+  /* selection → Actions dropdown (disabled until rows are selected — mirrors all/Actions.vue) */
+  function updateActions() {
+    var ids = Object.keys(selected).filter(function (id) { return selected[id]; });
+    var el = document.getElementById('al-actions'), n = document.getElementById('al-actn');
+    el.classList.toggle('is-disabled', ids.length === 0);
+    if (ids.length === 0) el.removeAttribute('open');
+    if (n) { n.hidden = ids.length === 0; n.textContent = ids.length; }
+    var vis = visibleRows(), visSel = vis.filter(function (r) { return selected[r.id]; }).length;
+    var sa = document.getElementById('al-selall');
+    if (sa) { sa.checked = vis.length > 0 && visSel === vis.length; sa.indeterminate = visSel > 0 && visSel < vis.length; }
+  }
+
+  /* ---- column visibility popover (clean rows · toggle switch · drag-to-reorder) ---- */
+  var DEFAULT_ORDER = COLUMNS.map(function (c) { return c.key; });
+  function colIndex(k) { return COLUMNS.findIndex(function (c) { return c.key === k; }); }
+  var GRIP = '<svg class="al-col__grip" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="5" r="1.4"/><circle cx="15" cy="5" r="1.4"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/><circle cx="9" cy="19" r="1.4"/><circle cx="15" cy="19" r="1.4"/></svg>';
+  function renderColList(filterStr) {
+    var q = (filterStr || '').toLowerCase();
+    collist.innerHTML = COLUMNS.filter(function (c) { return !q || c.label.toLowerCase().indexOf(q) !== -1; }).map(function (c) {
+      var on = visibleCols.indexOf(c.key) !== -1, drag = !c.lock && !q;
+      return '<div class="al-col' + (c.lock ? ' is-locked' : '') + '" data-key="' + c.key + '"' + (drag ? ' draggable="true"' : '') + '>' +
+        (c.lock ? '<span class="al-col__grip al-col__grip--none"></span>' : GRIP) +
+        '<span class="al-col__lbl">' + esc(c.label) + '</span>' +
+        '<button class="al-sw' + (on ? ' is-on' : '') + '" type="button" role="switch" aria-checked="' + on + '"' + (c.lock ? ' disabled' : '') + ' data-swkey="' + c.key + '"><span class="al-sw__t"></span></button>' +
+        '</div>';
+    }).join('');
+  }
+  collist.addEventListener('click', function (e) {
+    var sw = e.target.closest('.al-sw'); if (!sw || sw.disabled) return;
+    var key = sw.getAttribute('data-swkey'), i = visibleCols.indexOf(key);
+    if (i === -1) { visibleCols.push(key); visibleCols.sort(function (a, b) { return colIndex(a) - colIndex(b); }); }
+    else visibleCols.splice(i, 1);
+    renderColList(document.getElementById('al-colsearch').value); render();
+  });
+  /* drag-to-reorder */
+  var dragKey = null;
+  collist.addEventListener('dragstart', function (e) { var r = e.target.closest('.al-col[draggable]'); if (!r) return; dragKey = r.getAttribute('data-key'); r.classList.add('is-drag'); try { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', dragKey); } catch (x) {} });
+  collist.addEventListener('dragend', function () { collist.querySelectorAll('.al-col').forEach(function (r) { r.classList.remove('is-drag', 'is-over'); }); dragKey = null; });
+  collist.addEventListener('dragover', function (e) { if (!dragKey) return; var r = e.target.closest('.al-col'); if (!r) return; e.preventDefault(); collist.querySelectorAll('.al-col').forEach(function (x) { x.classList.toggle('is-over', x === r && x.getAttribute('data-key') !== dragKey && !x.classList.contains('is-locked')); }); });
+  collist.addEventListener('drop', function (e) { if (!dragKey) return; var r = e.target.closest('.al-col'); if (!r) return; e.preventDefault(); var to = r.getAttribute('data-key'); if (to !== dragKey && !r.classList.contains('is-locked')) reorderColumn(dragKey, to); });
+  function reorderColumn(from, to) {
+    var col = COLUMNS.filter(function (c) { return c.key === from; })[0];
+    COLUMNS = COLUMNS.filter(function (c) { return c.key !== from; });
+    COLUMNS.splice(colIndex(to), 0, col);
+    visibleCols.sort(function (a, b) { return colIndex(a) - colIndex(b); });
+    renderColList(document.getElementById('al-colsearch').value); render();
+  }
+  document.getElementById('al-colsearch').addEventListener('input', function () { renderColList(this.value); });
+  document.getElementById('al-colreset').addEventListener('click', function () {
+    COLUMNS.sort(function (a, b) { return DEFAULT_ORDER.indexOf(a.key) - DEFAULT_ORDER.indexOf(b.key); });
+    visibleCols = COLUMNS.filter(function (c) { return c.def; }).map(function (c) { return c.key; });
+    renderColList(document.getElementById('al-colsearch').value); render();
+  });
+
+  /* ---- row selection ---- */
+  body.addEventListener('change', function (e) {
+    var cb = e.target.closest('.al-rowsel'); if (!cb) return;
+    selected[cb.getAttribute('data-id')] = cb.checked;
+    cb.closest('tr').classList.toggle('is-selected', cb.checked);
+    updateBulk();
+  });
+
+  /* ---- toast + stub actions ---- */
+  function toast(msg) {
+    var t = document.createElement('div'); t.className = 'ord-toast'; t.textContent = msg;
+    document.body.appendChild(t); requestAnimationFrame(function () { t.classList.add('on'); });
+    setTimeout(function () { t.classList.remove('on'); setTimeout(function () { t.remove(); }, 250); }, 1800);
+  }
+  document.getElementById('al-actions').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-aact]'); if (!b) return;
+    var n = Object.keys(selected).filter(function (id) { return selected[id]; }).length;
+    toast(b.getAttribute('data-aact') === 'audit' ? 'Running link audit on ' + n + ' link(s)…' : 'Exporting ' + n + ' link(s)…');
+    document.getElementById('al-actions').removeAttribute('open');
+  });
+  document.querySelectorAll('[data-export]').forEach(function (el) { el.addEventListener('click', function () { toast('Order items preparing for export…'); el.closest('details')?.removeAttribute('open'); }); });
+
+  /* ---- filters: source / type ---- */
+  document.querySelectorAll('.vopt[data-src]').forEach(function (o) { o.addEventListener('click', function () {
+    document.querySelectorAll('.vopt[data-src]').forEach(function (x) { x.classList.remove('is-active'); }); o.classList.add('is-active');
+    state.src = o.getAttribute('data-src'); state.page = 1; document.getElementById('al-src-lbl').textContent = o.textContent.trim();
+    o.closest('details')?.removeAttribute('open'); render();
+  }); });
+  document.querySelectorAll('.vopt[data-type]').forEach(function (o) { o.addEventListener('click', function () {
+    document.querySelectorAll('.vopt[data-type]').forEach(function (x) { x.classList.remove('is-active'); }); o.classList.add('is-active');
+    state.type = o.getAttribute('data-type'); state.page = 1; document.getElementById('al-type-lbl').textContent = o.textContent.trim();
+    o.closest('details')?.removeAttribute('open'); render();
+  }); });
+  searchEl.addEventListener('input', function () { state.search = searchEl.value.trim(); state.page = 1; render(); });
+
+  /* ======================= Filters modal (Filters and presets) ======================= */
+  var STATUS_LABELS = Object.keys(STATUS).map(function (k) { return STATUS[k].l; });
+  var FILTER_FIELDS = [
+    { key: 'manager_id', label: 'Manager', type: 'multi', options: ['Sayeed Khan', 'Liviu Pop', 'Maria Silva', 'Jose Garcia'] },
+    { key: 'media', label: 'Media', type: 'text', ph: 'Enter website name' },
+    { key: 'lead_source', label: 'Lead source', type: 'multi', options: ['Outreach', 'Publisher', 'Broker', 'Webmaster', 'Sponsorship / Collab', 'PR campaign', 'CSV import'], help: 'Links purchased through the platform are sourced from Outreach or Publisher. Imported links can come from a Broker, Webmaster, Sponsorship/Collab, PR campaign, etc.' },
+    { key: 'brands', label: 'Brand', type: 'multi', options: ['BetClub', 'Acme Corp', 'Globex', 'Initech', 'BitWave'] },
+    { key: 'projects', label: 'Project', type: 'multi', options: ['Q3 iGaming', 'iGaming EU', 'LatAm Launch', 'Dev Tools SEO', 'EU Finance', 'TR Sports', 'ES Expansion', 'Crypto Q4', 'Nordics', 'Wellness'] },
+    { key: 'tags', label: 'Tags', type: 'multi', options: ['sports', 'casino', 'betting', 'crypto', 'forex', 'news', 'finance', 'tech', 'saas', 'loans'] },
+    { key: 'media_invoice', label: 'Media invoice', type: 'text', ph: 'Enter invoice number' },
+    { key: 'live_link', label: 'Live link', type: 'text', ph: 'Enter URL' },
+    { key: 'show_records', label: 'Show records', type: 'single', def: 'all', options: [['all', 'All'], ['with_live_date', 'With live date only'], ['without_live_date', 'Without live date only']] },
+    { key: 'target_url', label: 'Target url', type: 'text', ph: 'Enter target URL' },
+    { key: 'anchor_text', label: 'Anchor text', type: 'text', ph: 'Enter anchor text' },
+    { key: 'statuses', label: 'Order item status', type: 'multi', options: STATUS_LABELS },
+    { key: 'order_by', label: 'Ordered by', type: 'multi', options: ['Sayeed Khan', 'Liviu Pop', 'Maria Silva', 'Jose Garcia'] },
+    { key: 'media_publishers', label: 'Publisher', type: 'multi', options: ['Marco Rossi', 'Elif Demir', 'Giulia Bianchi', 'Aino Virtanen', 'Pedro Alves', 'Sofía Núñez'] },
+    { key: 'renewal_status', label: 'Renewal status', type: 'multi', options: ['Renewal due', 'Renewal in progress', 'Renewal on track', 'Renewed', 'Canceled', 'No renewal', 'N/A'] },
+    { key: 'origin', label: 'Origin', type: 'single', def: '', options: [['', 'Show all'], ['order_only', 'Order only'], ['renewal_only', 'Renewal only']] }
+  ];
+  var fstate = {};
+  function resetFilters() { FILTER_FIELDS.forEach(function (f) { fstate[f.key] = f.type === 'multi' ? [] : (f.def || ''); }); }
+  resetFilters();
+  var CARET = '<svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>';
+  function fieldHtml(f) {
+    var h = '<div class="al-ffield" data-fk="' + f.key + '"><label class="al-ffield__l">' + esc(f.label) + '</label>';
+    if (f.type === 'text') h += '<input class="input" data-ftext="' + f.key + '" value="' + esc(fstate[f.key]) + '" placeholder="' + esc(f.ph || '') + '" />';
+    else if (f.type === 'single') h += '<select class="input al-fselect" data-fsingle="' + f.key + '">' + f.options.map(function (o) { return '<option value="' + o[0] + '"' + (fstate[f.key] === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+    else {
+      var sel = fstate[f.key];
+      h += '<div class="al-ms" data-fk="' + f.key + '"><button class="al-ms__hd" type="button" data-mstoggle="' + f.key + '"><span class="' + (sel.length ? '' : 'al-ms__ph') + '">' + (sel.length ? sel.length + ' selected' : 'Select') + '</span>' + CARET + '</button>' +
+        '<div class="al-ms__list" hidden>' + f.options.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<label class="al-ms__opt"><input type="checkbox" class="checkbox" data-fmulti="' + f.key + '" value="' + esc(v) + '"' + (sel.indexOf(v) > -1 ? ' checked' : '') + ' /> ' + esc(l) + '</label>'; }).join('') + '</div></div>';
+    }
+    if (f.help) h += '<p class="al-ffield__help">' + esc(f.help) + '</p>';
+    return h + '</div>';
+  }
+  var fpane = document.getElementById('al-filterfields');
+  function buildFilterFields() { fpane.innerHTML = FILTER_FIELDS.map(fieldHtml).join(''); }
+  function updateMsSummary(k) { var s = fpane.querySelector('.al-ms[data-fk="' + k + '"] .al-ms__hd span'); if (s) { var n = fstate[k].length; s.textContent = n ? n + ' selected' : 'Select'; s.className = n ? '' : 'al-ms__ph'; } }
+  fpane.addEventListener('click', function (e) { var t = e.target.closest('[data-mstoggle]'); if (t) { var l = t.nextElementSibling; l.hidden = !l.hidden; var c = t.querySelector('.caret'); if (c) c.classList.toggle('is-up', !l.hidden); } });
+  fpane.addEventListener('change', function (e) {
+    var cb = e.target.closest('[data-fmulti]');
+    if (cb) { var k = cb.getAttribute('data-fmulti'), v = cb.value, a = fstate[k], i = a.indexOf(v); if (cb.checked && i === -1) a.push(v); else if (!cb.checked && i > -1) a.splice(i, 1); updateMsSummary(k); return; }
+    var s = e.target.closest('[data-fsingle]'); if (s) fstate[s.getAttribute('data-fsingle')] = s.value;
+  });
+  fpane.addEventListener('input', function (e) { var t = e.target.closest('[data-ftext]'); if (t) fstate[t.getAttribute('data-ftext')] = t.value; });
+
+  /* presets tab */
+  var PRESETS = [{ name: 'Live iGaming links', desc: 'Live · Q3 iGaming · Published' }, { name: 'Needs audit', desc: 'Live date set · last audit > 30 days' }, { name: 'Canceled this quarter', desc: 'Canceled · ordered ≥ Apr' }];
+  function buildPresets() {
+    document.getElementById('al-presetpane').innerHTML =
+      '<div class="al-preset-new"><input class="input" id="al-preset-name" placeholder="Name current filters…" /><button class="btn btn--secondary btn--sm" id="al-preset-save" type="button">Save preset</button></div>' +
+      '<div class="al-preset-list">' + PRESETS.map(function (p, i) { return '<button class="al-preset" data-preset="' + i + '" type="button"><span class="al-preset__nm">' + esc(p.name) + '</span><span class="al-preset__d">' + esc(p.desc) + '</span></button>'; }).join('') + '</div>';
+  }
+  document.getElementById('al-presetpane').addEventListener('click', function (e) {
+    if (e.target.closest('#al-preset-save')) { var nm = document.getElementById('al-preset-name').value.trim(); if (nm) { PRESETS.unshift({ name: nm, desc: 'Custom preset' }); document.getElementById('al-preset-name').value = ''; buildPresets(); toast('Preset saved'); } return; }
+    if (e.target.closest('[data-preset]')) { toast('Preset applied'); closeFilters(); }
+  });
+  document.querySelectorAll('.al-tab').forEach(function (tab) { tab.addEventListener('click', function () {
+    document.querySelectorAll('.al-tab').forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+    var n = tab.getAttribute('data-ftab'); document.querySelectorAll('.al-fpane').forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-fpane') === n); });
+  }); });
+
+  /* filter count (modal fields + active date ranges) */
+  function activeFilterCount() {
+    var n = 0;
+    FILTER_FIELDS.forEach(function (f) { var v = fstate[f.key]; if (f.type === 'text') { if (v && v.trim()) n++; } else if (f.type === 'single') { if (v && v !== (f.def || '')) n++; } else if (v.length) n++; });
+    ['added', 'live', 'audit'].forEach(function (k) { if (dstate[k].active) n++; });
+    return n;
+  }
+  function setFilterCount() { var n = activeFilterCount(), fc = document.getElementById('al-fcount'), ca = document.getElementById('al-clearall'); if (n) { fc.hidden = false; fc.textContent = n; ca.classList.remove('is-hidden'); } else { fc.hidden = true; ca.classList.add('is-hidden'); } }
+
+  /* modal open/close */
+  var scrim = document.getElementById('al-scrim'), fmodal = document.getElementById('al-filtermodal');
+  function openFilters() { buildFilterFields(); buildPresets(); fmodal.classList.add('is-open'); fmodal.setAttribute('aria-hidden', 'false'); scrim.hidden = false; requestAnimationFrame(function () { scrim.classList.add('is-open'); }); }
+  function closeFilters() { fmodal.classList.remove('is-open'); fmodal.setAttribute('aria-hidden', 'true'); scrim.classList.remove('is-open'); setTimeout(function () { scrim.hidden = true; }, 200); }
+  document.getElementById('al-filters-btn').addEventListener('click', openFilters);
+  scrim.addEventListener('click', closeFilters);
+  document.querySelectorAll('[data-fclose]').forEach(function (b) { b.addEventListener('click', closeFilters); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && fmodal.classList.contains('is-open')) closeFilters(); });
+  document.getElementById('al-fapply').addEventListener('click', function () { setFilterCount(); toast('Filters applied'); closeFilters(); });
+  document.getElementById('al-fclearall').addEventListener('click', function () { resetFilters(); buildFilterFields(); setFilterCount(); });
+
+  /* ======================= date-range selects (Ordered / Live / Audit) ======================= */
+  var dstate = { added: { from: '', to: '', active: false }, live: { from: '', to: '', active: false }, audit: { from: '', to: '', active: false } };
+  var DBASE = { added: 'Ordered', live: 'Live', audit: 'Audit' };
+  function fmtD(iso) { if (!iso) return ''; var p = iso.split('-'); return p[2] + '/' + p[1]; }
+  function resetDate(dd, key) { dstate[key] = { from: '', to: '', active: false }; dd.querySelector('.al-dlbl').textContent = DBASE[key]; dd.querySelector('.al-ddot').hidden = true; dd.querySelector('[data-df="from"]').value = ''; dd.querySelector('[data-df="to"]').value = ''; }
+  document.querySelectorAll('.al-datedrop').forEach(function (dd) {
+    var key = dd.getAttribute('data-dk');
+    dd.querySelector('[data-dapply]').addEventListener('click', function () {
+      var from = dd.querySelector('[data-df="from"]').value, to = dd.querySelector('[data-df="to"]').value;
+      dstate[key] = { from: from, to: to, active: !!(from || to) };
+      var lbl = dd.querySelector('.al-dlbl');
+      if (dstate[key].active) { lbl.textContent = DBASE[key] + ' · ' + (from && to ? fmtD(from) + '–' + fmtD(to) : from ? 'from ' + fmtD(from) : 'to ' + fmtD(to)); dd.querySelector('.al-ddot').hidden = false; }
+      else { lbl.textContent = DBASE[key]; dd.querySelector('.al-ddot').hidden = true; }
+      dd.removeAttribute('open'); setFilterCount();
+    });
+    dd.querySelector('[data-dclear]').addEventListener('click', function () { resetDate(dd, key); dd.removeAttribute('open'); setFilterCount(); });
+  });
+
+  /* Clear all (toolbar) → reset modal filters + date ranges */
+  document.getElementById('al-clearall').addEventListener('click', function () {
+    resetFilters();
+    document.querySelectorAll('.al-datedrop').forEach(function (dd) { resetDate(dd, dd.getAttribute('data-dk')); });
+    setFilterCount();
+  });
+
+  /* close dropdowns on outside click */
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('details[open]').forEach(function (dt) { if (!dt.contains(e.target)) dt.removeAttribute('open'); });
+  });
+
+  /* basket badge from shared cart */
+  try { var cart = JSON.parse(localStorage.getItem('ml-cart') || '{}'); var n = Object.keys(cart).length, badge = document.getElementById('hdr-cart-count'); if (badge) { badge.textContent = n; badge.style.display = n ? '' : 'none'; } } catch (e) {}
+
+  renderColList('');
+  render();
+})();
+</script>
+<script>
+/* Sidebar collapse — mirrors index.html. */
+(function () {
+  var sb = document.getElementById('m-sidebar'); if (!sb) return;
+  sb.addEventListener('click', function (e) {
+    var p = e.target.closest('.m-nav__parent'); if (!p || sb.classList.contains('is-collapsed')) return;
+    var g = p.closest('.m-nav__group'); if (g) g.classList.toggle('is-open');
+  });
+  var KEY = 'ml-sidebar', NARROW = 1280;
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(c) { sb.classList.toggle('is-collapsed', c); }
+  function apply() { var s = stored(); set(s ? s === 'collapsed' : window.innerWidth < NARROW); }
+  apply();
+  var btn = document.getElementById('m-side-toggle');
+  if (btn) btn.addEventListener('click', function () { var c = !sb.classList.contains('is-collapsed'); set(c); try { localStorage.setItem(KEY, c ? 'collapsed' : 'expanded'); } catch (e) {} });
+  window.addEventListener('resize', function () { if (!stored()) set(window.innerWidth < NARROW); });
+})();
+</script>
+</body>
+</html>

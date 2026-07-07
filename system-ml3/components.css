@@ -97,3 +97,89 @@
 
 .btn--iconxs { width: 26px; height: 26px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; color: var(--text-muted); border-radius: var(--radius-sm); cursor: pointer; }
 .btn--iconxs:hover { background: var(--bg-sunken); color: var(--text); }
+
+/* =====================================================================
+   APP BAR — the single unified page header (variants: Section / Detail / Minimal)
+   Right edge (divider + Notifications + Cart) is identical on every variant.
+   Sits as the FIRST child of .m-main, sticky to the top of the scroll area.
+   ===================================================================== */
+.appbar { display: flex; align-items: center; gap: var(--space-3); height: 56px; padding: 0 var(--space-5); flex: none;
+  background: var(--bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20; }
+.appbar__spacer { flex: 1 1 auto; }
+.appbar__title { font-size: 17px; font-weight: var(--fw-semibold); letter-spacing: -.01em; color: var(--text); white-space: nowrap; }
+.appbar__count { margin-left: 8px; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-muted);
+  background: var(--bg-sunken); border-radius: 999px; padding: 2px 8px; vertical-align: middle; }
+.appbar__actions { display: inline-flex; align-items: center; gap: var(--space-2); flex: none; }
+
+/* fixed global cluster — byte-for-byte identical everywhere */
+.appbar__sep { width: 1px; height: 22px; background: var(--border); margin: 0 6px; flex: none; }
+.appbar__global { display: inline-flex; align-items: center; gap: 2px; flex: none; }
+.ab-ic { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border-radius: var(--radius-md);
+  color: var(--text-secondary); background: transparent; border: 0; cursor: pointer; text-decoration: none;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.ab-ic:hover { background: var(--bg-sunken); color: var(--text); }
+.ab-ic .dotmark { position: absolute; top: 7px; right: 8px; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); border: 1.5px solid var(--bg); }
+.ab-cart__count { position: absolute; top: 3px; right: 3px; min-width: 16px; height: 16px; padding: 0 4px; display: grid; place-items: center;
+  border-radius: 999px; background: var(--accent); color: var(--accent-fg); font-size: 10px; font-weight: var(--fw-semibold);
+  line-height: 1; border: 1.5px solid var(--bg); }
+
+/* variant B — detail identity block */
+.appbar__back { display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: var(--fs-13);
+  font-weight: var(--fw-medium); text-decoration: none; padding: 5px 8px 5px 4px; border-radius: var(--radius-md); flex: none; }
+.appbar__back:hover { background: var(--bg-sunken); color: var(--text); }
+.appbar__div { width: 1px; height: 20px; background: var(--border); flex: none; }
+.appbar__id { display: inline-flex; align-items: center; gap: 9px; min-width: 0; }
+.appbar__id .u-av { width: 26px; height: 26px; font-size: 10px; flex: none; }
+.appbar__id .fav { width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--border); display: grid; place-items: center;
+  overflow: hidden; background: #fff; flex: none; }
+.appbar__id .fav img { width: 16px; height: 16px; }
+.appbar__idname { font-size: var(--fs-15, 15px); font-weight: var(--fw-semibold); color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* tab strip that docks directly under a detail bar (sticky with it) */
+.appbar-tabs { display: flex; gap: 2px; padding: 0 var(--space-5); background: var(--bg); border-bottom: 1px solid var(--border);
+  flex: none; position: sticky; top: 56px; z-index: 19; overflow-x: auto; }
+.appbar-tab { appearance: none; border: 0; background: transparent; cursor: pointer; padding: 11px 12px; font-size: var(--fs-13);
+  font-weight: var(--fw-medium); color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.appbar-tab:hover { color: var(--text); }
+.appbar-tab.is-active, .appbar-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+
+/* page lede — the one-line description that used to live in the header, now first line of content */
+.cintro { font-size: var(--fs-13); color: var(--text-muted); }
+
+/* =====================================================================
+   ORDER / AUDIT BADGES — aggregate status pills, order-item pipeline
+   chips, type badges and the link-audit yes/no chip. Shared across the
+   Orders, All-links and Order-item pages.
+   ===================================================================== */
+
+/* ---- Status pill (list-page aggregate status) ---- */
+.st-pill { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-11); font-weight: var(--fw-semibold); padding: 2px 9px; border-radius: var(--radius-pill); white-space: nowrap; }
+.st-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.st-pending  { color: var(--amber);  background: var(--amber-bg); }
+.st-approved { color: var(--green);  background: var(--green-bg); }
+.st-ordered  { color: var(--accent); background: var(--accent-tint); }
+.st-progress { color: var(--blue);   background: var(--blue-bg); }
+.st-live     { color: var(--accent); background: var(--accent-tint); }
+.st-canceled { color: var(--red);    background: var(--red-bg); }
+
+/* ---- Order-item pipeline status chip (colored by bucket) ---- */
+.oi-status { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-12); font-weight: var(--fw-medium); padding: 2px 9px; border-radius: var(--radius-pill); white-space: nowrap; }
+.oi-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.oi-b-queued   { color: var(--text-muted); background: var(--bg-sunken); }
+.oi-b-progress { color: var(--blue);   background: var(--blue-bg); }
+.oi-b-live     { color: var(--accent); background: var(--accent-tint); }
+.oi-b-done     { color: var(--green);  background: var(--green-bg); }
+.oi-b-canceled { color: var(--red);    background: var(--red-bg); }
+
+/* ---- Order-item type badge (guest post / link insertion) ---- */
+.oi-type { display: inline-flex; align-items: center; font-size: var(--fs-12); font-weight: var(--fw-medium); padding: 1px 8px; border-radius: var(--radius-sm); white-space: nowrap; }
+.oi-type--gp { color: var(--blue); background: var(--blue-bg); }
+.oi-type--li { color: #7c3aed; background: #f1ecfd; }
+
+/* ---- Link-audit yes / no / n-a chip ---- */
+.al-audit { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; font-size: var(--fs-12); font-weight: var(--fw-medium); padding: 1px 8px; border-radius: var(--radius-pill); }
+.al-audit--y  { color: var(--green);      background: var(--green-bg); }
+.al-audit--n  { color: var(--red);        background: var(--red-bg); }
+.al-audit--na { color: var(--text-faint); background: var(--bg-sunken); }

@@ -29,7 +29,7 @@
 
     <nav class="lib-nav" id="lib-nav">
       <div class="lib-nav__sec">Overview</div>
-      <a href="#pages">Pages <span class="cnt">8</span></a>
+      <a href="#pages">Pages <span class="cnt">10</span></a>
 
       <div class="lib-nav__sec">Foundations</div>
       <a href="#color">Color</a>
@@ -39,12 +39,14 @@
       <a href="#elevation">Elevation</a>
 
       <div class="lib-nav__sec">Components</div>
+      <a href="#appbar">App bar (header)</a>
       <a href="#buttons">Buttons</a>
       <a href="#filterbtn">Toolbar buttons</a>
       <a href="#inputs">Inputs &amp; search</a>
       <a href="#tabs">Tabs</a>
       <a href="#tags">Tags &amp; badges</a>
       <a href="#spam">Spam &amp; status</a>
+      <a href="#orderbadges">Order &amp; audit badges</a>
       <a href="#avatars">Avatars</a>
       <a href="#checkbox">Checkbox</a>
       <a href="#meter">Quality meter</a>
@@ -208,6 +210,57 @@
             </div>
           </article>
 
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Orders</div><div class="lib-pcard__route">/orders</div></div>
+            </div>
+            <p class="lib-pcard__d">Placed orders — each row expands to its line items (media links + package
+               groups). A fulfilment status pill per order, App Bar Section variant; parallels Drafts. Checkout's
+               “Track order” lands here.</p>
+            <div class="lib-pcard__tags"><span class="tag">Table</span><span class="tag">Expand</span><span class="tag">Status</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">List view</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/orders.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">All links</div><div class="lib-pcard__route">/orders/items/all</div></div>
+            </div>
+            <p class="lib-pcard__d">Every ordered + imported link — the widest table. The full fields.data column
+               set with a Columns popover (drag-to-reorder + toggles), frozen edge columns, sortable headers,
+               a “Filters &amp; presets” modal, Ordered/Live/Audit date-range selects, and the link audit chips.</p>
+            <div class="lib-pcard__tags"><span class="tag">Wide table</span><span class="tag">Columns</span><span class="tag">Audit</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Table</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/all-links.html">Open →</a>
+            </div>
+          </article>
+
+          <article class="lib-pcard">
+            <div class="lib-pcard__top">
+              <div class="lib-pcard__ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h4"/></svg>
+              </div>
+              <div><div class="lib-pcard__t">Order item</div><div class="lib-pcard__route">/orders/items/{slug}</div></div>
+            </div>
+            <p class="lib-pcard__d">One order-item record — App Bar Detail + tabs (Details / Content / Renewals /
+               Chat &amp; history), a sticky price + status rail, and every card's edit workflow: live link, link
+               audit, publication conditions, content requirements, tags, documents, and a targeted note composer.</p>
+            <div class="lib-pcard__tags"><span class="tag">Record</span><span class="tag">Tabs</span><span class="tag">Workflows</span></div>
+            <div class="lib-pcard__foot">
+              <span class="muted" style="font-size:var(--fs-12)">Detail view</span>
+              <a class="btn btn--secondary btn--sm" href="../market-ml3/order-item.html">Open →</a>
+            </div>
+          </article>
+
         </div>
       </section>
 
@@ -309,6 +362,88 @@
             <div class="lib-elev__box" style="box-shadow:var(--shadow-lg)">--shadow-lg</div>
           </div>
         </div></div>
+      </section>
+
+      <!-- ========================= APP BAR ========================= -->
+      <section class="lib-sec" id="appbar">
+        <h2>App bar (header)</h2>
+        <p class="lib-lead">The single unified page header — a sticky 56px bar whose <strong>right edge is
+           identical everywhere</strong>: a hairline divider then the fixed global cluster (Notifications ·
+           Cart). Only the left context and page CTAs vary across three variants. A page sets one class and
+           never invents header markup.</p>
+
+        <!-- Variant A · Section -->
+        <div class="lib-demo">
+          <div class="lib-appbar-wrap">
+            <header class="appbar lib-appbar">
+              <span class="appbar__title">Orders <span class="appbar__count">12</span></span>
+              <span class="appbar__spacer"></span>
+              <div class="appbar__actions"><button class="btn btn--secondary btn--sm">Invite</button></div>
+              <span class="appbar__sep"></span>
+              <div class="appbar__global">
+                <button class="ab-ic" type="button"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+                <a class="ab-ic" href="#"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+              </div>
+            </header>
+          </div>
+          <div class="lib-demo__foot">
+            <span class="muted" style="font-size:var(--fs-12);margin-right:auto">Variant A · Section — list / overview pages</span>
+            <button class="lib-tk">.appbar</button>
+            <button class="lib-tk">.appbar__title</button>
+            <button class="lib-tk">.appbar__count</button>
+            <button class="lib-tk">.appbar__actions</button>
+          </div>
+        </div>
+
+        <!-- Variant B · Detail + docked tabs -->
+        <div class="lib-demo">
+          <div class="lib-appbar-wrap">
+            <header class="appbar lib-appbar">
+              <a class="appbar__back" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> All links</a>
+              <span class="appbar__div"></span>
+              <span class="appbar__id"><span class="fav"><img src="https://www.google.com/s2/favicons?domain=goal.com&sz=64" alt="" /></span><span class="appbar__idname">Order #OI-8801</span><span class="tag tag--accent">Order</span></span>
+              <span class="appbar__spacer"></span>
+              <div class="appbar__actions"><button class="btn btn--secondary btn--sm">Actions</button></div>
+              <span class="appbar__sep"></span>
+              <div class="appbar__global">
+                <button class="ab-ic" type="button"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+                <a class="ab-ic" href="#"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+              </div>
+            </header>
+            <div class="appbar-tabs lib-appbar-tabs"><button class="appbar-tab is-active">Details</button><button class="appbar-tab">Content</button><button class="appbar-tab">Renewals</button><button class="appbar-tab">Chat &amp; history</button></div>
+          </div>
+          <div class="lib-demo__foot">
+            <span class="muted" style="font-size:var(--fs-12);margin-right:auto">Variant B · Detail — record pages; tabs dock under</span>
+            <button class="lib-tk">.appbar__back</button>
+            <button class="lib-tk">.appbar__id</button>
+            <button class="lib-tk">.appbar__idname</button>
+            <button class="lib-tk">.appbar-tabs</button>
+            <button class="lib-tk">.appbar-tab</button>
+          </div>
+        </div>
+
+        <!-- Variant C · Minimal -->
+        <div class="lib-demo">
+          <div class="lib-appbar-wrap">
+            <header class="appbar lib-appbar">
+              <a class="appbar__back" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Market · Checkout</a>
+              <span class="appbar__spacer"></span>
+              <span class="appbar__sep"></span>
+              <div class="appbar__global">
+                <button class="ab-ic" type="button"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+                <a class="ab-ic" href="#"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+              </div>
+            </header>
+          </div>
+          <div class="lib-demo__foot">
+            <span class="muted" style="font-size:var(--fs-12);margin-right:auto">Variant C · Minimal — checkout / full-canvas flows (only the back-link + global cluster)</span>
+            <button class="lib-tk">.appbar__sep</button>
+            <button class="lib-tk">.appbar__global</button>
+            <button class="lib-tk">.ab-ic</button>
+            <button class="lib-tk">.ab-cart__count</button>
+            <button class="lib-tk">.dotmark</button>
+          </div>
+        </div>
       </section>
 
       <!-- ========================= BUTTONS ========================= -->
@@ -458,6 +593,72 @@
             <button class="lib-tk">.spam--green</button>
             <button class="lib-tk">.spam--amber</button>
             <button class="lib-tk">.spam--red</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= ORDER / AUDIT BADGES ========================= -->
+      <section class="lib-sec" id="orderbadges">
+        <h2>Order &amp; audit badges</h2>
+        <p class="lib-lead">Status and audit indicators shared by the Orders, All-links and Order-item pages.
+           <strong>Aggregate status pills</strong> (<code>.st-pill</code>) label a whole order/draft; the
+           <strong>pipeline chip</strong> (<code>.oi-status</code>) colors an order-item by its 13-stage bucket;
+           plus the order-type badge and the link-audit yes/no chip.</p>
+
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <span class="st-pill st-progress">In progress</span>
+            <span class="st-pill st-live">Live</span>
+            <span class="st-pill st-approved">Completed</span>
+            <span class="st-pill st-pending">Pending</span>
+            <span class="st-pill st-ordered">Ordered</span>
+            <span class="st-pill st-canceled">Canceled</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.st-pill</button>
+            <button class="lib-tk">.st-progress</button>
+            <button class="lib-tk">.st-live</button>
+            <button class="lib-tk">.st-approved</button>
+            <button class="lib-tk">.st-pending</button>
+            <button class="lib-tk">.st-ordered</button>
+            <button class="lib-tk">.st-canceled</button>
+          </div>
+        </div>
+
+        <div class="lib-demo">
+          <div class="lib-demo__stage">
+            <span class="oi-status oi-b-queued">Order queue</span>
+            <span class="oi-status oi-b-progress">Creating content</span>
+            <span class="oi-status oi-b-live">Published</span>
+            <span class="oi-status oi-b-done">Approved publication</span>
+            <span class="oi-status oi-b-canceled">Canceled</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.oi-status</button>
+            <button class="lib-tk">.oi-b-queued</button>
+            <button class="lib-tk">.oi-b-progress</button>
+            <button class="lib-tk">.oi-b-live</button>
+            <button class="lib-tk">.oi-b-done</button>
+            <button class="lib-tk">.oi-b-canceled</button>
+          </div>
+        </div>
+
+        <div class="lib-demo">
+          <div class="lib-demo__stage" style="gap:var(--space-5)">
+            <span class="oi-type oi-type--gp">Guest post</span>
+            <span class="oi-type oi-type--li">Link insertion</span>
+            <span class="al-audit al-audit--y">Yes</span>
+            <span class="al-audit al-audit--n">No</span>
+            <span class="al-audit al-audit--na">n/a</span>
+          </div>
+          <div class="lib-demo__foot">
+            <button class="lib-tk">.oi-type</button>
+            <button class="lib-tk">.oi-type--gp</button>
+            <button class="lib-tk">.oi-type--li</button>
+            <button class="lib-tk">.al-audit</button>
+            <button class="lib-tk">.al-audit--y</button>
+            <button class="lib-tk">.al-audit--n</button>
+            <button class="lib-tk">.al-audit--na</button>
           </div>
         </div>
       </section>

@@ -69,19 +69,28 @@
 
     <!-- ============ MAIN — BILLING ENTITIES TAB ============ -->
     <main class="m-main">
+
+      <!-- App Bar · Section -->
+      <header class="appbar">
+        <span class="appbar__title">Billing entities</span>
+        <span class="appbar__spacer"></span>
+        <div class="appbar__actions">
+          <button class="btn btn--primary btn--sm" id="s-new"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New entity</button>
+        </div>
+        <span class="appbar__sep"></span>
+        <div class="appbar__global">
+          <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <a class="ab-ic" href="../market-ml3/checkout.html" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+        </div>
+      </header>
+
       <div class="m-content">
 
-        <div class="m-head">
-          <div>
-            <h1>Billing entities</h1>
-            <div class="sub">Set up billing entities for accurate invoice generation between brokers and projects.</div>
-          </div>
-          <div class="m-head__actions">
-            <div class="s-search" id="s-searchwrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-              <input class="input" type="text" id="s-search" placeholder="Search by name or reg. number…" />
-            </div>
-            <button class="btn btn--primary btn--sm" id="s-new"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New entity</button>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div class="cintro">Set up billing entities for accurate invoice generation between brokers and projects.</div>
+          <div class="s-search" id="s-searchwrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input class="input" type="text" id="s-search" placeholder="Search by name or reg. number…" />
           </div>
         </div>
 

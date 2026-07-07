@@ -11,15 +11,14 @@
 /* ============ Sidebar — grey body, framed like Untitled UI (below the header) ============ */
 /* body is the same grey as the canvas; a white outline (inner 3px border) + a hairline
    border (outer, via box-shadow) separate the two greys and lift it as a panel. */
-.m-sidebar { --side-w: 224px; width: var(--side-w); flex: none; align-self: flex-start;
-  position: sticky; top: 16px; height: calc(100vh - 32px); margin: 16px 0 16px 16px; display: flex; flex-direction: column;
-  background: #f5f6f8; border: 3px solid #fff; border-radius: var(--radius-lg);
-  box-shadow: 0 0 0 1px var(--border), 0 6px 20px rgba(16,18,23,.06);
+.m-sidebar { --side-w: 224px; width: var(--side-w); flex: none; align-self: stretch;
+  position: sticky; top: 0; height: 100vh; margin: 0; display: flex; flex-direction: column;
+  background: #f7f8fa; border-right: 1px solid var(--border);
   color: var(--text-secondary); transition: width var(--dur) var(--ease); z-index: 20; }
 .m-sidebar.is-collapsed { --side-w: 64px; }
 
 /* sidebar top: brand (left) + collapse toggle (right) */
-.m-side-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); height: 52px; padding: 0 12px; }
+.m-side-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); height: 56px; padding: 0 14px; border-bottom: 1px solid var(--border); }
 .m-side-top .m-brand { display: flex; align-items: center; min-width: 0; flex: 1; text-decoration: none; }
 .m-side-top .m-brand__full { max-height: 18px; max-width: 100%; width: auto; object-fit: contain; display: block; }
 .m-side-toggle { width: 30px; height: 30px; display: grid; place-items: center; cursor: pointer; border: none;
@@ -843,12 +842,7 @@ td .cnt { font-size: var(--fs-11); color: var(--text-faint); font-weight: var(--
 .dr-assign:hover { background: var(--accent-tint); border-color: var(--accent); }
 .dr-mcount { font-weight: var(--fw-medium); font-variant-numeric: tabular-nums; }
 
-/* status pills */
-.st-pill { display: inline-flex; align-items: center; gap: 5px; font-size: var(--fs-11); font-weight: var(--fw-semibold); padding: 2px 9px; border-radius: var(--radius-pill); white-space: nowrap; }
-.st-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.st-pending  { color: var(--amber); background: var(--amber-bg); }
-.st-approved { color: var(--green); background: var(--green-bg); }
-.st-ordered  { color: var(--accent); background: var(--accent-tint); }
+/* status pills (.st-pill + variants) live in system-ml3/components.css now */
 
 /* row actions (hover-revealed, mirrors the market table) */
 .dr-acts { display: inline-flex; align-items: center; gap: var(--space-1); justify-content: flex-end; }
@@ -939,3 +933,235 @@ td .cnt { font-size: var(--fs-11); color: var(--text-faint); font-weight: var(--
 .niche-tip__b { font-weight: var(--fw-medium); color: var(--text); font-variant-numeric: tabular-nums; }
 .niche-tip .nt-on { color: var(--green); font-weight: var(--fw-semibold); }
 .niche-tip .nt-off { color: var(--text-faint); font-weight: var(--fw-medium); }
+
+/* =====================================================================
+   ORDERS page (placed carts) — reuses the drafts shell/table. Kept lean:
+   a status pill in the list; a clean line-item table in the row expand.
+   ===================================================================== */
+
+/* muted relative date (shared with drafts) */
+.dr-date { color: var(--text-secondary); }
+
+/* aggregate status pills (.st-progress/.st-live/.st-canceled) now in components.css */
+
+/* the leading chevron is the expand affordance; keep the ⋯ menu always visible
+   (no hover-hide) since it's the row's only inline action now that Track is gone */
+.ord-row .dr-acts .menu { opacity: 1; }
+/* make the expand chevron a touch clearer as the primary "expandable" cue */
+.ord-row .exp-toggle { color: var(--text-muted); }
+.ord-row:hover .exp-toggle { color: var(--accent); }
+
+/* ===== Expanded order: package groups + line-item table ===== */
+.ord-exp { padding: var(--space-3) var(--space-3) var(--space-2); }
+
+/* package group — purple-flagged block mirroring the real app */
+.ord-pkg { border: 1px solid var(--accent-tint-2); border-left: 3px solid var(--accent);
+  border-radius: var(--radius-md); background: var(--bg); padding: var(--space-2) var(--space-3) var(--space-1);
+  margin-bottom: var(--space-4); }
+.ord-pkg__head { display: flex; align-items: center; gap: var(--space-2); padding: 4px 2px var(--space-2); }
+.ord-pkg__tag { font-size: 10px; font-weight: var(--fw-bold); text-transform: uppercase; letter-spacing: .05em;
+  color: var(--accent); background: var(--accent-tint); border-radius: var(--radius-sm); padding: 2px 7px; }
+.ord-pkg__nm { font-weight: var(--fw-semibold); color: var(--text); }
+.ord-pkg__id { font-size: var(--fs-12); color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.ord-links-h { font-size: var(--fs-11); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: .04em;
+  color: var(--text-faint); padding: 2px var(--space-3) var(--space-2); }
+
+/* line-item table — fully self-scoped (.m-exp-inner prefix) so the outer .m-table
+   rules (padding / right-align / sticky first column) can't leak in and misalign it */
+.m-exp-inner .oi-mtable { width: 100%; border-collapse: collapse; font-size: var(--fs-13); }
+.m-exp-inner .oi-mtable th,
+.m-exp-inner .oi-mtable td { padding: 12px var(--space-4); text-align: left; vertical-align: middle;
+  border: 0; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.m-exp-inner .oi-mtable thead th { padding-top: 4px; padding-bottom: 9px; position: static; z-index: auto;
+  background: transparent; box-shadow: none; font-size: var(--fs-11); font-weight: var(--fw-semibold);
+  text-transform: uppercase; letter-spacing: .04em; color: var(--text-faint); }
+.m-exp-inner .oi-mtable tbody tr:last-child td { border-bottom: 0; }
+.m-exp-inner .oi-mtable .oi-id { width: 96px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.m-exp-inner .oi-mtable .oi-media .fav-ic { display: inline-grid; place-items: center; width: 20px; height: 20px;
+  border-radius: 5px; margin-right: 9px; box-shadow: 0 0 0 1px var(--border); overflow: hidden; background: var(--bg);
+  vertical-align: middle; }
+.m-exp-inner .oi-mtable .oi-media .fav-ic img { width: 13px; height: 13px; display: block; }
+.m-exp-inner .oi-mtable .oi-dom { font-weight: var(--fw-medium); color: var(--text); }
+.m-exp-inner .oi-mtable .oi-n { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+.m-exp-inner .oi-mtable .oi-tot { font-weight: var(--fw-semibold); color: var(--text); }
+.m-exp-inner .oi-mtable .oi-view { width: 68px; text-align: right; }
+.oi-viewlink { font-size: var(--fs-13); font-weight: var(--fw-medium); color: var(--accent); text-decoration: none; }
+.oi-viewlink:hover { text-decoration: underline; }
+
+/* per-item status chip (.oi-status/.oi-b-*) + type badge (.oi-type/--gp/--li) now in components.css */
+
+/* expand footer — light recap, no actions */
+.ord-foot { padding: var(--space-3) var(--space-4) var(--space-1); }
+.ord-foot-sub { font-size: var(--fs-12); color: var(--text-muted); }
+.ord-foot-sub b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* lightweight toast for stub actions */
+.ord-toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px); z-index: 300;
+  background: var(--text); color: #fff; font-size: var(--fs-13); font-weight: var(--fw-medium);
+  padding: 10px 16px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  opacity: 0; transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.ord-toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+/* =====================================================================
+   ALL LINKS page — wide, column-configurable audit/metrics table with
+   frozen edge columns (checkbox+ID left, Total+View right). Mirrors the
+   real components/orders/items/all fields. Reuses shell/toolbar/tokens.
+   ===================================================================== */
+.al-card { padding: 0; }
+.al-scroll { overflow-x: auto; overscroll-behavior-x: contain; }
+.al-table { border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%; font-size: var(--fs-13); }
+.al-th, .al-td { padding: 10px var(--space-3); text-align: left; white-space: nowrap; vertical-align: middle;
+  border-bottom: 1px solid var(--border); box-sizing: border-box; }
+.al-th { font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-muted); background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border); }
+.al-td { color: var(--text-secondary); }
+.al-row:hover .al-td { background: var(--bg-subtle); }
+.al-row.is-selected .al-td { background: var(--accent-tint); }
+.al-r { text-align: right; }
+.al-td.al-r { font-variant-numeric: tabular-nums; }
+.al-th.al-r { text-align: right; }
+.al-c, .al-th.al-c { text-align: center; }
+.al-sel { width: 44px; min-width: 44px; padding-left: 14px; padding-right: 6px; }
+
+/* frozen edge columns */
+.al-stick-l0 { position: sticky; left: 0; z-index: 3; }
+.al-stick-l1 { position: sticky; left: 44px; z-index: 3; border-right: 1px solid var(--border); }
+.al-stick-r1 { position: sticky; right: 104px; z-index: 3; border-left: 1px solid var(--border); }
+/* Total is its own titled column; the comment + View group is untitled — a separator
+   before the group makes that grouping legible (chat header cell stays blank) */
+.al-stick-rc { position: sticky; right: 60px; z-index: 3; width: 44px; min-width: 44px; padding-left: 0; padding-right: 0; text-align: center; border-left: 1px solid var(--border); }
+.al-stick-r0 { position: sticky; right: 0; z-index: 3; width: 60px; min-width: 60px; text-align: center; }
+.al-td.al-stick-l0, .al-td.al-stick-l1, .al-td.al-stick-r0, .al-td.al-stick-rc, .al-td.al-stick-r1 { background: var(--bg); }
+.al-th.al-stick-l0, .al-th.al-stick-l1, .al-th.al-stick-r0, .al-th.al-stick-rc, .al-th.al-stick-r1 { background: var(--bg-subtle); z-index: 6; }
+.al-row:hover .al-stick-l0, .al-row:hover .al-stick-l1, .al-row:hover .al-stick-r0, .al-row:hover .al-stick-rc, .al-row:hover .al-stick-r1 { background: var(--bg-subtle); }
+.al-row.is-selected .al-stick-l0, .al-row.is-selected .al-stick-l1, .al-row.is-selected .al-stick-r0, .al-row.is-selected .al-stick-rc, .al-row.is-selected .al-stick-r1 { background: var(--accent-tint); }
+.al-row.is-selected .al-stick-l0 { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* cell content */
+.al-id { font-weight: var(--fw-medium); color: var(--text); font-variant-numeric: tabular-nums; }
+.al-empty { color: var(--text-faint); }
+.al-tot { font-weight: var(--fw-semibold); color: var(--text); }
+.al-pkg { color: var(--accent); font-variant-numeric: tabular-nums; }
+.al-link { color: var(--accent); text-decoration: none; display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle; }
+.al-link:hover { text-decoration: underline; }
+.al-url { color: var(--text-secondary); display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle; }
+.al-tags { display: inline-flex; gap: 4px; align-items: center; }
+.al-view { text-decoration: none; }
+
+/* source badge */
+.al-src { display: inline-flex; align-items: center; font-size: var(--fs-12); font-weight: var(--fw-medium); padding: 2px 9px; border-radius: var(--radius-pill); white-space: nowrap; }
+.al-src--o { color: var(--amber); background: var(--amber-bg); }
+.al-src--i { color: var(--text-muted); background: var(--bg-sunken); }
+.al-src--p { color: var(--blue); background: var(--blue-bg); }
+
+/* origin badge (Order / Renewal) */
+.al-origin { display: inline-flex; align-items: center; font-size: var(--fs-12); font-weight: var(--fw-medium); padding: 2px 9px; border-radius: var(--radius-pill); white-space: nowrap; }
+.al-origin--o { color: var(--blue); background: var(--blue-bg); }
+.al-origin--r { color: var(--accent); background: var(--accent-tint); }
+
+/* chat / unread-history indicator */
+.al-chat { position: relative; display: inline-flex; color: var(--text-faint); }
+.al-chatdot { position: absolute; top: -2px; right: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); border: 1.5px solid var(--bg); }
+
+/* media pill (colored by order-item type) */
+.al-mediapill { display: inline-flex; align-items: center; gap: 6px; font-weight: var(--fw-medium); font-size: var(--fs-12);
+  padding: 2px 8px 2px 4px; border-radius: var(--radius-sm); max-width: 100%; overflow: hidden; }
+.al-mediapill .fav-ic { width: 18px; height: 18px; border-radius: 4px; display: grid; place-items: center; background: #fff;
+  box-shadow: 0 0 0 1px var(--border); overflow: hidden; flex: none; }
+.al-mediapill .fav-ic img { width: 12px; height: 12px; display: block; }
+.al-mp--gp { color: var(--blue); background: var(--blue-bg); }
+.al-mp--li { color: #7c3aed; background: #f1ecfd; }
+
+/* link-audit yes/no/na chip (.al-audit/--y/--n/--na) now in components.css */
+
+/* toolbar: Filters count badge + column-picker switch lock */
+.fbtn-badge { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+  background: var(--accent); color: #fff; font-size: 11px; font-weight: var(--fw-semibold); }
+.fbtn-badge[hidden] { display: none; }
+.fbtn.is-hidden { display: none; }
+
+/* ===== All-links: date-range popover fields ===== */
+.al-fld { margin-bottom: var(--space-3); }
+.al-fld__l { display: block; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-secondary); margin-bottom: 5px; }
+.al-dcal { position: relative; display: inline-flex; }
+.al-ddot { position: absolute; top: -3px; right: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); border: 1.5px solid var(--bg); }
+.al-ddot[hidden] { display: none; }
+
+/* ===== Columns popover: clean rows, toggle switch, drag-to-reorder ===== */
+.al-col { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: var(--radius-sm); }
+.al-col[draggable="true"] { cursor: grab; }
+.al-col:hover { background: var(--bg-subtle); }
+.al-col.is-drag { opacity: .45; }
+.al-col.is-over { box-shadow: inset 0 2px 0 var(--accent); }
+.al-col__grip { color: var(--text-faint); flex: none; }
+.al-col[draggable="true"]:hover .al-col__grip { color: var(--text-muted); }
+.al-col__grip--none { width: 14px; flex: none; }
+.al-col__lbl { flex: 1; min-width: 0; font-size: var(--fs-13); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.al-col.is-locked .al-col__lbl { color: var(--text-muted); }
+.al-sw { flex: none; width: 34px; height: 20px; padding: 0; border: none; background: var(--border-strong); border-radius: 999px; position: relative; cursor: pointer; transition: background var(--dur) var(--ease); }
+.al-sw__t { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-sm); transition: transform var(--dur) var(--ease); }
+.al-sw.is-on { background: var(--accent); }
+.al-sw.is-on .al-sw__t { transform: translateX(14px); }
+.al-sw:disabled { opacity: .5; cursor: default; }
+
+/* ===== Filters modal ("Filters and presets") ===== */
+.al-scrim { position: fixed; inset: 0; background: rgba(8, 9, 11, .42); z-index: 200; opacity: 0; transition: opacity .18s var(--ease); }
+.al-scrim.is-open { opacity: 1; }
+.al-scrim[hidden] { display: none; }
+.al-modal { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -46%); z-index: 210; width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 64px); display: flex; flex-direction: column; background: var(--bg); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity .18s var(--ease), transform .18s var(--ease); }
+.al-modal.is-open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+.al-modal__head { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5) var(--space-3); flex: none; }
+.al-modal__t { font-size: var(--fs-16); font-weight: var(--fw-semibold); color: var(--text); }
+.al-x { width: 30px; height: 30px; border: none; background: transparent; color: var(--text-muted); border-radius: var(--radius-sm); cursor: pointer; font-size: 14px; display: grid; place-items: center; }
+.al-x:hover { background: var(--bg-sunken); color: var(--text); }
+.al-tabs { display: flex; gap: 2px; padding: 0 var(--space-5); border-bottom: 1px solid var(--border); flex: none; }
+.al-tab { appearance: none; border: 0; background: transparent; cursor: pointer; padding: 9px 12px; font-size: var(--fs-13); font-weight: var(--fw-medium); color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.al-tab:hover { color: var(--text); }
+.al-tab.is-active { color: var(--text); border-bottom-color: var(--accent); }
+.al-modal__body { padding: var(--space-5); overflow-y: auto; }
+.al-modal__foot { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-5) var(--space-4); border-top: 1px solid var(--border); flex: none; }
+.al-fpane { display: none; }
+.al-fpane.is-active { display: block; }
+
+/* filter fields */
+.al-ffield { margin-bottom: var(--space-4); }
+.al-ffield__l { display: block; font-size: var(--fs-13); font-weight: var(--fw-medium); color: var(--text); margin-bottom: 6px; }
+.al-ffield__help { font-size: var(--fs-12); color: var(--text-muted); line-height: 1.5; margin-top: 6px; }
+.al-fselect { appearance: none; cursor: pointer; padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239097a1' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; }
+.al-ms { border: 1px solid var(--border-strong); border-radius: var(--radius-md); background: var(--bg); }
+.al-ms__hd { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 8px 12px; background: none; border: none; border-radius: var(--radius-md); font-size: var(--fs-14); color: var(--text); cursor: pointer; }
+.al-ms__ph { color: var(--text-faint); }
+.al-ms__hd .caret { color: var(--text-faint); transition: transform var(--dur) var(--ease); flex: none; }
+.al-ms__hd .caret.is-up { transform: rotate(180deg); }
+.al-ms__list { max-height: 190px; overflow-y: auto; border-top: 1px solid var(--border); padding: 4px; }
+.al-ms__list[hidden] { display: none; }
+.al-ms__opt { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--radius-sm); font-size: var(--fs-13); color: var(--text-secondary); cursor: pointer; }
+.al-ms__opt:hover { background: var(--bg-sunken); }
+
+/* presets */
+.al-preset-new { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+.al-preset-new .input { flex: 1; }
+.al-preset-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.al-preset { display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg); cursor: pointer; }
+.al-preset:hover { background: var(--bg-subtle); border-color: var(--border-strong); }
+.al-preset__nm { font-size: var(--fs-13); font-weight: var(--fw-semibold); color: var(--text); }
+.al-preset__d { font-size: var(--fs-12); color: var(--text-muted); }
+
+/* ===== sortable column headers ===== */
+.al-thc { display: inline-flex; align-items: center; gap: 4px; }
+.al-th--sort { cursor: pointer; user-select: none; }
+.al-th--sort:hover { color: var(--text); background: var(--bg-sunken); }
+.al-th--sort.is-sorted { color: var(--text); }
+.al-sortc { display: inline-flex; color: var(--text-faint); }
+.al-th--sort:hover .al-sortc { color: var(--text-muted); }
+.al-sortc.is-active { color: var(--accent); }
+
+/* ===== Actions dropdown (disabled until selection) ===== */
+.al-actions.is-disabled > summary { opacity: .5; pointer-events: none; }
+.al-actn { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+  background: var(--accent-tint); color: var(--accent); font-size: 11px; font-weight: var(--fw-semibold); }
+.al-actn[hidden] { display: none; }

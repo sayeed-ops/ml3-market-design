@@ -39,9 +39,9 @@
       <div class="m-nav__group" data-group>
         <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
         <div class="m-nav__sub">
-          <a class="m-nav__item m-nav__child" href="#" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="orders.html" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
           <a class="m-nav__item m-nav__child" href="#" data-label="Order items"><span class="m-nav__tx">Order items</span><span class="m-nav__cnt">5</span></a>
-          <a class="m-nav__item m-nav__child" href="#" data-label="All links"><span class="m-nav__tx">All links</span></a>
+          <a class="m-nav__item m-nav__child" href="all-links.html" data-label="All links"><span class="m-nav__tx">All links</span></a>
         </div>
       </div>
 
@@ -78,19 +78,25 @@
     <input type="radio" name="dens" id="dens-comfy" class="dens-input" checked />
     <input type="radio" name="dens" id="dens-compact" class="dens-input" />
 
-    <div class="m-content">
-
-      <!-- Floating actions: page-specific (Drafts, Settings) + persistent global (notifications, basket) -->
-      <div class="m-pageacts">
+    <!-- App Bar · Section -->
+    <header class="appbar">
+      <span class="appbar__title">Market</span>
+      <span class="appbar__spacer"></span>
+      <div class="appbar__actions">
         <a class="btn btn--secondary btn--sm" href="drafts.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Drafts</a>
         <details class="menu">
           <summary class="btn--iconxs" title="Settings"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></summary>
           <div class="menu__pop"><button class="menu__item">Market settings</button><button class="menu__item">Export result</button><hr class="menu__sep" /><button class="menu__item">Import database</button><button class="menu__item">Export database</button></div>
         </details>
-        <span class="m-pageacts__sep"></span>
-        <button class="btn--iconxs" title="Notifications"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
-        <button class="btn--iconxs hdr-cart" id="hdr-cart" title="Basket"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="hdr-cart__count" id="hdr-cart-count">2</span></button>
       </div>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <button class="ab-ic hdr-cart" id="hdr-cart" title="Basket"><span class="ab-cart__count" id="hdr-cart-count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+      </div>
+    </header>
+
+    <div class="m-content">
 
       <!-- Header -->
       <div class="m-head">

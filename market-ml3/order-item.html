@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order item — Redesign (ML3)</title>
+  <!-- Production route: /orders/items/{slug} -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./details.css" />
+  <link rel="stylesheet" href="./checkout.css" />
+  <link rel="stylesheet" href="./order-item.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+  <!-- No sidebar — focused record view, like the media details + checkout pages. -->
+  <main class="m-main">
+
+    <!-- App Bar · Detail -->
+    <header class="appbar">
+      <a class="appbar__back" href="all-links.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> All links</a>
+      <span class="appbar__div"></span>
+      <span class="appbar__id">
+        <span class="fav"><img src="https://www.google.com/s2/favicons?domain=goal.com&sz=64" alt="" /></span>
+        <span class="appbar__idname">Order #OI-8801</span>
+        <span class="oid-hbadges">
+          <span class="tag tag--accent">Order</span>
+          <span class="oi-type oi-type--gp">Guest post</span>
+        </span>
+      </span>
+      <span class="appbar__spacer"></span>
+      <div class="appbar__actions">
+        <details class="fdrop fpop-r">
+          <summary class="btn btn--secondary btn--sm">Actions <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop fpop--right" style="width:200px"><button class="vopt" data-act="renew">Renew</button><button class="vopt" data-act="cancel-renew">Cancel renewal</button></div>
+        </details>
+      </div>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <a class="ab-ic hdr-cart" href="checkout.html" title="Basket"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+      </div>
+    </header>
+
+    <!-- Tabs docked under the bar -->
+    <div class="appbar-tabs" id="oid-tabs">
+      <button class="appbar-tab is-active" data-tab="details">Details</button>
+      <button class="appbar-tab" data-tab="content">Content</button>
+      <button class="appbar-tab" data-tab="renewals">Renewals</button>
+      <button class="appbar-tab" data-tab="history">Chat &amp; history</button>
+    </div>
+
+    <div class="d-content oid-content">
+      <div class="oid-grid">
+
+        <!-- ============ MAIN COLUMN ============ -->
+        <div class="oid-main">
+
+          <!-- ---- DETAILS TAB ---- -->
+          <section class="oid-tabpane is-active" data-pane="details">
+
+            <!-- Live link -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> Live link</span>
+                <button class="btn btn--secondary btn--sm" id="oid-editlink"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> <span id="oid-editlink-label">Edit</span></button>
+              </div>
+              <div class="oid-linkrow" id="oid-linkrow">
+                <a class="ab-ic oid-linkbtn" href="#" title="Open link" id="oid-openlink"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a>
+                <button class="ab-ic oid-linkbtn" title="Copy link" id="oid-copylink"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                <span class="oid-linkurl" id="oid-liveurl">goal.com/opinion/best-casino-apps-2026</span>
+              </div>
+            </div>
+
+            <!-- Link audit -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Link audit</span>
+                <details class="fdrop fpop-r">
+                  <summary class="btn btn--secondary btn--sm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 2v6h6M21 22v-6h-6"/><path d="M21 12a9 9 0 0 0-15-6.7L3 8M3 12a9 9 0 0 0 15 6.7l3-2.7"/></svg> Update <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+                  <div class="fpop fpop--right" style="width:200px"><button class="vopt" data-audit="auto">Audit link</button><button class="vopt" data-audit="manual">Enter manually</button></div>
+                </details>
+              </div>
+              <div class="oid-audit" id="oid-audit-read"></div>
+              <div class="oid-lastaudit">Last audit: <b id="oid-lastaudit">2 Jul 2026, 09:14</b></div>
+            </div>
+
+            <!-- Publication conditions -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg> Publication conditions</span>
+                <button class="btn btn--secondary btn--sm" id="oid-editpub"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+              </div>
+              <div class="oid-cols2">
+                <div>
+                  <h4 class="oid-sub">Publisher</h4>
+                  <div class="oid-contact">
+                    <span class="av" style="background:#7c3aed">MR</span>
+                    <div class="oid-contact__meta"><span class="oid-contact__n">Marco Rossi</span><span class="oid-contact__e">marco@goal.com <button class="d-copy" title="Copy email"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="oid-sub">Assignee</h4>
+                  <div class="oid-contact">
+                    <span class="av" style="background:#3d3aad">SK</span>
+                    <div class="oid-contact__meta"><span class="oid-contact__n">Sayeed Khan</span><span class="oid-contact__e">sayeed@motherlink.io</span></div>
+                  </div>
+                </div>
+              </div>
+              <div id="oid-pubcond-read"></div>
+            </div>
+
+            <!-- Additional details -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.6 13.4 12 22l-8-8V4h10z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/></svg> Additional details</span>
+                <button class="btn btn--secondary btn--sm" id="oid-edittags"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+              </div>
+              <div class="d-kv"><span class="k">Tags</span><span class="v" id="oid-tags-read"></span></div>
+            </div>
+
+            <!-- Media metrics -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Media metrics</span>
+              </div>
+              <div class="oid-metrics">
+                <div class="oid-mgroup"><span class="oid-mgroup__h">Ahrefs</span>
+                  <div class="d-kv"><span class="k">Domain Rating</span><span class="v"><span class="tag tag--accent">91</span></span></div>
+                  <div class="d-kv"><span class="k">Ref. domains</span><span class="v">84,200</span></div>
+                  <div class="d-kv"><span class="k">Keywords</span><span class="v">2,100,000</span></div>
+                  <div class="d-kv"><span class="k">Organic traffic</span><span class="v">4,800,000</span></div>
+                </div>
+                <div class="oid-mgroup"><span class="oid-mgroup__h">Majestic</span>
+                  <div class="d-kv"><span class="k">Trust Flow</span><span class="v">62</span></div>
+                  <div class="d-kv"><span class="k">Citation Flow</span><span class="v">58</span></div>
+                  <div class="d-kv"><span class="k">Topical TF</span><span class="v">Sports</span></div>
+                  <div class="d-kv"><span class="k">IP</span><span class="v">104.18.22.5</span></div>
+                </div>
+                <div class="oid-mgroup"><span class="oid-mgroup__h">Moz</span>
+                  <div class="d-kv"><span class="k">Domain Authority</span><span class="v">88</span></div>
+                  <div class="d-kv"><span class="k">Page Authority</span><span class="v">71</span></div>
+                  <div class="d-kv"><span class="k">Spam Score</span><span class="v"><span class="spam spam--green"><span class="dot"></span>2%</span></span></div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- ---- CONTENT TAB ---- -->
+          <section class="oid-tabpane" data-pane="content">
+
+            <!-- Info for admin + Note (compact, clamped, See more → popup) -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8h.01M11 12h1v4h1"/></svg> Info for admin &amp; Note</span>
+              </div>
+              <div class="oid-notegrid">
+                <div class="oid-note">
+                  <span class="oid-note__k">Info for admin</span>
+                  <p class="oid-note__b oid-clamp" data-full="Stock price is 150 GBP. Publisher invoices monthly and requires the target URL to be finalised before drafting. Turnaround is typically 7–10 working days; rush placements incur a 20% surcharge. Do not use gambling anchors in the first paragraph per the publisher's editorial policy.">Stock price is 150 GBP. Publisher invoices monthly and requires the target URL to be finalised before drafting. Turnaround is typically 7–10 working days; rush placements incur a 20% surcharge. Do not use gambling anchors in the first paragraph per the publisher's editorial policy.</p>
+                  <button class="oid-seemore" type="button" data-seemore="Info for admin">See more</button>
+                </div>
+                <div class="oid-note">
+                  <span class="oid-note__k">Note</span>
+                  <p class="oid-note__b oid-clamp" data-full="Client prefers a soft, editorial tone. Keep BetClub mentions to two per article and always pair with a responsible-gambling disclaimer. Liviu to review before it goes live.">Client prefers a soft, editorial tone. Keep BetClub mentions to two per article and always pair with a responsible-gambling disclaimer. Liviu to review before it goes live.</p>
+                  <button class="oid-seemore" type="button" data-seemore="Note">See more</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content requirements -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg> Content requirements</span>
+                <button class="btn btn--secondary btn--sm" id="oid-editcontent"><span class="oid-cby"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/></svg> <span id="oid-cby-btnlabel">Content by Motherlink</span></span> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+              </div>
+              <div id="oid-creq-read"></div>
+            </div>
+
+            <!-- Documents -->
+            <div class="oid-card">
+              <div class="oid-card__head">
+                <span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Documents</span>
+                <button class="btn btn--secondary btn--sm" id="oid-upload"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg> Upload</button>
+              </div>
+              <div class="oid-docs">
+                <div class="oid-file"><span class="oid-file__ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><span class="oid-file__meta"><span class="oid-file__n">best-casino-apps-2026.docx</span><span class="oid-file__s">Article · 42 KB · 28 May 2026, 11:02</span></span><a class="al-link" href="#">Download</a></div>
+                <div class="oid-file"><span class="oid-file__ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><span class="oid-file__meta"><span class="oid-file__n">published-proof.pdf</span><span class="oid-file__s">Publication · 180 KB · 2 Jun 2026, 16:40</span></span><a class="al-link" href="#">Download</a></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ---- RENEWALS TAB ---- -->
+          <section class="oid-tabpane" data-pane="renewals">
+            <div class="oid-card">
+              <div class="oid-card__head"><span class="oid-card__t">Renewal</span><button class="btn btn--primary btn--sm">Renew now</button></div>
+              <div class="oid-cols2">
+                <div>
+                  <div class="d-kv"><span class="k">Renewal status</span><span class="v"><span class="st-pill st-approved">Active</span></span></div>
+                  <div class="d-kv"><span class="k">Renewal date</span><span class="v">2 Jun 2027</span></div>
+                </div>
+                <div>
+                  <div class="d-kv"><span class="k">Publication duration</span><span class="v">1 year(s)</span></div>
+                  <div class="d-kv"><span class="k">Renewal price</span><span class="v">€4,800</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="oid-card">
+              <div class="oid-card__head"><span class="oid-card__t">Renewal history</span></div>
+              <table class="oi-mtable oid-rtable">
+                <thead><tr><th class="tl">Date</th><th class="tl">Action</th><th class="tl">Status</th><th class="al-r">Amount</th></tr></thead>
+                <tbody>
+                  <tr><td>2 Jun 2026</td><td>Initial publication</td><td><span class="oi-status oi-b-done">Approved publication</span></td><td class="al-r">€4,800</td></tr>
+                  <tr><td>15 May 2026</td><td>Ordered</td><td><span class="oi-status oi-b-queued">Order queue</span></td><td class="al-r">€4,800</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ---- CHAT & HISTORY TAB ---- -->
+          <section class="oid-tabpane" data-pane="history">
+            <div class="oid-card">
+              <div class="oid-card__head"><span class="oid-card__t">Activity &amp; chat</span></div>
+              <div class="oid-compose">
+                <div class="oid-compose__to">
+                  <span class="oid-compose__tolbl">New message for</span>
+                  <details class="fdrop">
+                    <summary class="fbtn"><span id="oid-note-tolabel">Select</span> <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+                    <div class="fpop" style="width:270px"><div class="fpop__scroll" id="oid-note-tolist"></div></div>
+                  </details>
+                </div>
+                <textarea class="input oid-compose__ta" id="oid-note-text" placeholder="Write your message here."></textarea>
+                <div class="oid-compose__files" id="oid-note-files"></div>
+                <div class="oid-compose__acts">
+                  <button class="btn btn--secondary btn--sm" id="oid-note-attach" type="button" title="Attach file"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m21.4 11.05-9.19 9.19a5 5 0 0 1-7.07-7.07l9.19-9.19a3 3 0 0 1 4.24 4.24l-9.2 9.19a1 1 0 0 1-1.41-1.41l8.48-8.49"/></svg> Attach</button>
+                  <span class="spacer"></span>
+                  <button class="btn btn--primary btn--sm" id="oid-note-post" type="button" disabled>Add</button>
+                </div>
+              </div>
+              <ul class="oid-timeline" id="oid-timeline">
+                <li class="oid-tl"><span class="oid-tl__dot oid-tl__dot--green"></span><div class="oid-tl__body"><div class="oid-tl__top"><b>Status changed to Approved publication</b><span class="oid-tl__t">2 Jul 2026 · 09:14</span></div><span class="oid-tl__sub">by Sayeed Khan</span></div></li>
+                <li class="oid-tl"><span class="oid-tl__dot"></span><div class="oid-tl__body"><div class="oid-tl__top"><b>Publication uploaded</b><span class="oid-tl__t">2 Jun 2026 · 16:40</span></div><span class="oid-tl__sub">by Marco Rossi (publisher)</span></div></li>
+                <li class="oid-tl"><span class="oid-tl__dot"></span><div class="oid-tl__body"><div class="oid-tl__top"><b>Content approved</b><span class="oid-tl__t">28 May 2026 · 11:02</span></div><span class="oid-tl__sub">by Liviu Pop</span><p class="oid-tl__note">Looks great — approved for publishing. Please keep the BetClub anchor in the second paragraph.</p></div></li>
+                <li class="oid-tl"><span class="oid-tl__dot"></span><div class="oid-tl__body"><div class="oid-tl__top"><b>Order placed</b><span class="oid-tl__t">15 May 2026 · 10:20</span></div><span class="oid-tl__sub">by Liviu Pop</span></div></li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ============ SIDE RAIL ============ ============ -->
+        <aside class="oid-side">
+          <a class="oid-mediabadge al-mp--gp" href="details.html"><span class="fav-ic"><img src="https://www.google.com/s2/favicons?domain=goal.com&sz=64" alt="" /></span>goal.com</a>
+
+          <div class="oid-siderow"><span class="oid-side__k">Status</span>
+            <details class="fdrop fpop-r"><summary class="oid-statusbtn"><span class="oi-status oi-b-done">Approved publication</span><svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="fpop fpop--right" style="width:220px"><div class="fpop__title">Change status to</div><div class="fpop__scroll"><button class="vopt">Publishing</button><button class="vopt">Published</button><button class="vopt is-active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Approved publication</button><button class="vopt">Fixing publication</button><button class="vopt">Canceled</button></div></div>
+            </details>
+          </div>
+
+          <hr class="oid-hr" />
+          <h4 class="oid-side__h">Price</h4>
+          <div class="oid-prow"><span>Price: <b id="sr-niche">casino</b></span><span class="oid-prow__v" id="sr-price">€4,800</span></div>
+          <div class="oid-prow"><span class="muted">Stock price</span><span class="oid-prow__v">€3,900</span></div>
+          <div class="oid-prow"><span class="muted">Margin</span><span class="oid-prow__v">€900</span></div>
+          <div class="oid-prow"><span class="muted">Content</span><span class="oid-prow__v" id="sr-content">€360</span></div>
+          <div class="oid-prow oid-prow--total"><span>Total</span><span class="oid-prow__v" id="sr-total">€5,160</span></div>
+
+          <hr class="oid-hr" />
+          <h4 class="oid-side__h">Project</h4>
+          <div class="oid-side__v">iGaming EU <span class="oid-side__sub">· BetClub</span></div>
+
+          <hr class="oid-hr" />
+          <h4 class="oid-side__h">Ordered by</h4>
+          <div class="who"><span class="av" style="background:#128a5a">LP</span><span class="who-nm">Liviu Pop</span></div>
+
+          <hr class="oid-hr" />
+          <div class="oid-dates">
+            <div><h4 class="oid-side__h">Ordered date</h4><div class="oid-side__v">15 May 2026</div></div>
+            <div><h4 class="oid-side__h">Live date</h4><div class="oid-side__v" id="sr-livedate">2 Jun 2026</div></div>
+          </div>
+
+          <hr class="oid-hr" />
+          <div class="oid-dates">
+            <div><h4 class="oid-side__h">Renewal date</h4><div class="oid-side__v">2 Jun 2027</div></div>
+            <div><h4 class="oid-side__h">Renewal status</h4><div class="oid-side__v"><span class="st-pill st-approved">Active</span></div></div>
+          </div>
+
+          <hr class="oid-hr" />
+          <div class="oid-siderow">
+            <h4 class="oid-side__h" style="margin:0">Users with access</h4>
+            <button class="btn btn--secondary btn--sm" id="oid-editaccess"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+          </div>
+          <button class="oid-access" id="oid-accesspreview" type="button" title="Manage access">
+            <span class="av" style="background:#3d3aad" title="Sayeed Khan">SK</span>
+            <span class="av" style="background:#128a5a" title="Liviu Pop">LP</span>
+            <span class="av" style="background:#b0791a" title="Maria Silva">MS</span>
+            <span class="oid-access__more">3 with access</span>
+          </button>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+  </div>
+</div>
+
+<!-- =================== overlays =================== -->
+<div class="oid-scrim" id="oid-scrim" hidden></div>
+
+<!-- Content requirements edit (slide-over) -->
+<aside class="oid-drawer" id="oid-drawer-content" aria-hidden="true">
+  <div class="oid-drawer__head"><h3 class="oid-modal__t">Edit content requirements</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-drawer__body" id="oid-cform"></div>
+  <div class="oid-drawer__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" id="oid-csave">Save changes</button></div>
+</aside>
+
+<!-- Upload documents -->
+<div class="oid-modal" id="oid-modal-upload" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t">Upload documents</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <div class="co-drop oid-drop" id="oid-dropzone"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v4a1 1 0 0 0 1 1h4M5 3h9l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg> <b>Drag &amp; drop .doc, .docx, .pdf, images</b> · or click to upload</div>
+    <div class="oid-uplist" id="oid-uplist"></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" id="oid-upsave">Save</button></div>
+</div>
+
+<!-- Manage access -->
+<div class="oid-modal oid-modal--tall" id="oid-modal-access" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t">Users with access</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <div class="oid-accadd">
+      <div class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="oid-accsearch" placeholder="Invite a user by name or email" /></div>
+      <button class="btn btn--secondary btn--sm" id="oid-accinvite">Invite</button>
+    </div>
+    <div id="oid-acclist"></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--primary btn--sm" data-close>Done</button></div>
+</div>
+
+<!-- Renew -->
+<div class="oid-modal" id="oid-modal-renew" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t">Renew link</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <p class="oid-para">A new order with the same details will be created and linked to the original. You can update the details later if needed. Linked orders can be found in the Renewals tab.</p>
+    <div class="fm-row"><label class="fm-l">Note</label><textarea class="fm-textarea" placeholder="Write a note…" style="min-height:90px"></textarea></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" data-toast="Renewal in progress" data-close>Place order</button></div>
+</div>
+
+<!-- Cancel renewal -->
+<div class="oid-modal" id="oid-modal-cancel" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t">Cancel renewal</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <p class="oid-para">Once canceled, you cannot renew this link and have to reorder it from the Market. This action cannot be undone.</p>
+    <div class="fm-row"><label class="fm-l">Note</label><textarea class="fm-textarea" placeholder="Write a note…" style="min-height:90px"></textarea></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--ghost btn--sm" data-close>Keep renewal</button><button class="btn oid-btn-danger btn--sm" data-toast="Renewal canceled" data-close>Yes, cancel</button></div>
+</div>
+
+<!-- See more (Info for admin / Note) -->
+<div class="oid-modal" id="oid-modal-seemore" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t" id="oid-sm-title">Note</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body"><p class="oid-para" id="oid-sm-body" style="margin-bottom:0"></p></div>
+</div>
+
+<!-- Add / Edit live link -->
+<div class="oid-modal" id="oid-modal-livelink" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t" id="oid-ll-title">Edit live link</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <div class="fm-row"><label class="fm-l">URL <span class="co-req">*</span></label><input class="fm-input" id="oid-ll-url" placeholder="https://…" /></div>
+    <div class="fm-row" style="margin-bottom:0"><label class="fm-l">Live date</label><input class="fm-input" id="oid-ll-date" type="date" /></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" id="oid-ll-save">Save</button></div>
+</div>
+
+<!-- Link audit — enter manually -->
+<div class="oid-modal" id="oid-modal-audit" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t">Link audit</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <div class="oid-auditlink" id="oid-audit-link"></div>
+    <div class="oid-auditform" id="oid-auditform"></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" id="oid-audit-save">Save</button></div>
+</div>
+
+<!-- Additional details (tags) -->
+<div class="oid-modal" id="oid-modal-tags" role="dialog" aria-hidden="true">
+  <div class="oid-modal__head"><h3 class="oid-modal__t">Additional details</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-modal__body">
+    <label class="fm-l">Tags</label>
+    <div class="co-trust" id="oid-tags-edit"></div>
+  </div>
+  <div class="oid-modal__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" id="oid-tags-save">Save</button></div>
+</div>
+
+<!-- Publication conditions (slide-over) -->
+<aside class="oid-drawer" id="oid-drawer-pubcond" aria-hidden="true">
+  <div class="oid-drawer__head"><h3 class="oid-modal__t">Edit publication conditions</h3><button class="oid-x" data-close aria-label="Close">✕</button></div>
+  <div class="oid-drawer__body" id="oid-pubform"></div>
+  <div class="oid-drawer__foot"><button class="btn btn--ghost btn--sm" data-close>Cancel</button><button class="btn btn--primary btn--sm" id="oid-pub-save">Save changes</button></div>
+</aside>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function eur(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+
+  /* ---- tabs ---- */
+  var tabs = $('oid-tabs');
+  var panes = Array.prototype.slice.call(document.querySelectorAll('.oid-tabpane'));
+  tabs.addEventListener('click', function (e) {
+    var t = e.target.closest('.appbar-tab'); if (!t) return;
+    Array.prototype.forEach.call(tabs.querySelectorAll('.appbar-tab'), function (b) { b.classList.toggle('is-active', b === t); });
+    var name = t.getAttribute('data-tab');
+    panes.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-pane') === name); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---- toast ---- */
+  function toast(msg) {
+    var el = document.createElement('div'); el.className = 'ord-toast'; el.textContent = msg;
+    document.body.appendChild(el); requestAnimationFrame(function () { el.classList.add('on'); });
+    setTimeout(function () { el.classList.remove('on'); setTimeout(function () { el.remove(); }, 250); }, 1800);
+  }
+
+  /* ---- modal / drawer system (shared scrim) ---- */
+  var scrim = $('oid-scrim');
+  function anyOpen() { return document.querySelector('.oid-modal.is-open, .oid-drawer.is-open'); }
+  function openEl(el) { if (!el) return; el.classList.add('is-open'); el.setAttribute('aria-hidden', 'false'); scrim.hidden = false; requestAnimationFrame(function () { scrim.classList.add('is-open'); }); }
+  function closeAll() {
+    document.querySelectorAll('.oid-modal.is-open, .oid-drawer.is-open').forEach(function (el) { el.classList.remove('is-open'); el.setAttribute('aria-hidden', 'true'); });
+    scrim.classList.remove('is-open'); setTimeout(function () { if (!anyOpen()) scrim.hidden = true; }, 200);
+  }
+  scrim.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-close]')) closeAll(); });
+  document.querySelectorAll('[data-toast]').forEach(function (b) { b.addEventListener('click', function () { toast(b.getAttribute('data-toast')); }); });
+
+  /* ---- live link ---- */
+  $('oid-copylink').addEventListener('click', function () {
+    try { navigator.clipboard && navigator.clipboard.writeText($('oid-liveurl').textContent); } catch (e) {}
+    toast('Link copied');
+  });
+  $('oid-editlink').addEventListener('click', function () { openLiveLink(); });
+
+  /* ---- see more (Info for admin / Note) ---- */
+  document.querySelectorAll('[data-seemore]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var full = btn.closest('.oid-note').querySelector('.oid-note__b').getAttribute('data-full');
+      $('oid-sm-title').textContent = btn.getAttribute('data-seemore'); $('oid-sm-body').textContent = full; openEl($('oid-modal-seemore'));
+    });
+  });
+
+  /* ---- dropdowns: Actions (renew/cancel), audit update, status ---- */
+  document.addEventListener('click', function (e) {
+    var v = e.target.closest('.vopt[data-act]');
+    if (v) { v.closest('details') && v.closest('details').removeAttribute('open'); openEl(v.getAttribute('data-act') === 'renew' ? $('oid-modal-renew') : $('oid-modal-cancel')); return; }
+    var a = e.target.closest('.vopt[data-audit]');
+    if (a) { a.closest('details') && a.closest('details').removeAttribute('open'); if (a.getAttribute('data-audit') === 'manual') { openAudit(); } else { toast('Running link audit…'); } return; }
+    var st = e.target.closest('.oid-side .vopt:not(.is-active)');
+    if (st) { toast('Status → ' + st.textContent.trim()); st.closest('details') && st.closest('details').removeAttribute('open'); }
+    document.querySelectorAll('details[open]').forEach(function (dt) { if (!dt.contains(e.target)) dt.removeAttribute('open'); });
+  });
+
+  /* ======================= content requirements ======================= */
+  var PLACEMENTS = ['Anywhere', 'Beginning of the article', 'Middle of the article', 'End of the article'];
+  var LANGS = ['English', 'Spanish', 'Italian', 'Portuguese', 'Turkish', 'Finnish'];
+  var WORDS = (function () { var a = []; for (var w = 500; w <= 2000; w += 100) a.push(String(w)); return a; })();
+  /* type + content_by are FIXED by the order item — NOT editable in the content edit. Mirrors
+     ContentRequirementsForm.vue: the content-by toggle only shows when !orderItemId (create), and
+     there is no order-type toggle at all; the field set just adapts to the fixed type/content_by. */
+  var CREQ = { type: 'guest_post', by: 'motherlink', url: 'betclub.com/casino', anchor: 'best casino apps', placement: 'Middle of the article', language: 'English', words: '1000', topic: 'Round-up of the best licensed casino apps for UK players in 2026 — payout speed, game variety and mobile UX, with BetClub featured as a top pick.', keywords: 'best casino apps, mobile casino UK, licensed casinos', trust: ['gamblingcommission.gov.uk', 'begambleaware.org'], letml: false, comment: 'Please feature BetClub as the #1 pick and keep the tone editorial, not promotional. Include the responsible-gambling links in the footer.' };
+  function wordsPrice() { return '€' + ((parseInt(CREQ.words, 10) || 0) * 0.075).toFixed(2); }
+  var IMGSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>';
+
+  function kv(k, v) { return '<div class="d-kv"><span class="k">' + k + '</span><span class="v">' + v + '</span></div>'; }
+  function renderReadCard() {
+    var r = CREQ, gp = r.type === 'guest_post', ml = r.by === 'motherlink';
+    $('oid-cby-btnlabel').textContent = gp ? (ml ? 'Content by Motherlink' : 'Content by me') : 'Link insertion';
+    var h = '<div class="oid-cols2"><div>' +
+      kv('Website', 'goal.com') + kv('Anchor text', esc(r.anchor)) +
+      kv('Target URL', '<a class="al-link" href="#">' + esc(r.url) + '</a>') +
+      (gp && ml ? kv('URL placement', esc(r.placement)) : '') +
+      '</div><div>' +
+      (gp && ml ? kv('Language', esc(r.language)) + kv('Words', Number(r.words).toLocaleString('en-US')) : '') +
+      '</div></div>';
+    if (gp && ml) {
+      h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Topic suggestion</h4><p class="oid-para">' + (r.topic ? esc(r.topic) : '—') + '</p>';
+      h += '<h4 class="oid-sub">Trust links</h4>' + (r.trust.length ? '<ol class="oid-ol">' + r.trust.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ol>' : '<p class="oid-para">—</p>');
+      h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Keywords</h4><div class="d-tags">' + (r.keywords ? r.keywords.split(',').filter(function (k) { return k.trim(); }).map(function (k) { return '<span class="tagchip">' + esc(k.trim()) + '</span>'; }).join('') : '—') + '</div>';
+      h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Images</h4><div class="oid-imgs">' + (r.letml ? '<span class="oid-para" style="margin:0">Motherlink will choose the images.</span>' : '<span class="oid-img">' + IMGSVG + '</span><span class="oid-img">' + IMGSVG + '</span><span class="oid-img oid-img--more">+2</span>') + '</div>';
+    }
+    h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Comment</h4><p class="oid-para" style="margin-bottom:0">' + (r.comment ? esc(r.comment) : '—') + '</p>';
+    $('oid-creq-read').innerHTML = h;
+  }
+
+  /* edit-drawer form — mirrors ContentRequirementsForm.vue in EDIT mode: NO order-type toggle
+     and NO content-by toggle (both fixed by the order item). The field set adapts to the fixed
+     type/content_by. Reuses checkout's .fm-* / .co-drop / .co-note / .co-trust. */
+  function inp(f, val, ph) { return '<input class="fm-input" data-cf="' + f + '" value="' + esc(val) + '" placeholder="' + esc(ph || '') + '" />'; }
+  function selF(f, val, opts) { return '<select class="fm-select" data-cf="' + f + '">' + opts.map(function (o) { return '<option' + (String(val) === String(o) ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>'; }
+  function contentForm() {
+    var r = CREQ, ml = r.by === 'motherlink', li = r.type === 'link_insertion', h = '<div class="co-form">';
+    h += '<div class="fm-row"><label class="fm-l">Target URL <span class="co-req">*</span></label>' + inp('url', r.url, 'e.g., https://example.com/product-page/') + '</div>';
+    if (!ml || li) h += '<div class="fm-row"><label class="fm-l">Anchor text <span class="co-req">*</span></label>' + inp('anchor', r.anchor, 'e.g., learn more about our services') + '</div>';
+    if (ml && !li) {
+      h += '<div style="margin-bottom:var(--space-4)"><h4 class="oid-sub" style="margin-bottom:4px">Link details</h4><p class="oid-para" style="margin:0">Define how the link should appear and where it should point. These settings guide the publisher on link placement and relevance.</p></div>';
+      h += '<div class="fm-grid2"><div class="fm-row"><label class="fm-l">Anchor text <span class="co-req">*</span></label>' + inp('anchor', r.anchor, '') + '</div><div class="fm-row"><label class="fm-l">Target URL placement <span class="co-req">*</span></label>' + selF('placement', r.placement, PLACEMENTS) + '</div></div>';
+      h += '<div class="fm-row"><label class="fm-l">Language <span class="co-req">*</span></label>' + selF('language', r.language, LANGS) + '</div>';
+      h += '<div class="fm-row"><label class="fm-l">Number of words <span class="co-req">*</span></label><div class="co-words">' + selF('words', r.words, WORDS) + '<span class="co-words__fee">' + wordsPrice() + '</span></div></div>';
+      h += '<div class="co-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.7 4.5L18 9l-4.3 1.5L12 15l-1.7-4.5L6 9z"/></svg> Content is written exclusively by seasoned professional content writers, journalists, and industry specialists — researched, written and reviewed to editorial standards.</div>';
+      h += '<div class="fm-row"><label class="fm-l">Article topic suggestion</label>' + inp('topic', r.topic, '') + '</div>';
+      h += '<div class="fm-row"><label class="fm-l">Keywords</label>' + inp('keywords', r.keywords, 'For example, Cars') + '</div>';
+      h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Trust links</h4><p class="oid-para" style="margin-top:2px">These links boost a website\'s credibility and trustworthiness in the eyes of search engines, improving its search ranking.</p>';
+      h += '<div class="fm-row"><div class="co-trust">' +
+        (r.trust.length ? '<div class="co-trust__chips">' + r.trust.map(function (l, i) { return '<span class="tagchip">' + esc(l) + '<button type="button" data-ctrustrm="' + i + '" aria-label="Remove">×</button></span>'; }).join('') + '</div>' : '') +
+        '<div class="co-trust__add"><input class="fm-input" id="oid-trustinput" placeholder="For example, mywebsite.com" /><button class="btn btn--secondary btn--sm" type="button" id="oid-trustadd">Add</button></div></div></div>';
+      h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Images</h4>';
+      h += '<div class="fm-row">' + (r.letml ? '' : '<div class="co-drop"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16l4.6-4.6a2 2 0 0 1 2.8 0L16 16M14 14l1.6-1.6a2 2 0 0 1 2.8 0L20 14M3 5h18v14H3z"/><circle cx="8" cy="9" r="1.2"/></svg> <b>Drag &amp; drop .jpg or .png</b> · or click to upload</div>') +
+        '<label class="co-check"><input type="checkbox" class="checkbox" data-cf="letml"' + (r.letml ? ' checked' : '') + ' /> Let Motherlink choose images</label></div>';
+    }
+    h += '<div class="fm-row" style="margin-top:var(--space-4)"><label class="fm-l">Comment</label><textarea class="fm-textarea" data-cf="comment" style="min-height:80px" placeholder="Add your comment">' + esc(r.comment) + '</textarea></div>';
+    if (!ml && !li) {
+      h += '<div class="co-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg> If you don\'t have an article ready, no worries — you can upload it later while we validate your order.</div>';
+      h += '<div class="fm-row"><label class="fm-l">Upload your article</label><div class="co-drop"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v4a1 1 0 0 0 1 1h4M5 3h9l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg> <b>Drag &amp; drop .doc, .docx or .pdf</b> · or click to upload</div></div>';
+    }
+    return h + '</div>';
+  }
+  function renderCForm() { $('oid-cform').innerHTML = contentForm(); }
+  $('oid-editcontent').addEventListener('click', function () { renderCForm(); openEl($('oid-drawer-content')); });
+  $('oid-cform').addEventListener('click', function (e) {
+    if (e.target.closest('#oid-trustadd')) { var t = $('oid-trustinput').value.trim(); if (t) { CREQ.trust.push(t); renderCForm(); } return; }
+    var rm = e.target.closest('[data-ctrustrm]'); if (rm) { CREQ.trust.splice(+rm.getAttribute('data-ctrustrm'), 1); renderCForm(); return; }
+    if (e.target.closest('.co-drop')) { toast('File picker (mock)'); }
+  });
+  $('oid-cform').addEventListener('change', function (e) {
+    var f = e.target.closest('[data-cf]'); if (!f) return;
+    var k = f.getAttribute('data-cf');
+    if (k === 'letml') { CREQ.letml = f.checked; renderCForm(); return; }
+    CREQ[k] = f.value; if (k === 'words') renderCForm();
+  });
+  $('oid-cform').addEventListener('input', function (e) {
+    var f = e.target.closest('input[data-cf], textarea[data-cf]'); if (f && f.type !== 'checkbox') CREQ[f.getAttribute('data-cf')] = f.value;
+  });
+  $('oid-csave').addEventListener('click', function () { renderReadCard(); toast('Content requirements updated'); closeAll(); });
+
+  /* ======================= documents upload ======================= */
+  $('oid-upload').addEventListener('click', function () { openEl($('oid-modal-upload')); });
+  var upFiles = [];
+  function renderUp() {
+    $('oid-uplist').innerHTML = upFiles.map(function (f, i) {
+      return '<div class="oid-file"><span class="oid-file__ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><span class="oid-file__meta"><span class="oid-file__n">' + esc(f) + '</span><span class="oid-file__s">Ready to upload</span></span><button class="oid-filex" data-uprm="' + i + '" aria-label="Remove">✕</button></div>';
+    }).join('');
+  }
+  var SAMPLE_UP = ['article-draft-v2.docx', 'publication-proof.pdf', 'hero-image.png'];
+  $('oid-dropzone').addEventListener('click', function () { upFiles.push(SAMPLE_UP[upFiles.length % SAMPLE_UP.length]); renderUp(); });
+  $('oid-uplist').addEventListener('click', function (e) { var r = e.target.closest('[data-uprm]'); if (r) { upFiles.splice(+r.getAttribute('data-uprm'), 1); renderUp(); } });
+  $('oid-upsave').addEventListener('click', function () { toast(upFiles.length ? 'Uploaded ' + upFiles.length + ' document(s)' : 'Add a file first'); if (upFiles.length) { upFiles = []; renderUp(); closeAll(); } });
+
+  /* ======================= users with access ======================= */
+  var AVC = ['#3d3aad', '#128a5a', '#b0791a', '#2f6bdd', '#d23b34', '#7c3aed'];
+  function ini(n) { var p = n.trim().split(' '); return (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase(); }
+  var ACCESS = [
+    { n: 'Sayeed Khan', e: 'sayeed@motherlink.io', role: 'Admin', src: 'perm', on: true },
+    { n: 'Liviu Pop', e: 'liviu@motherlink.io', role: 'Manager', src: 'perm', on: true },
+    { n: 'Maria Silva', e: 'maria@motherlink.io', role: 'Content', src: 'manual', on: true },
+    { n: 'Jose Garcia', e: 'jose@motherlink.io', role: 'Outreach', src: 'perm', on: false }
+  ];
+  function accRow(u, i) {
+    return '<div class="oid-accrow"><span class="av" style="background:' + AVC[u.n.length % AVC.length] + '">' + ini(u.n) + '</span>' +
+      '<div class="oid-accrow__meta"><span class="oid-accrow__n">' + esc(u.n) + '</span><span class="oid-accrow__e">' + esc(u.e) + ' · ' + esc(u.role) + '</span></div>' +
+      (u.src === 'manual'
+        ? '<button class="oid-accbtn oid-accbtn--rm" data-accrm="' + i + '">Remove</button>'
+        : '<button class="oid-accbtn" data-acctoggle="' + i + '">' + (u.on ? 'Hide' : 'Show') + '</button>') + '</div>';
+  }
+  function accBuild() {
+    var idx = ACCESS.map(function (u, i) { return { u: u, i: i }; });
+    function sect(label, arr) { return arr.length ? '<div class="oid-accsec">' + label + ' (' + arr.length + ')</div>' + arr.map(function (x) { return accRow(x.u, x.i); }).join('') : ''; }
+    $('oid-acclist').innerHTML =
+      sect('Permissions-based', idx.filter(function (x) { return x.u.src === 'perm' && x.u.on; })) +
+      sect('Manually added', idx.filter(function (x) { return x.u.src === 'manual'; })) +
+      sect('Hidden', idx.filter(function (x) { return x.u.src === 'perm' && !x.u.on; }));
+    renderAccessPreview();
+  }
+  function renderAccessPreview() {
+    var on = ACCESS.filter(function (u) { return u.on; });
+    var av = on.slice(0, 3).map(function (u) { return '<span class="av" style="background:' + AVC[u.n.length % AVC.length] + '" title="' + esc(u.n) + '">' + ini(u.n) + '</span>'; }).join('');
+    $('oid-accesspreview').innerHTML = av + '<span class="oid-access__more">' + on.length + ' with access</span>';
+  }
+  $('oid-editaccess').addEventListener('click', function () { accBuild(); openEl($('oid-modal-access')); });
+  $('oid-accesspreview').addEventListener('click', function () { accBuild(); openEl($('oid-modal-access')); });
+  $('oid-acclist').addEventListener('click', function (e) {
+    var t = e.target.closest('[data-acctoggle]'); if (t) { var i = +t.getAttribute('data-acctoggle'); ACCESS[i].on = !ACCESS[i].on; accBuild(); return; }
+    var r = e.target.closest('[data-accrm]'); if (r) { ACCESS.splice(+r.getAttribute('data-accrm'), 1); accBuild(); }
+  });
+  function doInvite() { var v = $('oid-accsearch').value.trim(); if (!v) return; ACCESS.push({ n: v, e: v.indexOf('@') > -1 ? v : (v.toLowerCase().replace(/\s+/g, '.') + '@motherlink.io'), role: 'Invited', src: 'manual', on: true }); $('oid-accsearch').value = ''; accBuild(); toast('Invited ' + v); }
+  $('oid-accinvite').addEventListener('click', doInvite);
+  $('oid-accsearch').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doInvite(); } });
+
+  /* ======================= Details-tab workflows ======================= */
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function fmtISO(iso) { if (!iso) return ''; var p = iso.split('-'); return parseInt(p[2], 10) + ' ' + MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0]; }
+  function euro(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+
+  /* ---- models ---- */
+  var LIVE = { url: 'goal.com/opinion/best-casino-apps-2026', dateISO: '2026-06-02' };
+  var AUDIT = { linking: 2, dofollow: 2, sponsored: 3, urlMatch: 2, anchorMatch: 2, indexed: 2, last: '2 Jul 2026, 09:14' };
+  var TAGS = ['sports', 'casino'];
+  var PUB = { dofollow: true, sponsor: false, permanent: false, duration: 1, prepayment: '0%', offers: 'n/a', addedBy: 'Nadia Rahman', niche: 'casino', nichePrice: 4800, permanentPost: 0, content: 360 };
+
+  /* ---- live link ---- */
+  function renderLive() {
+    var el = $('oid-liveurl');
+    el.textContent = LIVE.url || 'No live link yet';
+    el.classList.toggle('al-empty', !LIVE.url);
+    $('oid-editlink-label').textContent = LIVE.url ? 'Edit' : 'Add';
+    $('oid-linkrow').classList.toggle('is-empty', !LIVE.url);
+    $('sr-livedate').textContent = LIVE.dateISO ? fmtISO(LIVE.dateISO) : 'n/a';
+  }
+  function openLiveLink() { $('oid-ll-title').textContent = LIVE.url ? 'Edit live link' : 'Add live link'; $('oid-ll-url').value = LIVE.url || ''; $('oid-ll-date').value = LIVE.dateISO || ''; openEl($('oid-modal-livelink')); }
+  $('oid-ll-save').addEventListener('click', function () { LIVE.url = $('oid-ll-url').value.trim(); LIVE.dateISO = $('oid-ll-date').value; renderLive(); toast('Live link saved'); closeAll(); });
+
+  /* ---- link audit ---- */
+  var AUDIT_ROWS = [['linking', 'Linking'], ['indexed', 'Indexed'], ['dofollow', 'DoFollow'], ['sponsored', 'Sponsored'], ['urlMatch', 'URL match'], ['anchorMatch', 'Anchor match']];
+  function auditChip(v) { return v === 2 ? '<span class="al-audit al-audit--y">Yes</span>' : v === 3 ? '<span class="al-audit al-audit--n">No</span>' : '<span class="al-audit al-audit--na">n/a</span>'; }
+  function renderAudit() {
+    $('oid-audit-read').innerHTML = AUDIT_ROWS.map(function (r) { return '<span class="oid-audititem">' + r[1] + ' ' + auditChip(AUDIT[r[0]]) + '</span>'; }).join('');
+    $('oid-lastaudit').textContent = AUDIT.last;
+  }
+  var AUDIT_OPTS = [['1', 'n/a'], ['2', 'Yes'], ['3', 'No']];
+  var AUDIT_MODAL_ROWS = [['linking', 'Linking'], ['dofollow', 'DoFollow'], ['sponsored', 'Sponsored'], ['urlMatch', 'URL match'], ['anchorMatch', 'Anchor match'], ['indexed', 'Indexed']];
+  function openAudit() {
+    $('oid-audit-link').innerHTML = LIVE.url ? '<span class="oid-auditpill">' + esc(LIVE.url) + '</span>' : '<span class="al-empty">No live link set</span>';
+    $('oid-auditform').innerHTML = AUDIT_MODAL_ROWS.map(function (r) {
+      return '<div class="oid-auditrow"><span>' + r[1] + '</span><select class="fm-select" data-ak="' + r[0] + '">' + AUDIT_OPTS.map(function (o) { return '<option value="' + o[0] + '"' + (String(AUDIT[r[0]]) === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>';
+    }).join('');
+    openEl($('oid-modal-audit'));
+  }
+  $('oid-audit-save').addEventListener('click', function () {
+    $('oid-auditform').querySelectorAll('[data-ak]').forEach(function (s) { AUDIT[s.getAttribute('data-ak')] = parseInt(s.value, 10); });
+    AUDIT.last = 'Just now (manual)'; renderAudit(); toast('Link audit saved'); closeAll();
+  });
+
+  /* ---- additional details (tags) ---- */
+  function renderTags() { $('oid-tags-read').innerHTML = TAGS.length ? TAGS.map(function (t) { return '<span class="tagchip">' + esc(t) + '</span>'; }).join(' ') : '<span class="al-empty">—</span>'; }
+  var tagsEdit = [];
+  function renderTagsEdit() {
+    $('oid-tags-edit').innerHTML = (tagsEdit.length ? '<div class="co-trust__chips">' + tagsEdit.map(function (t, i) { return '<span class="tagchip">' + esc(t) + '<button type="button" data-tagrm="' + i + '" aria-label="Remove">×</button></span>'; }).join('') + '</div>' : '') +
+      '<div class="co-trust__add"><input class="fm-input" id="oid-taginput" placeholder="Write a tag" /><button class="btn btn--secondary btn--sm" type="button" id="oid-tagadd">Add</button></div>';
+  }
+  function openTags() { tagsEdit = TAGS.slice(); renderTagsEdit(); openEl($('oid-modal-tags')); }
+  $('oid-edittags').addEventListener('click', openTags);
+  $('oid-tags-edit').addEventListener('click', function (e) {
+    if (e.target.closest('#oid-tagadd')) { var v = $('oid-taginput').value.trim(); if (v) { tagsEdit.push(v); renderTagsEdit(); } return; }
+    var rm = e.target.closest('[data-tagrm]'); if (rm) { tagsEdit.splice(+rm.getAttribute('data-tagrm'), 1); renderTagsEdit(); }
+  });
+  $('oid-tags-edit').addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'oid-taginput') { e.preventDefault(); var v = e.target.value.trim(); if (v) { tagsEdit.push(v); renderTagsEdit(); } } });
+  $('oid-tags-save').addEventListener('click', function () { TAGS = tagsEdit.slice(); renderTags(); toast('Order item updated'); closeAll(); });
+
+  /* ---- publication conditions ---- */
+  var YESIC = '<span class="d-yes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg></span>';
+  var NOIC = '<span class="d-no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>';
+  function pubTotal(p) { return p.nichePrice + p.content + (p.permanent ? p.permanentPost * p.duration : 0); }
+  function renderPub() {
+    var p = PUB;
+    function cond(l, on) { return '<div class="d-cond"><span>' + l + '</span>' + (on ? YESIC : NOIC) + '</div>'; }
+    var left = '<div class="d-col">' + cond('Dofollow', p.dofollow) + '<div class="d-cond"><span>Prepayment</span><span class="v" style="font-weight:var(--fw-semibold)">' + esc(p.prepayment) + '</span></div></div>';
+    var right = '<div class="d-col">' + cond('Sponsor tag', p.sponsor) + cond('Permanent post', p.permanent) +
+      (p.permanent ? '' : '<div class="d-kv"><span class="k">Publication duration</span><span class="v">' + p.duration + ' year(s)</span></div>') +
+      '<div class="d-kv"><span class="k">Offers</span><span class="v ' + (p.offers === 'n/a' ? 'is-na' : '') + '">' + esc(p.offers) + '</span></div>' +
+      '<div class="d-kv"><span class="k">Added by</span><span class="v ' + (p.addedBy === 'n/a' ? 'is-na' : '') + '">' + esc(p.addedBy) + '</span></div></div>';
+    var price = '<h4 class="oid-sub" style="margin-top:var(--space-4)">Price</h4><div class="oid-cols2 oid-priceblock"><div>' +
+      '<div class="oid-prow"><span>Price: <b>' + esc(p.niche) + '</b></span><span class="oid-prow__v">' + euro(p.nichePrice) + '</span></div>' +
+      '<div class="oid-prow"><span class="muted">Stock price</span><span class="oid-prow__v">€3,900</span></div>' +
+      '<div class="oid-prow"><span class="muted">Margin</span><span class="oid-prow__v">€900</span></div></div><div>' +
+      '<div class="oid-prow"><span class="muted">Content</span><span class="oid-prow__v">' + euro(p.content) + '</span></div>' +
+      (p.permanent ? '<div class="oid-prow"><span class="muted">Permanent post</span><span class="oid-prow__v">' + euro(p.permanentPost) + '</span></div>' : '') +
+      '<div class="oid-prow oid-prow--total"><span>Total</span><span class="oid-prow__v">' + euro(pubTotal(p)) + '</span></div></div></div>';
+    $('oid-pubcond-read').innerHTML = '<h4 class="oid-sub" style="margin-top:var(--space-4)">Conditions</h4><div class="d-panel oid-condpanel">' + left + right + '</div>' + price;
+    $('sr-niche').textContent = p.niche; $('sr-price').textContent = euro(p.nichePrice); $('sr-content').textContent = euro(p.content); $('sr-total').textContent = euro(pubTotal(p));
+  }
+  var PUBEDIT = null;
+  function swrow(label, key, on) { return '<div class="oid-swrow"><span>' + label + '</span><label class="oid-switch"><input type="checkbox" data-pub="' + key + '"' + (on ? ' checked' : '') + '><span></span></label></div>'; }
+  function eurInput(key, val) { return '<div class="oid-eur"><span class="oid-eur__c">€</span><input class="fm-input" data-pub="' + key + '" type="number" min="0" value="' + val + '"></div>'; }
+  function pubForm() {
+    var p = PUBEDIT, h = '';
+    h += '<div class="oid-pubctx"><div class="oid-pubctx__row"><a class="al-link" href="details.html">goal.com</a><span class="oid-pubctx__id">Order #OI-8801</span></div><div class="oid-pubctx__pub"><span class="av" style="background:#7c3aed">MR</span><div class="oid-contact__meta"><span class="oid-contact__n">Marco Rossi</span><span class="oid-contact__e">marco@goal.com</span></div></div></div>';
+    h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Conditions</h4>';
+    h += swrow('Dofollow', 'dofollow', p.dofollow) + swrow('Sponsor tag', 'sponsor', p.sponsor) + swrow('Permanent post', 'permanent', p.permanent);
+    if (!p.permanent) h += '<div class="fm-row"><label class="fm-l">Publication duration</label><div class="co-words"><input class="fm-input" data-pub="duration" type="number" min="1" value="' + p.duration + '"><span class="co-words__fee">Years</span></div></div>';
+    h += '<div class="oid-prow"><span class="muted">Prepayment</span><span class="oid-prow__v">' + esc(p.prepayment) + '</span></div>';
+    h += '<div class="oid-prow"><span class="muted">Offers</span><span class="oid-prow__v ' + (p.offers === 'n/a' ? 'al-empty' : '') + '">' + esc(p.offers) + '</span></div>';
+    h += '<div class="oid-prow"><span class="muted">Added by</span><span class="oid-prow__v">' + esc(p.addedBy) + '</span></div>';
+    h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Price</h4>';
+    h += '<div class="fm-row"><label class="fm-l">Price · ' + esc(p.niche) + '</label>' + eurInput('nichePrice', p.nichePrice) + '</div>';
+    if (p.permanent) h += '<div class="fm-row"><label class="fm-l">Permanent post</label>' + eurInput('permanentPost', p.permanentPost) + '</div>';
+    h += '<div class="fm-row"><label class="fm-l">Content</label>' + eurInput('content', p.content) + '</div>';
+    h += '<div class="oid-prow oid-prow--total" style="border-top:1px solid var(--border);margin-top:8px;padding-top:10px"><span>Total</span><span class="oid-prow__v" id="oid-pubtotal">' + euro(pubTotal(p)) + '</span></div>';
+    return h;
+  }
+  function renderPubForm() { $('oid-pubform').innerHTML = pubForm(); }
+  $('oid-editpub').addEventListener('click', function () { PUBEDIT = JSON.parse(JSON.stringify(PUB)); renderPubForm(); openEl($('oid-drawer-pubcond')); });
+  $('oid-pubform').addEventListener('change', function (e) {
+    var f = e.target.closest('[data-pub]'); if (!f) return; var k = f.getAttribute('data-pub');
+    if (f.type === 'checkbox') { PUBEDIT[k] = f.checked; renderPubForm(); return; }
+    PUBEDIT[k] = f.type === 'number' ? (parseFloat(f.value) || 0) : f.value;
+    var tot = $('oid-pubtotal'); if (tot) tot.textContent = euro(pubTotal(PUBEDIT));
+  });
+  $('oid-pubform').addEventListener('input', function (e) {
+    var f = e.target.closest('input[type=number][data-pub]'); if (!f) return; PUBEDIT[f.getAttribute('data-pub')] = parseFloat(f.value) || 0;
+    var tot = $('oid-pubtotal'); if (tot) tot.textContent = euro(pubTotal(PUBEDIT));
+  });
+  $('oid-pub-save').addEventListener('click', function () { PUB = JSON.parse(JSON.stringify(PUBEDIT)); renderPub(); toast('Publication conditions updated'); closeAll(); });
+
+  /* ======================= history: note composer (target user + attachments) ======================= */
+  var noteTarget = null, noteFiles = [], attIdx = 0;
+  var SAMPLE_ATT = [{ name: 'creative-brief.pdf', size: 184000 }, { name: 'screenshot.png', size: 428000 }, { name: 'draft-v2.docx', size: 52000 }];
+  var PAPERCLIP = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m21.4 11.05-9.19 9.19a5 5 0 0 1-7.07-7.07l9.19-9.19a3 3 0 0 1 4.24 4.24l-9.2 9.19a1 1 0 0 1-1.41-1.41l8.48-8.49"/></svg>';
+  function fmtBytes(b) { if (b == null) return ''; var u = ['B', 'KB', 'MB', 'GB'], i = 0, v = b; while (v >= 1024 && i < 3) { v /= 1024; i++; } return (v >= 10 || i === 0 ? Math.round(v) : Math.round(v * 10) / 10) + ' ' + u[i]; }
+  function noteUsers() { return [{ id: 'all', name: 'Everyone', all: true }].concat(ACCESS.filter(function (u) { return u.on; }).map(function (u) { return { id: u.e, name: u.n, e: u.e, role: u.role }; })); }
+  function renderNoteToList() {
+    $('oid-note-tolist').innerHTML = noteUsers().map(function (u) {
+      var av = u.all ? '<span class="oid-noteav oid-noteav--all">@</span>' : '<span class="oid-noteav" style="background:' + AVC[u.name.length % AVC.length] + '">' + ini(u.name) + '</span>';
+      return '<button class="vopt oid-noteopt" data-noteto="' + esc(u.id) + '">' + av + '<span class="oid-noteopt__m"><span class="oid-noteopt__n">' + esc(u.name) + '</span>' + (u.e ? '<span class="oid-noteopt__e">' + esc(u.e) + (u.role ? ' · ' + esc(u.role) : '') + '</span>' : '') + '</span></button>';
+    }).join('');
+  }
+  function updateNotePost() { var hasText = $('oid-note-text').value.trim().length > 0; $('oid-note-post').disabled = !(noteTarget && (hasText || noteFiles.length)); }
+  function renderNoteFiles() {
+    $('oid-note-files').innerHTML = noteFiles.map(function (f, i) { return '<span class="oid-notefile">' + PAPERCLIP + esc(f.name) + '<span class="oid-notefile__s">' + fmtBytes(f.size) + '</span><button type="button" data-notefrm="' + i + '" aria-label="Remove">✕</button></span>'; }).join('');
+  }
+  $('oid-note-tolist').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-noteto]'); if (!b) return;
+    var id = b.getAttribute('data-noteto'); noteTarget = noteUsers().filter(function (u) { return String(u.id) === id; })[0];
+    $('oid-note-tolabel').textContent = noteTarget.name; b.closest('details').removeAttribute('open'); updateNotePost();
+  });
+  $('oid-note-attach').addEventListener('click', function () { noteFiles.push(SAMPLE_ATT[attIdx++ % SAMPLE_ATT.length]); renderNoteFiles(); updateNotePost(); });
+  $('oid-note-files').addEventListener('click', function (e) { var r = e.target.closest('[data-notefrm]'); if (r) { noteFiles.splice(+r.getAttribute('data-notefrm'), 1); renderNoteFiles(); updateNotePost(); } });
+  $('oid-note-text').addEventListener('input', updateNotePost);
+  $('oid-note-post').addEventListener('click', function () {
+    if ($('oid-note-post').disabled) return;
+    var text = $('oid-note-text').value.trim(), files = noteFiles.slice();
+    var recip = noteTarget && !noteTarget.all ? noteTarget.name : null;
+    var att = files.length ? '<div class="oid-tl__att">' + files.map(function (f) { return '<span class="oid-tl__file">' + PAPERCLIP + esc(f.name) + '<span class="oid-notefile__s">' + fmtBytes(f.size) + '</span></span>'; }).join('') + '</div>' : '';
+    var body = (text || files.length) ? '<div class="oid-tl__note">' + (recip ? '<b>@' + esc(recip) + '</b> ' : '') + esc(text) + att + '</div>' : '';
+    var li = document.createElement('li'); li.className = 'oid-tl';
+    li.innerHTML = '<span class="oid-tl__dot oid-tl__dot--green"></span><div class="oid-tl__body"><div class="oid-tl__top"><b>Note</b><span class="oid-tl__t">Just now</span></div><span class="oid-tl__sub">by Sayeed Khan' + (noteTarget ? ' · to ' + esc(noteTarget.name) : '') + '</span>' + body + '</div>';
+    var tl = $('oid-timeline'); tl.insertBefore(li, tl.firstChild);
+    $('oid-note-text').value = ''; noteFiles = []; renderNoteFiles(); noteTarget = null; $('oid-note-tolabel').textContent = 'Select'; updateNotePost();
+    toast('Note was added');
+  });
+
+  /* init */
+  renderReadCard();
+  renderAccessPreview();
+  renderLive();
+  renderAudit();
+  renderTags();
+  renderPub();
+  renderNoteToList();
+})();
+</script>
+</body>
+</html>

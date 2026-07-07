@@ -11,10 +11,14 @@ prototype**, not the production app. The real Vue/Nuxt app in the repo root is t
 truth for data/fields/labels** (see "Data model" below). Designer works in plain HTML/CSS; devs
 convert to Vue/Tailwind later. Git branch: `redesign/market`.
 
-> **Read this first if resuming:** the app **shell was reworked** — there is **no full-width top
-> header anymore**. Navigation/brand/account all live in a **light floating sidebar** (table page
-> only); the details page has **no sidebar and no header** (focused record view). See "App shell &
-> navigation" below — it supersedes any older "sidebar/topbar shell" wording.
+> **Read this first if resuming:** the app **shell was reworked**. Every `main.m-main` now starts with a
+> sticky **App Bar** (`<header class="appbar">`, 56px) whose right edge is always `│ 🔔 Notifications 🛒 Cart`;
+> left = page title/context + page CTAs (variants Section/Detail/Minimal — see the App Bar system in
+> `../settings-ml3/appbar-proposal.html` + `system-ml3/components.css`). The sidebar is a **flat, flush,
+> full-height panel** (grey `#f7f8fa`, hairline right border — de-floated 2026-07-05), with brand/account
+> in it; its 56px top row aligns with the App Bar as one continuous top band. The details/checkout pages
+> have **no sidebar** (focused view) but DO have the App Bar (Detail/Minimal variant). This supersedes any
+> older "no top header" / "floating sidebar" wording.
 
 ## Files
 `design-mockups/market-ml3/`
@@ -28,6 +32,10 @@ convert to Vue/Tailwind later. Git branch: `redesign/market`.
 - `details.html` + `details.css` — **media details page** (prod route `/market/{id}`).
 - `drafts.html` — **Drafts page** (prod route `market/drafts`). Links `styles.css`. See "Drafts page".
 - `checkout.html` + `checkout.css` — **checkout page** (prod route `/cart`). See "Checkout page".
+- `orders.html` — **Orders page** (prod route `/orders`). Links `styles.css`. See "Orders page".
+- `all-links.html` — **All links page** (prod route `/orders/items/all`). Links `styles.css`. See "All links page".
+- `order-item.html` + `order-item.css` — **Order item detail** (prod route `/orders/items/{slug}`). Links
+  `styles.css` + `details.css` (reuses its `.d-*`) + `order-item.css`. See "Order item detail page".
 - `styles.css` — table-page + **shell/sidebar** styles (details.html + drafts.html also link it for
   shared chips/buttons and the shell).
 - `logo-mlpro-light.png` — Motherlink PRO wordmark (light bg), used in the sidebar. Copied from
@@ -350,6 +358,134 @@ Notifications · Basket icon). Reuses `system-ml3` tokens + `details.css` `.d-*`
   Order summary has a header icon. Item cards lift on hover. All using existing tokens — keep it
   restrained (no heavy gradients/shadows) if extending.
 
+## Current state — Orders page (`orders.html`)
+Prod route `/orders` (`pages/orders/index.vue` + `components/orders/{Item,TableData,ItemMediaTable,
+Filter,StatusBadge}.vue`). **An order = a placed cart** (a checked-out draft). Each order groups line
+items that each move through the real 13-stage fulfilment pipeline (`utils/data/orderItemStatusList.js`:
+ORDER_QUEUE → … → PUBLISHED → APPROVED_PUBLICATION, or CANCELED). **Self-contained list page reusing the
+drafts shell/sidebar** (Orders nav active) + table/segment/bulk/checkbox/pager styles from `styles.css`.
+Rows are **JS-rendered from an `ORDERS` data array** (id · num · date · project · brand · by · manager ·
+items[] · optional packages[]); each item = `{num,dom,type,status,pub,content}`, total = pub+content.
+- **App Bar · Section** (title "Orders" + count; **no page CTAs** — just the fixed Notif/Cart cluster).
+- **Kept deliberately lean** (an earlier build had a summary-stat strip, status-segment filters, a stacked
+  fulfilment progress bar per row, and a 4-dot per-item phase stepper — all **removed at the user's request**
+  2026-07-06 as too busy). The `STATUS` map (label + phase + bucket) and `agg()`/`counts()` remain, driving
+  a single **aggregate status pill** per order (In progress / Live / Completed / Canceled — `.st-*` colors).
+- **Columns:** Order (num + stacked media favicons) · Project·Brand · Ordered (rel + abs title) · Ordered
+  by (avatar) · Manager (avatar or —) · Items (count) · Total (`.price-pill`) · **Status** (aggregate pill) ·
+  actions (⋯ only). The **leading chevron `.exp-toggle`** is the expand affordance (muted → accent on hover,
+  rotates when open); there is **no Track button**. Expand colSpan = 9.
+- **Inline expand** (accordion, reuses `.m-exp`/`is-open`): optional **package group(s)** (purple-flagged
+  `.ord-pkg`, its own status pill + nested `.oi-mtable`), then standalone **links** in `.oi-mtable` (ID ·
+  Media chip · Status chip · Type badge · Publication · Content · Total · View), then a light footer recap
+  ("N links · €total" — **no action buttons**). Per-item colors via `.oi-b-*` (from the status bucket).
+- **Working interactions:** row/chevron click expands (one at a time); checkbox → bulk bar; ⋯ menu
+  (Download invoice / **Cancel order** — cancel flips queued+in-progress items to CANCELED and re-renders);
+  Search (id/media/project/people) + Sort (date/price). Invoice/Export are stubs (toast). Pager = shared
+  `renderPager` (default 10; seed has 12 orders → 2 pages). Basket badge reads shared `localStorage['ml-cart']`.
+- **⚠ Nested-table gotcha:** the outer `.m-table thead …` rules (incl. the sticky frozen-first-column)
+  **leak into the nested `.oi-mtable` via descendant selectors** — the whole `.oi-mtable` is therefore
+  scoped under `.m-exp-inner` (higher specificity) so those leaks can't misalign it. Keep that prefix if
+  you add more nested tables in an expand.
+- **Wiring:** the checkout success overlay's **"Track order" now lands here** (was → index.html), and the
+  sidebar **Orders ▸ Orders** link points here from index/drafts/orders.
+
+## Current state — All links page (`all-links.html`)
+Prod route `/orders/items/all` (`pages/orders/items/all/index.vue` + `components/orders/items/all/
+{TableData,fields.data}.vue`). **Every ordered + imported link across all projects** with its pipeline
+status and the automated **link audit** — the app's widest table. Section App Bar (title + count; Export
+dropdown [Export result / Export all]; default cluster). Self-contained, JS-driven from a `ROWS` array.
+- **Columns cover the full `fields.data.js` set in the same order** (`COLUMNS` array) — incl. Source, Type,
+  Live link, Target url, Anchor, Status, **Renewal status/date, Origin (Order/Renewal)**, the six audit
+  columns, Brand/Project/Package/Ordered-by/Media/Tags, Agency/Publisher/**Lead source**/Assignee/**Indexed
+  URLs**, all Ahrefs/Majestic/Moz/Topical/IP metrics, Language/Country/Anchor type, Invoice/Last audit,
+  Ordered/Live dates, Publication/Permanent/Content, and the **chat/unread `is_read_history`** indicator.
+  A curated subset is default-visible; a **Columns popover** (searchable; clean `.al-col` rows with a drag-grip +
+  `.al-sw` toggle; **drag-to-reorder** via native HTML5 DnD — reorders `COLUMNS` + the table; Reset restores the
+  fields.data order + defaults) turns any on/off (`order_item_number` locked). Wide table scrolls in `.al-scroll`;
+  **frozen edge columns** — checkbox+ID left (`.al-stick-l0/l1`); **Total + chat + View** right (`.al-stick-r1/rc/r0`,
+  three tiers — chat & View are non-toggleable like the real `canBeToggled:false` fields), opaque bg + separators.
+- **Cell renderers** mirror the real table: Source + Origin badges, Type (`.oi-type`), truncating Live/Target
+  links, Status pill (`.oi-status .oi-b-*`), Renewal badge (`.st-pill`), six **link-audit chips** Yes/No/n-a
+  (`.al-audit`), Media pill (type-colored), Tags, metrics, dates, Publication/Content/Total, chat icon+unread
+  dot. **View → `order-item.html`.**
+- **Toolbar:** **Filters** → centered **"Filters and presets" modal** (`#al-filtermodal`) mirroring the Vue
+  `filter-modal` — *All filters* tab with the full `Filters.vue` field set (Manager, Media, Lead source +help,
+  Brand, Project, Tags, Media invoice, Live link, Show records, Target url, Anchor text, Order item status,
+  Ordered by, Publisher, Renewal status, Origin — text / native-select / collapsible-checklist `.al-ms`) + a
+  *Presets* tab (name-and-save + sample list). **Mock** (drives the Filters count badge + Clear all; doesn't
+  filter rows). Source (All/Ordered/Imported) + Type (All/Guest post/Link insertion) DO filter. **Ordered/Live/
+  Audit** are real **date-range selects** (`.al-datedrop`: From/To + active dot + range label; visual, not wired
+  to row dates). Search filters. Row checkboxes → an **Actions dropdown** (Export selected / Audit selected items;
+  disabled until a row is selected — mirrors `all/Actions.vue`, replaced the old bulk bar). Pager = shared `renderPager`.
+- **Column-header sorting:** every column carrying a `fields.data` `sortField` is clickable (`.al-th--sort`, up/down
+  caret) — click cycles asc → desc → off; `SORTVAL[key]` accessors drive it (numeric, string, status-pipeline index,
+  and parsed dates for Ordered/Live/Audit). Delegated once on the header `<tr>`.
+
+## Current state — Order item detail page (`order-item.html` + `order-item.css`)
+Prod route `/orders/items/{slug}` (`components/orders/items/OrderItemPage.vue` + `components/orders/details/*`).
+**Focused record view** (no sidebar) — the target of every "View" from All links + the Orders expand.
+- **App Bar · Detail:** `‹ All links` · media favicon · `Order #OI-8801` · Order + Guest-post badges · **Actions**
+  dropdown (Renew / Cancel renewal) · default cluster. **Tabs dock under** (`.appbar-tabs`, sticky):
+  Details · Content · Renewals · Chat & history (JS pane switch).
+- **Two columns** (`.oid-grid`): main + a **sticky side rail** (`.oid-side`, left-bordered): media badge,
+  Status dropdown, Price block (Price:niche · Stock · Margin · Content · **Total**), Project·Brand, Ordered by,
+  Ordered/Live dates, Renewal date/status, **Users with access** (Edit button + avatar preview → manage modal).
+- **Details tab (every card's workflow is wired, each JS-rendered from a model so edits round-trip):**
+  Live link (open + copy + **Add/Edit modal** → URL + Live date, `UpdateLiveLinkModal`); **Link audit** (6 Yes/No/n-a
+  chips + last audit; **Update** ▸ *Audit link* toast / *Enter manually* → modal with link pill + 6 dropdowns,
+  `LinkAuditModal`); **Publication conditions** (publisher/assignee contacts + `.d-cond` panel + price; **Edit** →
+  slide-over with condition switches `.oid-switch`, publication-duration (hidden when Permanent on), read-only
+  Prepayment / Offers / **Added by**, € price inputs + live Total, `PublicationPage` — reflects into the side-rail
+  Price/Total too); **Additional details** (tags; **Edit** →
+  chip editor modal, `UpdateTagsModal`); Media metrics (Ahrefs/Majestic/Moz).
+- **Content tab (mirrors `ContentTabContent.vue`):** **Info for admin + Note** — one compact card, each clamped
+  to 2 lines with **See more** → popup (not two wide cards, per user); **Content requirements** — JS-rendered
+  from `CREQ` (Website/Anchor/Target/placement/language/words/fee, topic, trust links, keywords, images, comment)
+  with a read-only **Content by Motherlink/me** indicator on the Edit button → **slide-over `.oid-drawer`** that mirrors
+  `ContentRequirementsForm.vue` in EDIT mode: **no order-type toggle and no content-by toggle** (both fixed by the order
+  item; the Vue toggle only shows when `!orderItemId`). Fields adapt to the fixed type/content_by — Target URL, Link
+  details (Anchor + placement), Language, Number of words + live price (words×0.075, `€NN.NN`), topic, keywords,
+  trust-link chips, image dropzone + "Let Motherlink choose images", comment. **Save round-trips into the read card.** **Documents** card (article + publication files) with **Upload** → modal with a `.co-drop`
+  dropzone. **Renewals:** card + history table. **Chat & history (`HistoryTabContent.vue`):** composer with a
+  **"New message for" target dropdown** (Everyone + the users-with-access, name·email·role) + **Attach** button
+  (pending-file chips, add/remove) + Add (disabled until a target is picked and there's text or a file). Posting
+  prepends a timeline note showing "by … · to <target>", a bold `@recipient` prefix, and the attachment chips.
+- **Reuse:** links `checkout.css` (safe — only `.co-*` + `[hidden]`, no globals) for the content form + dropzone;
+  `.fm-*` from `details.css`; See-more / edit / upload / access / renew / cancel share ONE modal system
+  (`.oid-scrim` + `.oid-modal`/`.oid-drawer`, `openEl`/`closeAll`) in `order-item.css`.
+- **Actions** appbar dropdown → **Renew** + **Cancel renewal** modals (note textarea + confirm; Vue copy verbatim;
+  cancel = `.oid-btn-danger`). **Manage access** modal mirrors `UsersWithAccess.vue` — Invite row + three sections
+  (Permissions-based / Manually added / Hidden) with Hide·Show·Remove; edits reflect in the rail preview.
+- Data is a single hard-coded sample (OI-8801, matching the first All-links row) since the mockup has no per-item store.
+
+## Component library (`design-mockups/library/index.html`) — keep it current
+The single-page design-system reference. It links `../system-ml3/*.css` and documents every token + component.
+**Newly added this pass:** an **App bar (header)** section (Section / Detail-with-tabs / Minimal variants) and an
+**Order & audit badges** section (`.st-pill`, `.oi-status`/`.oi-b-*`, `.oi-type`, `.al-audit`) — the last four were
+**promoted from `styles.css` into `system-ml3/components.css`** so they're real shared components (styles.css now
+just references them). Page-gallery cards added for Orders, All links, Order item. **When you build the Projects
+page, add its card(s) + any new shared component to the library too.** Verify with a headless probe (deep-scroll
+screenshots hit a blank-band artifact — render the section near the top of a scratch page instead).
+
+## Next up — Projects page (start here in a new chat)
+The **Projects** sidebar item is the only top-level nav not yet built (still `href="#"` in every mockup sidebar).
+In the real app "Projects" = the **brands** area, so build two screens and wire them up:
+- **Projects list** → `projects.html`. Source: `pages/brands/index.vue` (prod `/brands`). A brand→project list
+  (budget / entity balance, live-link counts, renewal status). **Reuse the Orders/Drafts list shell**: sidebar +
+  App Bar Section + `.m-table` + status segments + `renderPager`.
+- **Project detail** → `project.html`. Source: `pages/brands/_slug/projects/_id.vue` + `components/projects/*`
+  (`OverviewCard`, `DraftsTab`, `ManagedServicesTab`, `RenewalList`/`RenewalBadge`, `ImportLinks`+`ImportLinksModal`,
+  `UpdateBudgetModal`, `ShareModal`, `HistoryList`, `UnarchiveModal`). **Reuse the `order-item.html` detail shell**:
+  App Bar Detail + docked `.appbar-tabs` (Overview / Live links / Drafts / Managed services / Renewals / History),
+  the sticky `.oid-side` rail, and the `.oid-modal`/`.oid-drawer` system (Share modal ≈ the manage-access modal).
+- Then wire the sidebar **Projects** link (in index/drafts/orders/all-links/order-item) → `projects.html`, and the
+  list rows' "View" / "Open" → `project.html`.
+- **Source of truth (read, don't guess):** the Vue files above + `values/pages/{brand,project}/index.js` for
+  route/nav meta + permission gates. Renewal statuses reuse the All-links Renewal-status set. Everything you need —
+  App Bar variants, status/type badges, modal system, table shell, manage-access pattern — is already built and
+  documented in `library/index.html`.
+
 ## Data model = the real app (source of truth)
 When you need exact fields/labels/enums, read these (NOT the mockup):
 - `pages/market/_id.vue` + `pages/market/view/admin.vue` — the detail page
@@ -399,7 +535,8 @@ TF/CF/IP/IndexedURLs/TTF1/TTF2 = Majestic · DA/PA/SpamScore = Moz.
   dropdown w/ budget/balance, adaptive Deposit/Place CTA, save-draft dropdown). Remaining polish:
   real content-fee schedule (mock is `words × €0.075`), actual file-upload wiring (dropzones are
   visual), `invited_users` + `permanent_post` per item (not yet surfaced), real Deposit/Add-to-package
-  routes (mocks), and the **order/tracking page** the success overlay's "Track order" should land on
-  (still → index.html).
+  routes (mocks). The **order/tracking page** the success overlay's "Track order" lands on is now
+  **built** (`orders.html`) — remaining there: a single-order full page (list + inline expand cover it
+  for now) and real invoice/reorder routes.
 - **Link-history** on details: real data or explicit empty state.
 - Edit modals: validation/persistence if ever made interactive beyond the stock-price preview.

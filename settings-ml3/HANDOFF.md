@@ -22,6 +22,26 @@ links): `cd design-mockups && python3 -m http.server` → open `settings-ml3/ind
 - **CSS gotcha:** the `[hidden]` attribute is overridden by any `display:flex/grid` class — add an
   explicit `.x[hidden]{display:none}` rule when hiding flex/grid elements.
 
+## Publish / live site (GitHub Pages)
+The mockups are published to a **separate GitHub repo** (NOT the GitLab app repo): local clone at
+`/Users/sayeed/ml3-market-design` → `github.com/sayeed-ops/ml3-market-design` → GitHub Pages.
+- **Publish command:** `cd /Users/sayeed/ml3-market-design && ./sync.sh "commit message"`. It rsyncs
+  `market-ml3/ system-ml3/ settings-ml3/ library/` from `design-mockups/` (with `--delete`; excludes
+  `.DS_Store` and `settings-ml3/.backup-pre-ux/`), then commits + pushes to `main`. Pages rebuilds in
+  ~30–90s (poll a live URL; the CDN caches, so hard-refresh / add `?cb=<ts>` to bust).
+- **Live URLs:** app entry `https://sayeed-ops.github.io/ml3-market-design/market-ml3/index.html` ·
+  settings `.../settings-ml3/index.html` · library `.../library/index.html`. The market app's left-nav
+  **Settings** item links to `../settings-ml3/index.html`; other market nav items are intentionally `#`.
+- The root `index.html` redirects to the market app; `.nojekyll` is present. Root files (index/README/
+  sync.sh) are left untouched by the sync.
+
+## Repo state (updated this session)
+- `ml3-ui` (GitLab, this working copy): `redesign/market` was 229 behind `main` / 0 ahead — **fast-forwarded
+  to latest `main`**. The one local change (`yarn.lock`, a `yarn install` artifact) is **stashed**
+  (`stash@{0}`), not applied. Run `yarn install` before running the app locally. `design-mockups/` is
+  **untracked** here (lives only in git via the GitHub publish repo) — it survives all branch ops.
+- `ml3-api` (GitLab, `/Users/sayeed/Ai projects/ml3-api`): pulled latest `main`.
+
 ## Design system
 `design-mockups/system-ml3/` → `tokens.css` · `base.css` · `components.css`. Clean white, Geist/Inter,
 `#3d3aad` purple accent, CSS variables for color/space/radius/shadow. **Reuse tokens/components —
@@ -29,8 +49,11 @@ never hardcode colors or spacing.** Page-specific additions go at the END of `se
 
 ## App shell / sidebar (the reusable "internal-page sidebar" pattern)
 Every settings page shares the same shell (copy the markup from any existing page):
-- `.m-app > .m-shell > (aside.m-sidebar + main.m-main)`. Floating framed sidebar identical to the
-  market design (grey body, white outline + hairline, collapse toggle `#m-side-toggle`, user card foot).
+- `.m-app > .m-shell > (aside.m-sidebar + main.m-main)`. **Flat, flush, full-height sidebar** identical
+  to the market design (grey `#f7f8fa` body, hairline right border — NOT a floating framed panel anymore;
+  de-floated 2026-07-05 to align with the App Bar). Brand/`.s-head` top row is 56px with a bottom hairline
+  so it forms one continuous top band with the App Bar. Collapse toggle `#m-side-toggle`, user card foot.
+  Every `main.m-main` starts with a sticky `<header class="appbar">` (see App Bar note below).
 - **Sidebar is scoped to Settings:** a compact header `<a class="s-head">` whose WHOLE ROW links back
   to the app (back-chevron icon + centered "Settings" title) — NOT a big title, NOT an eyebrow, NOT a
   separate "Back to app" button. Below it a **flat** nav list (`.m-nav__item`), no section headers.
