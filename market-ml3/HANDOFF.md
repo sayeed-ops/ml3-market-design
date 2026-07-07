@@ -20,28 +20,54 @@ convert to Vue/Tailwind later. Git branch: `redesign/market`.
 > have **no sidebar** (focused view) but DO have the App Bar (Detail/Minimal variant). This supersedes any
 > older "no top header" / "floating sidebar" wording.
 
+## Folder structure — pages are grouped by the app's TOP-LEVEL nav area
+**Reorganised 2026-07-07.** Every area folder is a **direct child of `design-mockups/`** — this matters:
+all shared-CSS links are `../system-ml3/*.css`, so the `../` depth is identical from any folder, and
+cross-area links (`../market-ml3/…`, `../orders-ml3/…`) all work. **Keep new areas at this same depth**
+(`design-mockups/<area>-ml3/`) so nothing has to change.
+- `market-ml3/` — **Market** area (`/market`): index (Link market) · details (`/market/{id}`) · drafts
+  (`market/drafts`) · checkout (`/cart`, kept here as the buying-flow tail). Owns the **shared shell/table
+  CSS + pager.js** that other areas reference.
+- `orders-ml3/` — **Orders** area (`/orders`): orders · all-links (`/orders/items/all`) · order-item
+  (`/orders/items/{slug}`) + `order-item.css`.
+- `account-ml3/` — **Account** area (`/account`): account.html (the current user's own settings).
+- `settings-ml3/` — admin **Settings** (its own HANDOFF). `system-ml3/` — design system. `library/` — reference.
+- Future areas → their own sibling folder: `projects-ml3/` (brands), `invoices-ml3/`, `analytics-ml3/`.
+
+**Cross-area CSS convention (chosen 2026-07-07):** the shared shell/table styles live in
+`market-ml3/styles.css` (and `settings-ml3/styles.css`); pages in `orders-ml3/`/`account-ml3/` **reference
+those cross-folder** (`href="../market-ml3/styles.css"`, account → `../settings-ml3/styles.css`) rather than
+duplicating. If the mockups keep growing, the cleaner move is to promote the shared shell into
+`system-ml3/shell.css` — deferred for now (it's a prototype devs convert to Vue routes anyway).
+
 ## Files
 `design-mockups/market-ml3/`
 - `index.html` — **market table page**. Markup + several inline `<script>` IIFEs at the bottom
   (table/cart logic, the filters popover, the row-actions relocation pass, and the sidebar
   collapse/group-toggle).
 - `pager.js` — **shared pagination component** (`window.renderPager(el, {page,pageSize,total,sizes}, {page,size})`).
-  Linked by index.html + drafts.html. Page-based, **Prev/Next only** (rows-per-page pill select ·
-  "X–Y of N" · "Page p of P" · refined Prev/Next buttons) — no numbered strip, so it's clean at any
-  page count. CSS: `.m-pager`/`.pg-*` in styles.css.
+  Linked by index.html + drafts.html **and cross-folder by the orders-ml3 pages** (`../market-ml3/pager.js`).
+  Page-based, **Prev/Next only** (rows-per-page pill select · "X–Y of N" · "Page p of P" · refined Prev/Next
+  buttons) — no numbered strip, so it's clean at any page count. CSS: `.m-pager`/`.pg-*` in styles.css.
 - `details.html` + `details.css` — **media details page** (prod route `/market/{id}`).
 - `drafts.html` — **Drafts page** (prod route `market/drafts`). Links `styles.css`. See "Drafts page".
 - `checkout.html` + `checkout.css` — **checkout page** (prod route `/cart`). See "Checkout page".
-- `orders.html` — **Orders page** (prod route `/orders`). Links `styles.css`. See "Orders page".
-- `all-links.html` — **All links page** (prod route `/orders/items/all`). Links `styles.css`. See "All links page".
-- `order-item.html` + `order-item.css` — **Order item detail** (prod route `/orders/items/{slug}`). Links
-  `styles.css` + `details.css` (reuses its `.d-*`) + `order-item.css`. See "Order item detail page".
-- `styles.css` — table-page + **shell/sidebar** styles (details.html + drafts.html also link it for
-  shared chips/buttons and the shell).
+- `styles.css` — table-page + **shell/sidebar** styles (details.html + drafts.html link it directly;
+  **the `orders-ml3/` pages link it cross-folder** as `../market-ml3/styles.css`).
 - `logo-mlpro-light.png` — Motherlink PRO wordmark (light bg), used in the sidebar. Copied from
-  repo `static/logo/`. (`logo-mlpro-dark.svg` also present but currently unused — was for the old
-  dark sidebar.)
+  repo `static/logo/`. Orders/account pages reference the `market-ml3`/`settings-ml3` copies cross-folder.
+  (`logo-mlpro-dark.svg` also present but currently unused — was for the old dark sidebar.)
 - `_drv.html` (stale duplicate of index.html — ignore) · `*.bak` (old snapshots — ignore).
+
+`design-mockups/orders-ml3/` (moved here 2026-07-07; each links `../market-ml3/styles.css` + `../market-ml3/pager.js`)
+- `orders.html` — **Orders page** (prod route `/orders`). See "Orders page".
+- `all-links.html` — **All links page** (prod route `/orders/items/all`). See "All links page".
+- `order-item.html` + `order-item.css` — **Order item detail** (prod route `/orders/items/{slug}`). Also links
+  `../market-ml3/details.css` (reuses its `.d-*`) + `../market-ml3/checkout.css` + local `order-item.css`.
+  See "Order item detail page".
+
+`design-mockups/account-ml3/` — `account.html` (moved from settings-ml3 on 2026-07-07; links
+`../settings-ml3/styles.css`). Details in the **settings-ml3 HANDOFF** ("Account / Profile").
 
 `design-mockups/system-ml3/` → `tokens.css` · `base.css` · `components.css` — the shared
 ML3 design system (clean white, Geist/Inter, CSS variables for color/space/radius/shadow).
@@ -89,7 +115,18 @@ CSS is dead but harmless if any remains).
   on the grey body). Hover = white lift; active = `accent-tint` purple pill. Optional count badges
   `.m-nav__cnt`.
 - **Foot `.m-side-foot`:** white bordered **user card** `.m-user` (avatar + green dot · name · email
-  · ⋯).
+  · ⋯). **Clicking it opens the shared account menu** (see below).
+
+**Shared sidebar user menu (`system-ml3/usermenu.js`) — added 2026-07-07.** Mirrors the real app's
+`components/v/profile/Dropdown.vue`: clicking the `.m-user` card opens a popover with a header (avatar ·
+name · email · role pill) then **Account settings** (→ `../account-ml3/account.html`) and **Sign out**
+(mock toast). **Self-contained** — it injects its own CSS + toast and reads name/email/initials from the
+card DOM, so it works on every page regardless of which `styles.css` the page links (market has no `.toast`;
+this doesn't need one). Loaded via `<script src="../system-ml3/usermenu.js"></script>` before `</body>` on
+**every page that renders the `.m-user` card** (market index/drafts, orders-ml3 orders/all-links, all
+settings pages, account). The `../account-ml3/account.html` link resolves from every sibling area folder.
+**If you add a new page with the sidebar, add that one script tag.** Sign-out is a mock (no login page);
+the real app calls `$auth.logout()`.
 - **Collapse:** toggle collapses to a **64px icon rail** (`--side-w` 224↔64). Labels/text hide,
   icons center, single items show **hover tooltips** (`data-label`), accordion groups show a
   **hover flyout** of their children. **Defaults to collapsed below 1280px viewport**; remembers

@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="../system-ml3/tokens.css" />
   <link rel="stylesheet" href="../system-ml3/base.css" />
   <link rel="stylesheet" href="../system-ml3/components.css" />
-  <link rel="stylesheet" href="./styles.css" />
-  <link rel="stylesheet" href="./details.css" />
-  <link rel="stylesheet" href="./checkout.css" />
+  <link rel="stylesheet" href="../market-ml3/styles.css" />
+  <link rel="stylesheet" href="../market-ml3/details.css" />
+  <link rel="stylesheet" href="../market-ml3/checkout.css" />
   <link rel="stylesheet" href="./order-item.css" />
 </head>
 <body>
@@ -44,7 +44,7 @@
       <span class="appbar__sep"></span>
       <div class="appbar__global">
         <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
-        <a class="ab-ic hdr-cart" href="checkout.html" title="Basket"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+        <a class="ab-ic hdr-cart" href="../market-ml3/checkout.html" title="Basket"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
       </div>
     </header>
 
@@ -257,7 +257,7 @@
 
         <!-- ============ SIDE RAIL ============ ============ -->
         <aside class="oid-side">
-          <a class="oid-mediabadge al-mp--gp" href="details.html"><span class="fav-ic"><img src="https://www.google.com/s2/favicons?domain=goal.com&sz=64" alt="" /></span>goal.com</a>
+          <a class="oid-mediabadge al-mp--gp" href="../market-ml3/details.html"><span class="fav-ic"><img src="https://www.google.com/s2/favicons?domain=goal.com&sz=64" alt="" /></span>goal.com</a>
 
           <div class="oid-siderow"><span class="oid-side__k">Status</span>
             <details class="fdrop fpop-r"><summary class="oid-statusbtn"><span class="oi-status oi-b-done">Approved publication</span><svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -693,7 +693,7 @@
   function eurInput(key, val) { return '<div class="oid-eur"><span class="oid-eur__c">€</span><input class="fm-input" data-pub="' + key + '" type="number" min="0" value="' + val + '"></div>'; }
   function pubForm() {
     var p = PUBEDIT, h = '';
-    h += '<div class="oid-pubctx"><div class="oid-pubctx__row"><a class="al-link" href="details.html">goal.com</a><span class="oid-pubctx__id">Order #OI-8801</span></div><div class="oid-pubctx__pub"><span class="av" style="background:#7c3aed">MR</span><div class="oid-contact__meta"><span class="oid-contact__n">Marco Rossi</span><span class="oid-contact__e">marco@goal.com</span></div></div></div>';
+    h += '<div class="oid-pubctx"><div class="oid-pubctx__row"><a class="al-link" href="../market-ml3/details.html">goal.com</a><span class="oid-pubctx__id">Order #OI-8801</span></div><div class="oid-pubctx__pub"><span class="av" style="background:#7c3aed">MR</span><div class="oid-contact__meta"><span class="oid-contact__n">Marco Rossi</span><span class="oid-contact__e">marco@goal.com</span></div></div></div>';
     h += '<h4 class="oid-sub" style="margin-top:var(--space-4)">Conditions</h4>';
     h += swrow('Dofollow', 'dofollow', p.dofollow) + swrow('Sponsor tag', 'sponsor', p.sponsor) + swrow('Permanent post', 'permanent', p.permanent);
     if (!p.permanent) h += '<div class="fm-row"><label class="fm-l">Publication duration</label><div class="co-words"><input class="fm-input" data-pub="duration" type="number" min="1" value="' + p.duration + '"><span class="co-words__fee">Years</span></div></div>';

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account settings — Redesign (ML3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="../settings-ml3/styles.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+    <aside class="m-sidebar" id="m-sidebar">
+      <div class="m-side-top">
+        <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="../settings-ml3/logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+        <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+      </div>
+      <nav class="m-nav">
+        <a class="s-head" href="../market-ml3/index.html" title="Back to app">
+          <span class="s-head__back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+          <span class="s-head__title">Account</span>
+        </a>
+        <a class="m-nav__item is-active" href="#profile" data-pane="profile" data-label="Profile"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span><span class="m-nav__tx">Profile</span></a>
+        <a class="m-nav__item" href="#password" data-pane="password" data-label="Password"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.2"/></svg></span><span class="m-nav__tx">Password</span></a>
+        <a class="m-nav__item" href="#notifications" data-pane="notifications" data-label="Notifications"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><span class="m-nav__tx">Notifications</span></a>
+      </nav>
+      <div class="m-side-foot">
+        <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed Rahman</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+      </div>
+    </aside>
+
+    <main class="m-main">
+
+      <!-- App Bar · Section -->
+      <header class="appbar">
+        <span class="appbar__title" id="ab-title">Account settings</span>
+        <span class="appbar__spacer"></span>
+        <div class="appbar__global">
+          <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <a class="ab-ic" href="../market-ml3/checkout.html" title="Cart"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+        </div>
+      </header>
+
+      <div class="m-content">
+        <div class="ac-col">
+
+          <!-- ============ PROFILE ============ -->
+          <section class="ac-pane is-active" id="pane-profile">
+            <form id="profile-form" onsubmit="return false">
+              <div class="ac-sec">
+                <div class="ac-h">Personal details</div>
+
+                <div class="ac-avatar">
+                  <button type="button" class="ac-av" id="av-btn" aria-label="Change photo">
+                    <span id="av-initials">SA</span>
+                    <img id="av-img" alt="" hidden />
+                    <span class="ac-av__hover">Change photo</span>
+                  </button>
+                  <div class="ac-av__acts">
+                    <button type="button" class="btn btn--secondary btn--sm" id="av-upload">Upload photo</button>
+                    <button type="button" class="ac-av__remove" id="av-remove" hidden>Remove</button>
+                    <div class="ac-av__hint">JPG, PNG, GIF or WEBP. Max 5&nbsp;MB.</div>
+                  </div>
+                  <input type="file" id="av-file" accept="image/jpeg,image/png,image/gif,image/webp" hidden />
+                </div>
+
+                <div class="ac-form">
+                  <div class="ac-grid2">
+                    <div class="field">
+                      <label class="field__label" for="f-first">First name</label>
+                      <input class="input" id="f-first" type="text" value="Sayeed" />
+                    </div>
+                    <div class="field">
+                      <label class="field__label" for="f-last">Last name</label>
+                      <input class="input" id="f-last" type="text" value="Rahman" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="f-email">Email</label>
+                    <input class="input" id="f-email" type="email" value="sayeed@motherlink.io" disabled />
+                  </div>
+                </div>
+              </div>
+
+              <div class="ac-sec">
+                <div class="ac-h">Preferred time zone</div>
+                <p class="ac-desc">The time zone is set automatically, but you can change it manually. Date and time will be shown accordingly to the set time zone across the entire platform.</p>
+                <div class="ac-form" style="margin-top:14px">
+                  <div class="ssel" id="tz" data-ssel>
+                    <button type="button" class="ssel__btn" data-toggle>
+                      <span class="ssel__val" id="tz-val">(GMT+02:00) Europe / Tallinn</span>
+                      <svg class="ssel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="ssel__panel" hidden>
+                      <div class="ssel__search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input type="text" id="tz-search" placeholder="Search time zone…" /></div>
+                      <div class="ssel__list" id="tz-list"></div>
+                      <div class="ssel__empty" hidden>No time zones found</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ac-foot">
+                <button class="btn btn--primary" type="submit" id="profile-save">Update</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- ============ PASSWORD ============ -->
+          <section class="ac-pane" id="pane-password">
+            <form id="password-form" onsubmit="return false">
+              <div class="ac-sec">
+                <div class="ac-h">Change password</div>
+                <p class="ac-desc">Create and confirm your new password.</p>
+                <div class="ac-form">
+                  <div class="field">
+                    <label class="field__label" for="p-old">Old password</label>
+                    <div class="ac-pw">
+                      <input class="input" id="p-old" type="password" autocomplete="current-password" />
+                      <button type="button" class="ac-pw__eye" data-eye="p-old" aria-label="Show password"></button>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="p-new">New password</label>
+                    <div class="ac-pw">
+                      <input class="input" id="p-new" type="password" autocomplete="new-password" />
+                      <button type="button" class="ac-pw__eye" data-eye="p-new" aria-label="Show password"></button>
+                    </div>
+                    <span class="field__hint">Use at least 6 characters.</span>
+                  </div>
+                  <div class="field">
+                    <label class="field__label" for="p-confirm">Confirm new password</label>
+                    <div class="ac-pw">
+                      <input class="input" id="p-confirm" type="password" autocomplete="new-password" />
+                      <button type="button" class="ac-pw__eye" data-eye="p-confirm" aria-label="Show password"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ac-foot">
+                <button class="btn btn--primary" type="submit" id="password-save">Save password</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- ============ NOTIFICATIONS ============ -->
+          <section class="ac-pane" id="pane-notifications">
+            <div class="ac-sec">
+              <div class="ac-h">Notifications</div>
+              <p class="ac-desc">Control how you receive notifications.</p>
+              <p class="ac-desc">Please note: if you disable all notifications entirely, you may miss critical status updates that require your attention.</p>
+            </div>
+
+            <div class="i-card">
+              <div class="i-card__head"><div><div class="i-card__title" style="font-size:var(--fs-14)">Notifications &amp; emails</div></div></div>
+              <div class="i-card__body" style="gap:0;padding-top:6px;padding-bottom:6px">
+                <div class="ac-note-row">
+                  <div>
+                    <div class="ac-note-row__l">In-app notifications</div>
+                    <div class="ac-note-row__sub">Turn on or off all in-app notifications</div>
+                  </div>
+                  <button type="button" class="switch is-on" data-notif="app" aria-label="Toggle in-app notifications"></button>
+                </div>
+                <div class="ac-note-row">
+                  <div>
+                    <div class="ac-note-row__l">Email notifications</div>
+                    <div class="ac-note-row__sub">Turn on or off all email notifications</div>
+                  </div>
+                  <button type="button" class="switch is-on" data-notif="email" aria-label="Toggle email notifications"></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="ac-callout" id="notif-warn" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+              <span>You have turned off all notifications. You may miss critical status updates that require your attention.</span>
+            </div>
+
+            <div class="ac-foot">
+              <button class="btn btn--primary" type="button" id="notif-save" disabled>Update</button>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- avatar crop modal -->
+<div class="ovl is-hidden" id="crop-ovl">
+  <div class="modal" style="width:420px">
+    <div class="modal__head">
+      <div class="modal__htext">
+        <div class="modal__title">Crop your profile picture</div>
+      </div>
+      <button class="modal__close" type="button" id="crop-close" aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal__body">
+      <div class="crop-stage" id="crop-stage">
+        <img id="crop-img" alt="" />
+        <div class="crop-mask"></div>
+      </div>
+      <div class="crop-zoom">
+        <span class="crop-zoom__lbl">Zoom</span>
+        <input type="range" id="crop-zoom" min="1" max="4" step="0.01" value="1" />
+      </div>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--secondary" type="button" id="crop-cancel">Cancel</button>
+      <button class="btn btn--primary" type="button" id="crop-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast is-hidden" id="toast"></div>
+
+<script>
+(function () {
+  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-11"/></svg>';
+  var toast = document.getElementById('toast'), toastTimer;
+  function showToast(msg){
+    toast.innerHTML = CHECK + msg;
+    toast.classList.remove('is-hidden');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toast.classList.add('is-hidden'); }, 2600);
+  }
+
+  // ---- sidebar collapse ----
+  document.getElementById('m-side-toggle').addEventListener('click', function(){ document.getElementById('m-sidebar').classList.toggle('is-collapsed'); });
+
+  // ---- pane switching (sidebar nav) ----
+  var navItems = Array.prototype.slice.call(document.querySelectorAll('.m-nav__item[data-pane]'));
+  var titles = { profile: 'Account settings', password: 'Change password', notifications: 'Notifications' };
+  function showPane(name){
+    if (!document.getElementById('pane-' + name)) name = 'profile';
+    navItems.forEach(function(a){ a.classList.toggle('is-active', a.dataset.pane === name); });
+    document.querySelectorAll('.ac-pane').forEach(function(p){ p.classList.toggle('is-active', p.id === 'pane-' + name); });
+    document.getElementById('ab-title').textContent = titles[name] || 'Account settings';
+    if (history.replaceState) history.replaceState(null, '', '#' + name);
+  }
+  navItems.forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); showPane(a.dataset.pane); }); });
+  showPane((location.hash || '#profile').slice(1));
+
+  // ---- timezone combobox ----
+  var TZ = [
+    '(GMT-08:00) America / Los Angeles','(GMT-05:00) America / New York','(GMT-03:00) America / Sao Paulo',
+    '(GMT+00:00) UTC','(GMT+00:00) Europe / London','(GMT+01:00) Europe / Berlin','(GMT+01:00) Europe / Paris',
+    '(GMT+02:00) Europe / Tallinn','(GMT+02:00) Europe / Helsinki','(GMT+03:00) Europe / Moscow',
+    '(GMT+04:00) Asia / Dubai','(GMT+05:30) Asia / Kolkata','(GMT+08:00) Asia / Singapore',
+    '(GMT+09:00) Asia / Tokyo','(GMT+10:00) Australia / Sydney'
+  ];
+  var tz = document.getElementById('tz'), tzList = document.getElementById('tz-list'),
+      tzVal = document.getElementById('tz-val'), tzSearch = document.getElementById('tz-search'),
+      tzEmpty = tz.querySelector('.ssel__empty'), tzPanel = tz.querySelector('.ssel__panel');
+  var tzCurrent = tzVal.textContent;
+  function renderTz(){
+    tzList.innerHTML = TZ.map(function(z){
+      return '<button type="button" class="ssel__opt' + (z === tzCurrent ? ' is-sel' : '') + '" data-tz="' + z + '"><span>' + z + '</span></button>';
+    }).join('');
+  }
+  renderTz();
+  tz.querySelector('[data-toggle]').addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = tz.classList.toggle('is-open'); tzPanel.hidden = !open;
+    if (open){ tzSearch.value = ''; filterTz(); setTimeout(function(){ tzSearch.focus(); }, 10); }
+  });
+  function filterTz(){
+    var q = tzSearch.value.trim().toLowerCase(), any = false;
+    tzList.querySelectorAll('.ssel__opt').forEach(function(o){
+      var hit = o.dataset.tz.toLowerCase().indexOf(q) > -1; o.hidden = !hit; if (hit) any = true;
+    });
+    tzEmpty.hidden = any;
+  }
+  tzSearch.addEventListener('input', filterTz);
+  tzList.addEventListener('click', function(e){
+    var opt = e.target.closest('.ssel__opt'); if (!opt) return;
+    tzCurrent = opt.dataset.tz; tzVal.textContent = tzCurrent; renderTz();
+    tz.classList.remove('is-open'); tzPanel.hidden = true;
+  });
+  document.addEventListener('click', function(e){ if (!e.target.closest('#tz')){ tz.classList.remove('is-open'); tzPanel.hidden = true; } });
+
+  // ---- profile save ----
+  document.getElementById('profile-save').addEventListener('click', function(){ showToast('Profile updated'); });
+
+  // ---- password reveal + save ----
+  document.querySelectorAll('.ac-pw__eye').forEach(function(btn){
+    setEye(btn, false);
+    btn.addEventListener('click', function(){
+      var inp = document.getElementById(btn.dataset.eye);
+      var show = inp.type === 'password'; inp.type = show ? 'text' : 'password'; setEye(btn, show);
+    });
+  });
+  function setEye(btn, shown){
+    btn.innerHTML = shown
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l20 20"/><path d="M6.7 6.7A10.5 10.5 0 0 0 1 12s4 7 11 7a10.4 10.4 0 0 0 5.3-1.4M9.9 5.2A10.9 10.9 0 0 1 12 5c7 0 11 7 11 7a17.6 17.6 0 0 1-3.3 4"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+  }
+  document.getElementById('password-save').addEventListener('click', function(){
+    var oldp = document.getElementById('p-old').value, np = document.getElementById('p-new').value, cp = document.getElementById('p-confirm').value;
+    if (!oldp || !np || !cp){ showToast('Please fill in all password fields'); return; }
+    if (np.length < 6){ showToast('New password must be at least 6 characters'); return; }
+    if (np !== cp){ showToast('Passwords do not match'); return; }
+    document.getElementById('p-old').value = document.getElementById('p-new').value = document.getElementById('p-confirm').value = '';
+    showToast('Password has been updated');
+  });
+
+  // ---- notifications ----
+  var notifBtns = Array.prototype.slice.call(document.querySelectorAll('[data-notif]'));
+  var notifSave = document.getElementById('notif-save'), notifWarn = document.getElementById('notif-warn');
+  var origNotif = notifState();
+  function notifState(){ var s = {}; notifBtns.forEach(function(b){ s[b.dataset.notif] = b.classList.contains('is-on'); }); return s; }
+  function notifChanged(){ var s = notifState(); return s.app !== origNotif.app || s.email !== origNotif.email; }
+  function syncNotif(){
+    var s = notifState();
+    notifSave.disabled = !notifChanged();
+    notifWarn.hidden = s.app || s.email;
+  }
+  notifBtns.forEach(function(b){ b.addEventListener('click', function(){ b.classList.toggle('is-on'); syncNotif(); }); });
+  notifSave.addEventListener('click', function(){ origNotif = notifState(); syncNotif(); showToast('Notification preferences updated'); });
+  syncNotif();
+
+  // ---- avatar upload + crop ----
+  var avFile = document.getElementById('av-file'), avImg = document.getElementById('av-img'),
+      avInitials = document.getElementById('av-initials'), avRemove = document.getElementById('av-remove');
+  document.getElementById('av-btn').addEventListener('click', function(){ avFile.click(); });
+  document.getElementById('av-upload').addEventListener('click', function(){ avFile.click(); });
+
+  var cropOvl = document.getElementById('crop-ovl'), cropImg = document.getElementById('crop-img'),
+      cropStage = document.getElementById('crop-stage'), cropZoom = document.getElementById('crop-zoom');
+  var cx = 0, cy = 0, cscale = 1, cdrag = false, sx = 0, sy = 0, srcURL = '';
+
+  avFile.addEventListener('change', function(e){
+    var file = e.target.files && e.target.files[0]; if (!file) return;
+    if (file.size > 5 * 1024 * 1024){ showToast('File is larger than 5 MB.'); avFile.value = ''; return; }
+    srcURL = URL.createObjectURL(file);
+    cropImg.onload = function(){ openCrop(); };
+    cropImg.src = srcURL;
+    avFile.value = '';
+  });
+  function openCrop(){
+    cx = 0; cy = 0; cscale = 1; cropZoom.value = 1; applyCrop();
+    cropOvl.classList.remove('is-hidden');
+  }
+  function closeCrop(){ cropOvl.classList.add('is-hidden'); }
+  function applyCrop(){ cropImg.style.transform = 'translate(-50%,-50%) translate(' + cx + 'px,' + cy + 'px) scale(' + cscale + ')'; }
+  cropZoom.addEventListener('input', function(){ cscale = parseFloat(cropZoom.value); applyCrop(); });
+  cropStage.addEventListener('pointerdown', function(e){ cdrag = true; cropStage.classList.add('is-drag'); sx = e.clientX - cx; sy = e.clientY - cy; cropStage.setPointerCapture(e.pointerId); });
+  cropStage.addEventListener('pointermove', function(e){ if (!cdrag) return; cx = e.clientX - sx; cy = e.clientY - sy; applyCrop(); });
+  cropStage.addEventListener('pointerup', function(){ cdrag = false; cropStage.classList.remove('is-drag'); });
+  document.getElementById('crop-close').addEventListener('click', closeCrop);
+  document.getElementById('crop-cancel').addEventListener('click', closeCrop);
+  cropOvl.addEventListener('click', function(e){ if (e.target === cropOvl) closeCrop(); });
+  document.getElementById('crop-save').addEventListener('click', function(){
+    avImg.src = srcURL; avImg.hidden = false; avInitials.hidden = true; avRemove.hidden = false;
+    closeCrop(); showToast('Profile picture updated');
+  });
+  avRemove.addEventListener('click', function(){
+    avImg.hidden = true; avImg.removeAttribute('src'); avInitials.hidden = false; avRemove.hidden = true;
+    showToast('Profile picture removed');
+  });
+})();
+</script>
+<script src="../system-ml3/usermenu.js"></script>
+</body>
+</html>

@@ -26,8 +26,10 @@ links): `cd design-mockups && python3 -m http.server` → open `settings-ml3/ind
 The mockups are published to a **separate GitHub repo** (NOT the GitLab app repo): local clone at
 `/Users/sayeed/ml3-market-design` → `github.com/sayeed-ops/ml3-market-design` → GitHub Pages.
 - **Publish command:** `cd /Users/sayeed/ml3-market-design && ./sync.sh "commit message"`. It rsyncs
-  `market-ml3/ system-ml3/ settings-ml3/ library/` from `design-mockups/` (with `--delete`; excludes
-  `.DS_Store` and `settings-ml3/.backup-pre-ux/`), then commits + pushes to `main`. Pages rebuilds in
+  `market-ml3/ orders-ml3/ account-ml3/ system-ml3/ settings-ml3/ library/` from `design-mockups/` (with
+  `--delete`; excludes `.DS_Store` and `settings-ml3/.backup-pre-ux/`), then commits + pushes to `main`.
+  (`orders-ml3/` + `account-ml3/` were added to `sync.sh` on 2026-07-07 — if you add another area folder,
+  add it to the `for d in …` guard AND an `rsync` line there.) Pages rebuilds in
   ~30–90s (poll a live URL; the CDN caches, so hard-refresh / add `?cb=<ts>` to bust).
 - **Live URLs:** app entry `https://sayeed-ops.github.io/ml3-market-design/market-ml3/index.html` ·
   settings `.../settings-ml3/index.html` · library `.../library/index.html`. The market app's left-nav
@@ -164,6 +166,33 @@ combobox) · `.ig` (URL + copy input group) · `.switch` + `.switch-row` · `.ac
 
 **All seven settings tabs are now built** (Users · User roles · Billing entities · Currencies ·
 Publishers · Integrations · Customization).
+
+- **Account / Profile** — `account-ml3/account.html` (**its own area folder** — moved out of settings-ml3
+  on 2026-07-07 since Account is neither Market nor Settings; it links `../settings-ml3/styles.css` for the
+  shell + the `.ac-*`/`.crop-*` rules that still live in this styles.css). The current user's OWN account area,
+  `layout: "account"` in the real app: `pages/account/{index,password,notifications/index}.vue` +
+  `components/account/{personalDetails,AvatarUpload}.vue`). Distinct from admin Settings — reuses the same shell but the scoped sidebar header
+  says **Account** (back-chevron → market app) and the three nav items (**Profile · Password · Notifications**)
+  are **in-page pane switchers** (`data-pane`, JS toggles `.ac-pane.is-active` + updates the App Bar title +
+  `#hash`), not separate files. Centered `.ac-col` (max-584px, matching the real `max-w-[584px]`).
+  - **Profile:** avatar upload (initials → `.ac-av`; **Upload photo** opens a file picker → **crop modal**
+    `#crop-ovl` mirroring `AvatarUpload.vue`: draggable stage + circular `.crop-mask` + Zoom range, Save applies
+    the image + reveals **Remove**) · First/Last name · Email (disabled) · **Preferred time zone** (`.ssel`
+    searchable combobox, sample GMT list, default Europe/Tallinn) · Update.
+  - **Password:** Old / New / Confirm with per-field **reveal eye** (`.ac-pw__eye`); Save validates (all filled ·
+    min 6 · match) → toast "Password has been updated" (real copy).
+  - **Notifications:** In-app + Email `.switch` rows in an `.i-card`; **Update disabled until changed** (tracks
+    original state); an amber `.ac-callout` warns when BOTH are off. Toast "Notification preferences updated".
+  - Copy lifted verbatim from the `.vue` sources + `locale/en.json` `account.avatar.*`. CSS under the
+    "ACCOUNT / PROFILE" banner in `styles.css` (`.ac-*`, `.crop-*`). **Note:** `.ac-callout`/`.ac-avatar` are
+    `display:flex`, so they carry explicit `[hidden]{display:none}` rules (the flex-vs-`[hidden]` gotcha).
+  - **Publisher variant not built:** publishers get two extra read-only tabs (Business details, Billing Info —
+    `pages/account/{business,billing}.vue`, all `:disabled` fields "contact the admin"). The mockup shows the
+    admin (non-publisher) set.
+  - **Reachable from the sidebar:** the `.m-user` card now opens the **shared account menu**
+    (`system-ml3/usermenu.js`, added 2026-07-07) → **Account settings** (→ `../account-ml3/account.html`) +
+    **Sign out**. Loaded on every settings page + account via one `<script src="../system-ml3/usermenu.js">`
+    tag. See the market-ml3 HANDOFF ("Shared sidebar user menu") for details.
 
 ## Also update
 `~/.claude/.../memory/settings-ml3-mockup.md` tracks progress — update the Done/Next lists when a tab

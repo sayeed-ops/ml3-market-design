@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="../system-ml3/tokens.css" />
   <link rel="stylesheet" href="../system-ml3/base.css" />
   <link rel="stylesheet" href="../system-ml3/components.css" />
-  <link rel="stylesheet" href="./styles.css" />
-  <script src="./pager.js"></script>
+  <link rel="stylesheet" href="../market-ml3/styles.css" />
+  <script src="../market-ml3/pager.js"></script>
 </head>
 <body>
 <div class="m-app">
@@ -19,7 +19,7 @@
   <!-- ============ SIDEBAR (sole navigation) ============ -->
   <aside class="m-sidebar" id="m-sidebar">
     <div class="m-side-top">
-      <a class="m-brand" href="index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+      <a class="m-brand" href="../market-ml3/index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="../market-ml3/logo-mlpro-light.png" alt="Motherlink PRO" /></a>
       <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
     </div>
 
@@ -28,9 +28,9 @@
       <div class="m-nav__group" data-group>
         <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
         <div class="m-nav__sub">
-          <a class="m-nav__item m-nav__child" href="index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
+          <a class="m-nav__item m-nav__child" href="../market-ml3/index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
           <a class="m-nav__item m-nav__child" href="#" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
-          <a class="m-nav__item m-nav__child" href="drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
+          <a class="m-nav__item m-nav__child" href="../market-ml3/drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
         </div>
       </div>
 
@@ -80,7 +80,7 @@
       <span class="appbar__sep"></span>
       <div class="appbar__global">
         <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
-        <a class="ab-ic hdr-cart" href="checkout.html" title="Basket"><span class="ab-cart__count" id="hdr-cart-count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+        <a class="ab-ic hdr-cart" href="../market-ml3/checkout.html" title="Basket"><span class="ab-cart__count" id="hdr-cart-count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
       </div>
     </header>
 
@@ -144,7 +144,7 @@
           <span class="dr-empty__ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
           <h3>No orders here</h3>
           <p>Placed orders appear here so you can track every link from order queue to live. Assemble a basket in the Market and check out to place your first order.</p>
-          <a class="btn btn--primary btn--sm" href="index.html" style="margin-top:8px">Go to Market</a>
+          <a class="btn btn--primary btn--sm" href="../market-ml3/index.html" style="margin-top:8px">Go to Market</a>
         </div>
       </div>
 
@@ -547,5 +547,6 @@
   window.addEventListener('resize', function () { if (!stored()) set(window.innerWidth < NARROW); });
 })();
 </script>
+<script src="../system-ml3/usermenu.js"></script>
 </body>
 </html>
