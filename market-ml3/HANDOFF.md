@@ -537,15 +537,32 @@ brand, and no cross-brand view. **Redesigned IA (agreed with user):** keep the O
   + billing entity → Invite team). Data model: **brand = your company; project = a domain under it** (per the real
   AddModal hint). Sample = 4 brands / 12 active + 2 archived projects.
 
-**Still to build — `projects-ml3/project.html` (project DETAIL).** Row "Open project" currently just toasts a
-placeholder (no dead link). Source: `pages/brands/_slug/projects/_id.vue` + `components/projects/*` (`OverviewCard`,
-`DraftsTab`, `ManagedServicesTab`, `RenewalList`/`RenewalBadge`, `ImportLinks`+`ImportLinksModal`, `UpdateBudgetModal`,
-`ShareModal`, `HistoryList`, `UnarchiveModal`). **Reuse the `order-item.html` detail shell**: App Bar Detail + docked
-`.appbar-tabs` (Overview / Live links / Drafts / Managed services / Renewals / History) + sticky `.oid-side` rail +
-`.oid-modal`/`.oid-drawer` system (Share modal ≈ manage-access). Breadcrumb `‹ Projects` + a `Brand ▸ Project` chip.
-Then wire `.pj-proj` / row-menu "Open" → `project.html`. **Add projects.html (+ project.html) cards to `library/`.**
-- The sidebar **Projects** link is now wired to `../projects-ml3/projects.html` in index/drafts/orders/all-links.
-- **Source of truth:** the Vue files above + `values/pages/{brand,project}/index.js`.
+**`projects-ml3/project.html` (project DETAIL — BUILT + verified 2026-07-08).** Row/menu "Open project" now navigates
+here (`project.html?dom=…`). Reuses the `order-item.html` detail shell (`../orders-ml3/order-item.css` `.oid-*`) +
+market styles.css + details.css + `projects.css` (`.pj-thumb`) + `project.css` (page-specific `.pjd-*`). **Reorganised
+IA (user picked over the real app's Imported/Purchased split, 2026-07-08):**
+- **App Bar Detail:** `‹ Projects` · marble thumb · domain · brand chip · status badge · **Order links** (→ market) ·
+  **Import links** · **Settings** dropdown (Edit name / Edit budget & billing / Reset budget / Import live links /
+  Manage access / Archive) · global cluster.
+- **Docked tabs:** **Overview · Links · Drafts · Managed services · Renewals · Activity** (count badges via `.al-th-cnt`).
+  - **Overview** = dashboard: 4 stat cards (Total links · Avg cost/link · Renewal cost · Links due — `.pjd-stats`) +
+    budget card + recent-links mini list.
+  - **Links** = THE key change: ONE table of all links with an **Origin segment (All / Purchased / Imported)** +
+    search + pager — replaces the real app's split Imported/Purchased tabs (mirrors the All-links Origin idea).
+  - **Drafts** (project's saved baskets) · **Managed services** (`.pjd-pkg` package cards) · **Renewals** (links near
+    renewal date + Renew/Cancel menu) · **Activity** (`.pjd-timeline` log).
+- **Sticky side rail** (`.oid-side`): thumb+domain · Status dropdown · Budget/Spent/Remaining · Billing entity ·
+  **Brand** (link back to projects.html) · Created/Last-activity · Users-with-access (+ Edit).
+- **Modals** (self-contained, reuse `projects.css` `.pj-ovl`/`.pj-modal`): Edit name · Edit budget & billing (mutates
+  rail+overview) · Reset budget (zeroes spend) · Import links (URLs + CSV dropzone) · Manage access (add/remove +
+  save) · Archive (flips status). Single sample project (acme.com / Acme Corp); edits are in-memory.
+- **Gotcha fixed:** `.fav-ic` has NO base style in the shared sheets — it must be sized per context AND the `<img>`
+  constrained (`project.css` `.oid-main .fav-ic{…} .oid-main .fav-ic img{width:13px…}`) or the 64px favicon overflows.
+- **Still TODO:** add projects.html + project.html **cards to `library/`**; the header **Import/Order** + most
+  Settings items are mock (toast) except the modals listed above.
+- **Nav trimmed 2026-07-08:** **Invoices / Analytics / Support** are commented out (`<!-- hidden-nav (restore later) -->`)
+  in all 5 universal-sidebar pages (index/drafts/orders/all-links/projects) — search that marker to restore.
+- **Source of truth:** `pages/brands/_slug/projects/_id.vue` + `components/projects/*` + `values/pages/{brand,project}/index.js`.
 
 ## Data model = the real app (source of truth)
 When you need exact fields/labels/enums, read these (NOT the mockup):

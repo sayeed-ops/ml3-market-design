@@ -150,6 +150,12 @@
 .pj-modal__body { padding: 4px 20px 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
 .pj-modal__foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--border); }
 .pj-modal__foot .grow { flex: 1; }
+.pj-btn-danger { background: var(--red); color: #fff; }
+.pj-btn-danger:hover { background: var(--red-hover, #c02b22); }
+.pj-callout { display: flex; gap: 10px; padding: 12px 14px; background: var(--amber-bg, #fff7ed); border: 1px solid var(--amber-border, #fed7aa);
+  border-radius: var(--radius-md); font-size: var(--fs-13); color: var(--amber-text, #9a5b1a); line-height: 1.5; }
+.pj-callout svg { flex: none; width: 17px; height: 17px; margin-top: 1px; }
+.pj-callout b { color: inherit; }
 
 /* wizard step rail */
 .pj-wz { display: flex; align-items: center; gap: 6px; padding: 2px 20px 14px; }

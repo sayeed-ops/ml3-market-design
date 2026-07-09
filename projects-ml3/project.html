@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project — Redesign (ML3)</title>
+  <!-- Production route: /brands/{slug}/projects/{id} -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="../market-ml3/styles.css" />
+  <link rel="stylesheet" href="../market-ml3/details.css" />
+  <link rel="stylesheet" href="../orders-ml3/order-item.css" />
+  <link rel="stylesheet" href="./projects.css" />
+  <link rel="stylesheet" href="./project.css" />
+  <script src="../market-ml3/pager.js"></script>
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+  <!-- No sidebar — focused record view (like order-item / media details). -->
+  <main class="m-main">
+
+    <!-- App Bar · Detail -->
+    <header class="appbar">
+      <a class="appbar__back" href="projects.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg> Projects</a>
+      <span class="appbar__div"></span>
+      <span class="appbar__id">
+        <span class="pj-thumb pjd-appthumb" id="hdr-thumb"></span>
+        <span class="appbar__idname" id="hdr-dom">acme.com</span>
+        <span class="oid-hbadges">
+          <span class="pjd-brandchip"><span class="pjd-brandchip__dot" style="background:#3d3aad"></span>Acme Corp</span>
+          <span class="st-pill st-approved" id="hdr-status">Active</span>
+        </span>
+      </span>
+      <span class="appbar__spacer"></span>
+      <div class="appbar__actions">
+        <a class="btn btn--primary btn--sm" href="../market-ml3/index.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Order links</a>
+        <button class="btn btn--secondary btn--sm" id="act-import"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Import links</button>
+        <details class="fdrop fpop-r">
+          <summary class="btn btn--secondary btn--sm">Settings <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fpop fpop--right" style="width:210px">
+            <button class="vopt" data-set="name">Edit name</button>
+            <button class="vopt" data-set="budget">Edit budget &amp; billing</button>
+            <button class="vopt" data-set="reset">Reset budget</button>
+            <button class="vopt" data-set="import">Import live links</button>
+            <button class="vopt" data-set="access">Manage access</button>
+            <div class="fpop__sep"></div>
+            <button class="vopt vopt--danger" data-set="archive">Archive project</button>
+          </div>
+        </details>
+      </div>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <a class="ab-ic hdr-cart" href="../market-ml3/checkout.html" title="Basket"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></a>
+      </div>
+    </header>
+
+    <!-- Docked tabs -->
+    <div class="appbar-tabs" id="pjd-tabs">
+      <button class="appbar-tab is-active" data-tab="overview">Overview</button>
+      <button class="appbar-tab" data-tab="links">Links <span class="al-th-cnt" id="tc-links">0</span></button>
+      <button class="appbar-tab" data-tab="drafts">Drafts <span class="al-th-cnt" id="tc-drafts">0</span></button>
+      <button class="appbar-tab" data-tab="managed">Managed services <span class="al-th-cnt" id="tc-managed">0</span></button>
+      <button class="appbar-tab" data-tab="renewals">Renewals <span class="al-th-cnt" id="tc-renewals">0</span></button>
+      <button class="appbar-tab" data-tab="activity">Activity</button>
+    </div>
+
+    <div class="d-content oid-content">
+      <div class="oid-grid">
+
+        <!-- ============ MAIN COLUMN ============ -->
+        <div class="oid-main">
+
+          <!-- ---- OVERVIEW ---- -->
+          <section class="oid-tabpane is-active" data-pane="overview">
+            <div class="pjd-stats" id="ov-stats"></div>
+
+            <div class="oid-card">
+              <div class="oid-card__head"><span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Budget this month</span>
+                <button class="btn btn--secondary btn--sm" data-set="budget"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+              </div>
+              <div class="pjd-budget" id="ov-budget"></div>
+            </div>
+
+            <div class="oid-card">
+              <div class="oid-card__head"><span class="oid-card__t"><svg class="oid-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg> Recent links</span>
+                <button class="btn btn--ghost btn--sm" data-goto="links">View all →</button>
+              </div>
+              <div class="pjd-mini" id="ov-recent"></div>
+            </div>
+          </section>
+
+          <!-- ---- LINKS ---- -->
+          <section class="oid-tabpane" data-pane="links">
+            <div class="pjd-toolbar">
+              <div class="m-statseg" id="lk-origin" role="tablist">
+                <button class="stab" aria-selected="true" data-origin="all">All <span class="scount" id="lo-all">0</span></button>
+                <span class="sdiv"></span>
+                <button class="stab" data-origin="order">Purchased <span class="scount" id="lo-order">0</span></button>
+                <button class="stab" data-origin="import">Imported <span class="scount" id="lo-import">0</span></button>
+              </div>
+              <div class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input class="input" id="lk-search" placeholder="Search media, anchor…" /></div>
+            </div>
+            <div class="m-table-card">
+              <table class="m-table" id="lk-table">
+                <thead><tr>
+                  <th class="tl">Media</th><th class="tl">Origin</th><th class="tl">Type</th><th class="tl">Status</th>
+                  <th class="tl">Anchor</th><th class="tl">Live date</th><th>Cost</th><th class="tl">Renewal</th><th></th>
+                </tr></thead>
+                <tbody id="lk-body"></tbody>
+              </table>
+            </div>
+            <div class="m-pager" id="lk-pager"></div>
+          </section>
+
+          <!-- ---- DRAFTS ---- -->
+          <section class="oid-tabpane" data-pane="drafts">
+            <div class="pjd-toolbar"><span class="oid-side__h" style="margin:0">Saved baskets parked for this project</span>
+              <a class="btn btn--primary btn--sm" href="../market-ml3/index.html" style="margin-left:auto"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New draft</a></div>
+            <div class="m-table-card">
+              <table class="m-table" id="dr-table">
+                <thead><tr><th class="tl">Draft</th><th class="tl">Created by</th><th class="tl">Created</th><th>Media</th><th>Total</th><th class="tl">Status</th><th></th></tr></thead>
+                <tbody id="dr-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ---- MANAGED SERVICES ---- -->
+          <section class="oid-tabpane" data-pane="managed">
+            <div class="pjd-toolbar"><span class="oid-side__h" style="margin:0">Managed link packages delivered by Motherlink</span></div>
+            <div id="ms-list"></div>
+          </section>
+
+          <!-- ---- RENEWALS ---- -->
+          <section class="oid-tabpane" data-pane="renewals">
+            <div class="pjd-toolbar"><span class="oid-side__h" style="margin:0">Links approaching their renewal date</span></div>
+            <div class="m-table-card">
+              <table class="m-table" id="rn-table">
+                <thead><tr><th class="tl">Media</th><th class="tl">Live date</th><th class="tl">Renewal date</th><th>Cost / yr</th><th class="tl">Status</th><th></th></tr></thead>
+                <tbody id="rn-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ---- ACTIVITY ---- -->
+          <section class="oid-tabpane" data-pane="activity">
+            <div class="oid-card">
+              <div class="oid-card__head"><span class="oid-card__t">Activity log</span></div>
+              <div class="pjd-timeline" id="ac-timeline"></div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ============ SIDE RAIL ============ -->
+        <aside class="oid-side">
+          <div class="oid-mediabadge" style="cursor:default"><span class="pj-thumb pjd-appthumb" id="sr-thumb"></span><span id="sr-dom">acme.com</span></div>
+
+          <div class="oid-siderow"><span class="oid-side__k">Status</span>
+            <details class="fdrop fpop-r"><summary class="oid-statusbtn"><span class="st-pill st-approved" id="sr-status">Active</span><svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="fpop fpop--right" style="width:180px"><button class="vopt" data-status="Active"><svg class="vcheck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg>Active</button><button class="vopt" data-status="Archived">Archived</button></div>
+            </details>
+          </div>
+
+          <hr class="oid-hr" />
+          <h4 class="oid-side__h">Budget · monthly</h4>
+          <div class="oid-prow"><span class="muted">Budget</span><span class="oid-prow__v" id="sr-budget">€5,000</span></div>
+          <div class="oid-prow"><span class="muted">Spent</span><span class="oid-prow__v" id="sr-spent">€4,100</span></div>
+          <div class="oid-prow oid-prow--total"><span>Remaining</span><span class="oid-prow__v" id="sr-remain">€900</span></div>
+
+          <hr class="oid-hr" />
+          <h4 class="oid-side__h">Billing entity</h4>
+          <div class="oid-side__v" id="sr-billing">Acme Holdings BV</div>
+
+          <hr class="oid-hr" />
+          <h4 class="oid-side__h">Brand</h4>
+          <a class="pjd-brandlink" href="projects.html"><span class="pjd-brandchip__dot" style="background:#3d3aad"></span>Acme Corp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></a>
+
+          <hr class="oid-hr" />
+          <div class="oid-dates">
+            <div><h4 class="oid-side__h">Created</h4><div class="oid-side__v">12 Mar 2026</div></div>
+            <div><h4 class="oid-side__h">Last activity</h4><div class="oid-side__v">Today</div></div>
+          </div>
+
+          <hr class="oid-hr" />
+          <div class="oid-siderow"><h4 class="oid-side__h" style="margin:0">Users with access</h4>
+            <button class="btn btn--secondary btn--sm" data-set="access"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+          </div>
+          <button class="oid-access" data-set="access" type="button" title="Manage access" id="sr-access"></button>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+  </div>
+</div>
+
+<!-- modal system (self-contained, reuses projects.css .pj-ovl/.pj-modal) -->
+<div class="pj-ovl" id="pjd-ovl"><div class="pj-modal" id="pjd-modal"></div></div>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+  var fav = function (d) { return 'https://www.google.com/s2/favicons?domain=' + d + '&sz=64'; };
+  function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h; }
+  function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function marble(dom) {
+    var r = mulberry(hash(dom)), h0 = (r() * 360) | 0, h1 = (r() * 360) | 0, h2 = (r() * 360) | 0;
+    return 'radial-gradient(circle at ' + (12 + r() * 26 | 0) + '% ' + (12 + r() * 26 | 0) + '%, hsl(' + h1 + ',78%,64%), transparent 55%),' +
+      'radial-gradient(circle at ' + (58 + r() * 32 | 0) + '% ' + (16 + r() * 28 | 0) + '%, hsl(' + h2 + ',74%,58%), transparent 52%),' +
+      'radial-gradient(circle at ' + (30 + r() * 44 | 0) + '% ' + (66 + r() * 28 | 0) + '%, hsl(' + ((h0 + 42) % 360) + ',72%,52%), transparent 55%),hsl(' + h0 + ',66%,55%)';
+  }
+  var AV = ['#3d3aad', '#128a5a', '#b0791a', '#2f6bdd', '#d23b34', '#7c3aed'];
+  function avColor(n) { var h = 0; for (var i = 0; i < n.length; i++) h = n.charCodeAt(i) + h; return AV[h % AV.length]; }
+  function initials(n) { var p = n.trim().split(' '); return (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase(); }
+  function av(n) { return '<span class="av" style="background:' + avColor(n) + '" title="' + esc(n) + '">' + initials(n) + '</span>'; }
+
+  /* ---------- PROJECT (single sample: acme.com) ---------- */
+  var P = {
+    dom: 'acme.com', brand: 'Acme Corp', brandColor: '#3d3aad', status: 'Active',
+    budget: 5000, spent: 4100, billing: 'Acme Holdings BV', created: '12 Mar 2026',
+    team: ['Sayeed Khan', 'Liviu Pop', 'Maria Silva', 'Jose Garcia']
+  };
+  var thumb = marble(P.dom);
+  $('hdr-thumb').style.background = thumb; $('sr-thumb').style.background = thumb;
+
+  /* status buckets reused from the market/orders badges (.oi-b-*) */
+  var ST = { live: ['Live', 'oi-b-live'], progress: ['In progress', 'oi-b-progress'], queued: ['Queued', 'oi-b-queued'], done: ['Approved', 'oi-b-done'], canceled: ['Canceled', 'oi-b-canceled'] };
+  function statusPill(b) { var m = ST[b] || ['—', '']; return '<span class="oi-status ' + m[1] + '">' + m[0] + '</span>'; }
+  var TYPE = { gp: ['Guest post', 'oi-type--gp'], li: ['Link insertion', 'oi-type--li'] };
+  function typeBadge(t) { var m = TYPE[t] || [t, '']; return '<span class="oi-type ' + m[1] + '">' + m[0] + '</span>'; }
+  function originBadge(o) { return o === 'order' ? '<span class="pjd-origin pjd-origin--order">Purchased</span>' : '<span class="pjd-origin pjd-origin--import">Imported</span>'; }
+  function renewalPill(r) {
+    if (r === 'due') return '<span class="st-pill st-pending">Due soon</span>';
+    if (r === 'active') return '<span class="st-pill st-approved">Active</span>';
+    if (r === 'none') return '<span class="who-empty">—</span>';
+    return '<span class="st-pill st-ordered">Renewed</span>';
+  }
+
+  /* ---------- LINKS (purchased + imported) ---------- */
+  function L(media, origin, type, status, anchor, live, cost, renewal, renewDate) { return { media: media, origin: origin, type: type, status: status, anchor: anchor, live: live, cost: cost, renewal: renewal, renewDate: renewDate }; }
+  var LINKS = [
+    L('goal.com', 'order', 'gp', 'live', 'best casino apps', '2 Jun 2026', 5160, 'active', '2 Jun 2027'),
+    L('elpais.com', 'order', 'gp', 'live', 'apuestas online', '18 May 2026', 3760, 'due', '18 May 2027'),
+    L('techcrunch.com', 'import', 'li', 'live', 'acme platform', '3 Jan 2026', 0, 'due', '3 Jan 2027'),
+    L('corriere.it', 'order', 'gp', 'progress', 'migliori casinò', '—', 4460, 'none', ''),
+    L('theverge.com', 'import', 'li', 'live', 'acme review', '20 Nov 2025', 0, 'active', '20 Nov 2026'),
+    L('mynet.com', 'order', 'gp', 'live', 'bahis siteleri', '11 Apr 2026', 1065, 'active', '11 Apr 2027'),
+    L('forbes.com', 'import', 'li', 'live', 'acme funding', '8 Feb 2026', 0, 'due', '8 Feb 2027'),
+    L('fotmob.com', 'order', 'gp', 'queued', 'sports betting', '—', 2790, 'none', ''),
+    L('wired.com', 'import', 'li', 'live', 'acme security', '30 Dec 2025', 0, 'active', '30 Dec 2026'),
+    L('tribuna.com', 'order', 'li', 'live', 'acme.com', '5 Mar 2026', 2900, 'due', '5 Mar 2027'),
+    L('infobae.com', 'order', 'gp', 'canceled', 'casino latam', '—', 2260, 'none', ''),
+    L('aws.amazon.com', 'import', 'li', 'live', 'acme cloud', '14 Jan 2026', 0, 'active', '14 Jan 2027')
+  ];
+  var totalLinks = 128, renewalCost = 12400;
+
+  /* ---------- DRAFTS ---------- */
+  var DRAFTS = [
+    { name: 'Q3 casino push', by: 'Sayeed Khan', created: '2 days ago', media: 6, total: 18400, status: 'pending' },
+    { name: 'LatAm expansion', by: 'Maria Silva', created: '1 week ago', media: 4, total: 9200, status: 'approved' },
+    { name: 'Brand authority', by: 'Liviu Pop', created: '3 weeks ago', media: 3, total: 5400, status: 'pending' }
+  ];
+  /* ---------- MANAGED SERVICE PACKAGES ---------- */
+  var PACKAGES = [
+    { id: 'PK-217', name: 'Managed 6-link finance package', status: 'progress', items: [
+      { media: 'ft.com', type: 'gp', status: 'live', cost: 6200 }, { media: 'reuters.com', type: 'gp', status: 'progress', cost: 5400 },
+      { media: 'bloomberg.com', type: 'li', status: 'queued', cost: 4800 }
+    ] }
+  ];
+  /* ---------- ACTIVITY ---------- */
+  var ACTIVITY = [
+    { who: 'Sayeed Khan', act: 'placed order', tgt: 'ORD-1050 · 4 links', when: 'Today, 09:12', accent: true },
+    { who: 'Maria Silva', act: 'imported', tgt: '3 live links', when: 'Yesterday', accent: true },
+    { who: 'Liviu Pop', act: 'edited budget', tgt: '€4,500 → €5,000 / mo', when: '2 Jul 2026', accent: false },
+    { who: 'Sayeed Khan', act: 'added', tgt: 'Jose Garcia to access', when: '28 Jun 2026', accent: false },
+    { who: 'System', act: 'renewed', tgt: 'link on wired.com', when: '20 Jun 2026', accent: false },
+    { who: 'Sayeed Khan', act: 'created project', tgt: 'acme.com', when: '12 Mar 2026', accent: false }
+  ];
+
+  /* ================= SIDE RAIL ================= */
+  function paintRail() {
+    var rem = P.budget - P.spent;
+    $('sr-budget').textContent = fmt(P.budget); $('sr-spent').textContent = fmt(P.spent);
+    var re = $('sr-remain'); re.textContent = (rem < 0 ? '−' + fmt(-rem) : fmt(rem)); re.style.color = rem < 0 ? 'var(--red)' : '';
+    $('sr-billing').textContent = P.billing; $('sr-dom').textContent = P.dom;
+    var acc = $('sr-access'); acc.innerHTML = P.team.slice(0, 3).map(av).join('') + '<span class="oid-access__more">' + P.team.length + ' with access</span>';
+  }
+
+  /* ================= OVERVIEW ================= */
+  function paintOverview() {
+    var rem = P.budget - P.spent, avg = Math.round(P.spent / Math.max(1, LINKS.filter(function (l) { return l.origin === 'order'; }).length));
+    var due = LINKS.filter(function (l) { return l.renewal === 'due'; }).length;
+    $('ov-stats').innerHTML =
+      stat('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>', 'Total links', totalLinks, LINKS.filter(function (l) { return l.origin === 'order'; }).length + ' purchased · ' + LINKS.filter(function (l) { return l.origin === 'import'; }).length + ' imported (sample)') +
+      stat('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5a2.5 2.5 0 0 1 5 0c0 2.5-5 1.5-5 4a2.5 2.5 0 0 0 5 0"/></svg>', 'Avg. cost / link', fmt(avg), 'across purchased links') +
+      stat('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>', 'Renewal cost', fmt(renewalCost), 'per year, if all renewed') +
+      statv('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>', 'Links due for renewal', due, due ? 'action needed' : 'all up to date', due ? 'neg' : '');
+    $('ov-budget').innerHTML =
+      '<div class="pjd-budget__big"><span class="pjd-budget__k">Budget / mo</span><span class="pjd-budget__v">' + fmt(P.budget) + '</span></div>' +
+      '<div class="pjd-budget__big"><span class="pjd-budget__k">Spent</span><span class="pjd-budget__v">' + fmt(P.spent) + '</span></div>' +
+      '<div class="pjd-budget__big"><span class="pjd-budget__k">Remaining</span><span class="pjd-budget__v ' + (rem < 0 ? 'neg' : '') + '">' + (rem < 0 ? '−' + fmt(-rem) : fmt(rem)) + '</span></div>' +
+      '<div class="pjd-budget__note">' + Math.round(P.spent / P.budget * 100) + '% of this month\'s budget used. Budgets are a soft cap — you\'re warned as spend approaches it.</div>';
+    $('ov-recent').innerHTML = LINKS.slice(0, 5).map(function (l) {
+      return '<div class="pjd-mini__row"><span class="fav-ic"><img src="' + fav(l.media) + '" alt="" loading="lazy"/></span>' +
+        '<span class="pjd-mini__dom">' + esc(l.media) + '</span>' + originBadge(l.origin) +
+        '<span class="pjd-mini__meta pjd-mini__sp">' + (l.live === '—' ? 'not live yet' : 'live ' + esc(l.live)) + '</span>' + statusPill(l.status) + '</div>';
+    }).join('');
+  }
+  function stat(ic, k, v, sub) { return '<div class="pjd-stat"><span class="pjd-stat__k">' + ic + esc(k) + '</span><span class="pjd-stat__v">' + v + '</span><span class="pjd-stat__sub">' + esc(sub) + '</span></div>'; }
+  function statv(ic, k, v, sub, cls) { return '<div class="pjd-stat"><span class="pjd-stat__k">' + ic + esc(k) + '</span><span class="pjd-stat__v ' + cls + '">' + v + '</span><span class="pjd-stat__sub">' + esc(sub) + '</span></div>'; }
+
+  /* ================= LINKS ================= */
+  var lkState = { origin: 'all', search: '', page: 1, pageSize: 8 };
+  function lkVisible() {
+    var q = lkState.search.toLowerCase();
+    return LINKS.filter(function (l) {
+      if (lkState.origin !== 'all' && l.origin !== lkState.origin) return false;
+      if (q && (l.media + ' ' + l.anchor).toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+  }
+  function paintLinks() {
+    $('lo-all').textContent = LINKS.length;
+    $('lo-order').textContent = LINKS.filter(function (l) { return l.origin === 'order'; }).length;
+    $('lo-import').textContent = LINKS.filter(function (l) { return l.origin === 'import'; }).length;
+    $('tc-links').textContent = LINKS.length;
+    var all = lkVisible(), pages = Math.max(1, Math.ceil(all.length / lkState.pageSize));
+    if (lkState.page > pages) lkState.page = pages;
+    var list = all.slice((lkState.page - 1) * lkState.pageSize, lkState.page * lkState.pageSize);
+    $('lk-body').innerHTML = list.map(function (l) {
+      return '<tr class="data-row">' +
+        '<td class="tl"><span class="oi-media"><span class="fav-ic"><img src="' + fav(l.media) + '" alt="" loading="lazy"/></span><span class="oi-dom">' + esc(l.media) + '</span></span></td>' +
+        '<td class="tl">' + originBadge(l.origin) + '</td>' +
+        '<td class="tl">' + typeBadge(l.type) + '</td>' +
+        '<td class="tl">' + statusPill(l.status) + '</td>' +
+        '<td class="tl"><span class="pjd-mini__meta">' + esc(l.anchor) + '</span></td>' +
+        '<td class="tl">' + (l.live === '—' ? '<span class="who-empty">—</span>' : esc(l.live)) + '</td>' +
+        '<td>' + (l.cost ? '<span class="price-pill">' + fmt(l.cost) + '</span>' : '<span class="who-empty">—</span>') + '</td>' +
+        '<td class="tl">' + renewalPill(l.renewal) + '</td>' +
+        '<td><a class="oi-viewlink" href="../orders-ml3/order-item.html">View</a></td>' +
+      '</tr>';
+    }).join('');
+    renderPager($('lk-pager'), { page: lkState.page, pageSize: lkState.pageSize, total: all.length, sizes: [8, 25, 50] },
+      { page: function (p) { lkState.page = p; paintLinks(); }, size: function (s) { lkState.pageSize = s; lkState.page = 1; paintLinks(); } });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#lk-origin .stab'), function (t) {
+    t.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('#lk-origin .stab'), function (b) { b.setAttribute('aria-selected', b === t ? 'true' : 'false'); });
+      lkState.origin = t.getAttribute('data-origin'); lkState.page = 1; paintLinks();
+    });
+  });
+  $('lk-search').addEventListener('input', function () { lkState.search = this.value.trim(); lkState.page = 1; paintLinks(); });
+
+  /* ================= DRAFTS ================= */
+  var DRST = { pending: ['Pending', 'st-pending'], approved: ['Approved', 'st-approved'], ordered: ['Ordered', 'st-ordered'] };
+  function paintDrafts() {
+    $('tc-drafts').textContent = DRAFTS.length;
+    $('dr-body').innerHTML = DRAFTS.map(function (d) {
+      var m = DRST[d.status] || ['—', ''];
+      return '<tr class="data-row"><td class="tl"><span class="dr-title">' + esc(d.name) + '</span></td>' +
+        '<td class="tl">' + who(d.by) + '</td><td class="tl"><span class="dr-date">' + esc(d.created) + '</span></td>' +
+        '<td><span class="dr-mcount">' + d.media + '</span></td><td><span class="price-pill">' + fmt(d.total) + '</span></td>' +
+        '<td class="tl"><span class="st-pill ' + m[1] + '">' + m[0] + '</span></td>' +
+        '<td><a class="oi-viewlink" href="../market-ml3/drafts.html">Open</a></td></tr>';
+    }).join('');
+  }
+  function who(name) { return '<span class="who">' + av(name) + '<span class="who-nm">' + esc(name) + '</span></span>'; }
+
+  /* ================= MANAGED SERVICES ================= */
+  function paintManaged() {
+    $('tc-managed').textContent = PACKAGES.length;
+    $('ms-list').innerHTML = PACKAGES.map(function (p) {
+      var total = p.items.reduce(function (s, i) { return s + i.cost; }, 0);
+      return '<div class="pjd-pkg"><div class="pjd-pkg__head"><span class="pjd-pkg__tag">Package</span>' +
+        '<span class="pjd-pkg__nm">' + esc(p.name) + '</span><span class="pjd-pkg__id">' + esc(p.id) + '</span>' +
+        '<span class="spacer" style="flex:1"></span>' + statusPill(p.status) + '</div>' +
+        '<div class="pjd-pkg__body"><table class="m-table"><tbody>' + p.items.map(function (i) {
+          return '<tr class="data-row"><td class="tl"><span class="oi-media"><span class="fav-ic"><img src="' + fav(i.media) + '" alt="" loading="lazy"/></span><span class="oi-dom">' + esc(i.media) + '</span></span></td>' +
+            '<td class="tl">' + typeBadge(i.type) + '</td><td class="tl">' + statusPill(i.status) + '</td>' +
+            '<td><span class="price-pill">' + fmt(i.cost) + '</span></td><td><a class="oi-viewlink" href="../orders-ml3/order-item.html">View</a></td></tr>';
+        }).join('') + '</tbody></table>' +
+        '<div class="oid-side__v" style="text-align:right;padding-top:8px">' + p.items.length + ' links · <b>' + fmt(total) + '</b></div></div></div>';
+    }).join('');
+  }
+
+  /* ================= RENEWALS ================= */
+  function paintRenewals() {
+    var due = LINKS.filter(function (l) { return l.renewal === 'due' || l.renewal === 'active'; });
+    $('tc-renewals').textContent = LINKS.filter(function (l) { return l.renewal === 'due'; }).length;
+    $('rn-body').innerHTML = due.map(function (l) {
+      var yr = l.cost || 2400;
+      return '<tr class="data-row"><td class="tl"><span class="oi-media"><span class="fav-ic"><img src="' + fav(l.media) + '" alt="" loading="lazy"/></span><span class="oi-dom">' + esc(l.media) + '</span></span></td>' +
+        '<td class="tl">' + esc(l.live) + '</td><td class="tl">' + esc(l.renewDate) + '</td>' +
+        '<td><span class="price-pill">' + fmt(yr) + '</span></td><td class="tl">' + renewalPill(l.renewal) + '</td>' +
+        '<td><div class="dr-acts"><details class="menu"><summary class="btn--iconxs">⋯</summary><div class="menu__pop"><button class="menu__item" data-toast="Renewal scheduled for ' + esc(l.media) + '">Renew now</button><button class="menu__item menu__item--danger" data-toast="Renewal canceled for ' + esc(l.media) + '">Cancel renewal</button></div></details></div></td></tr>';
+    }).join('');
+    bindToasts();
+  }
+
+  /* ================= ACTIVITY ================= */
+  function paintActivity() {
+    $('ac-timeline').innerHTML = ACTIVITY.map(function (a) {
+      return '<div class="pjd-tl"><span class="pjd-tl__dot' + (a.accent ? '' : ' is-muted') + '"></span>' +
+        '<div class="pjd-tl__t"><b>' + esc(a.who) + '</b> ' + esc(a.act) + ' <b>' + esc(a.tgt) + '</b></div>' +
+        '<div class="pjd-tl__meta">' + esc(a.when) + '</div></div>';
+    }).join('');
+  }
+
+  /* ================= TABS ================= */
+  var tabs = $('pjd-tabs'), panes = Array.prototype.slice.call(document.querySelectorAll('.oid-tabpane'));
+  function showTab(name) {
+    Array.prototype.forEach.call(tabs.querySelectorAll('.appbar-tab'), function (b) { b.classList.toggle('is-active', b.getAttribute('data-tab') === name); });
+    panes.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-pane') === name); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  tabs.addEventListener('click', function (e) { var t = e.target.closest('.appbar-tab'); if (t) showTab(t.getAttribute('data-tab')); });
+  document.addEventListener('click', function (e) { var g = e.target.closest('[data-goto]'); if (g) showTab(g.getAttribute('data-goto')); });
+
+  /* ================= MODALS ================= */
+  var ovl = $('pjd-ovl'), modalEl = $('pjd-modal');
+  function openModal(html) { modalEl.innerHTML = html; ovl.classList.add('is-open'); }
+  function closeModal() { ovl.classList.remove('is-open'); }
+  ovl.addEventListener('click', function (e) { if (e.target === ovl || e.target.closest('[data-close]')) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  function mhead(title, sub) {
+    return '<div class="pj-modal__head"><div class="pj-modal__htext"><div class="pj-modal__title">' + esc(title) + '</div>' + (sub ? '<div class="pj-modal__sub">' + sub + '</div>' : '') + '</div>' +
+      '<button class="pj-modal__x" data-close><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>';
+  }
+  function toast(msg) { var t = document.createElement('div'); t.className = 'ord-toast'; t.textContent = msg; document.body.appendChild(t); requestAnimationFrame(function () { t.classList.add('on'); }); setTimeout(function () { t.classList.remove('on'); setTimeout(function () { t.remove(); }, 250); }, 1900); }
+  function bindToasts() { document.querySelectorAll('[data-toast]').forEach(function (b) { if (b.__b) return; b.__b = 1; b.addEventListener('click', function () { var d = b.closest('details'); if (d) d.removeAttribute('open'); toast(b.getAttribute('data-toast')); }); }); }
+
+  function settingsAction(a) {
+    if (a === 'name') openEditName();
+    else if (a === 'budget') openEditBudget();
+    else if (a === 'reset') openReset();
+    else if (a === 'import') openImport();
+    else if (a === 'access') openAccess();
+    else if (a === 'archive') openArchive();
+  }
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('[data-set]'); if (s) { var d = s.closest('details'); if (d) d.removeAttribute('open'); settingsAction(s.getAttribute('data-set')); }
+    var imp = e.target.closest('#act-import'); if (imp) openImport();
+  });
+
+  function openEditName() {
+    openModal(mhead('Edit name', 'The domain this project runs campaigns for.') +
+      '<div class="pj-modal__body"><div class="pjd-field"><label class="pjd-field__label">Domain</label><input class="pjd-input" id="en-dom" value="' + esc(P.dom) + '" /></div></div>' +
+      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="en-save">Save</button></div>');
+    $('en-save').addEventListener('click', function () { var v = $('en-dom').value.trim(); if (v) { P.dom = v; var g = marble(v); $('hdr-thumb').style.background = g; $('sr-thumb').style.background = g; $('hdr-dom').textContent = v; $('sr-dom').textContent = v; } closeModal(); toast('Project name updated'); });
+  }
+  function openEditBudget() {
+    openModal(mhead('Edit budget & billing') +
+      '<div class="pj-modal__body"><div class="pjd-field"><label class="pjd-field__label">Monthly budget</label><div class="pjd-money"><span class="cur">€</span><input class="pjd-input" id="eb-budget" value="' + P.budget.toLocaleString('en-US') + '" /><span class="per">Per month</span></div></div>' +
+      '<div class="pjd-field"><label class="pjd-field__label">Billing entity</label><select class="pjd-select" id="eb-billing"><option>Acme Holdings BV</option><option>Globex Ltd</option><option>BitWave OÜ</option><option>Initech GmbH</option></select></div></div>' +
+      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="eb-save">Save</button></div>');
+    $('eb-billing').value = P.billing;
+    $('eb-save').addEventListener('click', function () { P.budget = parseInt($('eb-budget').value.replace(/[^0-9]/g, ''), 10) || P.budget; P.billing = $('eb-billing').value; closeModal(); paintRail(); paintOverview(); toast('Budget & billing updated'); });
+  }
+  function openReset() {
+    openModal(mhead('Reset budget', 'This sets <b>Spent</b> back to €0 for <b>' + esc(P.dom) + '</b>. The monthly budget is unchanged.') +
+      '<div class="pj-modal__body"><div class="pj-callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg><span>Currently <b>' + fmt(P.spent) + '</b> spent this month. Resetting clears the counter — it doesn\'t refund anything.</span></div></div>' +
+      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn pjd-btn-danger" id="rb-go">Reset budget</button></div>');
+    $('rb-go').addEventListener('click', function () { P.spent = 0; closeModal(); paintRail(); paintOverview(); toast('Budget reset for ' + P.dom); });
+  }
+  function openImport() {
+    openModal(mhead('Import live links', 'Add links you already have (outside Motherlink) so they show here with the ordered ones.') +
+      '<div class="pj-modal__body"><div class="pjd-field"><label class="pjd-field__label">Paste URLs (one per line)</label><textarea class="pjd-input" style="height:auto;min-height:88px;padding:9px 12px" id="im-urls" placeholder="https://example.com/article&#10;https://another.com/post"></textarea></div>' +
+      '<div class="pjd-field" style="margin:0"><label class="pjd-field__label">…or upload a CSV</label><div class="pjd-drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><div>Drop a CSV here or click to browse</div></div></div></div>' +
+      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="im-go">Import links</button></div>');
+    $('im-go').addEventListener('click', function () { var n = ($('im-urls').value.trim().split(/\n+/).filter(Boolean)).length; closeModal(); toast(n ? 'Imported ' + n + ' link(s)' : 'Import started'); });
+  }
+  function openAccess() {
+    var members = P.team.slice();
+    openModal(mhead('Manage access', 'People who can view and manage <b>' + esc(P.dom) + '</b>.') +
+      '<div class="pj-modal__body"><div class="pj-field"><label class="pj-field__label">Team members</label><div class="pj-invite" id="ma-invite"></div></div></div>' +
+      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="ma-save">Save</button></div>');
+    var DIR = ['Sayeed Khan', 'Liviu Pop', 'Maria Silva', 'Jose Garcia', 'Ana Ruiz', 'Tom Lee'];
+    function chips() { return members.map(function (u) { return '<span class="pj-chipuser">' + av(u) + esc(u) + '<button type="button" data-un="' + esc(u) + '"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>'; }).join('') + '<button type="button" class="pj-invite__add" data-add><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add people</button>'; }
+    var host = $('ma-invite'); host.innerHTML = chips();
+    host.addEventListener('click', function (e) {
+      var rm = e.target.closest('[data-un]'); if (rm) { var i = members.indexOf(rm.getAttribute('data-un')); if (i > -1) members.splice(i, 1); host.innerHTML = chips(); return; }
+      if (e.target.closest('[data-add]')) { var nx = DIR.filter(function (u) { return members.indexOf(u) === -1; })[0]; if (nx) { members.push(nx); host.innerHTML = chips(); } else toast('Everyone is already invited'); }
+    });
+    $('ma-save').addEventListener('click', function () { P.team = members.slice(); closeModal(); paintRail(); toast('Access updated'); });
+  }
+  function openArchive() {
+    openModal(mhead('Archive project', 'Archiving hides <b>' + esc(P.dom) + '</b> from the active list. Its link history is kept and you can unarchive anytime.') +
+      '<div class="pj-modal__body"></div>' +
+      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn pjd-btn-danger" id="ar-go">Archive project</button></div>');
+    $('ar-go').addEventListener('click', function () { P.status = 'Archived'; $('hdr-status').textContent = 'Archived'; $('hdr-status').className = 'st-pill st-ordered'; $('sr-status').textContent = 'Archived'; $('sr-status').className = 'st-pill st-ordered'; closeModal(); toast(P.dom + ' archived'); });
+  }
+
+  /* side-rail status dropdown */
+  document.querySelectorAll('[data-status]').forEach(function (o) {
+    o.addEventListener('click', function () { var d = o.closest('details'); if (d) d.removeAttribute('open'); if (o.getAttribute('data-status') === 'Archived') openArchive(); });
+  });
+
+  /* close dropdowns on outside click + basket badge */
+  document.addEventListener('click', function (e) { document.querySelectorAll('details[open]').forEach(function (dt) { if (!dt.contains(e.target)) dt.removeAttribute('open'); }); });
+  try { var cart = JSON.parse(localStorage.getItem('ml-cart') || '{}'); var n = Object.keys(cart).length, badge = document.querySelector('.ab-cart__count'); if (badge) { badge.textContent = n; badge.style.display = n ? '' : 'none'; } } catch (e) {}
+
+  /* ---- init ---- */
+  paintRail(); paintOverview(); paintLinks(); paintDrafts(); paintManaged(); paintRenewals(); paintActivity();
+})();
+</script>
+<script src="../system-ml3/usermenu.js"></script>
+</body>
+</html>

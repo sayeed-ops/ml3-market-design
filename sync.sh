@@ -15,7 +15,7 @@ for d in market-ml3 orders-ml3 account-ml3 projects-ml3 system-ml3 settings-ml3 
   fi
 done
 
-echo "→ Syncing market-ml3 + orders-ml3 + account-ml3 + system-ml3 + settings-ml3 + library from:"
+echo "→ Syncing market-ml3 + orders-ml3 + account-ml3 + projects-ml3 + system-ml3 + settings-ml3 + library from:"
 echo "    $SRC"
 echo "  into:"
 echo "    $DST"

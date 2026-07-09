@@ -1,0 +1,103 @@
+/* ============================================================================
+   PROJECT DETAIL (projects-ml3/project.html)
+   Reuses the order-item detail shell (.oid-* in orders-ml3/order-item.css),
+   market shell/table/badges, details.css .d-*/.fm-*, and projects.css .pj-thumb.
+   Only project-specific bits live here, prefixed .pjd-*.
+   ============================================================================ */
+
+/* tab count badge + dropdown extras (not in the shared sheets) */
+.al-th-cnt { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 5px; border-radius: 999px; background: var(--bg-sunken);
+  font-size: var(--fs-11); font-weight: var(--fw-semibold); color: var(--text-muted); text-align: center; vertical-align: middle; }
+.appbar-tab.is-active .al-th-cnt { background: var(--accent-tint); color: var(--accent); }
+.fpop__sep { height: 1px; background: var(--border); margin: 4px 6px; }
+.vopt--danger { color: var(--red); }
+.vopt--danger:hover { background: var(--red-bg, #fef3f2); }
+
+/* App Bar detail: brand chip + status */
+.pjd-brandchip { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-secondary); }
+.pjd-brandchip__dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.pjd-appthumb { width: 24px; height: 24px; border-radius: 7px; flex: none; }
+
+/* Overview — stat cards */
+.pjd-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); margin-bottom: var(--space-4); }
+@media (max-width: 720px) { .pjd-stats { grid-template-columns: repeat(2, 1fr); } }
+.pjd-stat { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+.pjd-stat__k { display: flex; align-items: center; gap: 6px; font-size: var(--fs-12); color: var(--text-muted); }
+.pjd-stat__k svg { width: 14px; height: 14px; color: var(--text-faint); }
+.pjd-stat__v { display: block; font-size: var(--fs-22); font-weight: var(--fw-semibold); color: var(--text); letter-spacing: var(--tracking); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.pjd-stat__v.neg { color: var(--red); }
+.pjd-stat__sub { display: block; font-size: var(--fs-12); color: var(--text-faint); margin-top: 2px; }
+
+/* keep media favicons compact + inline inside this page's tables/lists
+   (.fav-ic has no base style in the shared sheets — it must be sized per context,
+   and the <img> constrained, or the 64px favicon overflows) */
+.oid-main .fav-ic { width: 20px; height: 20px; border-radius: 5px; flex: none; display: grid; place-items: center;
+  overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--border); }
+.oid-main .fav-ic img { width: 13px; height: 13px; display: block; }
+.oid-main .oi-media { display: inline-flex; align-items: center; gap: 9px; min-width: 0; }
+.oid-main .oi-dom { font-size: var(--fs-13); font-weight: var(--fw-medium); color: var(--text); }
+.pjd-mini__row .fav-ic { width: 24px; height: 24px; border-radius: 6px; }
+.pjd-mini__row .fav-ic img { width: 15px; height: 15px; }
+
+/* Overview — budget card */
+.pjd-budget { display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-end; }
+.pjd-budget__big { display: flex; flex-direction: column; gap: 2px; }
+.pjd-budget__k { font-size: var(--fs-12); color: var(--text-muted); }
+.pjd-budget__v { font-size: var(--fs-24); font-weight: var(--fw-semibold); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: var(--tracking); }
+.pjd-budget__v.neg { color: var(--red); }
+.pjd-budget__note { font-size: var(--fs-12); color: var(--text-muted); margin-left: auto; max-width: 40ch; }
+
+/* mini recent list */
+.pjd-mini { display: flex; flex-direction: column; }
+.pjd-mini__row { display: flex; align-items: center; gap: 11px; padding: 9px 0; border-top: 1px solid var(--border); font-size: var(--fs-13); }
+.pjd-mini__row:first-child { border-top: 0; }
+.pjd-mini__dom { font-weight: var(--fw-medium); color: var(--text); }
+.pjd-mini__meta { color: var(--text-muted); font-size: var(--fs-12); }
+.pjd-mini__sp { margin-left: auto; }
+
+/* origin badge */
+.pjd-origin { display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: var(--radius-sm); font-size: var(--fs-11); font-weight: var(--fw-semibold); }
+.pjd-origin--order { background: var(--accent-tint); color: var(--accent); }
+.pjd-origin--import { background: var(--bg-sunken); color: var(--text-secondary); }
+.pjd-origin--renewal { background: #eef7ee; color: #2f7d32; }
+
+/* toolbar row for tables inside panes */
+.pjd-toolbar { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); flex-wrap: wrap; }
+.pjd-toolbar .search { margin-left: auto; }
+
+/* managed-service package card */
+.pjd-pkg { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--space-3); box-shadow: var(--shadow-sm); }
+.pjd-pkg__head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--accent-tint); border-bottom: 1px solid var(--border); }
+.pjd-pkg__tag { font-size: var(--fs-11); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: .04em; color: var(--accent); background: var(--bg); padding: 2px 8px; border-radius: 999px; }
+.pjd-pkg__nm { font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text); }
+.pjd-pkg__id { font-size: var(--fs-12); color: var(--text-muted); }
+.pjd-pkg__body { padding: 6px 16px 14px; }
+
+/* activity timeline */
+.pjd-timeline { position: relative; padding-left: 26px; }
+.pjd-timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 1.5px; background: var(--border); }
+.pjd-tl { position: relative; padding: 10px 0; }
+.pjd-tl__dot { position: absolute; left: -22px; top: 13px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.pjd-tl__dot.is-muted { border-color: var(--text-faint); }
+.pjd-tl__t { font-size: var(--fs-13); color: var(--text); }
+.pjd-tl__t b { font-weight: var(--fw-semibold); }
+.pjd-tl__meta { font-size: var(--fs-12); color: var(--text-muted); margin-top: 2px; }
+
+/* side-rail budget rows */
+.pjd-brandlink { display: inline-flex; align-items: center; gap: 7px; color: var(--text); text-decoration: none; font-weight: var(--fw-medium); }
+.pjd-brandlink:hover { color: var(--accent); }
+.pjd-brandlink svg { width: 14px; height: 14px; color: var(--text-faint); }
+
+/* generic form field reused in project modals (self-contained) */
+.pjd-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.pjd-field__label { font-size: var(--fs-13); font-weight: var(--fw-medium); color: var(--text-secondary); }
+.pjd-input, .pjd-select { height: 38px; padding: 0 12px; width: 100%; font: inherit; font-size: var(--fs-14); color: var(--text); background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-md); }
+.pjd-input:focus, .pjd-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+.pjd-money { position: relative; }
+.pjd-money .cur { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-faint); }
+.pjd-money .pjd-input { padding-left: 30px; padding-right: 84px; }
+.pjd-money .per { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: var(--fs-13); font-weight: var(--fw-semibold); }
+.pjd-btn-danger { background: var(--red); color: #fff; }
+.pjd-btn-danger:hover { background: var(--red-hover, #c02b22); }
+.pjd-drop { border: 1.5px dashed var(--border-strong); border-radius: var(--radius-md); padding: 22px; text-align: center; color: var(--text-muted); font-size: var(--fs-13); background: var(--bg-subtle); }
+.pjd-drop svg { width: 22px; height: 22px; color: var(--text-faint); margin-bottom: 6px; }
