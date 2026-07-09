@@ -505,23 +505,47 @@ just references them). Page-gallery cards added for Orders, All links, Order ite
 page, add its card(s) + any new shared component to the library too.** Verify with a headless probe (deep-scroll
 screenshots hit a blank-band artifact — render the section near the top of a scratch page instead).
 
-## Next up — Projects page (start here in a new chat)
-The **Projects** sidebar item is the only top-level nav not yet built (still `href="#"` in every mockup sidebar).
-In the real app "Projects" = the **brands** area, so build two screens and wire them up:
-- **Projects list** → `projects.html`. Source: `pages/brands/index.vue` (prod `/brands`). A brand→project list
-  (budget / entity balance, live-link counts, renewal status). **Reuse the Orders/Drafts list shell**: sidebar +
-  App Bar Section + `.m-table` + status segments + `renderPager`.
-- **Project detail** → `project.html`. Source: `pages/brands/_slug/projects/_id.vue` + `components/projects/*`
-  (`OverviewCard`, `DraftsTab`, `ManagedServicesTab`, `RenewalList`/`RenewalBadge`, `ImportLinks`+`ImportLinksModal`,
-  `UpdateBudgetModal`, `ShareModal`, `HistoryList`, `UnarchiveModal`). **Reuse the `order-item.html` detail shell**:
-  App Bar Detail + docked `.appbar-tabs` (Overview / Live links / Drafts / Managed services / Renewals / History),
-  the sticky `.oid-side` rail, and the `.oid-modal`/`.oid-drawer` system (Share modal ≈ the manage-access modal).
-- Then wire the sidebar **Projects** link (in index/drafts/orders/all-links/order-item) → `projects.html`, and the
-  list rows' "View" / "Open" → `project.html`.
-- **Source of truth (read, don't guess):** the Vue files above + `values/pages/{brand,project}/index.js` for
-  route/nav meta + permission gates. Renewal statuses reuse the All-links Renewal-status set. Everything you need —
-  App Bar variants, status/type badges, modal system, table shell, manage-access pattern — is already built and
-  documented in `library/index.html`.
+## Projects area (`projects-ml3/`) — workspace built 2026-07-07; detail page still to build
+In the real app "Projects" = the **brands** area (`pages/brands/index.vue`, prod `/brands`). The real UX is
+**brand-first with a second sidebar** listing brands — bad: a double nav rail, projects demoted to cards inside a
+brand, and no cross-brand view. **Redesigned IA (agreed with user):** keep the ONE universal sidebar; make
+**projects the primary object** and turn **brand into an App-Bar SCOPE switcher**, not a nav rail.
+
+**`projects-ml3/projects.html` (BUILT + verified).** Links `../market-ml3/styles.css` + `../market-ml3/pager.js`
++ `./projects.css`. Reuses the Orders list shell (`.m-table`, `.m-statseg`, `.m-toolbar`, `.m-bulk`, `renderPager`,
+`.ord-toast`, `.menu`). New pieces (all in `projects.css`, prefixed `.ab-scoper`/`.bpop`/`.pj-*`/`.bcard`):
+- **App Bar:** title "Projects" + **brand scoper** (`#scoper`, a `<details>` pill → `.bpop` panel: search · **All
+  brands** · brand list w/ project counts · **＋ New brand** · **Manage brands**) + **＋ New project** CTA + global cluster.
+- **Context band (`#pj-context`, JS-rendered):** scope = *All brands* → **portfolio summary** (`.pj-portfolio` stat
+  tiles: Brands · Active projects · Budget/mo · Spent · Remaining · Renewals due). Scope = one brand → **brand
+  context bar** (`.pj-brandbar`: brand identity + budget meter + shared-user avatars + **Brand settings** menu:
+  Edit brand / Reset budget / Manage access / Back to all brands). This is where brand stays important without a rail.
+- **Projects table** (project-first, cross-brand by default): Project (**generated "marble/mesh" thumbnail**
+  `projThumb(dom)` — deterministic multi-blob radial-gradient à la Boring Avatars, seeded by a `mulberry(hash(dom))`
+  PRNG, NO letter/favicon, so every new project gets its own tile; user picked this over a flat-gradient monogram
+  2026-07-07) + domain · **Brand** (chip, hidden via `.m-table.pj-scoped .col-brand` when scoped) · Budget/mo · Spent ·
+  Remaining (plain value, red when over) · **Links** · Team avatars · ⋯ (Open / Project settings / Reset budget /
+  Archive|Restore). Active / Archived segments, sort, search, bulk (Manage access / Archive), pager.
+  **Design decisions (user, 2026-07-07): NO progress bars anywhere** (per-row + brand meters removed — devs won't
+  implement them; budget shown as `spent / budget · %` text); **Renewals column removed** (kept only as a portfolio
+  summary tile + a line on brand cards — revisit if the user wants it fully gone); column is **"Links"** not "Live links".
+- **Manage brands drawer** (`#pj-drawer`, right slide-over): brand cards (`.bcard`: projects · budget meter · remaining ·
+  team · renewals · **Open** → scopes to it) + **＋ New brand**. The brands' home without being a sidebar.
+- **Create flows** (`#pj-ovl`/`.pj-modal`, mock-functional → prepend to data + toast): **New brand** (name · description ·
+  dedicated-manager card · invite team — from `components/brand/AddModal.vue`); **New project wizard** (steps from
+  `components/brand/projects/AddModal.vue`: [Brand — only when launched from *All brands* scope] → Domain+desc → Budget/mo
+  + billing entity → Invite team). Data model: **brand = your company; project = a domain under it** (per the real
+  AddModal hint). Sample = 4 brands / 12 active + 2 archived projects.
+
+**Still to build — `projects-ml3/project.html` (project DETAIL).** Row "Open project" currently just toasts a
+placeholder (no dead link). Source: `pages/brands/_slug/projects/_id.vue` + `components/projects/*` (`OverviewCard`,
+`DraftsTab`, `ManagedServicesTab`, `RenewalList`/`RenewalBadge`, `ImportLinks`+`ImportLinksModal`, `UpdateBudgetModal`,
+`ShareModal`, `HistoryList`, `UnarchiveModal`). **Reuse the `order-item.html` detail shell**: App Bar Detail + docked
+`.appbar-tabs` (Overview / Live links / Drafts / Managed services / Renewals / History) + sticky `.oid-side` rail +
+`.oid-modal`/`.oid-drawer` system (Share modal ≈ manage-access). Breadcrumb `‹ Projects` + a `Brand ▸ Project` chip.
+Then wire `.pj-proj` / row-menu "Open" → `project.html`. **Add projects.html (+ project.html) cards to `library/`.**
+- The sidebar **Projects** link is now wired to `../projects-ml3/projects.html` in index/drafts/orders/all-links.
+- **Source of truth:** the Vue files above + `values/pages/{brand,project}/index.js`.
 
 ## Data model = the real app (source of truth)
 When you need exact fields/labels/enums, read these (NOT the mockup):

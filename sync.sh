@@ -8,7 +8,7 @@ SRC="/Users/sayeed/Ai projects/ml3-ui/design-mockups"
 # Destination: this repo (the directory this script lives in).
 DST="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for d in market-ml3 orders-ml3 account-ml3 system-ml3 settings-ml3 library; do
+for d in market-ml3 orders-ml3 account-ml3 projects-ml3 system-ml3 settings-ml3 library; do
   if [ ! -d "$SRC/$d" ]; then
     echo "✗ Source folder missing: $SRC/$d" >&2
     exit 1
@@ -26,6 +26,7 @@ echo "    $DST"
 rsync -a --delete --exclude '.DS_Store' "$SRC/market-ml3/"   "$DST/market-ml3/"
 rsync -a --delete --exclude '.DS_Store' "$SRC/orders-ml3/"   "$DST/orders-ml3/"
 rsync -a --delete --exclude '.DS_Store' "$SRC/account-ml3/"  "$DST/account-ml3/"
+rsync -a --delete --exclude '.DS_Store' "$SRC/projects-ml3/" "$DST/projects-ml3/"
 rsync -a --delete --exclude '.DS_Store' "$SRC/system-ml3/"   "$DST/system-ml3/"
 rsync -a --delete --exclude '.DS_Store' --exclude '.backup-pre-ux' "$SRC/settings-ml3/" "$DST/settings-ml3/"
 rsync -a --delete --exclude '.DS_Store' "$SRC/library/"      "$DST/library/"
