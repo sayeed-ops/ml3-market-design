@@ -170,6 +170,7 @@
 .pj-field { display: flex; flex-direction: column; gap: 6px; }
 .pj-field__label { font-size: var(--fs-13); font-weight: var(--fw-medium); color: var(--text-secondary); }
 .pj-field__req { color: var(--red); }
+.pj-field__opt { color: var(--text-faint); font-weight: var(--fw-regular, 400); font-size: var(--fs-12); }
 .pj-field__hint { font-size: var(--fs-12); color: var(--text-muted); }
 .pj-input { height: 38px; padding: 0 12px; width: 100%; font: inherit; font-size: var(--fs-14); color: var(--text); background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-md); }
 .pj-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }

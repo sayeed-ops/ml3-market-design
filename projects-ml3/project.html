@@ -291,7 +291,7 @@
     var rem = P.budget - P.spent;
     $('sr-budget').textContent = fmt(P.budget); $('sr-spent').textContent = fmt(P.spent);
     var re = $('sr-remain'); re.textContent = (rem < 0 ? '−' + fmt(-rem) : fmt(rem)); re.style.color = rem < 0 ? 'var(--red)' : '';
-    $('sr-billing').textContent = P.billing; $('sr-dom').textContent = P.dom;
+    $('sr-billing').textContent = P.billing || 'None'; $('sr-dom').textContent = P.dom;
     var acc = $('sr-access'); acc.innerHTML = P.team.slice(0, 3).map(av).join('') + '<span class="oid-access__more">' + P.team.length + ' with access</span>';
   }
 
@@ -460,7 +460,7 @@
   function openEditBudget() {
     openModal(mhead('Edit budget & billing') +
       '<div class="pj-modal__body"><div class="pjd-field"><label class="pjd-field__label">Monthly budget</label><div class="pjd-money"><span class="cur">€</span><input class="pjd-input" id="eb-budget" value="' + P.budget.toLocaleString('en-US') + '" /><span class="per">Per month</span></div></div>' +
-      '<div class="pjd-field"><label class="pjd-field__label">Billing entity</label><select class="pjd-select" id="eb-billing"><option>Acme Holdings BV</option><option>Globex Ltd</option><option>BitWave OÜ</option><option>Initech GmbH</option></select></div></div>' +
+      '<div class="pjd-field"><label class="pjd-field__label">Billing entity <span class="pj-field__opt">· Optional</span></label><select class="pjd-select" id="eb-billing"><option value="">None — no billing entity</option><option>Acme Holdings BV</option><option>Globex Ltd</option><option>BitWave OÜ</option><option>Initech GmbH</option></select><p class="pj-note" style="margin-top:6px">Locked once an order is linked — contact your manager to change.</p></div></div>' +
       '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="eb-save">Save</button></div>');
     $('eb-billing').value = P.billing;
     $('eb-save').addEventListener('click', function () { P.budget = parseInt($('eb-budget').value.replace(/[^0-9]/g, ''), 10) || P.budget; P.billing = $('eb-billing').value; closeModal(); paintRail(); paintOverview(); toast('Budget & billing updated'); });
