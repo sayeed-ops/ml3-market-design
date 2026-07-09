@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="./projects.css" />
   <link rel="stylesheet" href="./project.css" />
   <script src="../market-ml3/pager.js"></script>
+  <script src="./access.js"></script>
 </head>
 <body>
 <div class="m-app">
@@ -427,7 +428,7 @@
   /* ================= MODALS ================= */
   var ovl = $('pjd-ovl'), modalEl = $('pjd-modal');
   function openModal(html) { modalEl.innerHTML = html; ovl.classList.add('is-open'); }
-  function closeModal() { ovl.classList.remove('is-open'); }
+  function closeModal() { ovl.classList.remove('is-open'); modalEl.classList.remove('pjd-wide'); }
   ovl.addEventListener('click', function (e) { if (e.target === ovl || e.target.closest('[data-close]')) closeModal(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
   function mhead(title, sub) {
@@ -470,25 +471,63 @@
       '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn pjd-btn-danger" id="rb-go">Reset budget</button></div>');
     $('rb-go').addEventListener('click', function () { P.spent = 0; closeModal(); paintRail(); paintOverview(); toast('Budget reset for ' + P.dom); });
   }
+  /* Import live links — 3-step wizard mirroring components/projects/ImportLinksModal.vue */
   function openImport() {
-    openModal(mhead('Import live links', 'Add links you already have (outside Motherlink) so they show here with the ordered ones.') +
-      '<div class="pj-modal__body"><div class="pjd-field"><label class="pjd-field__label">Paste URLs (one per line)</label><textarea class="pjd-input" style="height:auto;min-height:88px;padding:9px 12px" id="im-urls" placeholder="https://example.com/article&#10;https://another.com/post"></textarea></div>' +
-      '<div class="pjd-field" style="margin:0"><label class="pjd-field__label">…or upload a CSV</label><div class="pjd-drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><div>Drop a CSV here or click to browse</div></div></div></div>' +
-      '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="im-go">Import links</button></div>');
-    $('im-go').addEventListener('click', function () { var n = ($('im-urls').value.trim().split(/\n+/).filter(Boolean)).length; closeModal(); toast(n ? 'Imported ' + n + ' link(s)' : 'Import started'); });
+    modalEl.classList.add('pjd-wide');
+    var wz = { step: 1, file: null };
+    var STEPS = ['Download template', 'Upload file', 'Import summary'];
+    function rail() {
+      return '<div class="pj-wz">' + STEPS.map(function (s, i) {
+        var cls = i === wz.step - 1 ? 'is-active' : (i < wz.step - 1 ? 'is-done' : '');
+        return '<div class="pj-wz__step ' + cls + '"><span class="pj-wz__num">' + (i < wz.step - 1 ? '✓' : (i + 1)) + '</span>' + s + '</div>' + (i < STEPS.length - 1 ? '<span class="pj-wz__bar"></span>' : '');
+      }).join('') + '</div>';
+    }
+    function draw() {
+      var body, foot;
+      if (wz.step === 1) {
+        body = '<div class="pjd-import-why"><div class="pjd-import-why__h">Why import your link history?</div>' +
+          '<p>Importing your link history lets you instantly see whether you already have a backlink on a site while selecting new placements — helping you avoid duplication. It also consolidates all links (imported + purchased) in Analytics for a complete performance overview.</p></div>' +
+          '<div class="pjd-import-card"><h4>Download template</h4><p>Import your data by downloading the template and completing it with your details.</p>' +
+          '<a class="btn btn--secondary btn--sm" data-toast="Template downloaded (link_history_template.csv)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Download</a></div>';
+        foot = '<button class="btn btn--ghost" data-close>Cancel</button><span class="grow"></span><button class="btn btn--primary" id="im-next">Next</button>';
+      } else if (wz.step === 2) {
+        body = wz.file
+          ? '<div class="pjd-import-card"><div class="pjd-filerow"><span class="pjd-fileic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>' +
+            '<div class="pjd-filemeta"><div class="pjd-filenm">' + esc(wz.file.name) + '</div><div class="pjd-filesz">' + wz.file.size + ' kb</div></div>' +
+            '<button class="btn--iconxs" id="im-rm" title="Remove"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></button></div></div>'
+          : '<div class="pjd-drop pjd-drop--lg" id="im-drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>' +
+            '<div class="pjd-drop__t">Drag &amp; drop .csv file here</div><div class="pjd-drop__s">Or, click to upload <span class="ul">here</span>.</div></div>';
+        foot = '<button class="btn btn--ghost" id="im-back">Back</button><span class="grow"></span><button class="btn btn--primary" id="im-go"' + (wz.file ? '' : ' disabled') + '>Import</button>';
+      } else {
+        var rows = [
+          ['1–16', 'Imported', 'ok'], ['17', 'Skipped — link already exists on goal.com', 'err'],
+          ['18', 'Imported', 'ok'], ['19', 'Error — invalid URL format', 'err'], ['20', 'Imported', 'ok']
+        ];
+        body = '<p class="pjd-import-note">Successfully imported <b>18</b> of <b>20</b> links. Review the table below for any errors.</p>' +
+          '<div class="pjd-sumtable"><table><thead><tr><th style="width:84px">Row</th><th>Summary</th></tr></thead><tbody>' +
+          rows.map(function (r) { return '<tr class="' + (r[2] === 'err' ? 'is-err' : '') + '"><td>' + r[0] + '</td><td>' + esc(r[1]) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+        foot = '<button class="btn btn--ghost" id="im-back">Back</button><span class="grow"></span><button class="btn btn--primary" data-close>Done</button>';
+      }
+      openModal(mhead('Import link history', wz.step === 1 ? 'Add links you already have so they show alongside your ordered ones.' : '') +
+        rail() + '<div class="pj-modal__body">' + body + '</div><div class="pj-modal__foot">' + foot + '</div>');
+      bindToasts();
+      var next = $('im-next'); if (next) next.addEventListener('click', function () { wz.step = 2; draw(); });
+      var back = $('im-back'); if (back) back.addEventListener('click', function () { wz.step--; draw(); });
+      var drop = $('im-drop'); if (drop) drop.addEventListener('click', function () { wz.file = { name: 'link_history_jul26.csv', size: 24 }; draw(); });
+      var rm = $('im-rm'); if (rm) rm.addEventListener('click', function () { wz.file = null; draw(); });
+      var go = $('im-go'); if (go) go.addEventListener('click', function () { toast('Link database updated'); wz.step = 3; draw(); });
+    }
+    draw();
   }
+
+  /* Manage access — search-to-add + member list, mirroring v-invite-users */
   function openAccess() {
+    if (P.team.indexOf('Sayeed Khan') === -1) P.team.unshift('Sayeed Khan');
     var members = P.team.slice();
-    openModal(mhead('Manage access', 'People who can view and manage <b>' + esc(P.dom) + '</b>.') +
-      '<div class="pj-modal__body"><div class="pj-field"><label class="pj-field__label">Team members</label><div class="pj-invite" id="ma-invite"></div></div></div>' +
+    openModal(mhead('Manage access', 'Invite team members to view and manage budgets and link history for <b>' + esc(P.dom) + '</b>. You can change permissions anytime.') +
+      '<div class="pj-modal__body">' + mlAccess.managerCard() + '<div id="ma-invite"></div></div>' +
       '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="ma-save">Save</button></div>');
-    var DIR = ['Sayeed Khan', 'Liviu Pop', 'Maria Silva', 'Jose Garcia', 'Ana Ruiz', 'Tom Lee'];
-    function chips() { return members.map(function (u) { return '<span class="pj-chipuser">' + av(u) + esc(u) + '<button type="button" data-un="' + esc(u) + '"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>'; }).join('') + '<button type="button" class="pj-invite__add" data-add><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add people</button>'; }
-    var host = $('ma-invite'); host.innerHTML = chips();
-    host.addEventListener('click', function (e) {
-      var rm = e.target.closest('[data-un]'); if (rm) { var i = members.indexOf(rm.getAttribute('data-un')); if (i > -1) members.splice(i, 1); host.innerHTML = chips(); return; }
-      if (e.target.closest('[data-add]')) { var nx = DIR.filter(function (u) { return members.indexOf(u) === -1; })[0]; if (nx) { members.push(nx); host.innerHTML = chips(); } else toast('Everyone is already invited'); }
-    });
+    mlAccess.control($('ma-invite'), members, {});
     $('ma-save').addEventListener('click', function () { P.team = members.slice(); closeModal(); paintRail(); toast('Access updated'); });
   }
   function openArchive() {

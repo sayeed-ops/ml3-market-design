@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../market-ml3/styles.css" />
   <link rel="stylesheet" href="./projects.css" />
   <script src="../market-ml3/pager.js"></script>
+  <script src="./access.js"></script>
 </head>
 <body>
 <div class="m-app">
@@ -524,12 +525,12 @@
       '<div class="pj-modal__body">' +
         '<div class="pj-field"><label class="pj-field__label">Brand name <span class="pj-field__req">*</span></label><input class="pj-input" id="bm-name" value="' + (existing ? esc(existing.name) : '') + '" placeholder="Acme Corp" /></div>' +
         '<div class="pj-field"><label class="pj-field__label">Description</label><textarea class="pj-input" id="bm-desc" placeholder="What this brand is about">' + (existing ? esc(existing.desc) : '') + '</textarea></div>' +
-        '<div class="pj-mgr"><div class="pj-mgr__h">Your dedicated manager</div><div class="pj-mgr__row">' + av('Sayeed Khan') + '<div class="pj-mgr__meta"><div class="pj-mgr__nm">Sayeed Khan</div><div class="pj-mgr__sub">sayeed@motherlink.io · Account manager</div></div></div></div>' +
-        '<div class="pj-field"><label class="pj-field__label">Manage access</label><p class="pj-note" style="margin:-2px 0 4px">Invite team members to access all projects under this brand. You can change permissions anytime.</p>' +
-          '<div class="pj-invite" id="bm-invite">' + inviteChips(invited) + '<button type="button" class="pj-invite__add" data-addinvite><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add people</button></div></div>' +
+        mlAccess.managerCard() +
+        '<div class="pj-field"><label class="pj-field__label">Manage access</label><p class="pj-note" style="margin:-2px 0 8px">Invite team members to access all projects under this brand. You can change permissions anytime.</p>' +
+          '<div id="bm-invite"></div></div>' +
       '</div>' +
       '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="bm-save">' + (existing ? 'Save' : 'Create brand') + '</button></div>');
-    wireInvite('bm-invite', invited);
+    mlAccess.control(document.getElementById('bm-invite'), invited, {});
     document.getElementById('bm-save').addEventListener('click', function () {
       var name = document.getElementById('bm-name').value.trim(); if (!name) { toast('Brand name is required'); return; }
       if (existing) { existing.name = name; existing.desc = document.getElementById('bm-desc').value.trim(); toast(name + ' updated'); }
@@ -554,22 +555,22 @@
     });
   }
 
-  /* --- Manage access (brand-level team; add/remove, Save) --- */
+  /* --- Manage access (brand-level team; search-to-add + list, Save) --- */
   function openManageAccessModal(brandId) {
     var b = brand(brandId);
     if (!b.team) b.team = uniqueUsers(brandProjects(brandId)); /* seed from projects on first open */
+    if (b.team.indexOf('Sayeed Khan') === -1) b.team.unshift('Sayeed Khan'); /* dedicated manager always has access */
     var members = b.team.slice();
     openModal(
       '<div class="pj-modal__head"><div class="pj-modal__htext"><div class="pj-modal__title">Manage access</div>' +
-        '<div class="pj-modal__sub">People with access to all projects under <b>' + esc(b.name) + '</b>. Change permissions anytime.</div></div>' +
+        '<div class="pj-modal__sub">Invite team members to access all projects under <b>' + esc(b.name) + '</b>. You can change permissions anytime.</div></div>' +
         '<button class="pj-modal__x" data-close><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
-      '<div class="pj-modal__body"><div class="pj-field"><label class="pj-field__label">Team members</label>' +
-        '<div class="pj-invite" id="ma-invite">' + inviteChips(members) + '<button type="button" class="pj-invite__add" data-addinvite><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add people</button></div></div></div>' +
+      '<div class="pj-modal__body">' + mlAccess.managerCard() + '<div id="ma-invite"></div></div>' +
       '<div class="pj-modal__foot"><button class="btn btn--ghost" data-close>Cancel</button><button class="btn btn--primary" id="ma-save">Save</button></div>');
-    wireInvite('ma-invite', members);
+    mlAccess.control(document.getElementById('ma-invite'), members, {});
     document.getElementById('ma-save').addEventListener('click', function () {
       b.team = members.slice();
-      closeModal(); toast('Access updated for ' + b.name); renderContext(); if (drawer.classList.contains('is-open')) renderDrawer();
+      closeModal(); toast(b.name + ' team updated'); renderContext(); if (drawer.classList.contains('is-open')) renderDrawer();
     });
   }
 
@@ -596,8 +597,8 @@
         bodyHtml = '<div class="pj-field"><label class="pj-field__label">Monthly budget <span class="pj-field__req">*</span></label><div class="pj-input-money"><span class="cur">€</span><input class="pj-input" id="wz-budget" inputmode="numeric" value="' + esc(wz.budget) + '" placeholder="5,000" /><span class="per">Per month</span></div><span class="pj-field__hint">A soft cap — you\'ll be warned when spend approaches it.</span></div>' +
           '<div class="pj-field"><label class="pj-field__label">Billing entity <span class="pj-field__req">*</span></label><select class="pj-select" id="wz-billing"><option value="">Select a billing entity…</option><option>Acme Holdings BV</option><option>Globex Ltd</option><option>BitWave OÜ</option><option>Initech GmbH</option></select><p class="pj-note">Projects are funded by a billing entity. <a href="../settings-ml3/billing.html">Manage billing entities</a>.</p></div>';
       } else {
-        bodyHtml = '<p class="pj-note" style="margin-top:2px">Invite team members to view and manage budgets and link history for this project. You can change permissions anytime.</p>' +
-          '<div class="pj-invite" id="wz-invite">' + inviteChips(wz.invited) + '<button type="button" class="pj-invite__add" data-addinvite><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add people</button></div>';
+        bodyHtml = '<p class="pj-note" style="margin:2px 0 12px">Invite team members to view and manage budgets and link history for this project. You can change permissions anytime.</p>' +
+          '<div id="wz-invite"></div>';
       }
       var last = wz.step === steps.length;
       var foot = '<div class="pj-modal__foot">' + (wz.step > 1 ? '<button class="btn btn--ghost" id="wz-back">Back</button>' : '<button class="btn btn--ghost" data-close>Cancel</button>') +
@@ -605,7 +606,7 @@
       openModal('<div class="pj-modal__head"><div class="pj-modal__htext"><div class="pj-modal__title">New project</div><div class="pj-modal__sub">A project is a domain you run link campaigns for.</div></div>' +
         '<button class="pj-modal__x" data-close><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
         railHtml + '<div class="pj-modal__body">' + bodyHtml + '</div>' + foot);
-      if (label === 'Invite team') wireInvite('wz-invite', wz.invited);
+      if (label === 'Invite team') mlAccess.control(document.getElementById('wz-invite'), wz.invited, {});
       var mk = modalEl.querySelector('[data-mk-brand]'); if (mk) mk.addEventListener('click', function (e) { e.preventDefault(); closeModal(); openBrandModal(); });
       var back = document.getElementById('wz-back'); if (back) back.addEventListener('click', function () { save(); wz.step--; draw(); });
       document.getElementById('wz-next').addEventListener('click', function () {

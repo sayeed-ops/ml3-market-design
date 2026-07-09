@@ -101,3 +101,32 @@
 .pjd-btn-danger:hover { background: var(--red-hover, #c02b22); }
 .pjd-drop { border: 1.5px dashed var(--border-strong); border-radius: var(--radius-md); padding: 22px; text-align: center; color: var(--text-muted); font-size: var(--fs-13); background: var(--bg-subtle); }
 .pjd-drop svg { width: 22px; height: 22px; color: var(--text-faint); margin-bottom: 6px; }
+
+/* import-links wizard */
+.pj-modal.pjd-wide { width: 720px; }
+.pjd-import-why { background: var(--accent-tint); border: 1px solid var(--accent-tint-2); border-radius: var(--radius-md); padding: 13px 15px; margin-bottom: 16px; }
+.pjd-import-why__h { font-size: var(--fs-13); font-weight: var(--fw-semibold); color: var(--accent); margin-bottom: 4px; }
+.pjd-import-why p { font-size: var(--fs-12); color: var(--text-secondary); line-height: 1.55; }
+.pjd-import-card { border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 26px; min-height: 168px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.pjd-import-card h4 { font-size: var(--fs-15); font-weight: var(--fw-semibold); color: var(--text); }
+.pjd-import-card p { font-size: var(--fs-13); color: var(--text-muted); margin: 8px 0 14px; max-width: 340px; }
+.pjd-drop--lg { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+.pjd-drop--lg:hover { border-color: var(--accent); background: var(--accent-tint); }
+.pjd-drop--lg svg { width: 34px; height: 34px; }
+.pjd-drop__t { font-size: var(--fs-15); font-weight: var(--fw-semibold); color: var(--text); margin-top: 4px; }
+.pjd-drop__s { font-size: var(--fs-13); color: var(--text-muted); margin-top: 5px; }
+.pjd-drop__s .ul { text-decoration: underline; }
+.pjd-filerow { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.pjd-fileic { width: 34px; height: 34px; flex: none; display: grid; place-items: center; color: var(--accent); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.pjd-fileic svg { width: 18px; height: 18px; }
+.pjd-filemeta { flex: 1; min-width: 0; }
+.pjd-filenm { font-size: var(--fs-13); font-weight: var(--fw-semibold); color: var(--text); }
+.pjd-filesz { font-size: var(--fs-12); color: var(--text-muted); }
+.pjd-import-note { font-size: var(--fs-13); color: var(--text-secondary); margin-bottom: 14px; }
+.pjd-sumtable { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.pjd-sumtable table { width: 100%; border-collapse: collapse; }
+.pjd-sumtable th { text-align: left; font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--text-secondary); background: var(--bg-subtle); padding: 9px 14px; border-bottom: 1px solid var(--border); }
+.pjd-sumtable td { font-size: var(--fs-13); color: var(--text); padding: 11px 14px; border-bottom: 1px solid var(--border); }
+.pjd-sumtable tr:last-child td { border-bottom: 0; }
+.pjd-sumtable tr.is-err td { color: var(--red); }
