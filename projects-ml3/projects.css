@@ -9,6 +9,10 @@
 /* hide the Brand column when scoped to a single brand (redundant then) */
 .m-table.pj-scoped .col-brand { display: none; }
 
+/* whole projects row is clickable → opens the project */
+#pj-table .pj-row { cursor: pointer; }
+#pj-table .pj-row .checkbox, #pj-table .pj-row .row-select, #pj-table .pj-row .dr-acts { cursor: default; }
+
 .ab-scoper { position: relative; }
 .ab-scoper > summary { list-style: none; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 10px 0 8px;
   background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer;

@@ -505,7 +505,7 @@ just references them). Page-gallery cards added for Orders, All links, Order ite
 page, add its card(s) + any new shared component to the library too.** Verify with a headless probe (deep-scroll
 screenshots hit a blank-band artifact — render the section near the top of a scratch page instead).
 
-## Projects area (`projects-ml3/`) — workspace built 2026-07-07; detail page still to build
+## Projects area (`projects-ml3/`) — workspace + detail page BUILT & published (list, detail, create/access/import flows)
 In the real app "Projects" = the **brands** area (`pages/brands/index.vue`, prod `/brands`). The real UX is
 **brand-first with a second sidebar** listing brands — bad: a double nav rail, projects demoted to cards inside a
 brand, and no cross-brand view. **Redesigned IA (agreed with user):** keep the ONE universal sidebar; make
@@ -526,6 +526,8 @@ brand, and no cross-brand view. **Redesigned IA (agreed with user):** keep the O
   2026-07-07) + domain · **Brand** (chip, hidden via `.m-table.pj-scoped .col-brand` when scoped) · Budget/mo · Spent ·
   Remaining (plain value, red when over) · **Links** · Team avatars · ⋯ (Open / Project settings / Reset budget /
   Archive|Restore). Active / Archived segments, sort, search, bulk (Manage access / Archive), pager.
+  **The WHOLE row is clickable → opens `project.html`** (2026-07-10; `#pj-table .pj-row{cursor:pointer}`); the click
+  handler excludes the checkbox + the ⋯ menu (`input, .row-select, details.menu, summary, .menu__pop, .dr-acts`).
   **Design decisions (user, 2026-07-07): NO progress bars anywhere** (per-row + brand meters removed — devs won't
   implement them; budget shown as `spent / budget · %` text); **Renewals column removed** (kept only as a portfolio
   summary tile + a line on brand cards — revisit if the user wants it fully gone); column is **"Links"** not "Live links".
@@ -536,6 +538,15 @@ brand, and no cross-brand view. **Redesigned IA (agreed with user):** keep the O
   `components/brand/projects/AddModal.vue`: [Brand — only when launched from *All brands* scope] → Domain+desc → Budget/mo
   + billing entity → Invite team). Data model: **brand = your company; project = a domain under it** (per the real
   AddModal hint). Sample = 4 brands / 12 active + 2 archived projects.
+- **Brand actions are REAL** (2026-07-08, from context menu + drawer cards): Edit brand (modal) · Reset budget (zeroes
+  the brand's projects' spend) · Manage access (see below). Back-to-all-brands resets scope.
+- **Team management follows the real `v-invite-users` flow** (2026-07-09) via a shared **`projects-ml3/access.js`**
+  (`window.mlAccess`): a **search-to-add input over a people DIR + a member list** (avatar·name·email·role·remove; the
+  dedicated-manager row is locked) + `managerCard()`. Used by New brand, New-project wizard, brand Manage access (here)
+  AND project.html Manage access. `.acc-*` styles in projects.css. Replaced the earlier chip control.
+- **Billing entity in the New-project wizard is OPTIONAL** (2026-07-09, user pick): a single select defaulting to
+  **"None — add later"** (NOT the real app's toggle-reveal), real copy from `locale/en.json`
+  `brand.projects.addModal.step2`. Budget still required.
 
 **`projects-ml3/project.html` (project DETAIL — BUILT + verified 2026-07-08).** Row/menu "Open project" now navigates
 here (`project.html?dom=…`). Reuses the `order-item.html` detail shell (`../orders-ml3/order-item.css` `.oid-*`) +
@@ -553,13 +564,18 @@ IA (user picked over the real app's Imported/Purchased split, 2026-07-08):**
     renewal date + Renew/Cancel menu) · **Activity** (`.pjd-timeline` log).
 - **Sticky side rail** (`.oid-side`): thumb+domain · Status dropdown · Budget/Spent/Remaining · Billing entity ·
   **Brand** (link back to projects.html) · Created/Last-activity · Users-with-access (+ Edit).
-- **Modals** (self-contained, reuse `projects.css` `.pj-ovl`/`.pj-modal`): Edit name · Edit budget & billing (mutates
-  rail+overview) · Reset budget (zeroes spend) · Import links (URLs + CSV dropzone) · Manage access (add/remove +
-  save) · Archive (flips status). Single sample project (acme.com / Acme Corp); edits are in-memory.
+- **Modals** (self-contained, reuse `projects.css` `.pj-ovl`/`.pj-modal`): Edit name · Edit budget & billing (optional
+  billing, `None` option; mutates rail+overview) · Reset budget (zeroes spend) · **Import links = the real 3-step
+  wizard** (`ImportLinksModal.vue`: Download template → Upload .csv [dropzone→file row] → Import summary [Row|Summary
+  table, errors red]; wider `.pj-modal.pjd-wide`, styles `.pjd-import-*` in project.css) · **Manage access = the shared
+  `mlAccess` invite-users control** (see access.js above) · Archive (flips status). Single sample project (acme.com /
+  Acme Corp); edits are in-memory.
 - **Gotcha fixed:** `.fav-ic` has NO base style in the shared sheets — it must be sized per context AND the `<img>`
   constrained (`project.css` `.oid-main .fav-ic{…} .oid-main .fav-ic img{width:13px…}`) or the 64px favicon overflows.
-- **Still TODO:** add projects.html + project.html **cards to `library/`**; the header **Import/Order** + most
-  Settings items are mock (toast) except the modals listed above.
+- **Library updated (2026-07-10):** `library/index.html` gallery now has **Projects** + **Project** cards (Pages count → 12).
+- **Still (optionally) TODO:** the header **Import/Order** shortcut + most **Project settings** dropdown items are mock
+  (toast) except the modals listed above; deeper library component docs for the `mlAccess` invite control + marble
+  thumbnail could be added.
 - **Nav trimmed 2026-07-08:** **Invoices / Analytics / Support** are commented out (`<!-- hidden-nav (restore later) -->`)
   in all 5 universal-sidebar pages (index/drafts/orders/all-links/projects) — search that marker to restore.
 - **Source of truth:** `pages/brands/_slug/projects/_id.vue` + `components/projects/*` + `values/pages/{brand,project}/index.js`.

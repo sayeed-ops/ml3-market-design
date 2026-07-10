@@ -412,18 +412,27 @@
   /* ---- open a project's detail page ---- */
   function openProject(dom) { location.href = 'project.html?dom=' + encodeURIComponent(dom); }
   table.addEventListener('click', function (e) {
-    var link = e.target.closest('.pj-proj'); if (link) { e.preventDefault(); openProject(link.getAttribute('data-openp')); return; }
-    var act = e.target.closest('[data-act]'); if (!act) return;
-    var dom = act.closest('[data-dom]').dataset.dom, a = act.getAttribute('data-act');
-    e.preventDefault(); e.stopPropagation();
-    act.closest('details').removeAttribute('open');
-    if (a === 'open') { openProject(dom); return; }
+    /* row action menu items first */
+    var act = e.target.closest('[data-act]');
+    if (act) {
+      var dom = act.closest('[data-dom]').dataset.dom, a = act.getAttribute('data-act');
+      e.preventDefault(); e.stopPropagation();
+      act.closest('details').removeAttribute('open');
+      if (a === 'open') { openProject(dom); return; }
+      return doAct(a, dom);
+    }
+    /* ignore the interactive controls (checkbox + the ⋯ menu) */
+    if (e.target.closest('input, .checkbox, .row-select, details.menu, summary, .menu__pop, .dr-acts')) return;
+    /* otherwise the whole row opens the project */
+    var row = e.target.closest('.pj-row'); if (row) { e.preventDefault(); openProject(row.getAttribute('data-dom')); }
+  });
+  function doAct(a, dom) {
     var p = PROJECTS.filter(function (x) { return x.dom === dom; })[0]; if (!p) return;
     if (a === 'archive') { p.status = 'archived'; delete selected[dom]; toast(dom + ' archived'); render(); }
     else if (a === 'restore') { p.status = 'active'; toast(dom + ' restored'); render(); }
     else if (a === 'reset') { toast('Budget reset for ' + dom); }
     else if (a === 'settings') { toast('Project settings — ' + dom + ' (mock)'); }
-  });
+  }
 
   bulk.addEventListener('click', function (e) {
     var b = e.target.closest('[data-bulk]'); if (!b) return;
