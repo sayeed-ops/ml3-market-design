@@ -11,7 +11,23 @@
   <link rel="stylesheet" href="../system-ml3/base.css" />
   <link rel="stylesheet" href="../system-ml3/components.css" />
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./managed-services.css" />
   <script src="./pager.js"></script>
+  <style>
+    /* Country · Language — full country name + multi-language summary + hover popover */
+    .m-geo.geo2 { cursor: default; }
+    .m-geo.geo2--more { cursor: help; }
+    .m-geo.geo2--more .lang { text-decoration: underline dotted var(--text-faint); text-underline-offset: 2px; }
+    .geo-pop { display: none; position: fixed; z-index: 200; min-width: 190px; max-width: 264px;
+      background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg); padding: 12px 14px; pointer-events: none; }
+    .geo-pop__hd { display: flex; align-items: center; gap: 8px; font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text); }
+    .geo-pop__hd img { width: 20px; height: 20px; display: block; }
+    .geo-pop__lh { margin-top: 10px; font-size: var(--fs-11); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: .04em; color: var(--text-faint); }
+    .geo-pop__langs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+    .geo-pop__lang { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-12); color: var(--text-secondary); background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px 8px; }
+    .geo-pop__pri { font-size: 9px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); background: var(--accent-tint); border-radius: 999px; padding: 1px 6px; }
+  </style>
 </head>
 <body>
 <div class="m-app">
@@ -30,7 +46,7 @@
         <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
         <div class="m-nav__sub">
           <a class="m-nav__item m-nav__child is-active" href="index.html" aria-current="page" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
-          <a class="m-nav__item m-nav__child" href="#" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
+          <a class="m-nav__item m-nav__child" href="managed-services.html" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
           <a class="m-nav__item m-nav__child" href="drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
         </div>
       </div>
@@ -104,10 +120,20 @@
 
     <div class="m-content">
 
+      <!-- Cross-promo: nudges DIY browsers toward Managed services -->
+      <a class="ms-promo" href="managed-services.html" style="text-decoration:none">
+        <span class="ms-promo__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span class="ms-promo__tx">
+          <span class="ms-promo__t">Don’t want to hunt for sites? Let our team build the campaign for you.</span>
+          <span class="ms-promo__d">Managed services — pick a package, brief once, and we place authority links for you.</span>
+        </span>
+        <span class="btn btn--soft btn--sm ms-promo__x">Explore packages &rsaquo;</span>
+      </a>
+
       <!-- Header -->
       <div class="m-head">
         <div>
-          <div class="tabs" style="margin-bottom:8px"><button class="tab">Managed services</button><button class="tab" aria-selected="true">Link market</button></div>
+          <div class="tabs" style="margin-bottom:8px"><a class="tab" href="managed-services.html">Managed services</a><button class="tab" aria-selected="true">Link market</button></div>
           <div class="sub">Discover, evaluate and buy placements across 2,847 vetted publishers.</div>
         </div>
       </div>
@@ -1358,6 +1384,21 @@
     }
     return 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/' + cps.join('-') + '.png';
   }
+  var COUNTRY_NAMES = {
+    AR: 'Argentina', BR: 'Brazil', ES: 'Spain', FI: 'Finland', FR: 'France', GB: 'United Kingdom',
+    ID: 'Indonesia', IT: 'Italy', TR: 'Turkey', UA: 'Ukraine', US: 'United States',
+    CA: 'Canada', DE: 'Germany', NL: 'Netherlands', PT: 'Portugal', MX: 'Mexico',
+    IN: 'India', AU: 'Australia', IE: 'Ireland', CH: 'Switzerland', BE: 'Belgium'
+  };
+  /* some media publish in more than one language (demo, keyed by domain) */
+  var MULTI_LANGS = {
+    'uol.com.br':          ['Portuguese', 'English', 'Spanish'],
+    'terra.com.br':        ['Portuguese', 'Spanish'],
+    'aws.amazon.com':      ['English', 'Spanish', 'French', 'German'],
+    'learn.microsoft.com': ['English', 'French', 'German'],
+    'elpais.com':          ['Spanish', 'English'],
+    'corriere.it':         ['Italian', 'English']
+  };
   rows.forEach(function (row) {
     var geo = row.querySelector('.m-geo');
     if (!geo) return;
@@ -1365,22 +1406,68 @@
     var m = raw.match(/^((?:\uD83C[\uDDE6-\uDDFF]){2})\s*(.*)$/);   // split flag emoji vs code
     var flag = m ? m[1] : '';
     var code = m ? m[2] : raw;
-    var lang = '';
+    var country = COUNTRY_NAMES[code] || code;
+    var primary = '';
     var exp = row.nextElementSibling;
     if (exp && exp.classList.contains('m-exp')) {
       Array.prototype.forEach.call(exp.querySelectorAll('.kv'), function (kv) {
         var k = kv.querySelector('.k');
         if (k && k.textContent.trim() === 'Language') {
           var v = kv.querySelector('.v');
-          if (v) lang = v.textContent.trim();
+          if (v) primary = v.textContent.trim();
         }
       });
     }
+    var domEl = row.querySelector('.m-domain');
+    var dom = domEl ? domEl.textContent.trim() : '';
+    var langs = MULTI_LANGS[dom] ? MULTI_LANGS[dom].slice() : (primary ? [primary] : []);
+    if (primary && langs.indexOf(primary) > 0) { langs.splice(langs.indexOf(primary), 1); langs.unshift(primary); }
+    if (!langs.length && primary) langs = [primary];
+    var summary = langs.length <= 1 ? (langs[0] || '') : (langs[0] + ', ' + (langs.length - 1) + '+');
     var img = flag ? '<span class="flagimg"><img src="' + flagURL(flag) + '" alt="" loading="lazy" /></span>' : '';
     geo.classList.add('geo2');
-    geo.innerHTML = img + '<span class="geo2-text"><span class="cc">' + code + '</span>' +
-      (lang ? '<span class="lang">' + lang + '</span>' : '') + '</span>';
+    if (langs.length > 1) geo.classList.add('geo2--more');
+    geo.setAttribute('data-country', country);
+    geo.setAttribute('data-flag', flag ? flagURL(flag) : '');
+    geo.setAttribute('data-langs', langs.join('|'));
+    geo.innerHTML = img + '<span class="geo2-text"><span class="cc">' + country + '</span>' +
+      (summary ? '<span class="lang">' + summary + '</span>' : '') + '</span>';
   });
+
+  /* hover popover: full country + all languages (position:fixed escapes the table's overflow:hidden) */
+  (function () {
+    var pop = document.createElement('div');
+    pop.className = 'geo-pop';
+    document.body.appendChild(pop);
+    function show(cell) {
+      var country = cell.getAttribute('data-country') || '';
+      var flag = cell.getAttribute('data-flag') || '';
+      var langs = (cell.getAttribute('data-langs') || '').split('|').filter(Boolean);
+      pop.innerHTML =
+        '<div class="geo-pop__hd">' + (flag ? '<img src="' + flag + '" alt="" />' : '') + '<span>' + country + '</span></div>' +
+        '<div class="geo-pop__lh">Language' + (langs.length > 1 ? 's' : '') + '</div>' +
+        '<div class="geo-pop__langs">' + langs.map(function (l, i) {
+          return '<span class="geo-pop__lang">' + l + (i === 0 && langs.length > 1 ? '<span class="geo-pop__pri">primary</span>' : '') + '</span>';
+        }).join('') + '</div>';
+      pop.style.display = 'block';
+      var r = cell.getBoundingClientRect();
+      var pw = pop.offsetWidth, ph = pop.offsetHeight;
+      var left = r.left, top = r.bottom + 8;
+      if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+      if (top + ph > window.innerHeight - 8) top = r.top - ph - 8;   // flip above near the bottom
+      pop.style.left = Math.max(8, left) + 'px';
+      pop.style.top = Math.max(8, top) + 'px';
+    }
+    document.addEventListener('mouseover', function (e) {
+      var cell = e.target.closest ? e.target.closest('.m-geo.geo2') : null;
+      if (cell) show(cell);
+    });
+    document.addEventListener('mouseout', function (e) {
+      var cell = e.target.closest ? e.target.closest('.m-geo.geo2') : null;
+      if (cell && (!e.relatedTarget || !cell.contains(e.relatedTarget))) pop.style.display = 'none';
+    });
+    window.addEventListener('scroll', function () { pop.style.display = 'none'; }, true);
+  })();
 
   /* ---- faithful data: conditions, tags, content, last-order. Driven from a
          central per-domain map so the design renders consistently across all

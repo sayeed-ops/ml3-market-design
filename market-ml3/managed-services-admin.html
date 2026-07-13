@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage packages — Managed services (ML3 admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./managed-services.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="m-sidebar" id="m-sidebar">
+    <div class="m-side-top">
+      <a class="m-brand" href="index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+      <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+    </div>
+    <nav class="m-nav">
+      <div class="m-nav__group is-open" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
+          <a class="m-nav__item m-nav__child is-active" href="managed-services.html" aria-current="page" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
+          <a class="m-nav__item m-nav__child" href="drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
+        </div>
+      </div>
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="../orders-ml3/orders.html" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="../orders-ml3/all-links.html" data-label="All links"><span class="m-nav__tx">All links</span></a>
+        </div>
+      </div>
+      <a class="m-nav__item" href="../projects-ml3/projects.html" data-label="Projects"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="m-nav__tx">Projects</span></a>
+      <span class="m-nav__spacer"></span>
+      <hr class="m-nav__div" />
+      <a class="m-nav__item" href="../settings-ml3/index.html" data-label="Settings"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Settings</span></a>
+    </nav>
+    <div class="m-side-foot">
+      <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="m-main">
+    <!-- App Bar · Detail (back to storefront) -->
+    <header class="appbar">
+      <a class="appbar__back" href="managed-services.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m15 18-6-6 6-6"/></svg> Managed services</a>
+      <span class="appbar__div"></span>
+      <span class="appbar__title">Manage packages</span>
+      <span class="appbar__spacer"></span>
+      <div class="appbar__actions">
+        <a class="btn btn--primary btn--sm" href="package-editor.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Create package</a>
+      </div>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <button class="ab-ic hdr-cart" title="Basket"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+      </div>
+    </header>
+
+    <div class="m-content">
+      <div class="ms-wrap" style="gap:var(--space-5)">
+
+        <div class="adm-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 2 7v6c0 5 4 8.5 10 11 6-2.5 10-6 10-11V7z"/><path d="M12 8v5M12 16h.01"/></svg>
+          Admin only — buyers never see this screen. Everything here shapes the storefront on the Managed services tab.
+        </div>
+
+        <!-- ===== TAB MANAGER ===== -->
+        <section class="adm-sec">
+          <div class="adm-sec__head">
+            <div>
+              <div class="adm-sec__t">Tabs</div>
+              <div class="adm-sec__d">Group packages into tabs on the storefront. Each tab keeps its own packages &amp; disclaimer.</div>
+            </div>
+            <button class="btn btn--secondary btn--sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New tab</button>
+          </div>
+
+          <div class="adm-tab-row">
+            <span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span>
+            <div style="flex:1">
+              <div class="adm-tab-name">All packages <span class="tag tag--accent" style="margin-left:6px">default</span></div>
+              <div class="adm-tab-meta">4 packages · no disclaimer</div>
+            </div>
+            <label style="display:inline-flex;align-items:center;gap:8px"><span class="st-pill st-approved">Visible</span><input class="sw" type="checkbox" checked /></label>
+            <details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><button class="menu__item">Rename / edit</button><button class="menu__item menu__item--danger">Delete</button></div></details>
+          </div>
+
+          <div class="adm-tab-row">
+            <span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span>
+            <div style="flex:1">
+              <div class="adm-tab-name">Digital PR</div>
+              <div class="adm-tab-meta">2 packages · “Placements subject to editorial approval.”</div>
+            </div>
+            <label style="display:inline-flex;align-items:center;gap:8px"><span class="st-pill st-approved">Visible</span><input class="sw" type="checkbox" checked /></label>
+            <details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><button class="menu__item">Rename / edit</button><button class="menu__item menu__item--danger">Delete</button></div></details>
+          </div>
+
+          <div class="adm-tab-row">
+            <span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span>
+            <div style="flex:1">
+              <div class="adm-tab-name" style="color:var(--text-muted)">Seasonal offers</div>
+              <div class="adm-tab-meta">0 packages · hidden from buyers</div>
+            </div>
+            <label style="display:inline-flex;align-items:center;gap:8px"><span class="st-pill" style="color:var(--text-faint);background:var(--bg-sunken)">Hidden</span><input class="sw" type="checkbox" /></label>
+            <details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><button class="menu__item">Rename / edit</button><button class="menu__item menu__item--danger">Delete</button></div></details>
+          </div>
+        </section>
+
+        <!-- ===== PACKAGES TABLE ===== -->
+        <section class="adm-sec">
+          <div class="adm-sec__head">
+            <div>
+              <div class="adm-sec__t">Packages <span class="appbar__count">4</span></div>
+              <div class="adm-sec__d">Drag to reorder how they appear on the storefront. Row menu to duplicate, edit or delete.</div>
+            </div>
+            <a class="btn btn--primary btn--sm" href="package-editor.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Create package</a>
+          </div>
+
+          <div style="overflow-x:auto">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th style="width:34px"></th>
+                <th>Package</th>
+                <th>Tab</th>
+                <th class="adm-right">Price</th>
+                <th>Badge</th>
+                <th>Requirements</th>
+                <th style="text-align:center">Active</th>
+                <th style="width:40px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span></td>
+                <td><div class="adm-pname">Starter Boost</div><div class="adm-psub">Foundation authority</div></td>
+                <td><span class="tag">All packages</span></td>
+                <td class="adm-right adm-num">€1,499</td>
+                <td>—</td>
+                <td><span class="st-pill" style="color:var(--text-faint);background:var(--bg-sunken)">Optional</span></td>
+                <td style="text-align:center"><input class="sw" type="checkbox" checked /></td>
+                <td><details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><a class="menu__item" href="package-editor.html">Edit</a><button class="menu__item">Duplicate</button><button class="menu__item menu__item--danger">Delete</button></div></details></td>
+              </tr>
+              <tr>
+                <td><span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span></td>
+                <td><div class="adm-pname">Growth</div><div class="adm-psub">Scale your authority</div></td>
+                <td><span class="tag">All packages</span></td>
+                <td class="adm-right adm-num">€4,999</td>
+                <td><span class="ms-card__badge" style="position:static">🔥 Most popular</span></td>
+                <td><span class="st-pill st-pending">Mandatory</span></td>
+                <td style="text-align:center"><input class="sw" type="checkbox" checked /></td>
+                <td><details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><a class="menu__item" href="package-editor.html">Edit</a><button class="menu__item">Duplicate</button><button class="menu__item menu__item--danger">Delete</button></div></details></td>
+              </tr>
+              <tr>
+                <td><span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span></td>
+                <td><div class="adm-pname">Authority</div><div class="adm-psub">Category leadership</div></td>
+                <td><span class="tag">Digital PR</span></td>
+                <td class="adm-right adm-num">€9,999</td>
+                <td><span class="ms-card__badge ms-card__badge--green" style="position:static">Best value</span></td>
+                <td><span class="st-pill st-pending">Mandatory</span></td>
+                <td style="text-align:center"><input class="sw" type="checkbox" checked /></td>
+                <td><details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><a class="menu__item" href="package-editor.html">Edit</a><button class="menu__item">Duplicate</button><button class="menu__item menu__item--danger">Delete</button></div></details></td>
+              </tr>
+              <tr>
+                <td><span class="adm-drag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg></span></td>
+                <td><div class="adm-pname" style="color:var(--text-muted)">Custom</div><div class="adm-psub">Enterprise &amp; agencies</div></td>
+                <td><span class="tag">Digital PR</span></td>
+                <td class="adm-right adm-num">On request</td>
+                <td>—</td>
+                <td><span class="st-pill" style="color:var(--text-faint);background:var(--bg-sunken)">Optional</span></td>
+                <td style="text-align:center"><input class="sw" type="checkbox" /></td>
+                <td><details class="menu"><summary class="btn--iconxs" title="More"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></summary><div class="menu__pop"><a class="menu__item" href="package-editor.html">Edit</a><button class="menu__item">Duplicate</button><button class="menu__item menu__item--danger">Delete</button></div></details></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  </div>
+</div>
+
+<script src="../system-ml3/usermenu.js"></script>
+<script>
+  (function () {
+    document.querySelectorAll('[data-group] .m-nav__parent').forEach(function (btn) {
+      btn.addEventListener('click', function () { btn.closest('[data-group]').classList.toggle('is-open'); });
+    });
+    var t = document.getElementById('m-side-toggle'), sb = document.getElementById('m-sidebar');
+    if (t && sb) t.addEventListener('click', function () { sb.classList.toggle('is-collapsed'); });
+  })();
+</script>
+</body>
+</html>

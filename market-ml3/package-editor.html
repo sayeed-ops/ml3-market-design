@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New package — Managed services (ML3 admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../system-ml3/tokens.css" />
+  <link rel="stylesheet" href="../system-ml3/base.css" />
+  <link rel="stylesheet" href="../system-ml3/components.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./managed-services.css" />
+</head>
+<body>
+<div class="m-app">
+  <div class="m-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="m-sidebar" id="m-sidebar">
+    <div class="m-side-top">
+      <a class="m-brand" href="index.html" aria-label="Motherlink PRO"><img class="m-brand__full" src="logo-mlpro-light.png" alt="Motherlink PRO" /></a>
+      <button class="m-side-toggle" id="m-side-toggle" type="button" aria-label="Toggle sidebar" title="Collapse sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 6l-6 6 6 6"/><path d="M19 5v14"/></svg></button>
+    </div>
+    <nav class="m-nav">
+      <div class="m-nav__group is-open" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Market"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="m-nav__tx">Market</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="index.html" data-label="Link market"><span class="m-nav__tx">Link market</span></a>
+          <a class="m-nav__item m-nav__child is-active" href="managed-services.html" aria-current="page" data-label="Managed services"><span class="m-nav__tx">Managed services</span></a>
+          <a class="m-nav__item m-nav__child" href="drafts.html" data-label="Drafts"><span class="m-nav__tx">Drafts</span><span class="m-nav__cnt">12</span></a>
+        </div>
+      </div>
+      <div class="m-nav__group" data-group>
+        <button class="m-nav__item m-nav__parent" type="button" data-label="Orders"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="m-nav__tx">Orders</span><svg class="m-nav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="m-nav__sub">
+          <a class="m-nav__item m-nav__child" href="../orders-ml3/orders.html" data-label="Orders"><span class="m-nav__tx">Orders</span></a>
+          <a class="m-nav__item m-nav__child" href="../orders-ml3/all-links.html" data-label="All links"><span class="m-nav__tx">All links</span></a>
+        </div>
+      </div>
+      <a class="m-nav__item" href="../projects-ml3/projects.html" data-label="Projects"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="m-nav__tx">Projects</span></a>
+      <span class="m-nav__spacer"></span>
+      <hr class="m-nav__div" />
+      <a class="m-nav__item" href="../settings-ml3/index.html" data-label="Settings"><span class="m-nav__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="m-nav__tx">Settings</span></a>
+    </nav>
+    <div class="m-side-foot">
+      <button class="m-user" type="button" data-label="Sayeed"><span class="m-user__av">SA</span><span class="m-user__meta"><span class="m-user__name">Sayeed</span><span class="m-user__email">sayeed@motherlink.io</span></span><span class="m-user__more"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="m-main">
+    <header class="appbar">
+      <a class="appbar__back" href="managed-services-admin.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m15 18-6-6 6-6"/></svg> Manage packages</a>
+      <span class="appbar__div"></span>
+      <span class="appbar__title">New package</span>
+      <span class="appbar__spacer"></span>
+      <span class="appbar__sep"></span>
+      <div class="appbar__global">
+        <button class="ab-ic" type="button" title="Notifications"><span class="dotmark"></span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+        <button class="ab-ic hdr-cart" title="Basket"><span class="ab-cart__count">2</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l2.2 11.2a2 2 0 0 0 2 1.6h8.1a2 2 0 0 0 2-1.6L23 7H6"/></svg></button>
+      </div>
+    </header>
+
+    <div class="m-content">
+      <div class="ms-wrap" style="max-width:1120px">
+        <div class="ed">
+
+          <!-- ================= FORM ================= -->
+          <div class="ed__form">
+
+            <!-- 1. Essentials — always open -->
+            <div class="fg fg--static">
+              <div class="fg__head" style="cursor:default">
+                <div><div class="fg__ht">Essentials</div><div class="fg__hd">The four things every package needs. This is all it takes to publish.</div></div>
+              </div>
+              <div class="fg__body">
+                <div class="field">
+                  <label class="field__l" for="f-title">Package name</label>
+                  <input class="input" id="f-title" type="text" value="Growth" placeholder="e.g. Authority Boost" />
+                </div>
+                <div class="field">
+                  <label class="field__l" for="f-sub">Subtitle</label>
+                  <input class="input" id="f-sub" type="text" value="Scale your authority" placeholder="One short line under the name" />
+                </div>
+                <div class="field">
+                  <label class="field__l" for="f-price">Price</label>
+                  <div class="field__row" style="grid-template-columns:160px 1fr;align-items:end">
+                    <input class="input" id="f-price" type="text" value="4,999" placeholder="0.00" />
+                    <span class="field__hint">Shown as <b>€</b> per campaign. Leave blank for “Let’s talk”.</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="field__l">What’s included</span>
+                  <span class="field__hint">The checklist buyers scan first. Keep each line short and outcome-focused.</span>
+                  <div class="rows" id="bullets">
+                    <div class="row-item"><input class="input bl" type="text" value="15 placements on DR 45+ sites" /><button class="btn--iconxs row-del" title="Remove" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+                    <div class="row-item"><input class="input bl" type="text" value="Guest posts + niche edits" /><button class="btn--iconxs row-del" title="Remove" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+                    <div class="row-item"><input class="input bl" type="text" value="Dedicated account manager" /><button class="btn--iconxs row-del" title="Remove" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+                  </div>
+                  <button class="btn btn--soft btn--sm add-row" id="add-bullet" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add line</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Appearance & CTA -->
+            <div class="fg is-open">
+              <button class="fg__head" type="button" data-toggle>
+                <div><div class="fg__ht">Appearance &amp; button</div><div class="fg__hd">Card colour, an optional badge, and the button label.</div></div>
+                <svg class="fg__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </button>
+              <div class="fg__body">
+                <div class="field">
+                  <span class="field__l">Card colour</span>
+                  <div class="swatches" id="swatches">
+                    <span class="swatch" aria-selected="true" data-c="#3d3aad" style="background:#3d3aad"></span>
+                    <span class="swatch" data-c="#128a5a" style="background:#128a5a"></span>
+                    <span class="swatch" data-c="#2f6bdd" style="background:#2f6bdd"></span>
+                    <span class="swatch" data-c="#b0791a" style="background:#b0791a"></span>
+                    <span class="swatch" data-c="#d23b34" style="background:#d23b34"></span>
+                    <span class="swatch" data-c="#7c3aed" style="background:#7c3aed"></span>
+                  </div>
+                </div>
+                <div class="field__row">
+                  <div class="field">
+                    <label class="field__l" for="f-badge">Badge text</label>
+                    <input class="input" id="f-badge" type="text" value="🔥 Most popular" placeholder="e.g. Popular — leave blank for none" />
+                  </div>
+                  <div class="field">
+                    <label class="field__l" for="f-badge-tone">Badge colour</label>
+                    <select class="sel" id="f-badge-tone"><option value="accent">Purple</option><option value="green">Green</option></select>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="field__l" for="f-cta">Button label</label>
+                  <input class="input" id="f-cta" type="text" value="Order package" placeholder="Order package" />
+                </div>
+                <div class="sw-row">
+                  <div><div class="sw-row__t">Feature this package</div><div class="sw-row__d">Adds the purple highlight ring so it stands out in the grid.</div></div>
+                  <input class="sw" id="f-featured" type="checkbox" checked />
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Value & savings (optional) -->
+            <div class="fg">
+              <button class="fg__head" type="button" data-toggle>
+                <div><div class="fg__ht">Value &amp; savings</div><div class="fg__hd">Optional green line under the price, e.g. “you keep €771”.</div></div>
+                <span class="fg__opt">Optional</span>
+                <svg class="fg__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </button>
+              <div class="fg__body">
+                <div class="field">
+                  <label class="field__l" for="f-hint">Value line</label>
+                  <input class="input" id="f-hint" type="text" value="Total value €5,770 — you keep €771" placeholder="Shown in green under the price" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Buyer requirements (optional) -->
+            <div class="fg">
+              <button class="fg__head" type="button" data-toggle>
+                <div><div class="fg__ht">Buyer requirements</div><div class="fg__hd">What you need the buyer to brief before you can start the work.</div></div>
+                <span class="fg__opt">Optional</span>
+                <svg class="fg__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </button>
+              <div class="fg__body">
+                <div class="field">
+                  <label class="field__l" for="f-req">What should they tell us?</label>
+                  <textarea class="ta" id="f-req" placeholder="Target pages, anchor strategy, do-not-link list, deadlines…">Target pages, preferred anchors, and any do-not-link domains.</textarea>
+                </div>
+                <div class="sw-row">
+                  <div><div class="sw-row__t">Require this before checkout</div><div class="sw-row__d">Buyer must fill in the brief before they can place the order.</div></div>
+                  <input class="sw" type="checkbox" checked />
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Advanced pricing labels (optional) -->
+            <div class="fg">
+              <button class="fg__head" type="button" data-toggle>
+                <div><div class="fg__ht">Advanced pricing labels</div><div class="fg__hd">Small text before / after the price. Most packages don’t need these.</div></div>
+                <span class="fg__opt">Optional</span>
+                <svg class="fg__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </button>
+              <div class="fg__body">
+                <div class="field__row">
+                  <div class="field"><label class="field__l" for="f-prefix">Price prefix</label><input class="input" id="f-prefix" type="text" placeholder="e.g. Only" /></div>
+                  <div class="field"><label class="field__l" for="f-suffix">Price suffix</label><input class="input" id="f-suffix" type="text" placeholder="e.g. Per campaign" /></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Placement -->
+            <div class="fg is-open">
+              <button class="fg__head" type="button" data-toggle>
+                <div><div class="fg__ht">Placement</div><div class="fg__hd">Which tab it lives in, and whether buyers can see it yet.</div></div>
+                <svg class="fg__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+              </button>
+              <div class="fg__body">
+                <div class="field">
+                  <label class="field__l" for="f-tab">Tab</label>
+                  <select class="sel" id="f-tab"><option>All packages</option><option>Digital PR</option><option>Seasonal offers</option></select>
+                </div>
+                <div class="sw-row">
+                  <div><div class="sw-row__t">Active</div><div class="sw-row__d">Off = saved as a draft, hidden from the storefront.</div></div>
+                  <input class="sw" type="checkbox" checked />
+                </div>
+              </div>
+            </div>
+
+            <!-- sticky action bar -->
+            <div class="ed-bar">
+              <span class="ed-bar__spacer">Live preview updates as you type →</span>
+              <a class="btn btn--ghost" href="managed-services-admin.html">Cancel</a>
+              <button class="btn btn--secondary" type="button">Save as draft</button>
+              <button class="btn btn--primary" type="button">Publish package</button>
+            </div>
+          </div>
+
+          <!-- ================= LIVE PREVIEW ================= -->
+          <aside class="ed__preview">
+            <div class="ed__plabel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Buyer sees</div>
+
+            <article class="ms-card ms-card--featured" id="pv-card">
+              <div class="ms-card__accent" id="pv-accent"></div>
+              <span class="ms-card__badge" id="pv-badge">🔥 Most popular</span>
+              <div class="ms-card__head">
+                <div class="ms-card__name" id="pv-name">Growth</div>
+                <div class="ms-card__tag" id="pv-sub">Scale your authority</div>
+              </div>
+              <div class="ms-card__price"><span class="ms-card__amt" id="pv-price">€4,999</span><span class="ms-card__per" id="pv-per">/ campaign</span></div>
+              <div class="ms-card__hint" id="pv-hint">Total value €5,770 — you keep €771</div>
+              <ul class="ms-card__list" id="pv-list"></ul>
+              <div class="ms-card__foot">
+                <button class="btn btn--primary" id="pv-cta">Order package</button>
+              </div>
+            </article>
+
+            <p class="ed__pnote">This is exactly the card that appears on the Managed services tab. Nothing here is hidden from you in a separate preview step.</p>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  </div>
+</div>
+
+<script src="../system-ml3/usermenu.js"></script>
+<script>
+(function () {
+  /* sidebar */
+  document.querySelectorAll('[data-group] .m-nav__parent').forEach(function (btn) {
+    btn.addEventListener('click', function () { btn.closest('[data-group]').classList.toggle('is-open'); });
+  });
+  var st = document.getElementById('m-side-toggle'), sb = document.getElementById('m-sidebar');
+  if (st && sb) st.addEventListener('click', function () { sb.classList.toggle('is-collapsed'); });
+
+  /* collapsible field groups */
+  document.querySelectorAll('[data-toggle]').forEach(function (h) {
+    h.addEventListener('click', function () { h.closest('.fg').classList.toggle('is-open'); });
+  });
+
+  /* ---- Live preview binding ---- */
+  var $ = function (id) { return document.getElementById(id); };
+  var CHECK = '<span class="ms-card__check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-11"/></svg></span>';
+
+  function paintBullets() {
+    var list = $('pv-list'); list.innerHTML = '';
+    document.querySelectorAll('#bullets .bl').forEach(function (inp) {
+      if (!inp.value.trim()) return;
+      var li = document.createElement('li'); li.className = 'ms-card__li';
+      li.innerHTML = CHECK + '<span></span>';
+      li.querySelector('span:last-child').textContent = inp.value;
+      list.appendChild(li);
+    });
+  }
+
+  function sync() {
+    $('pv-name').textContent = $('f-title').value || 'Package name';
+    var sub = $('f-sub').value.trim();
+    $('pv-sub').textContent = sub; $('pv-sub').style.display = sub ? '' : 'none';
+
+    var price = $('f-price').value.trim();
+    if (price) { $('pv-price').textContent = '€' + price; $('pv-per').style.display = ''; }
+    else { $('pv-price').textContent = 'Let’s talk'; $('pv-per').style.display = 'none'; }
+
+    var pre = $('f-prefix').value.trim(), suf = $('f-suffix').value.trim();
+    $('pv-per').textContent = suf ? ('/ ' + suf.toLowerCase()) : '/ campaign';
+    $('pv-price').textContent = (pre ? pre + ' ' : '') + $('pv-price').textContent;
+
+    var hint = $('f-hint').value.trim();
+    $('pv-hint').textContent = hint; $('pv-hint').style.display = hint ? '' : 'none';
+
+    var badge = $('f-badge').value.trim();
+    var b = $('pv-badge');
+    b.textContent = badge; b.style.display = badge ? '' : 'none';
+    b.classList.toggle('ms-card__badge--green', $('f-badge-tone').value === 'green');
+
+    $('pv-cta').textContent = $('f-cta').value || 'Order package';
+
+    var card = $('pv-card');
+    card.classList.toggle('ms-card--featured', $('f-featured').checked);
+
+    var c = document.querySelector('.swatch[aria-selected="true"]').dataset.c;
+    $('pv-accent').style.background = c;
+    card.style.setProperty('border-color', $('f-featured').checked ? c : 'var(--border)');
+    card.style.boxShadow = $('f-featured').checked ? ('0 0 0 1px ' + c + ', var(--shadow-md)') : 'var(--shadow-sm)';
+    $('pv-cta').style.background = c;
+
+    paintBullets();
+  }
+
+  /* wire inputs */
+  ['f-title','f-sub','f-price','f-hint','f-badge','f-cta','f-prefix','f-suffix'].forEach(function (id) {
+    $(id).addEventListener('input', sync);
+  });
+  $('f-badge-tone').addEventListener('change', sync);
+  $('f-featured').addEventListener('change', sync);
+  document.getElementById('bullets').addEventListener('input', paintBullets);
+
+  /* swatches */
+  document.querySelectorAll('#swatches .swatch').forEach(function (s) {
+    s.addEventListener('click', function () {
+      document.querySelectorAll('#swatches .swatch').forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+      s.setAttribute('aria-selected', 'true'); sync();
+    });
+  });
+
+  /* add / remove bullet rows */
+  document.getElementById('add-bullet').addEventListener('click', function () {
+    var wrap = document.getElementById('bullets');
+    var row = document.createElement('div'); row.className = 'row-item';
+    row.innerHTML = '<input class="input bl" type="text" placeholder="New line" />' +
+      '<button class="btn--iconxs row-del" title="Remove" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>';
+    wrap.appendChild(row); row.querySelector('input').focus();
+  });
+  document.getElementById('bullets').addEventListener('click', function (e) {
+    var del = e.target.closest('.row-del'); if (!del) return;
+    if (document.querySelectorAll('#bullets .row-item').length > 1) { del.closest('.row-item').remove(); paintBullets(); }
+  });
+
+  sync();
+})();
+</script>
+</body>
+</html>
